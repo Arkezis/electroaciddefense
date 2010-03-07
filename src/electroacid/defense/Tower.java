@@ -12,7 +12,7 @@ public abstract class Tower {
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
 	
-	/* GET STATUS */
+	/* GETTER */
 	public Element getElement(){
 		return this.element;
 	}
@@ -55,7 +55,7 @@ public abstract class Tower {
 		return this.level;
 	}
 
-	/* DO MODIFICATIONS */
+	/* SETTER */
 	public int addLife(int nb){
 		this.life += nb;
 		return this.life;
@@ -104,7 +104,7 @@ public abstract class Tower {
 		this.targetNb -= nb;
 		return this.targetNb;
 	}	
-	public int changeTargetPriority(int nb){
+	public int setTargetPriority(int nb){
 		this.targetPriority = nb;
 		return this.targetPriority;
 	}
