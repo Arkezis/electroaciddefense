@@ -15,7 +15,7 @@ public class Element {
 		this.strength = myStrength;
 	}
 	
-	public boolean assignWeakness(Element myWeakness){
+	public boolean setWeakness(Element myWeakness){
 		if(this.weakness == null){
 			return false;
 		}else{
@@ -23,7 +23,7 @@ public class Element {
 			return true;
 		}
 	}
-	public boolean assignStrength(Element myStrength){
+	public boolean setStrength(Element myStrength){
 		if(this.strength == null){
 			return false;
 		}else{
