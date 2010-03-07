@@ -56,66 +56,39 @@ public abstract class Tower {
 	}
 
 	/* SETTER */
-	public int addLife(int nb){
-		this.life += nb;
+	public int setLife(int nb){
+		this.life = nb;
 		return this.life;
 	}
-	public int removeLife(int nb){
-		this.life -= nb;
-		return this.life;
-	}
-	public int addSpeed(int nb){
-		this.speed += nb;
+	public int setSpeed(int nb){
+		this.speed = nb;
 		return this.speed;
 	}
-	public int removeSpeed(int nb){
-		this.speed -= nb;
-		return this.speed;
-	}
-	public int addFireRate(int nb){
-		this.fireRate += nb;
+	public int setFireRate(int nb){
+		this.fireRate = nb;
 		return this.fireRate;
 	}
-	public int removeFireRate(int nb){
-		this.fireRate -= nb;
-		return this.fireRate;
-	}
-	public int addCost(int nb){
-		this.cost += nb;
+	public int setCost(int nb){
+		this.cost = nb;
 		return this.cost;
 	}
-	public int removeCost(int nb){
-		this.cost -= nb;
-		return this.cost;
-	}
-	public int addDamage(int nb){
-		this.damage += nb;
+	public int setDamage(int nb){
+		this.damage = nb;
 		return this.damage;
 	}
-	public int removeDamage(int nb){
-		this.damage -= nb;
-		return this.damage;
-	}	
-	public int addTargetNb(int nb){
-		this.targetNb += nb;
+	public int setTargetNb(int nb){
+		this.targetNb = nb;
 		return this.targetNb;
 	}
-	public int removeTargetNb(int nb){
-		this.targetNb -= nb;
-		return this.targetNb;
-	}	
 	public int setTargetPriority(int nb){
 		this.targetPriority = nb;
 		return this.targetPriority;
 	}
-	public int addLevel(int nb){
-		this.level += nb;
+	public int setLevel(int nb){
+		this.level = nb;
 		return this.level;
 	}
-	public int removeLevel(int nb){
-		this.level -= nb;
-		return this.level;
-	}
+
 
 
 
