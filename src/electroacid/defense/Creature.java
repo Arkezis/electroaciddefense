@@ -27,12 +27,8 @@ public abstract class Creature {
 		public boolean getFly(){
 			return this.fly;
 		}
-		public int addLife(int nb){
-			this.life += nb;
-			return this.life;
-		}
-		public int removeLife(int nb){
-			this.life -= nb;
+		public int setLife(int nb){
+			this.life = nb;
 			return this.life;
 		}
 }
