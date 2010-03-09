@@ -1,30 +1,50 @@
 package electroacid.defense;
 
-import com.stickycoding.Rokon.RokonActivity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class electroaciddefense extends RokonActivity {
+public class electroaciddefense extends Activity {
     /** Called when the activity is first created. */
-//    @Override
-    
-	/* Creating the Elements */
-    public Element fire = new Element("Fire");
-    public Element elec = new Element("Electricity");
-    public Element water = new Element("Water",elec,fire);    
-    public Element iron= new Element("Iron",fire,elec);
-    
-    
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.main);
+        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
-        /* Finishing creating the elements */
-        this.fire.setStrength(iron); this.fire.setWeakness(water);
-        this.elec.setStrength(water);this.elec.setWeakness(iron);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);*/
         
-        createEngine("graphics/loading.png", 480, 320, true);
+        setContentView(R.layout.menu);
+        Button b_NewGame = (Button) findViewById(R.id.b_NewGame);
+        b_NewGame.setOnClickListener(b_NewGameListener);
+        TextView tv_Welcome = (TextView) findViewById(R.id.tv_Welcome);
+        
+
         
     }
+    
+    private OnClickListener b_NewGameListener = new OnClickListener() {
+    	public void onClick(View v){
+    		/*Context context = getApplicationContext();
+    		CharSequence txt = "Did you think something will happen ? Mouahahaha ! ";
+    		Toast toast = Toast.makeText(context, txt, Toast.LENGTH_LONG);
+    		toast.show();*/
+    		
+    		Intent i = new Intent(getBaseContext(),Play.class);
+    		Log.d("DEBUGTAG", "ARK : Before launching the activity Play");
+    		startActivity(i);
+    	}
+    };
 }
