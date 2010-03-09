@@ -5,4 +5,6 @@
 <string name="targetPriority1">nearest</string><string name="targetPriority2">weakest</string><string name="targetPriority3">strengthest</string><string name="element1">Fire</string><string name="element2">Snow</string><string name="element3">Electricity</string><string name="element4">Iron</string>
 
 <string name="welcome">Welcome in the game Electro Acid Defense !!</string>
+<string name="NewGame">New game ! </string>
+<string name="game">game</string>
 </resources>
