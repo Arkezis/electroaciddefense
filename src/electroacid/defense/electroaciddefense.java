@@ -29,9 +29,10 @@ public class electroaciddefense extends Activity {
         setContentView(R.layout.menu);
         Button b_NewGame = (Button) findViewById(R.id.b_NewGame);
         b_NewGame.setOnClickListener(b_NewGameListener);
+        Button b_NewGame2 = (Button) findViewById(R.id.b_NewGame2);
+        b_NewGame2.setOnClickListener(b_NewGameListener2);
         TextView tv_Welcome = (TextView) findViewById(R.id.tv_Welcome);
         
-
         
     }
     
@@ -44,6 +45,18 @@ public class electroaciddefense extends Activity {
     		
     		Intent i = new Intent(getBaseContext(),Play.class);
     		Log.d("DEBUGTAG", "ARK : Before launching the activity Play");
+    		startActivity(i);
+    	}
+    };
+    private OnClickListener b_NewGameListener2 = new OnClickListener() {
+    	public void onClick(View v){
+    		/*Context context = getApplicationContext();
+    		CharSequence txt = "Did you think something will happen ? Mouahahaha ! ";
+    		Toast toast = Toast.makeText(context, txt, Toast.LENGTH_LONG);
+    		toast.show();*/
+    		
+    		Intent i = new Intent(getBaseContext(),Play2.class);
+    		Log.d("DEBUGTAG", "Before launching the activity Play2");
     		startActivity(i);
     	}
     };

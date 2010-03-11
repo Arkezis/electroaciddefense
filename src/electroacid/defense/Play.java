@@ -1,5 +1,6 @@
 package electroacid.defense;
 
+import com.stickycoding.Rokon.Hotspot;
 import com.stickycoding.Rokon.RokonActivity;
 import com.stickycoding.Rokon.Sprite;
 import com.stickycoding.Rokon.Texture;
@@ -8,8 +9,10 @@ import com.stickycoding.Rokon.TextureManager;
 import com.stickycoding.Rokon.Backgrounds.FixedBackground;
 
 import android.app.*;
+import android.content.Context;
 import android.os.*;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Play extends RokonActivity{
 
@@ -18,13 +21,11 @@ public class Play extends RokonActivity{
     public Element elec = new Element("Electricity");
     public Element water = new Element("Water",elec,fire);    
     public Element iron= new Element("Iron",fire,elec);       
-    /* Finishing creating the elements 
-    this.fire.setStrength(iron); this.fire.setWeakness(water);
-    this.elec.setStrength(water);this.elec.setWeakness(iron); */
+
 	public Texture backgroundTexture, tower1Texture;
 	public TextureAtlas atlas;
-	Sprite tower1Sprite ;
-	
+	public Sprite tower1Sprite,tower2Sprite,tower3Sprite ;
+	public Hotspot tower1Hpt,tower2Hpt,tower3Hpt;
 	public FixedBackground background;
 	
     public void onCreate() {
@@ -34,36 +35,52 @@ public class Play extends RokonActivity{
 
 	@Override
 	public void onLoad() {
-		backgroundTexture = new Texture("graphics/loading.png");
-		tower1Texture = new Texture("graphics/icon.png");
-		atlas = new TextureAtlas(128, 128);
-		atlas.insert(backgroundTexture);
-		TextureManager.load(atlas);
-
-		tower1Sprite = new Sprite(150,30,tower1Texture);
+	    /* Finishing creating the elements */
+	    this.fire.setStrength(iron); this.fire.setWeakness(water);
+	    this.elec.setStrength(water);this.elec.setWeakness(iron); 
 		
+	    /* Graphical creations */
+		atlas = new TextureAtlas(512, 1024);
+		atlas.insert(backgroundTexture = new Texture("graphics/backgrounds/sky.png"));
+		atlas.insert(tower1Texture = new Texture("graphics/sprites/car.png"));
+		TextureManager.load(atlas);
+		Log.d("DEBUGTAG", "Init du tower1sprite ");
+
+		tower1Sprite = new Sprite(0,0,tower1Texture); /* Size of the tower : 83x68 */
+		tower2Sprite = new Sprite(83,0,tower1Texture); /* Size of the tower : 83x68 */
+		tower3Sprite = new Sprite(166,0,tower1Texture); /* Size of the tower : 83x68 */
+		tower1Hpt = new Hotspot(tower1Sprite);
+		tower2Hpt = new Hotspot(tower2Sprite);
+		tower3Hpt = new Hotspot(tower3Sprite);
+		
+		Log.d("DEBUGTAG", "Après Init du tower1sprite ");
+
 		background = new FixedBackground(backgroundTexture);
 	}
 
 	@Override
 	public void onLoadComplete() {
 		rokon.setBackground(background);
-		rokon.addSprite(tower1Sprite);
-		tower1Sprite.setVisible(true);
-		Log.d("DEBUGTAG", "X of tower1Sprite : " + this.tower1Sprite.getX());
+		rokon.addSprite(tower1Sprite);rokon.addSprite(tower2Sprite);rokon.addSprite(tower3Sprite);
+		rokon.addHotspot(tower1Hpt);rokon.addHotspot(tower2Hpt);rokon.addHotspot(tower3Hpt);
+		tower1Sprite.setVisible(true);tower2Sprite.setVisible(true);tower3Sprite.setVisible(true);
+		
 	}
 
 	@Override
-	public void onGameLoop() {
-		tower1Sprite.setX(tower1Sprite.getX()+3);
-	} 
-	
-	@Override
-	public void onRestart() {
-		super.onRestart();
-		rokon.unpause();
+	public void onHotspotTouch(Hotspot h){
+		if (h.x <83 && h.y <68){
+			tower1Sprite.setVisible(false);
+			tower1Sprite.setXY(0, 68);
+			tower1Sprite.setVisible(true);
+		}else if (h.x <83 && h.y > 68 && h.y < 136){
+			tower1Sprite.setVisible(false);
+			tower1Sprite.setXY(0, 0);
+			tower1Sprite.setVisible(true);
+		}
 	}
-	
+
+
 }
 
 
