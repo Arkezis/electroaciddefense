@@ -1,6 +1,6 @@
 package electroacid.defense;
 
-public abstract class Tower {
+public  class Tower {
 	private Element element; 
 	private int life;
 	private int speed;
@@ -11,6 +11,18 @@ public abstract class Tower {
 	private int targetNb;
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
+	
+	public Tower(int l, int s, int fr, int c, boolean f, int d, int tn, int tp, int le){
+		life = l;
+		speed = s;
+		fireRate = fr;
+		cost = c;
+		fly = f;
+		damage = d;
+		targetNb = tn;
+		targetPriority = tp;
+		level = le;
+	}
 	
 	/* GETTER */
 	public Element getElement(){
