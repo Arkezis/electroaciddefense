@@ -14,8 +14,9 @@ public abstract class Box {
 		private Hotspot hpt;
 		private int x, y;
 		private int heightGame=480, widthGame=320;
-		private int height = 83, width=68, boxPerLine = heightGame/height, boxPerColumn=widthGame/width;
+		private int height = 50, width=50, boxPerLine = heightGame/height, boxPerColumn=widthGame/width;
 		private static int nbBox=1;
+		private int numBox;
 
 		
 		
@@ -37,22 +38,29 @@ public abstract class Box {
 		public int getWidth(){
 			return width;
 		}
-		
-		
-		
+		public int getNumBox(){
+			return this.numBox;
+		}
+			
 
 		public void createBoxBuildable(Texture t){
+			/* The game will be 4x4 */
 			/* Create the Sprite of the box */
-			int myX = ((nbBox * height) % heightGame) - height; 
-			if (myX < 0) myX = 0;
-			
-			//int myY = (((nbBox * width)/boxPerLine) % widthGame);
-			int myY = (((nbBox / boxPerLine))*width);
-			if (nbBox % boxPerLine == 0) myY = (nbBox/boxPerLine -1)*width;
+			numBox = nbBox;
+			int myX=0,myY ;
+			if (nbBox > 1) {
+				myX = ((nbBox % 4)-1) * height;
+				if (myX < 0) myX = 3*height;
+			}	
+			if (nbBox < 5) myY = 0;
+			else if(nbBox < 9) myY = width;
+			else if(nbBox < 13) myY = width *2;
+			else myY = width *3;
+
 			Log.d("DEBUGTAG", "Box " + nbBox + " in ("+myX + ","+ myY+")");
 			spr = new Sprite(myX, myY,t);
 			/* Assign it a Hotspot */
-			hpt  = new Hotspot(spr);
+			this.hpt  = new Hotspot(spr);
 			
 			nbBox ++;
 		}

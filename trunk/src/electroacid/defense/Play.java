@@ -78,6 +78,7 @@ public class Play extends RokonActivity{
 			tower1Sprite.setXY(0, 0);
 			tower1Sprite.setVisible(true);
 		}
+		Log.d("DEBUGTAG", "HOTSPOT : ("+h.x +")"+h.y+")");
 	}
 
 
