@@ -33,7 +33,7 @@ public class Play extends RokonActivity{
         
     }
 
-	@Override
+
 	public void onLoad() {
 	    /* Finishing creating the elements */
 	    this.fire.setStrength(iron); this.fire.setWeakness(water);
