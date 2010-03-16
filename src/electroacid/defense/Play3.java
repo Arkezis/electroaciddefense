@@ -15,6 +15,7 @@ import com.stickycoding.RokonExamples.Example14.MyMenu;
 import com.stickycoding.RokonExamples.Example14.MyMenu2;
 
 import electroacid.defense.box.BoxBuildable;
+import electroacid.defense.enums.Element;
 
 import android.app.*;
 import android.content.Context;
@@ -26,10 +27,10 @@ import android.widget.Toast;
 public class Play3 extends RokonActivity{
 
 	/* ELEMENTS */
-    public Element fire = new Element("Fire");
-    public Element elec = new Element("Electricity");
-    public Element water = new Element("Water",elec,fire);    
-    public Element iron= new Element("Iron",fire,elec);       
+    public Element fire = Element.Fire;
+    public Element elec = Element.Electricity;
+    public Element water = Element.Water;    
+    public Element iron= Element.Iron;      
 
     /* TOWERS */
     public Tower tower1 , tower2;	
@@ -57,9 +58,6 @@ public class Play3 extends RokonActivity{
 
 
 	public void onLoad() {
-	    /* Finishing creating the elements */
-	    this.fire.setStrength(iron); this.fire.setWeakness(water);
-	    this.elec.setStrength(water);this.elec.setWeakness(iron); 
 	    
 	    /* Towers */
 		tower1 = new Tower(10,10,10,10,false,10,10,10,10);

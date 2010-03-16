@@ -1,5 +1,7 @@
 package electroacid.defense;
 
+import electroacid.defense.enums.Element;
+
 public  class Creature {
 
 		private Element element; 
