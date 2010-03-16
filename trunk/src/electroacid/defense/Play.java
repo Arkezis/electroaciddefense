@@ -14,13 +14,15 @@ import android.os.*;
 import android.util.Log;
 import android.widget.Toast;
 
+import electroacid.defense.enums.Element;
+
 public class Play extends RokonActivity{
 
 	/* Creating the Elements     */
-    public Element fire = new Element("Fire");
-    public Element elec = new Element("Electricity");
-    public Element water = new Element("Water",elec,fire);    
-    public Element iron= new Element("Iron",fire,elec);       
+    public Element fire = Element.Fire;
+    public Element elec = Element.Electricity;
+    public Element water = Element.Water;    
+    public Element iron= Element.Iron;       
 
 	public Texture backgroundTexture, tower1Texture;
 	public TextureAtlas atlas;
@@ -35,10 +37,7 @@ public class Play extends RokonActivity{
 
 
 	public void onLoad() {
-	    /* Finishing creating the elements */
-	    this.fire.setStrength(iron); this.fire.setWeakness(water);
-	    this.elec.setStrength(water);this.elec.setWeakness(iron); 
-		
+
 	    /* Graphical creations */
 		atlas = new TextureAtlas(512, 1024);
 		atlas.insert(backgroundTexture = new Texture("graphics/backgrounds/sky.png"));

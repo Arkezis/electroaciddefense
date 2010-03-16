@@ -16,6 +16,7 @@ import com.stickycoding.RokonExamples.Example14.MyMenu2;
 
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
+import electroacid.defense.enums.Element;
 
 import android.app.*;
 import android.content.Context;
@@ -27,10 +28,10 @@ import android.widget.Toast;
 public class Play2 extends RokonActivity{
 
 	/* Creating the Elements     */
-    public Element fire = new Element("Fire");
-    public Element elec = new Element("Electricity");
-    public Element water = new Element("Water",elec,fire);    
-    public Element iron= new Element("Iron",fire,elec);       
+    public Element fire = Element.Fire;
+    public Element elec = Element.Electricity;
+    public Element water = Element.Water;    
+    public Element iron= Element.Iron;       
 
 	public Texture buildableTexture,backgroundTexture, tower1ConsTexture,tower2ConsTexture,tower1,tower2;
 	public FixedBackground background;
@@ -48,10 +49,7 @@ public class Play2 extends RokonActivity{
 
 
 	public void onLoad() {
-	    /* Finishing creating the elements */
-	    this.fire.setStrength(iron); this.fire.setWeakness(water);
-	    this.elec.setStrength(water);this.elec.setWeakness(iron); 
-		
+
 	    /* Graphical creations */
 		atlas = new TextureAtlas(512, 1024);
 		atlas.insert(buildableTexture =  new Texture("graphics/backgrounds/grass.png"));

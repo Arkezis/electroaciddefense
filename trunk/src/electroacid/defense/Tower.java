@@ -1,5 +1,7 @@
 package electroacid.defense;
 
+import electroacid.defense.enums.Element;
+
 public  class Tower {
 	private Element element; 
 	private int life;
