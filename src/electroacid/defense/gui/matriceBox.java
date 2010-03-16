@@ -1,6 +1,6 @@
-package gui;
+package electroacid.defense.gui;
 
-import electroacid.defense.Box;
+import electroacid.defense.box.Box;
 
 public class matriceBox {
 

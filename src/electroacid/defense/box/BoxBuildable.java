@@ -1,8 +1,10 @@
-package electroacid.defense;
+package electroacid.defense.box;
 
 import com.stickycoding.Rokon.Texture;
 import com.stickycoding.Rokon.TextureAtlas;
 import com.stickycoding.Rokon.TextureManager;
+
+import electroacid.defense.Tower;
 
 public class BoxBuildable extends Box {
 

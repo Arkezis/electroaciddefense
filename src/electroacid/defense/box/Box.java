@@ -1,4 +1,4 @@
-package electroacid.defense;
+package electroacid.defense.box;
 
 import android.util.Log;
 
@@ -21,6 +21,7 @@ public abstract class Box {
 		
 		
  		public Sprite getSpr(){
+ 			
 			return spr;
 		}
 		public Hotspot getHpt(){
@@ -57,6 +58,8 @@ public abstract class Box {
 			else if(nbBox < 13) myY = width *2;
 			else myY = width *3;
 
+			
+			
 			Log.d("DEBUGTAG", "Box " + nbBox + " in ("+myX + ","+ myY+")");
 			spr = new Sprite(myX, myY,t);
 			/* Assign it a Hotspot */
