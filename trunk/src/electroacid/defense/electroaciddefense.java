@@ -33,6 +33,8 @@ public class electroaciddefense extends Activity {
         b_NewGame2.setOnClickListener(b_NewGameListener2);
         Button b_NewGame3 = (Button) findViewById(R.id.b_NewGame3);
         b_NewGame3.setOnClickListener(b_NewGameListener3);
+        Button b_NewGame4 = (Button) findViewById(R.id.b_NewGame4);
+        b_NewGame4.setOnClickListener(b_NewGameListener4);
         TextView tv_Welcome = (TextView) findViewById(R.id.tv_Welcome);
         
         
@@ -71,6 +73,18 @@ public class electroaciddefense extends Activity {
     		
     		Intent i = new Intent(getBaseContext(),Play3.class);
     		Log.d("DEBUGTAG", "Before launching the activity Play3");
+    		startActivity(i);
+    	}
+    };
+    private OnClickListener b_NewGameListener4 = new OnClickListener() {
+    	public void onClick(View v){
+    		/*Context context = getApplicationContext();
+    		CharSequence txt = "Did you think something will happen ? Mouahahaha ! ";
+    		Toast toast = Toast.makeText(context, txt, Toast.LENGTH_LONG);
+    		toast.show();*/
+    		
+    		Intent i = new Intent(getBaseContext(),Play4.class);
+    		Log.d("DEBUGTAG", "Before launching the activity Play4");
     		startActivity(i);
     	}
     };

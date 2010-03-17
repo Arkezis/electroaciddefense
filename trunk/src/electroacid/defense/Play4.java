@@ -24,7 +24,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-public class Play3 extends RokonActivity{
+public class Play4 extends RokonActivity{
 
 	/* ELEMENTS */
     public Element eFire = Element.Fire;
