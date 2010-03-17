@@ -27,10 +27,10 @@ import android.widget.Toast;
 public class Play3 extends RokonActivity{
 
 	/* ELEMENTS */
-    public Element fire = Element.Fire;
-    public Element elec = Element.Electricity;
-    public Element water = Element.Water;    
-    public Element iron= Element.Iron;      
+    public Element eFire = Element.Fire;
+    public Element eElec = Element.Electricity;
+    public Element eWater = Element.Water;    
+    public Element eIron= Element.Iron;      
 
     /* TOWERS */
     public Tower tower1 , tower2;	
@@ -60,8 +60,8 @@ public class Play3 extends RokonActivity{
 	public void onLoad() {
 	    
 	    /* Towers */
-		tower1 = new Tower(10,10,10,10,false,10,10,10,10);
-		tower2 = new Tower(20,20,20,20,false,20,20,20,20);
+		tower1 = new Tower(this.eElec,10,10,10,10,false,10,10,10,10);
+		tower2 = new Tower(this.eFire,20,20,20,20,false,20,20,20,20);
 		
 	    /* Textures */
 		atlas = new TextureAtlas(512, 1024);
