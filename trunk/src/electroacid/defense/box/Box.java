@@ -10,7 +10,7 @@ import com.stickycoding.Rokon.TextureManager;
 
 public abstract class Box {
 
-		private Sprite spr;
+		protected Sprite spr;
 		private Hotspot hpt;
 		private int x, y;
 		private int heightGame=480, widthGame=320;
@@ -43,7 +43,7 @@ public abstract class Box {
 			return this.numBox;
 		}
 			
-
+		@Deprecated
 		public void createBoxBuildable(Texture t){
 			/* The game will be 4x4 */
 			/* Create the Sprite of the box */
