@@ -27,12 +27,7 @@ public class electroaciddefense extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);*/
         
         setContentView(R.layout.menu);
-        Button b_NewGame = (Button) findViewById(R.id.b_NewGame);
-        b_NewGame.setOnClickListener(b_NewGameListener);
-        Button b_NewGame2 = (Button) findViewById(R.id.b_NewGame2);
-        b_NewGame2.setOnClickListener(b_NewGameListener2);
-        Button b_NewGame3 = (Button) findViewById(R.id.b_NewGame3);
-        b_NewGame3.setOnClickListener(b_NewGameListener3);
+
         Button b_NewGame4 = (Button) findViewById(R.id.b_NewGame4);
         b_NewGame4.setOnClickListener(b_NewGameListener4);
         TextView tv_Welcome = (TextView) findViewById(R.id.tv_Welcome);
@@ -40,42 +35,6 @@ public class electroaciddefense extends Activity {
         
     }
     
-    private OnClickListener b_NewGameListener = new OnClickListener() {
-    	public void onClick(View v){
-    		/*Context context = getApplicationContext();
-    		CharSequence txt = "Did you think something will happen ? Mouahahaha ! ";
-    		Toast toast = Toast.makeText(context, txt, Toast.LENGTH_LONG);
-    		toast.show();*/
-    		
-    		Intent i = new Intent(getBaseContext(),Play.class);
-    		Log.d("DEBUGTAG", "ARK : Before launching the activity Play");
-    		startActivity(i);
-    	}
-    };
-    private OnClickListener b_NewGameListener2 = new OnClickListener() {
-    	public void onClick(View v){
-    		/*Context context = getApplicationContext();
-    		CharSequence txt = "Did you think something will happen ? Mouahahaha ! ";
-    		Toast toast = Toast.makeText(context, txt, Toast.LENGTH_LONG);
-    		toast.show();*/
-    		
-    		Intent i = new Intent(getBaseContext(),Play2.class);
-    		Log.d("DEBUGTAG", "Before launching the activity Play2");
-    		startActivity(i);
-    	}
-    };
-    private OnClickListener b_NewGameListener3 = new OnClickListener() {
-    	public void onClick(View v){
-    		/*Context context = getApplicationContext();
-    		CharSequence txt = "Did you think something will happen ? Mouahahaha ! ";
-    		Toast toast = Toast.makeText(context, txt, Toast.LENGTH_LONG);
-    		toast.show();*/
-    		
-    		Intent i = new Intent(getBaseContext(),Play3.class);
-    		Log.d("DEBUGTAG", "Before launching the activity Play3");
-    		startActivity(i);
-    	}
-    };
     private OnClickListener b_NewGameListener4 = new OnClickListener() {
     	public void onClick(View v){
     		/*Context context = getApplicationContext();

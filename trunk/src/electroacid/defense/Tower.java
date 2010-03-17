@@ -1,5 +1,7 @@
 package electroacid.defense;
 
+import com.stickycoding.Rokon.Texture;
+
 import electroacid.defense.enums.Element;
 
 public  class Tower {
@@ -13,8 +15,9 @@ public  class Tower {
 	private int targetNb;
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
+	private Texture texture;
 	
-	public Tower(Element _element,int _life, int _speed, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level){
+	public Tower(Element _element,int _life, int _speed, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,Texture _texture){
 		this.element = _element;
 		this.life = _life;
 		this.speed = _speed;
@@ -25,84 +28,164 @@ public  class Tower {
 		this.targetNb = _targetNb;
 		this.targetPriority = _targetPriority;
 		this.level = _level;
-	}
-	
-	/* GETTER */
-	public Element getElement(){
-		return this.element;
-	}
-	public int getLife(){
-		return this.life;
-	}	
-	public int getSpeed(){
-		return this.speed;
-	}
-	public int getFireRate(){
-		return this.fireRate;
-	}
-	public int getCost(){
-		return this.cost;
-	}
-	public boolean getFly(){
-		return this.fly;
-	}
-	public int getDamage(){
-		return this.damage;
-	}
-	public int getTargetNb(){
-		return this.targetNb;
-	}
-	public int getTargetPriority(){
-		return this.targetPriority;
-	}
-	public int getStringTargetPriority(){
-		switch(this.targetPriority){
-		case 1:
-			return R.string.targetPriority1;
-		case 2: 
-			return R.string.targetPriority2;
-		case 3:
-			return R.string.targetPriority3;	
-		}
-		return android.R.string.dialog_alert_title;	
-	}
-	public int getLevel(){
-		return this.level;
+		this.texture = _texture;
 	}
 
-	/* SETTER */
-	public int setLife(int nb){
-		this.life = nb;
-		return this.life;
+	/**
+	 * @return the element
+	 */
+	public Element getElement() {
+		return element;
 	}
-	public int setSpeed(int nb){
-		this.speed = nb;
-		return this.speed;
+
+	/**
+	 * @param element the element to set
+	 */
+	public void setElement(Element element) {
+		this.element = element;
 	}
-	public int setFireRate(int nb){
-		this.fireRate = nb;
-		return this.fireRate;
+
+	/**
+	 * @return the life
+	 */
+	public int getLife() {
+		return life;
 	}
-	public int setCost(int nb){
-		this.cost = nb;
-		return this.cost;
+
+	/**
+	 * @param life the life to set
+	 */
+	public void setLife(int life) {
+		this.life = life;
 	}
-	public int setDamage(int nb){
-		this.damage = nb;
-		return this.damage;
+
+	/**
+	 * @return the speed
+	 */
+	public int getSpeed() {
+		return speed;
 	}
-	public int setTargetNb(int nb){
-		this.targetNb = nb;
-		return this.targetNb;
+
+	/**
+	 * @param speed the speed to set
+	 */
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
-	public int setTargetPriority(int nb){
-		this.targetPriority = nb;
-		return this.targetPriority;
+
+	/**
+	 * @return the fireRate
+	 */
+	public int getFireRate() {
+		return fireRate;
 	}
-	public int setLevel(int nb){
-		this.level = nb;
-		return this.level;
+
+	/**
+	 * @param fireRate the fireRate to set
+	 */
+	public void setFireRate(int fireRate) {
+		this.fireRate = fireRate;
 	}
+
+	/**
+	 * @return the cost
+	 */
+	public int getCost() {
+		return cost;
+	}
+
+	/**
+	 * @param cost the cost to set
+	 */
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
+	/**
+	 * @return the fly
+	 */
+	public boolean isFly() {
+		return fly;
+	}
+
+	/**
+	 * @param fly the fly to set
+	 */
+	public void setFly(boolean fly) {
+		this.fly = fly;
+	}
+
+	/**
+	 * @return the damage
+	 */
+	public int getDamage() {
+		return damage;
+	}
+
+	/**
+	 * @param damage the damage to set
+	 */
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
+	/**
+	 * @return the targetNb
+	 */
+	public int getTargetNb() {
+		return targetNb;
+	}
+
+	/**
+	 * @param targetNb the targetNb to set
+	 */
+	public void setTargetNb(int targetNb) {
+		this.targetNb = targetNb;
+	}
+
+	/**
+	 * @return the targetPriority
+	 */
+	public int getTargetPriority() {
+		return targetPriority;
+	}
+
+	/**
+	 * @param targetPriority the targetPriority to set
+	 */
+	public void setTargetPriority(int targetPriority) {
+		this.targetPriority = targetPriority;
+	}
+
+	/**
+	 * @return the level
+	 */
+	public int getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	/**
+	 * @return the texture
+	 */
+	public Texture getTexture() {
+		return texture;
+	}
+
+	/**
+	 * @param texture the texture to set
+	 */
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+	
+
 
 
 

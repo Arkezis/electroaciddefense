@@ -12,25 +12,20 @@ public class BoxBuildable extends Box {
 
 		//private SubstanceBuildable sub; The substance of the box
 		private Tower tower; 
-	
-	public BoxBuildable(Texture t){
-	
 
-		tower=null;
-	}
-	public BoxBuildable(Texture t,Tower tow){
-		this.createBoxBuildable(t);
-		tower=tow;
-	}
-
-	public BoxBuildable(int x, int y, int width, int height) {
-		spr = new Sprite(x,y,width,height);
-		spr.setVisible(true);
+	public BoxBuildable(int _x, int _y, int _width, int _height) {
+		this.sprite = new Sprite(x,y,width,height);
+		this.x = _x;
+		this.y = _y;
+		this.width = _width;
+		this.height = _height;
+		this.sprite.setVisible(true);
 	}
 	
-	public BoxBuildable(int x, int y, int width, int height,Tower _tower) {
-		this(x,y,width,height);
+	public BoxBuildable(int _x, int _y, int _width, int _height,Tower _tower) {
+		this(_x,_y,_width,_height);
 		this.tower=_tower;
+		this.sprite.setTexture(this.tower.getTexture());
 		
 	}
 	
@@ -38,8 +33,16 @@ public class BoxBuildable extends Box {
 		return tower;
 	}
 	
-	public void setTower(Tower t){
-		tower = t;
+	public void changeTower(Tower _tower){
+		this.tower = _tower;
+		this.sprite.setTexture(this.tower.getTexture());
+	}
+	
+	public void removeTower() {
+		if (this.tower!=null) {
+			this.tower = null;
+			this.sprite.setTexture(null);
+		}
 	}
 	
 }
