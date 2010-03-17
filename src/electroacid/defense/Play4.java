@@ -84,12 +84,12 @@ public class Play4 extends RokonActivity{
 
 		/* Selected box menu */		
 		/* Menu to add the new towers */
-		b_newTower1 = new Sprite(440,300,tower1Texture);b_newTower2 = new Sprite(440,300,tower2Texture);
+		b_newTower1 = new Sprite(5,415,tower1Texture);b_newTower2 = new Sprite(55,415,tower2Texture);
 		rokon.addSprite(b_newTower1);rokon.addSprite(b_newTower2);
 		rokon.addHotspot(b_newTower1Hotspot = new Hotspot(b_newTower1));rokon.addHotspot(b_newTower2Hotspot= new Hotspot(b_newTower2));
 		b_newTower1.setVisible(false);b_newTower2.setVisible(false);
 		/* Menu to modify the towers already created */
-		b_delete = new Sprite(440,300,b_DeleteTexture);rokon.addSprite(b_delete);
+		b_delete = new Sprite(5,415,b_DeleteTexture);rokon.addSprite(b_delete);
 		rokon.addHotspot(b_deleteHotspot = new Hotspot(b_delete));
 		b_delete.setVisible(false);
 		
@@ -116,11 +116,11 @@ public class Play4 extends RokonActivity{
 				/* We had previously selected a boxBuildable */
 				if(boxBuildableSelected.getTower() == null){ 
 					/* Creating a new tower on a virgin box */
-					if(y >= 440 && y < 480){
-						if (x >= 250 && x < 300){ /* Adding Tower 1 */
+					if(y >= 415 && y < 465){
+						if (x >= 5 && x < 55){ /* Adding Tower 1 */
 							boxBuildableSelected.changeTower(tower1);
 							rokon.addSprite(boxBuildableSelected.getSprite());
-						}else if (x >= 300 && x < 350){ /* Adding Tower 2 */
+						}else if (x >= 55 && x < 105){ /* Adding Tower 2 */
 							boxBuildableSelected.changeTower(tower2);
 							rokon.addSprite(boxBuildableSelected.getSprite());
 						}
@@ -128,8 +128,9 @@ public class Play4 extends RokonActivity{
 					}
 				}else{
 					/* A tower is already on this box ! */
-					if(y >= 440 && y <= 480){
-						if (x >= 250 && x <= 300){ 
+					if(y >= 415 && y <= 465){
+						if (x >= 5 && x <= 55){ 
+							boxBuildableSelected.getSprite().setVisible(false);
 							rokon.removeSprite(boxBuildableSelected.getSprite());
 							boxBuildableSelected.removeTower();
 							
