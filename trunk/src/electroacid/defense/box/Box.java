@@ -20,7 +20,7 @@ public abstract class Box {
 		 * @return the sprite
 		 */
 		public Sprite getSprite() {
-			return sprite;
+			return this.sprite;
 		}
 	
 		/**
@@ -34,7 +34,7 @@ public abstract class Box {
 		 * @return the hotSpot
 		 */
 		public Hotspot getHotSpot() {
-			return hotSpot;
+			return this.hotSpot;
 		}
 	
 		/**
@@ -48,7 +48,7 @@ public abstract class Box {
 		 * @return the x
 		 */
 		public int getX() {
-			return x;
+			return this.x;
 		}
 		
 		/**
@@ -62,7 +62,7 @@ public abstract class Box {
 		 * @return the y
 		 */
 		public int getY() {
-			return y;
+			return this.y;
 		}
 		/**
 		 * @param y the y to set
@@ -75,7 +75,7 @@ public abstract class Box {
 		 * @return the width
 		 */
 		public int getWidth() {
-			return width;
+			return this.width;
 		}
 		
 		/**
@@ -89,7 +89,7 @@ public abstract class Box {
 		 * @return the height
 		 */
 		public int getHeight() {
-			return height;
+			return this.height;
 		}
 		
 		/**

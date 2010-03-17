@@ -14,7 +14,7 @@ public class BoxBuildable extends Box {
 		private Tower tower; 
 
 	public BoxBuildable(int _x, int _y, int _width, int _height) {
-		this.sprite = new Sprite(x,y,width,height);
+		this.sprite = new Sprite(_x,_y,_width,_height);
 		this.x = _x;
 		this.y = _y;
 		this.width = _width;
@@ -30,7 +30,7 @@ public class BoxBuildable extends Box {
 	}
 	
 	public Tower getTower(){
-		return tower;
+		return this.tower;
 	}
 	
 	public void changeTower(Tower _tower){
