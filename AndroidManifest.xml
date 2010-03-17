@@ -11,30 +11,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity 	android:name=".Play"
-					android:label="@string/game"
-					android:screenOrientation="landscape">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>	
-				<activity 	android:name=".Play2"
-					android:label="@string/game"
-					android:screenOrientation="landscape">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>	
-				<activity 	android:name=".Play3"
-					android:label="@string/game"
-					android:screenOrientation="landscape">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>	
 				<activity 	android:name=".Play4"
 					android:label="@string/game"
 					android:screenOrientation="landscape">

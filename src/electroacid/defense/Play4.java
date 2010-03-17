@@ -62,10 +62,6 @@ public class Play4 extends RokonActivity{
 
 	public void onLoad() {
 
-		/* Towers */
-		tower1 = new Tower(this.eElec,10,10,10,10,false,10,10,10,10);
-		tower2 = new Tower(this.eFire,20,20,20,20,false,20,20,20,20);
-
 		/* Textures */
 		atlas = new TextureAtlas(512, 1024);
 		atlas.insert(backgroundTexture = new Texture("graphics/backgrounds/Map01.png"));
@@ -75,7 +71,9 @@ public class Play4 extends RokonActivity{
 		atlas.insert(b_DeleteTexture = new Texture("graphics/icons/delete.png"));
 		TextureManager.load(atlas);
 
-
+		/* Towers */
+		tower1 = new Tower(this.eElec,10,10,10,10,false,10,10,10,10,tower1Texture);
+		tower2 = new Tower(this.eFire,20,20,20,20,false,20,20,20,20,tower2Texture);
 
 		background = new FixedBackground(backgroundTexture);
 	}
@@ -83,32 +81,6 @@ public class Play4 extends RokonActivity{
 	@Override
 	public void onLoadComplete() {
 		rokon.setBackground(background);
-
-		/* Matrix */
-		//		rokon.addSprite(bb1.getSpr());rokon.addHotspot(bb1.getHpt());
-		//		rokon.addSprite(bb2.getSpr());rokon.addHotspot(bb2.getHpt());
-		//		rokon.addSprite(bb3.getSpr());rokon.addHotspot(bb3.getHpt());
-		//		rokon.addSprite(bb4.getSpr());rokon.addHotspot(bb4.getHpt());
-		//		rokon.addSprite(bb5.getSpr());rokon.addHotspot(bb5.getHpt());
-		//		rokon.addSprite(bb6.getSpr());rokon.addHotspot(bb6.getHpt());
-		//		rokon.addSprite(bb7.getSpr());rokon.addHotspot(bb7.getHpt());
-		//		rokon.addSprite(bb8.getSpr());rokon.addHotspot(bb8.getHpt());
-		//		rokon.addSprite(bb9.getSpr());rokon.addHotspot(bb9.getHpt());
-		//		rokon.addSprite(bb10.getSpr());rokon.addHotspot(bb10.getHpt());
-		//		rokon.addSprite(bb11.getSpr());rokon.addHotspot(bb11.getHpt());
-		//		rokon.addSprite(bb12.getSpr());rokon.addHotspot(bb12.getHpt());
-		//		rokon.addSprite(bb13.getSpr());rokon.addHotspot(bb13.getHpt());
-		//		rokon.addSprite(bb14.getSpr());rokon.addHotspot(bb14.getHpt());
-		//		rokon.addSprite(bb15.getSpr());rokon.addHotspot(bb15.getHpt());
-		//		rokon.addSprite(bb16.getSpr());rokon.addHotspot(bb16.getHpt());
-		//		bb1.getSpr().setVisible(true);bb2.getSpr().setVisible(true);
-		//		bb3.getSpr().setVisible(true);bb4.getSpr().setVisible(true);
-		//		bb5.getSpr().setVisible(true);bb6.getSpr().setVisible(true);
-		//		bb7.getSpr().setVisible(true);bb8.getSpr().setVisible(true);
-		//		bb9.getSpr().setVisible(true);bb10.getSpr().setVisible(true);
-		//		bb11.getSpr().setVisible(true);bb12.getSpr().setVisible(true);
-		//		bb13.getSpr().setVisible(true);bb14.getSpr().setVisible(true);
-		//		bb15.getSpr().setVisible(true);bb16.getSpr().setVisible(true);
 
 		/* Selected box menu */		
 		/* Menu to add the new towers */
@@ -146,22 +118,21 @@ public class Play4 extends RokonActivity{
 					/* Creating a new tower on a virgin box */
 					if(y >= 440 && y < 480){
 						if (x >= 250 && x < 300){ /* Adding Tower 1 */
-							boxBuildableSelected.setTower(tower1);
-							boxBuildableSelected.getSpr().setTexture(tower1Texture);
-							rokon.addSprite(boxBuildableSelected.getSpr());
+							boxBuildableSelected.changeTower(tower1);
+							rokon.addSprite(boxBuildableSelected.getSprite());
 						}else if (x >= 300 && x < 350){ /* Adding Tower 2 */
-							boxBuildableSelected.setTower(tower2);
-							boxBuildableSelected.getSpr().setTexture(tower2Texture);
-							rokon.addSprite(boxBuildableSelected.getSpr());
+							boxBuildableSelected.changeTower(tower2);
+							rokon.addSprite(boxBuildableSelected.getSprite());
 						}
-						Log.d("DEBUGTAG", "We change the box "+boxBuildableSelected.getNumBox());
+
 					}
 				}else{
 					/* A tower is already on this box ! */
 					if(y >= 440 && y <= 480){
 						if (x >= 250 && x <= 300){ 
-							boxBuildableSelected.setTower(null);
-							boxBuildableSelected.getSpr().setTexture(null);
+							rokon.removeSprite(boxBuildableSelected.getSprite());
+							boxBuildableSelected.removeTower();
+							
 						}
 					}
 				}

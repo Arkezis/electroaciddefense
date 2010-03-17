@@ -15,21 +15,6 @@
 	android:layout_weight="1"
 	/>
 <Button 
-	android:id="@+id/b_NewGame"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="@string/NewGame"	/>
-<Button 
-	android:id="@+id/b_NewGame2"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="@string/NewGame"	/>	
-<Button 
-	android:id="@+id/b_NewGame3"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="@string/NewGame"	/>	
-<Button 
 	android:id="@+id/b_NewGame4"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
