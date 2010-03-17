@@ -14,16 +14,17 @@ public  class Tower {
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
 	
-	public Tower(int l, int s, int fr, int c, boolean f, int d, int tn, int tp, int le){
-		life = l;
-		speed = s;
-		fireRate = fr;
-		cost = c;
-		fly = f;
-		damage = d;
-		targetNb = tn;
-		targetPriority = tp;
-		level = le;
+	public Tower(Element _element,int _life, int _speed, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level){
+		this.element = _element;
+		this.life = _life;
+		this.speed = _speed;
+		this.fireRate = _fireRate;
+		this.cost = _cost;
+		this.fly = _fly;
+		this.damage = _damage;
+		this.targetNb = _targetNb;
+		this.targetPriority = _targetPriority;
+		this.level = _level;
 	}
 	
 	/* GETTER */
