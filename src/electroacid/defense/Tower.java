@@ -4,31 +4,42 @@ import com.stickycoding.Rokon.Texture;
 
 import electroacid.defense.enums.Element;
 
-public  class Tower {
+public  class Tower implements Cloneable{
 	private Element element; 
 	private int life;
-	private int speed;
 	private int fireRate;
 	private int cost;
-	private boolean fly;
+	private boolean canTargetFly;
 	private int damage;
 	private int targetNb;
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
 	private Texture texture;
 	
-	public Tower(Element _element,int _life, int _speed, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,Texture _texture){
+	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,Texture _texture){
 		this.element = _element;
 		this.life = _life;
-		this.speed = _speed;
 		this.fireRate = _fireRate;
 		this.cost = _cost;
-		this.fly = _fly;
+		this.canTargetFly = _fly;
 		this.damage = _damage;
 		this.targetNb = _targetNb;
 		this.targetPriority = _targetPriority;
 		this.level = _level;
 		this.texture = _texture;
+	}
+	
+	public Object clone() {
+	    Tower tower = null;
+	    try {
+	      	tower = (Tower) super.clone();
+	    } catch(CloneNotSupportedException cnse) {
+	      	cnse.printStackTrace(System.err);
+	    }
+	    //Don't clone the texture, it's the same instance in the atlas
+	    // u don't need to create a new
+	    
+	    return tower;
 	}
 
 	/**
@@ -60,20 +71,6 @@ public  class Tower {
 	}
 
 	/**
-	 * @return the speed
-	 */
-	public int getSpeed() {
-		return speed;
-	}
-
-	/**
-	 * @param speed the speed to set
-	 */
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	/**
 	 * @return the fireRate
 	 */
 	public int getFireRate() {
@@ -102,17 +99,17 @@ public  class Tower {
 	}
 
 	/**
-	 * @return the fly
+	 * @return the canTargetFly
 	 */
-	public boolean isFly() {
-		return fly;
+	public boolean isCanTargetFly() {
+		return canTargetFly;
 	}
 
 	/**
-	 * @param fly the fly to set
+	 * @param canTargetFly the canTargetFly to set
 	 */
-	public void setFly(boolean fly) {
-		this.fly = fly;
+	public void setCanTargetFly(boolean canTargetFly) {
+		this.canTargetFly = canTargetFly;
 	}
 
 	/**
@@ -185,6 +182,7 @@ public  class Tower {
 		this.texture = texture;
 	}
 	
+
 
 
 
