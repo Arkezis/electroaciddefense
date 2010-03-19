@@ -1,6 +1,5 @@
 package electroacid.defense;
 
-import com.stickycoding.Rokon.Debug;
 import com.stickycoding.Rokon.Hotspot;
 import com.stickycoding.Rokon.RokonActivity;
 import com.stickycoding.Rokon.Sprite;
@@ -8,23 +7,14 @@ import com.stickycoding.Rokon.Texture;
 import com.stickycoding.Rokon.TextureAtlas;
 import com.stickycoding.Rokon.TextureManager;
 import com.stickycoding.Rokon.Backgrounds.FixedBackground;
-import com.stickycoding.Rokon.Menu.Menu;
-import com.stickycoding.Rokon.Menu.MenuObject;
-import com.stickycoding.Rokon.Menu.Objects.MenuButton;
-import com.stickycoding.RokonExamples.Example14.MyMenu;
-import com.stickycoding.RokonExamples.Example14.MyMenu2;
 
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.enums.Element;
 import electroacid.defense.gui.MatriceBox;
 
-import android.app.*;
-import android.content.Context;
-import android.os.*;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 public class Play4 extends RokonActivity{
 
@@ -70,10 +60,10 @@ public class Play4 extends RokonActivity{
 		atlas.insert(tower2Texture = new Texture("graphics/tower/tower2.png"));
 		atlas.insert(b_DeleteTexture = new Texture("graphics/icons/delete.png"));
 		TextureManager.load(atlas);
-
+		
 		/* Towers */
-		tower1 = new Tower(this.eElec,10,10,10,10,false,10,10,10,10,tower1Texture);
-		tower2 = new Tower(this.eFire,20,20,20,20,false,20,20,20,20,tower2Texture);
+		tower1 = new Tower(this.eElec,10,10,10,false,10,10,10,10,tower1Texture);
+		tower2 = new Tower(this.eFire,20,20,20,false,20,20,20,20,tower2Texture);
 
 		background = new FixedBackground(backgroundTexture);
 	}
@@ -99,7 +89,6 @@ public class Play4 extends RokonActivity{
 
 	@Override
 	public void onHotspotTouch(Hotspot h){
-		Log.d("DEBUGTAG", "HOTSPOT : ("+h.x +")"+h.y+")");
 	}
 
 	public void onTouch(int x,int y, boolean h) { 
@@ -118,10 +107,10 @@ public class Play4 extends RokonActivity{
 					/* Creating a new tower on a virgin box */
 					if(y >= 415 && y < 465){
 						if (x >= 5 && x < 55){ /* Adding Tower 1 */
-							boxBuildableSelected.changeTower(tower1);
+							boxBuildableSelected.changeTower((Tower)tower1.clone());
 							rokon.addSprite(boxBuildableSelected.getSprite());
 						}else if (x >= 55 && x < 105){ /* Adding Tower 2 */
-							boxBuildableSelected.changeTower(tower2);
+							boxBuildableSelected.changeTower((Tower)tower2.clone());
 							rokon.addSprite(boxBuildableSelected.getSprite());
 						}
 
