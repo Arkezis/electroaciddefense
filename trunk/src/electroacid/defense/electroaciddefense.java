@@ -26,13 +26,18 @@ public class electroaciddefense extends Activity {
         
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);*/
         
-        setContentView(R.layout.menu);
+    /*    setContentView(R.layout.menu);
 
         Button b_NewGame4 = (Button) findViewById(R.id.b_NewGame4);
         b_NewGame4.setOnClickListener(b_NewGameListener4);
         TextView tv_Welcome = (TextView) findViewById(R.id.tv_Welcome);
         
+        */
         
+		
+		Intent i = new Intent(getBaseContext(),Play4.class);
+		Log.d("DEBUGTAG", "Before launching the activity Play4");
+		startActivity(i);
     }
     
     private OnClickListener b_NewGameListener4 = new OnClickListener() {
