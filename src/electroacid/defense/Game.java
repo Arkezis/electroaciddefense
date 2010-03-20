@@ -8,28 +8,70 @@ public class Game {
 	private int money;
 	private int lives;
 	
-	/* GETTER */
-	public int getSpeedMultiplicator(){
-		return this.speedMultiplicator;
-	}
-	public int getDifficulty(){
-		return this.difficulty;
-	}
-	public int getLevel(){
-		return this.level;
+	public Game(){
+		this.difficulty = 0;
 	}
 	
-	/* SETTER */
-	public int setSpeedMultiplicator(int nb){
-		this.speedMultiplicator = nb;
-		return this.speedMultiplicator;
+	/**
+	 * @return the speedMultiplicator
+	 */
+	public int getSpeedMultiplicator() {
+		return speedMultiplicator;
 	}
-	public int setDifficulty(int nb){
-		this.difficulty = nb;
-		return this.difficulty;
+	/**
+	 * @return the difficulty
+	 */
+	public int getDifficulty() {
+		return difficulty;
 	}
-	public int setLevel(int nb){
-		this.level = nb;
-		return this.level;
+	/**
+	 * @return the level
+	 */
+	public int getLevel() {
+		return level;
 	}
+	/**
+	 * @return the money
+	 */
+	public int getMoney() {
+		return money;
+	}
+	/**
+	 * @return the lives
+	 */
+	public int getLives() {
+		return lives;
+	}
+	/**
+	 * @param speedMultiplicator the speedMultiplicator to set
+	 */
+	public void setSpeedMultiplicator(int speedMultiplicator) {
+		this.speedMultiplicator = speedMultiplicator;
+	}
+	/**
+	 * @param difficulty the difficulty to set
+	 */
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	/**
+	 * @param money the money to set
+	 */
+	public void setMoney(int money) {
+		this.money = money;
+	}
+	/**
+	 * @param lives the lives to set
+	 */
+	public void setLives(int lives) {
+		this.lives = lives;
+	}
+	
+
 }
