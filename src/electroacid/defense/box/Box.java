@@ -1,10 +1,11 @@
 package electroacid.defense.box;
 
-import com.stickycoding.Rokon.Sprite;
+
+import com.android.angle.AngleSprite;
 
 public abstract class Box {
 
-	protected Sprite sprite;
+	protected AngleSprite sprite;
 
 	protected int x;
 	protected int y;
@@ -12,9 +13,8 @@ public abstract class Box {
 	protected int width;
 	protected int height;
 
-
 	public Box(int _x, int _y, int _width, int _height) {
-		this.sprite = new Sprite(_x,_y,_width,_height);
+		this.sprite = new AngleSprite(null);
 		this.x = _x;
 		this.y = _y;
 		this.width = _width;
@@ -24,14 +24,14 @@ public abstract class Box {
 	/**
 	 * @return the sprite
 	 */
-	public Sprite getSprite() {
+	public AngleSprite getSprite() {
 		return this.sprite;
 	}
 
 	/**
 	 * @param sprite the sprite to set
 	 */
-	public void setSprite(Sprite sprite) {
+	public void setSprite(AngleSprite sprite) {
 		this.sprite = sprite;
 	}
 

@@ -1,6 +1,6 @@
 package electroacid.defense;
 
-import com.stickycoding.Rokon.Texture;
+import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.enums.Element;
 
@@ -14,9 +14,9 @@ public  class Tower implements Cloneable{
 	private int targetNb;
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
-	private Texture texture;
+	private AngleSpriteLayout layout;
 	
-	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,Texture _texture){
+	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout){
 		this.element = _element;
 		this.life = _life;
 		this.fireRate = _fireRate;
@@ -26,7 +26,7 @@ public  class Tower implements Cloneable{
 		this.targetNb = _targetNb;
 		this.targetPriority = _targetPriority;
 		this.level = _level;
-		this.texture = _texture;
+		this.layout = _layout;
 	}
 	
 	public Object clone() {
@@ -171,21 +171,14 @@ public  class Tower implements Cloneable{
 	/**
 	 * @return the texture
 	 */
-	public Texture getTexture() {
-		return texture;
+	public AngleSpriteLayout getLayout() {
+		return this.layout;
 	}
 
 	/**
 	 * @param texture the texture to set
 	 */
-	public void setTexture(Texture texture) {
-		this.texture = texture;
+	public void setLayout(AngleSpriteLayout _layout) {
+		this.layout = _layout;
 	}
-	
-
-
-
-
-
-
 }

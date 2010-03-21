@@ -4,14 +4,11 @@ import com.android.angle.AngleActivity;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleUI;
-import com.android.tutorial.R;
-
-
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.enums.Element;
 import electroacid.defense.gui.MatriceBox;
-import electroacid.defense.gui.MenuNewTower;
+
 
 import android.os.Bundle;
 import android.util.Log;
@@ -29,12 +26,13 @@ public class Play4 extends AngleActivity{
 	/* TOWERS */
 	public Tower tower1 , tower2;	
 
-	/* TEXTURES 
-	public Texture buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture;
-	public Font font;
-	public FixedBackground background;
-	public TextureAtlas atlas;
-	*/
+	/* TEXTURES */
+	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture;
+	//public Font font;
+	
+	//public FixedBackground background;
+	//public TextureAtlas atlas;
+	
 	
 	//public Text testText;
 
@@ -44,9 +42,9 @@ public class Play4 extends AngleActivity{
 	/* SELECTED BOX MENU */
 	AngleSpriteLayout _bnewTower1Layout ;
 	AngleSprite _bnewTower1;
-/*	public Sprite b_newTower1, b_newTower2, b_delete; // Sprite for the selectedBoxMenu
-	public Hotspot b_newTower1Hotspot,b_newTower2Hotspot, b_deleteHotspot; // hotspot for the selectedBoxMenu
-*/
+	public AngleSprite b_newTower1, b_newTower2, b_delete; // Sprite for the selectedBoxMenu
+	//public Hotspot b_newTower1Hotspot,b_newTower2Hotspot, b_deleteHotspot; // hotspot for the selectedBoxMenu
+
 	
 	
 	
@@ -59,10 +57,14 @@ public class Play4 extends AngleActivity{
 
 		public MyGame(AngleActivity activity) {
 			super(activity);
-			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 128, 128, R.drawable.anglelogo);
+			mGLSurfaceView.setBackgroundResource(R.drawable.map02);
+			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 128, 128, R.drawable.tower1);
 			_bnewTower1 = new AngleSprite(_bnewTower1Layout);
 			_bnewTower1.mPosition.set(160, 200); 
 			mGLSurfaceView.addObject(_bnewTower1);
+			
+			
+			
 		}
 		
 		
@@ -154,7 +156,7 @@ public class Play4 extends AngleActivity{
 					/* A tower is already on this box ! */
 					if(y >= 415 && y <= 465){
 						if (x >= 5 && x <= 55){ 
-							boxBuildableSelected.getSprite().setVisible(false);
+							
 							//rokon.removeSprite(boxBuildableSelected.getSprite());
 							boxBuildableSelected.removeTower();
 							
