@@ -57,6 +57,7 @@ public class Play4 extends AngleActivity{
 
 		public MyGame(AngleActivity activity) {
 			super(activity);
+			
 			mGLSurfaceView.setBackgroundResource(R.drawable.map02);
 			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 128, 128, R.drawable.tower1);
 			_bnewTower1 = new AngleSprite(_bnewTower1Layout);
