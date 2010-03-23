@@ -12,8 +12,8 @@ public  class Menu {
 
 	private AngleString t_infosPlayerTitre,t_infosPlayerSpeed,t_infosPlayerLevel,t_infosPlayerMoney,t_infosPlayerLives;
 	
-	public Menu(Game game, AngleFont font, AngleSurfaceView mGLSurfaceView){
-		this.t_infosPlayerTitre = new AngleString(font);
+	public Menu(Game game, AngleFont font, AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
+		this.t_infosPlayerTitre = new AngleString(fontTitle);
 		this.t_infosPlayerSpeed = new AngleString(font);
 		this.t_infosPlayerLevel = new AngleString(font);
 		this.t_infosPlayerMoney = new AngleString(font);
@@ -26,23 +26,23 @@ public  class Menu {
 		this.t_infosPlayerLives.set("\n Lives : "+game.getLives());
 
 		this.t_infosPlayerTitre.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerTitre.mPosition.set(255, 430); 
+		this.t_infosPlayerTitre.mPosition.set(270, 427); 
 		mGLSurfaceView.addObject(this.t_infosPlayerTitre);
 	
 		this.t_infosPlayerSpeed.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerSpeed.mPosition.set(255, 440); 
+		this.t_infosPlayerSpeed.mPosition.set(270, 440); 
 		mGLSurfaceView.addObject(this.t_infosPlayerSpeed);
 		
 		this.t_infosPlayerLevel.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerLevel.mPosition.set(255, 450); 
+		this.t_infosPlayerLevel.mPosition.set(270, 450); 
 		mGLSurfaceView.addObject(this.t_infosPlayerLevel);
 		
 		this.t_infosPlayerMoney.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerMoney.mPosition.set(255, 460); 
+		this.t_infosPlayerMoney.mPosition.set(270, 460); 
 		mGLSurfaceView.addObject(this.t_infosPlayerMoney);
 		
 		this.t_infosPlayerLives.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerLives.mPosition.set(255, 470); 
+		this.t_infosPlayerLives.mPosition.set(270, 470); 
 		mGLSurfaceView.addObject(this.t_infosPlayerLives);
 		
 		
