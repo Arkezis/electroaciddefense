@@ -2,12 +2,15 @@ package electroacid.defense;
 
 import com.android.angle.AngleActivity;
 import com.android.angle.AngleFont;
+import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
+import com.android.angle.AngleTileBank;
+import com.android.angle.AngleTileMap;
 import com.android.angle.AngleUI;
-import com.android.tutorial.R;
+
 
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
@@ -38,8 +41,9 @@ public class Play4 extends AngleActivity{
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture;
 	//public Font font;
 	
-	//public FixedBackground background;
-	//public TextureAtlas atlas;
+	private AngleObject ogField;
+	private AngleObject ogDashboard;
+	private AngleTileMap tmGround;
 	
 	
 	//public Text testText;
@@ -65,22 +69,34 @@ public class Play4 extends AngleActivity{
 
 		public MyGame(AngleActivity activity) {
 			super(activity);
+			ogField=new AngleObject();
+			addObject(ogField);
+			ogDashboard=new AngleObject();
+			addObject(ogDashboard);
 			
-			//mGLSurfaceView.setBackgroundResource(R.drawable.map02);
+			
+			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,2,2,32,32);
+			tmGround = new AngleTileMap(tbGround, 320, 416, 15, 13, false,false);
+			for (int t=0;t<tmGround.mColumnsCount*tmGround.mRowsCount;t++)
+				tmGround.mMap[t]=0;
+			// Put the top of the camera at the lowest part of the map
+		//	tmGround.mTop = tmGround.mRowsCount* tbGround.mTileHeight - tmGround.mHeight;
+			ogField.addObject(tmGround);		
+			
 			fntCafe25 = new AngleFont(mActivity.mGLSurfaceView, 25, Typeface.createFromAsset(getAssets(),"cafe.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			
-			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 128, 128, R.drawable.anglelogo);
+			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
 			_bnewTower1 = new AngleSprite(_bnewTower1Layout);
-			_bnewTower1.mPosition.set(10, 10); 
-			mGLSurfaceView.addObject(_bnewTower1);
+			_bnewTower1.mPosition.set(16, 16); 
+			ogField.addObject(_bnewTower1);
 			
 			
 			//The dashboard background
-			AngleSpriteLayout slDash = new AngleSpriteLayout(mActivity.mGLSurfaceView, 320, 64, R.drawable.tilemap, 0, 32, 320, 64);
-			AngleSprite mDash=new AngleSprite (slDash);
-			mDash.mPosition.set(160, 480-slDash.roHeight/2);
-			mDash.mAlpha=0.5f;
-			ogDashboard.addObject(mDash);
+//			AngleSpriteLayout slDash = new AngleSpriteLayout(mActivity.mGLSurfaceView, 320, 64, R.drawable.tilemap, 0, 32, 320, 64);
+//			AngleSprite mDash=new AngleSprite (slDash);
+//			mDash.mPosition.set(160, 480-slDash.roHeight/2);
+//			mDash.mAlpha=0.5f;
+//			ogDashboard.addObject(mDash);
 			
 			
 			
