@@ -1,15 +1,23 @@
 package electroacid.defense;
 
 import com.android.angle.AngleActivity;
+import com.android.angle.AngleFont;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
+import com.android.angle.AngleString;
+import com.android.angle.AngleSurfaceView;
 import com.android.angle.AngleUI;
+import com.android.tutorial.R;
+
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.enums.Element;
 import electroacid.defense.gui.MatriceBox;
+import electroacid.defense.gui.MenuNewTower;
 
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -42,9 +50,9 @@ public class Play4 extends AngleActivity{
 	/* SELECTED BOX MENU */
 	AngleSpriteLayout _bnewTower1Layout ;
 	AngleSprite _bnewTower1;
-	public AngleSprite b_newTower1, b_newTower2, b_delete; // Sprite for the selectedBoxMenu
+	public AngleSprite b_newTower1; // Sprite for the selectedBoxMenu
 	//public Hotspot b_newTower1Hotspot,b_newTower2Hotspot, b_deleteHotspot; // hotspot for the selectedBoxMenu
-
+	AngleFont fntCafe25;
 	
 	
 	
@@ -58,16 +66,99 @@ public class Play4 extends AngleActivity{
 		public MyGame(AngleActivity activity) {
 			super(activity);
 			
-			mGLSurfaceView.setBackgroundResource(R.drawable.map02);
-			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 128, 128, R.drawable.tower1);
+			//mGLSurfaceView.setBackgroundResource(R.drawable.map02);
+			fntCafe25 = new AngleFont(mActivity.mGLSurfaceView, 25, Typeface.createFromAsset(getAssets(),"cafe.ttf"), 222, 0, 0, 30, 200, 255, 255);
+			
+			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 128, 128, R.drawable.anglelogo);
 			_bnewTower1 = new AngleSprite(_bnewTower1Layout);
-			_bnewTower1.mPosition.set(160, 200); 
+			_bnewTower1.mPosition.set(10, 10); 
 			mGLSurfaceView.addObject(_bnewTower1);
+			
+			
+			//The dashboard background
+			AngleSpriteLayout slDash = new AngleSpriteLayout(mActivity.mGLSurfaceView, 320, 64, R.drawable.tilemap, 0, 32, 320, 64);
+			AngleSprite mDash=new AngleSprite (slDash);
+			mDash.mPosition.set(160, 480-slDash.roHeight/2);
+			mDash.mAlpha=0.5f;
+			ogDashboard.addObject(mDash);
 			
 			
 			
 		}
 		
+		public void onTouchEvent(int x,int y, boolean h) { 
+
+			Log.d("DEBUGTAG","onTouch "+x+" "+y+" "+h);
+
+				BoxBuildable boxBuildapleMap = null;
+				Log.d("DEBUGTAG", "HOTSPOT : ("+x +")"+y+"). so, which one ??? :p");
+
+				/* -------------------- */
+				/*    MODIFICATIONS     */
+				/* -------------------- */
+				if(boxBuildableSelected != null){
+					/* We had previously selected a boxBuildable */
+					if(boxBuildableSelected.getTower() == null){ 
+						/* Creating a new tower on a virgin box */
+						if(y >= 415 && y < 465){
+							if (x >= 5 && x < 55){ /* Adding Tower 1 */
+								boxBuildableSelected.changeTower((Tower)tower1.clone());
+								//rokon.addSprite(boxBuildableSelected.getSprite());
+							}else if (x >= 55 && x < 105){ /* Adding Tower 2 */
+								boxBuildableSelected.changeTower((Tower)tower2.clone());
+								//rokon.addSprite(boxBuildableSelected.getSprite());
+							}
+
+						}
+					}else{
+						/* A tower is already on this box ! */
+						if(y >= 415 && y <= 465){
+							if (x >= 5 && x <= 55){ 
+								
+								//rokon.removeSprite(boxBuildableSelected.getSprite());
+								boxBuildableSelected.removeTower();
+								
+							}
+						}
+					}
+					/* Modifications done : show off the menus and reset boxBuildableSelected */
+					/*b_delete.setVisible(false);
+					b_newTower1.setVisible(false);
+					b_newTower2.setVisible(false);*/
+					boxBuildableSelected = null;
+				}
+				/* END OF MODIFICATIONS */
+
+
+				/* -------------------- */
+				/*   TOUCHING THE MAP   */
+				/* -------------------- */
+				Box box = matrice.getBox(x, y); 
+				boxBuildapleMap = box instanceof BoxBuildable ? (BoxBuildable) box : null;
+
+				if(boxBuildapleMap != null){
+					/* --------------------------------------- */
+					/* A box was touched, which menu to show ? */
+					/* --------------------------------------- */
+					Log.d("DEBUGTAG", "In ("+x+","+y+"), there is a tower => "+boxBuildapleMap.getTower()+"???");	
+					if(boxBuildapleMap.getTower() == null){
+						/* If it's buildable and without tower, let's go to assignate a tower !! */
+						AngleString t_infosPlayer = null;
+						t_infosPlayer.set("Game");
+						t_infosPlayer.mAlignment = AngleString.aCenter;
+						t_infosPlayer.mPosition.set(10, 10); 
+						mGLSurfaceView.addObject(t_infosPlayer);
+						//MenuNewTower menuNewTower = new MenuNewTower(game,fntCafe25,mGLSurfaceView);
+						/*testText.setVisible(true);
+						b_newTower1.setVisible(true);
+						b_newTower2.setVisible(true);*/
+					}else{
+						/* We have to display the informations about the tower constructed here */
+						//b_delete.setVisible(true);
+					}
+					boxBuildableSelected = boxBuildapleMap; // we save which box was touched
+				}
+		}
 		
 	}
 	
@@ -86,26 +177,6 @@ public class Play4 extends AngleActivity{
 	}
 
 
-	public void onLoad() {
-
-		/* Textures */
-		/*atlas = new TextureAtlas(512, 1024);
-		atlas.insert(backgroundTexture = new Texture("graphics/backgrounds/Map01.png"));
-
-		atlas.insert(tower1Texture = new Texture("graphics/tower/tower1.png"));
-		atlas.insert(tower2Texture = new Texture("graphics/tower/tower2.png"));
-		atlas.insert(b_DeleteTexture = new Texture("graphics/icons/delete.png"));
-        atlas.insert(font = new Font("fonts/256BYTES.TTF"));
-		TextureManager.load(atlas);
-		
-		/* Towers */
-		/*
-		tower1 = new Tower(this.eElec,10,10,10,false,10,10,10,10,tower1Texture);
-		tower2 = new Tower(this.eFire,20,20,20,false,20,20,20,20,tower2Texture);
-
-		background = new FixedBackground(backgroundTexture);
-		*/
-	}
 /*
 	@Override
 	public void onLoadComplete() {
@@ -129,74 +200,7 @@ public class Play4 extends AngleActivity{
 	}
 */
 
-	public void onTouch(int x,int y, boolean h) { 
-
-		Log.d("DEBUGTAG","onTouch "+x+" "+y+" "+h);
-
-			BoxBuildable boxBuildapleMap = null;
-			Log.d("DEBUGTAG", "HOTSPOT : ("+x +")"+y+"). so, which one ??? :p");
-
-			/* -------------------- */
-			/*    MODIFICATIONS     */
-			/* -------------------- */
-			if(boxBuildableSelected != null){
-				/* We had previously selected a boxBuildable */
-				if(boxBuildableSelected.getTower() == null){ 
-					/* Creating a new tower on a virgin box */
-					if(y >= 415 && y < 465){
-						if (x >= 5 && x < 55){ /* Adding Tower 1 */
-							boxBuildableSelected.changeTower((Tower)tower1.clone());
-							//rokon.addSprite(boxBuildableSelected.getSprite());
-						}else if (x >= 55 && x < 105){ /* Adding Tower 2 */
-							boxBuildableSelected.changeTower((Tower)tower2.clone());
-							//rokon.addSprite(boxBuildableSelected.getSprite());
-						}
-
-					}
-				}else{
-					/* A tower is already on this box ! */
-					if(y >= 415 && y <= 465){
-						if (x >= 5 && x <= 55){ 
-							
-							//rokon.removeSprite(boxBuildableSelected.getSprite());
-							boxBuildableSelected.removeTower();
-							
-						}
-					}
-				}
-				/* Modifications done : show off the menus and reset boxBuildableSelected */
-				/*b_delete.setVisible(false);
-				b_newTower1.setVisible(false);
-				b_newTower2.setVisible(false);*/
-				boxBuildableSelected = null;
-			}
-			/* END OF MODIFICATIONS */
-
-
-			/* -------------------- */
-			/*   TOUCHING THE MAP   */
-			/* -------------------- */
-			Box box = this.matrice.getBox(x, y); 
-			boxBuildapleMap = box instanceof BoxBuildable ? (BoxBuildable) box : null;
-
-			if(boxBuildapleMap != null){
-				/* --------------------------------------- */
-				/* A box was touched, which menu to show ? */
-				/* --------------------------------------- */
-				Log.d("DEBUGTAG", "In ("+x+","+y+"), there is a tower => "+boxBuildapleMap.getTower()+"???");	
-				if(boxBuildapleMap.getTower() == null){
-					/* If it's buildable and without tower, let's go to assignate a tower !! */
-				//	MenuNewTower menuNewTower = new MenuNewTower(game,font,rokon);
-					/*testText.setVisible(true);
-					b_newTower1.setVisible(true);
-					b_newTower2.setVisible(true);*/
-				}else{
-					/* We have to display the informations about the tower constructed here */
-					//b_delete.setVisible(true);
-				}
-				boxBuildableSelected = boxBuildapleMap; // we save which box was touched
-			}
-	}
+	
 
 	public void onKey(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK)
