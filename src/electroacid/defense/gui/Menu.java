@@ -26,23 +26,23 @@ public  class Menu {
 		this.t_infosPlayerLives.set("\n Lives : "+game.getLives());
 
 		this.t_infosPlayerTitre.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerTitre.mPosition.set(240, 430); 
+		this.t_infosPlayerTitre.mPosition.set(255, 430); 
 		mGLSurfaceView.addObject(this.t_infosPlayerTitre);
 	
 		this.t_infosPlayerSpeed.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerSpeed.mPosition.set(240, 440); 
+		this.t_infosPlayerSpeed.mPosition.set(255, 440); 
 		mGLSurfaceView.addObject(this.t_infosPlayerSpeed);
 		
 		this.t_infosPlayerLevel.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerLevel.mPosition.set(240, 450); 
+		this.t_infosPlayerLevel.mPosition.set(255, 450); 
 		mGLSurfaceView.addObject(this.t_infosPlayerLevel);
 		
 		this.t_infosPlayerMoney.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerMoney.mPosition.set(240, 460); 
+		this.t_infosPlayerMoney.mPosition.set(255, 460); 
 		mGLSurfaceView.addObject(this.t_infosPlayerMoney);
 		
 		this.t_infosPlayerLives.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerLives.mPosition.set(240, 470); 
+		this.t_infosPlayerLives.mPosition.set(255, 470); 
 		mGLSurfaceView.addObject(this.t_infosPlayerLives);
 		
 		

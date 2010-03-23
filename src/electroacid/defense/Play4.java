@@ -57,12 +57,14 @@ public class Play4 extends AngleActivity{
 	//public Hotspot b_newTower1Hotspot,b_newTower2Hotspot, b_deleteHotspot; // hotspot for the selectedBoxMenu
 	AngleFont fntCafe25;
 	
-	
+	Menu menu;
+	MenuNewTower menuNewTower;
 	
 
 	public BoxBuildable boxBuildableSelected=null; // the BB selected to add a new tower or something else
 	public Game game;
 	private MyGame myGame;
+	public int choiceMenu;
 	
 	public class MyGame extends  AngleUI{
 
@@ -95,15 +97,19 @@ public class Play4 extends AngleActivity{
 //			mDash.mPosition.set(160, 480-slDash.roHeight/2);
 //			mDash.mAlpha=0.5f;
 //			ogDashboard.addObject(mDash);
-			Menu menuNewTower = new Menu(game,fntCafe25,mGLSurfaceView);
-			
-			
+			menu = new Menu(game,fntCafe25,mGLSurfaceView);
+			menuNewTower = new MenuNewTower(game,fntCafe25,mGLSurfaceView);
+
 			
 		}
-		
-		@SuppressWarnings("null")
-		public boolean onTouchEvent(MotionEvent event) { 
-
+		long time= System.currentTimeMillis();
+		public boolean onTouchEvent(MotionEvent event) {
+			if (System.currentTimeMillis() - time < 500){
+				return true;
+			}
+			time = System.currentTimeMillis();
+			
+			
 			int x = (int)event.getX();
 			int y = (int)event.getY();
 			
@@ -119,16 +125,26 @@ public class Play4 extends AngleActivity{
 					/* We had previously selected a boxBuildable */
 					if(boxBuildableSelected.getTower() == null){ 
 						/* Creating a new tower on a virgin box */
-						if(y >= 415 && y < 465){
-							if (x >= 5 && x < 55){ /* Adding Tower 1 */
+						choiceMenu = menuNewTower.createNewTowerFromMenuNewTower(x,y);
+						switch(choiceMenu){
+							case 1:
 								boxBuildableSelected.changeTower((Tower)tower1.clone());
-								//rokon.addSprite(boxBuildableSelected.getSprite());
-							}else if (x >= 55 && x < 105){ /* Adding Tower 2 */
+								break;
+							case 2:
 								boxBuildableSelected.changeTower((Tower)tower2.clone());
-								//rokon.addSprite(boxBuildableSelected.getSprite());
-							}
-
+								break;
 						}
+//						if(y >= 415 && y < 465){
+//							if (x >= 5 && x < 55){ /* Adding Tower 1 */
+//								boxBuildableSelected.changeTower((Tower)tower1.clone());
+//								//rokon.addSprite(boxBuildableSelected.getSprite());
+//							}else if (x >= 55 && x < 105){ /* Adding Tower 2 */
+//								boxBuildableSelected.changeTower((Tower)tower2.clone());
+//								//rokon.addSprite(boxBuildableSelected.getSprite());
+//							}
+//
+//						}
+						menuNewTower.hide(mGLSurfaceView);
 					}else{
 						/* A tower is already on this box ! */
 						if(y >= 415 && y <= 465){
@@ -163,14 +179,17 @@ public class Play4 extends AngleActivity{
 					Log.d("DEBUGTAG", "In ("+x+","+y+"), there is a tower => "+boxBuildapleMap.getTower()+"???");	
 					if(boxBuildapleMap.getTower() == null){
 						/* If it's buildable and without tower, let's go to assignate a tower !! */
-						MenuNewTower menuNewTower = new MenuNewTower(game,fntCafe25,mGLSurfaceView);
+						menuNewTower.show(mGLSurfaceView);
 					}else{
 						/* We have to display the informations about the tower constructed here */
 						//b_delete.setVisible(true);
 					}
 					boxBuildableSelected = boxBuildapleMap; // we save which box was touched
 				}
-				return true;
+		
+
+				
+				return true;					
 		}
 		
 	}
