@@ -12,7 +12,10 @@
             </intent-filter>
         </activity>
 				<activity 	android:name=".Play4"
-					android:label="@string/game" android:screenOrientation="portrait">
+							android:label="@string/game" 
+							android:screenOrientation="portrait"
+							android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+				>
 		</activity>	
 </application>
     <uses-sdk android:minSdkVersion="3" />
