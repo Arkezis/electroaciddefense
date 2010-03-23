@@ -8,34 +8,45 @@ import com.android.angle.AngleSurfaceView;
 
 import electroacid.defense.Game;
 
-public abstract class Menu {
+public  class Menu {
 
-	private AngleString t_infosPlayer;
+	private AngleString t_infosPlayerTitre,t_infosPlayerSpeed,t_infosPlayerLevel,t_infosPlayerMoney,t_infosPlayerLives;
 	
 	public Menu(Game game, AngleFont font, AngleSurfaceView mGLSurfaceView){
-		this.t_infosPlayer.set("Game");
-		//this.t_infosPlayer = new Text("## Game ## \n Speed : "+game.getSpeedMultiplicator(),font,240,416,32);
-		//this.t_infosPlayer = new Text("Game Speed : ",font,240,416,32);
-		t_infosPlayer.mAlignment = AngleString.aCenter;
-		t_infosPlayer.mPosition.set(240, 416); 
-		mGLSurfaceView.addObject(this.t_infosPlayer);
-	}
+		this.t_infosPlayerTitre = new AngleString(font);
+		this.t_infosPlayerSpeed = new AngleString(font);
+		this.t_infosPlayerLevel = new AngleString(font);
+		this.t_infosPlayerMoney = new AngleString(font);
+		this.t_infosPlayerLives = new AngleString(font);
 
+		this.t_infosPlayerTitre.set("Game");
+		this.t_infosPlayerSpeed.set("Speed : "+game.getSpeedMultiplicator());
+		this.t_infosPlayerLevel.set("\n Level : "+game.getLevel());
+		this.t_infosPlayerMoney.set("\n Money : "+game.getMoney());
+		this.t_infosPlayerLives.set("\n Lives : "+game.getLives());
 
-	/**
-	 * @return the t_infosPlayer
-	 */
-	public AngleString getT_infosPlayer() {
-		return t_infosPlayer;
-	}
-
-
-
-	/**
-	 * @param tInfosPlayer the t_infosPlayer to set
-	 */
-	public void setT_infosPlayer(AngleString tInfosPlayer) {
-		t_infosPlayer = tInfosPlayer;
-	}
+		this.t_infosPlayerTitre.mAlignment = AngleString.aCenter;
+		this.t_infosPlayerTitre.mPosition.set(240, 430); 
+		mGLSurfaceView.addObject(this.t_infosPlayerTitre);
 	
+		this.t_infosPlayerSpeed.mAlignment = AngleString.aCenter;
+		this.t_infosPlayerSpeed.mPosition.set(240, 440); 
+		mGLSurfaceView.addObject(this.t_infosPlayerSpeed);
+		
+		this.t_infosPlayerLevel.mAlignment = AngleString.aCenter;
+		this.t_infosPlayerLevel.mPosition.set(240, 450); 
+		mGLSurfaceView.addObject(this.t_infosPlayerLevel);
+		
+		this.t_infosPlayerMoney.mAlignment = AngleString.aCenter;
+		this.t_infosPlayerMoney.mPosition.set(240, 460); 
+		mGLSurfaceView.addObject(this.t_infosPlayerMoney);
+		
+		this.t_infosPlayerLives.mAlignment = AngleString.aCenter;
+		this.t_infosPlayerLives.mPosition.set(240, 470); 
+		mGLSurfaceView.addObject(this.t_infosPlayerLives);
+		
+		
+		
+	}
+
 }
