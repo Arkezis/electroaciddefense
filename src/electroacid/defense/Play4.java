@@ -1,5 +1,17 @@
 package electroacid.defense;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+
 import com.android.angle.AngleActivity;
 import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
@@ -15,10 +27,13 @@ import com.android.angle.AngleUI;
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.enums.Element;
-import electroacid.defense.gui.MatriceBox;
 import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
+import electroacid.defense.map.GenericMap;
 
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,13 +64,14 @@ public class Play4 extends AngleActivity{
 	//public Text testText;
 
 	/* Matrice */
-	MatriceBox matrice = new MatriceBox(320, 400, 20, 20);
+	GenericMap matrice = new GenericMap(320, 416, 32, 32);
+	
+	
 
 	/* SELECTED BOX MENU */
 	AngleSpriteLayout _bnewTower1Layout ;
 	AngleSprite _bnewTower1;
 	public AngleSprite b_newTower1; // Sprite for the selectedBoxMenu
-	//public Hotspot b_newTower1Hotspot,b_newTower2Hotspot, b_deleteHotspot; // hotspot for the selectedBoxMenu
 	AngleFont fontMenu,fontTitle;
 
 	Menu menu;
@@ -76,13 +92,20 @@ public class Play4 extends AngleActivity{
 			ogDashboard=new AngleObject();
 			addObject(ogDashboard);
 
+			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,2,2,32,32);
+			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
+			
+	
+			try {
+				matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
+			} catch (Exception e) {
+				Log.d("testMAPXML","probleme with the xml");
+				e.printStackTrace();
+			}
+
 			tower1 = new Tower(eFire,10,10,10,true,10,10,10,10,null);
 			tower2 = new Tower(eFire,20,20,20,false,20,20,20,20,null);
 
-			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,2,2,32,32);
-			tmGround = new AngleTileMap(tbGround, 320, 416, 15, 13, false,false);
-			for (int t=0;t<tmGround.mColumnsCount*tmGround.mRowsCount;t++)
-				tmGround.mMap[t]=0;
 			ogField.addObject(tmGround);		
 
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
