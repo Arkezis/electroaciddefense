@@ -110,6 +110,8 @@ public class MenuNewTower {
 		mGLSurfaceView.addObject(t_infosTowerFireRate);
 		mGLSurfaceView.addObject(t_infosTowerDamage);
 		mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
+		Log.d("DEBUGTAG", "On affiche le sous menu");
+		mGLSurfaceView.refreshDrawableState();
 	}
 
 	public void hideValidateTower(AngleSurfaceView mGLSurfaceView){
@@ -119,6 +121,7 @@ public class MenuNewTower {
 		mGLSurfaceView.removeObject(t_infosTowerFireRate);
 		mGLSurfaceView.removeObject(t_infosTowerDamage);
 		mGLSurfaceView.removeObject(t_infosTowerCanTargetFly);
+		Log.d("DEBUGTAG", "On cache le sous menu");
 	}
 
 	public boolean isValidationTower(int x,int y){
