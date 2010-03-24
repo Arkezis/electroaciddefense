@@ -145,10 +145,12 @@ public class Play4 extends AngleActivity{
 					if(boxBuildableSelected.getTower() == null){
 						menuNewTower.show(mGLSurfaceView);
 					}else{
+						menuNewTower.hide(mGLSurfaceView);
 						//b_delete.setVisible(true);
 					}
 				}else{
 					// it's not a BB, what to do ? 
+					Log.d("DEBUGTAG", "Not a BB !");
 				}
 			}else{
 			/* ------------------------ */
@@ -166,15 +168,14 @@ public class Play4 extends AngleActivity{
 						}else if(choiceMenu > 0){					
 							/* Did the user choosen a tower in the menu ?  */
 							towerChoice = null;
-							Log.d("DEBUGTAG", "new tower selecteddddddddd, the user need to confirm__"+choiceMenu+"__");
 							switch(choiceMenu){
 							case 1:
-								//boxBuildableSelected.changeTower((Tower)tower1.clone());
+								Log.d("DEBUGTAG", "the choice "+choiceMenu);
 								menuNewTower.showValidateTower(mGLSurfaceView, tower1);
 								towerChoice = (Tower)tower1.clone();
 								break;
 							case 2:
-								//boxBuildableSelected.changeTower((Tower)tower2.clone());
+								Log.d("DEBUGTAG", "the choice "+choiceMenu);
 								menuNewTower.showValidateTower(mGLSurfaceView, tower2);
 								towerChoice = (Tower)tower2.clone();
 								break;
