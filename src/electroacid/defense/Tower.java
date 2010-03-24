@@ -15,6 +15,7 @@ public  class Tower implements Cloneable{
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
 	private AngleSpriteLayout layout;
+	private double upgrade =  1.25;
 	
 	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout){
 		this.element = _element;
@@ -29,6 +30,30 @@ public  class Tower implements Cloneable{
 		this.layout = _layout;
 	}
 	
+	public void upgrade(){
+		this.life *= upgrade;
+		this.fireRate *= upgrade;
+		this.cost *=  upgrade;
+		this.damage *= upgrade;
+		this.targetNb *= upgrade;
+		this.level++;
+	}
+	
+	
+	/**
+	 * @return the upgrade
+	 */
+	public double getUpgrade() {
+		return upgrade;
+	}
+
+	/**
+	 * @param upgrade the upgrade to set
+	 */
+	public void setUpgrade(double upgrade) {
+		this.upgrade = upgrade;
+	}
+
 	public Object clone() {
 	    Tower tower = null;
 	    try {
