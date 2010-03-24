@@ -42,6 +42,27 @@ public class MenuNewTower {
 		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView, 64, 32, R.drawable.go);
 		this.bGo = new AngleSprite(this.bGoLayout);
 		this.bGo.mPosition.set(85, 430); 
+		
+		mGLSurfaceView.addObject(this.t_infosTowerTitle);
+		mGLSurfaceView.addObject(bnewTower1);
+		mGLSurfaceView.addObject(bnewTower2);
+		mGLSurfaceView.addObject(bGo);
+		mGLSurfaceView.addObject(t_infosTowerElement);
+		mGLSurfaceView.addObject(t_infosTowerLife);
+		mGLSurfaceView.addObject(t_infosTowerFireRate);
+		mGLSurfaceView.addObject(t_infosTowerDamage);
+		mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
+		
+		this.t_infosTowerTitle.mAlpha = 0;
+		this.bnewTower1.mAlpha = 0;
+		this.bnewTower2.mAlpha = 0;
+		this.bGo.mAlpha=0;
+		this.t_infosTowerElement.mAlpha = 0;
+		this.t_infosTowerLife.mAlpha = 0;
+		this.t_infosTowerFireRate.mAlpha = 0;
+		this.t_infosTowerDamage.mAlpha = 0;
+		this.t_infosTowerCanTargetFly.mAlpha = 0;
+		
 	}
 	
 	public  int getNewTowerFromMenuNewTower(int x,int y){
@@ -63,23 +84,29 @@ public class MenuNewTower {
 	}
 
 	public void hide(AngleSurfaceView mGLSurfaceView){
-		Log.d("DEBUGTAG", "HIDDING NewMenu");
-
-		mGLSurfaceView.removeObject(this.t_infosTowerTitle);	
-		mGLSurfaceView.removeObject(bnewTower1);
-		mGLSurfaceView.removeObject(bnewTower2);
-
+		Log.d("DEBUGTAG", "HIDDING NewTowerMenu");
+		this.t_infosTowerTitle.mAlpha = 0;
+		this.bnewTower1.mAlpha = 0;
+		this.bnewTower2.mAlpha = 0;
 	}
 	
 	public void show(AngleSurfaceView mGLSurfaceView){
-		Log.d("DEBUGTAG", "SHOWING NewMenu");
-		mGLSurfaceView.addObject(this.t_infosTowerTitle);
-		mGLSurfaceView.addObject(bnewTower1);
-		mGLSurfaceView.addObject(bnewTower2);
+		Log.d("DEBUGTAG", "SHOWING NewTowerMenu");
+		this.t_infosTowerTitle.mAlpha = 1;
+		this.bnewTower1.mAlpha = 1;
+		this.bnewTower2.mAlpha = 1;
 		this.hideValidateTower(mGLSurfaceView); // if you want to show the selection, the validation must be hidden (for the moment !)
 	}
 	
 	public void showValidateTower(AngleSurfaceView mGLSurfaceView,Tower tower){
+		
+		this.bGo.mAlpha=1;
+		this.t_infosTowerElement.mAlpha = 1;
+		this.t_infosTowerLife.mAlpha = 1;
+		this.t_infosTowerFireRate.mAlpha = 1;
+		this.t_infosTowerDamage.mAlpha =1 ;
+		this.t_infosTowerCanTargetFly.mAlpha = 1;
+		
 		this.t_infosTowerElement.set("Element : "+tower.getElement().toString());
 		this.t_infosTowerElement.mAlignment = AngleString.aCenter;
 		this.t_infosTowerElement.mPosition.set(160, 440); 
@@ -104,23 +131,16 @@ public class MenuNewTower {
 		this.t_infosTowerCanTargetFly.mAlignment = AngleString.aCenter;
 		this.t_infosTowerCanTargetFly.mPosition.set(160, 480); 
 
-		mGLSurfaceView.addObject(bGo);
-		mGLSurfaceView.addObject(t_infosTowerElement);
-		mGLSurfaceView.addObject(t_infosTowerLife);
-		mGLSurfaceView.addObject(t_infosTowerFireRate);
-		mGLSurfaceView.addObject(t_infosTowerDamage);
-		mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
-		Log.d("DEBUGTAG", "On affiche le sous menu");
-		mGLSurfaceView.refreshDrawableState();
+
 	}
 
 	public void hideValidateTower(AngleSurfaceView mGLSurfaceView){
-		mGLSurfaceView.removeObject(bGo);
-		mGLSurfaceView.removeObject(t_infosTowerElement);
-		mGLSurfaceView.removeObject(t_infosTowerLife);
-		mGLSurfaceView.removeObject(t_infosTowerFireRate);
-		mGLSurfaceView.removeObject(t_infosTowerDamage);
-		mGLSurfaceView.removeObject(t_infosTowerCanTargetFly);
+		this.bGo.mAlpha=0;
+		this.t_infosTowerElement.mAlpha = 0;
+		this.t_infosTowerLife.mAlpha = 0;
+		this.t_infosTowerFireRate.mAlpha = 0;
+		this.t_infosTowerDamage.mAlpha = 0;
+		this.t_infosTowerCanTargetFly.mAlpha = 0;
 		Log.d("DEBUGTAG", "On cache le sous menu");
 	}
 

@@ -15,6 +15,7 @@ import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.enums.Element;
 import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
+import electroacid.defense.gui.MenuSelectedTower;
 import electroacid.defense.map.GenericMap;
 
 import android.graphics.Typeface;
@@ -33,7 +34,7 @@ public class Play4 extends AngleActivity{
 	public Element eIron= Element.Iron;      
 
 	/* TOWERS */
-	public Tower tower1 , tower2,towerChoice;	
+	public Tower tower1 , tower2,towerChoice=null;	
 
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture;
@@ -59,6 +60,7 @@ public class Play4 extends AngleActivity{
 
 	Menu menu;
 	MenuNewTower menuNewTower;
+	MenuSelectedTower menuSelectedTower;
 
 
 	public BoxBuildable boxBuildableSelected=null; // the BB selected to add a new tower or something else
@@ -104,6 +106,7 @@ public class Play4 extends AngleActivity{
 
 			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuNewTower = new MenuNewTower(game,fontMenu,fontTitle,mGLSurfaceView);
+			menuSelectedTower = new MenuSelectedTower(game,fontMenu,fontTitle,mGLSurfaceView);
 		}
 		
 		public boolean onTouchEvent(MotionEvent event) {
@@ -129,13 +132,16 @@ public class Play4 extends AngleActivity{
 					Log.d("DEBUGTAG", "In ("+x+","+y+"), there is a tower => "+boxBuildableSelected.getTower()+"???");	
 					if(boxBuildableSelected.getTower() == null){
 						menuNewTower.show(mGLSurfaceView);
+						menuSelectedTower.hide(mGLSurfaceView);
 					}else{
 						menuNewTower.hide(mGLSurfaceView);
-						//b_delete.setVisible(true);
+						menuSelectedTower.show(mGLSurfaceView,boxBuildableSelected.getTower());
 					}
 				}else{
 					// it's not a BB, what to do ? 
 					Log.d("DEBUGTAG", "Not a BB !");
+					menuSelectedTower.hide(mGLSurfaceView);
+					menuNewTower.hide(mGLSurfaceView);
 				}
 			}else{
 			/* ------------------------ */
@@ -150,9 +156,9 @@ public class Play4 extends AngleActivity{
 							boxBuildableSelected.changeTower(towerChoice);
 							menuNewTower.hideValidateTower(mGLSurfaceView);
 							menuNewTower.hide(mGLSurfaceView);
+							towerChoice = null;
 						}else if(choiceMenu > 0){					
 							/* Did the user choosen a tower in the menu ?  */
-							towerChoice = null;
 							switch(choiceMenu){
 							case 1:
 								Log.d("DEBUGTAG", "the choice "+choiceMenu);
@@ -172,13 +178,10 @@ public class Play4 extends AngleActivity{
 						}
 					}else{
 						/* A tower is already on this box ! */
-						if(y >= 415 && y <= 465){
-							if (x >= 5 && x <= 55){ 
-								//rokon.removeSprite(boxBuildableSelected.getSprite());
-								//boxBuildableSelected.removeTower();
-
-							}
+						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected.getTower())){
+							menuSelectedTower.hide(mGLSurfaceView);
 						}
+						
 					}
 				}else{
 					// We touched the menu, but nothing is in the menu because no box was selected before ! 

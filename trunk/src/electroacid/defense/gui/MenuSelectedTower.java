@@ -39,25 +39,40 @@ public class MenuSelectedTower {
 		this.bUpgradeTowerLayout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.deletetower);
 		this.bUpgradeTower = new AngleSprite(this.bUpgradeTowerLayout);
 		this.bUpgradeTower.mPosition.set(150, 464); 
+		
+		mGLSurfaceView.addObject(t_infosTowerElement);
+		mGLSurfaceView.addObject(t_infosTowerLife);
+		mGLSurfaceView.addObject(t_infosTowerFireRate);
+		mGLSurfaceView.addObject(t_infosTowerDamage);
+		mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
+		mGLSurfaceView.addObject(bDeleteTower);
+		mGLSurfaceView.addObject(bUpgradeTower);
+		this.t_infosTowerTitle.mAlpha = 0;
+		this.t_infosTowerElement.mAlpha = 0;
+		this.t_infosTowerLife.mAlpha = 0;
+		this.t_infosTowerFireRate.mAlpha = 0;
+		this.t_infosTowerDamage.mAlpha = 0;
+		this.t_infosTowerCanTargetFly.mAlpha = 0;
+		this.bDeleteTower.mAlpha = 0;
+		this.bUpgradeTower.mAlpha = 0;
 	}
 	
 
 
 	public void hide(AngleSurfaceView mGLSurfaceView){
-		Log.d("DEBUGTAG", "HIDDING NewMenu");
-		mGLSurfaceView.removeObject(this.t_infosTowerTitle);	
-		mGLSurfaceView.removeObject(bDeleteTower);
-		mGLSurfaceView.removeObject(bUpgradeTower);
-		mGLSurfaceView.removeObject(t_infosTowerElement);
-		mGLSurfaceView.removeObject(t_infosTowerLife);
-		mGLSurfaceView.removeObject(t_infosTowerFireRate);
-		mGLSurfaceView.removeObject(t_infosTowerDamage);
-		mGLSurfaceView.removeObject(t_infosTowerCanTargetFly);
+		Log.d("DEBUGTAG", "HIDDING SelectedMenu");
+		this.t_infosTowerTitle.mAlpha = 0;
+		this.t_infosTowerElement.mAlpha = 0;
+		this.t_infosTowerLife.mAlpha = 0;
+		this.t_infosTowerFireRate.mAlpha = 0;
+		this.t_infosTowerDamage.mAlpha = 0;
+		this.t_infosTowerCanTargetFly.mAlpha = 0;
+		this.bDeleteTower.mAlpha = 0;
+		this.bUpgradeTower.mAlpha = 0;
 	}
 	
 	public void show(AngleSurfaceView mGLSurfaceView,Tower tower){
-		Log.d("DEBUGTAG", "SHOWING NewMenu");
-		mGLSurfaceView.addObject(this.t_infosTowerTitle);
+		Log.d("DEBUGTAG", "SHOWING SelectedMenu");
 		this.t_infosTowerElement.set("Element : "+tower.getElement().toString());
 		this.t_infosTowerElement.mAlignment = AngleString.aLeft;
 		this.t_infosTowerElement.mPosition.set(16, 440); 
@@ -81,14 +96,15 @@ public class MenuSelectedTower {
 		}
 		this.t_infosTowerCanTargetFly.mAlignment = AngleString.aLeft;
 		this.t_infosTowerCanTargetFly.mPosition.set(16, 480); 
-
-		mGLSurfaceView.addObject(t_infosTowerElement);
-		mGLSurfaceView.addObject(t_infosTowerLife);
-		mGLSurfaceView.addObject(t_infosTowerFireRate);
-		mGLSurfaceView.addObject(t_infosTowerDamage);
-		mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
-		mGLSurfaceView.addObject(bDeleteTower);
-		mGLSurfaceView.addObject(bUpgradeTower);
+		
+		this.t_infosTowerTitle.mAlpha = 1;
+		this.t_infosTowerElement.mAlpha = 1;
+		this.t_infosTowerLife.mAlpha = 1;
+		this.t_infosTowerFireRate.mAlpha = 1;
+		this.t_infosTowerDamage.mAlpha = 1;
+		this.t_infosTowerCanTargetFly.mAlpha = 1;
+		this.bDeleteTower.mAlpha = 1;
+		this.bUpgradeTower.mAlpha = 1;
 	}
 
 
@@ -96,8 +112,12 @@ public class MenuSelectedTower {
 		if (x > 134 && x < 166 ){
 			if (y > 416 && y < 448){
 				tower.upgrade();
+				Log.d("DEBUGTAG", "Zouip, la tower");
+				return true;
 			}else if(y > 448 & y < 480 ){
 				// delete the tower
+				Log.d("DEBUGTAG", "PAF, la tower");
+				return true;
 			}
 		}
 		return false;
