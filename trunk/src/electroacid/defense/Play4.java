@@ -1,24 +1,10 @@
 package electroacid.defense;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
-
 import com.android.angle.AngleActivity;
 import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
-import com.android.angle.AngleString;
-import com.android.angle.AngleSurfaceView;
 import com.android.angle.AngleTileBank;
 import com.android.angle.AngleTileMap;
 import com.android.angle.AngleUI;
@@ -31,9 +17,6 @@ import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
 import electroacid.defense.map.GenericMap;
 
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
-import android.content.res.Resources.NotFoundException;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -112,6 +95,8 @@ public class Play4 extends AngleActivity{
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
 
+			
+			
 			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
 			_bnewTower1 = new AngleSprite(_bnewTower1Layout);
 			_bnewTower1.mPosition.set(16, 16); 
