@@ -1,17 +1,13 @@
 package electroacid.defense.map;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.android.angle.AngleTileBank;
 import com.android.angle.AngleTileMap;
 
 import utils.XmlUtil;
-import android.R;
 import android.content.Context;
-import android.util.Log;
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.box.BoxPath;
@@ -39,10 +35,8 @@ public class GenericMap {
 	//texture not in charge
 	public void buildMap(Context context,AngleTileMap map,int xmlResourceId) throws Exception{
 		Document mapXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
-		
-		Element root = mapXml.getDocumentElement();
-		
-		NodeList listBox = root.getElementsByTagName("box");
+
+		NodeList listBox = mapXml.getDocumentElement().getElementsByTagName("box");
 		
 		int numberOfCasePerLigne = this.xMax/this.offsetX;
 		for (int i=0;i<listBox.getLength();i++){
@@ -62,8 +56,10 @@ public class GenericMap {
 			
 			if (type.equalsIgnoreCase("buildable")) {
 				this.matrice[line][column] = new BoxBuildable(line*this.offsetX, column*this.offsetY, this.offsetX, this.offsetY);
-			}else {
+			}else if (type.equalsIgnoreCase("path")){
 				this.matrice[line][column] = new BoxPath(line*this.offsetX, column*this.offsetY, this.offsetX, this.offsetY);
+			} else {
+				//Your xml was so bad
 			}
 			map.mMap[i] = idTexture;
 		}
@@ -71,11 +67,11 @@ public class GenericMap {
 	
 	public Box getBox(int x, int y){
 		if (x>this.xMax || y>this.yMax) return null;
-		return this.matrice[x/this.offsetX][y/this.offsetY];
+		return this.matrice[y/this.offsetY][x/this.offsetX];
 	}
 	
 	public void setBox(Box box,int x, int y){
-		this.matrice[x/this.offsetX][y/this.offsetY] = box;
+		this.matrice[y/this.offsetY][x/this.offsetX] = box;
 	}
 	
 }
