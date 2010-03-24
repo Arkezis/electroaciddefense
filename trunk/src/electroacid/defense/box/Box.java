@@ -7,9 +7,6 @@ import com.android.angle.AngleSurfaceView;
 
 public abstract class Box {
 
-	protected AngleSprite sprite;
-	protected AngleSurfaceView view;
-	
 	protected int x;
 	protected int y;
 
@@ -17,28 +14,10 @@ public abstract class Box {
 	protected int height;
 
 	public Box(int _x, int _y, int _width, int _height) {
-		this.sprite = new AngleSprite(null);
-
-		
-		
 		this.x = _x;
 		this.y = _y;
 		this.width = _width;
 		this.height = _height;
-	}
-
-	/**
-	 * @return the sprite
-	 */
-	public AngleSprite getSprite() {
-		return this.sprite;
-	}
-
-	/**
-	 * @param sprite the sprite to set
-	 */
-	public void setSprite(AngleSprite sprite) {
-		this.sprite = sprite;
 	}
 
 	/**
