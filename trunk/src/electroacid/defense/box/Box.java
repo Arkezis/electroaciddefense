@@ -2,11 +2,14 @@ package electroacid.defense.box;
 
 
 import com.android.angle.AngleSprite;
+import com.android.angle.AngleSpriteLayout;
+import com.android.angle.AngleSurfaceView;
 
 public abstract class Box {
 
 	protected AngleSprite sprite;
-
+	protected AngleSurfaceView view;
+	
 	protected int x;
 	protected int y;
 
@@ -15,6 +18,9 @@ public abstract class Box {
 
 	public Box(int _x, int _y, int _width, int _height) {
 		this.sprite = new AngleSprite(null);
+
+		
+		
 		this.x = _x;
 		this.y = _y;
 		this.width = _width;
