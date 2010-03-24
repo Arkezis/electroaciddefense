@@ -1,10 +1,5 @@
 package electroacid.defense.box;
 
-
-import com.android.angle.AngleSprite;
-import com.android.angle.AngleSpriteLayout;
-import com.android.angle.AngleSurfaceView;
-
 public abstract class Box {
 
 	protected int x;
