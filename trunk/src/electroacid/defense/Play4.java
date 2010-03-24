@@ -84,7 +84,8 @@ public class Play4 extends AngleActivity{
 	public int choiceMenu;
 
 	public class MyGame extends  AngleUI{
-
+		long time= System.currentTimeMillis();
+		float lastWave = 0;
 		public MyGame(AngleActivity activity) {
 			super(activity);
 			ogField=new AngleObject();
@@ -119,7 +120,7 @@ public class Play4 extends AngleActivity{
 			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuNewTower = new MenuNewTower(game,fontMenu,fontTitle,mGLSurfaceView);
 		}
-		long time= System.currentTimeMillis();
+		
 		public boolean onTouchEvent(MotionEvent event) {
 			/* too much touch in one touch ! */
 			if (System.currentTimeMillis() - time < 500){
@@ -199,14 +200,20 @@ public class Play4 extends AngleActivity{
 					Log.d("DEBUGTAG", "We touched the menu, but nothing is in the menu because no box was selected before !");
 				}
 			}
-
-
-
-
-
 			return true;					
 		}
-
+		
+		@Override
+		public void step(float secondsElapsed)
+		{
+			lastWave += secondsElapsed;
+			if (lastWave > game.getTimeBetweenEachWave()){
+				// RUN WAVE
+				lastWave = 0;
+			}
+			
+			super.step(secondsElapsed);
+		}
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -221,30 +228,6 @@ public class Play4 extends AngleActivity{
 		setUI(myGame);
 
 	}
-
-
-	/*
-	@Override
-	public void onLoadComplete() {
-		rokon.setBackground(background);
-
-		/* Selected box menu 
-		/* Menu to add the new towers 
-		b_newTower1 = new Sprite(5,415,tower1Texture);b_newTower2 = new Sprite(55,415,tower2Texture);
-		rokon.addSprite(b_newTower1);rokon.addSprite(b_newTower2);
-		rokon.addHotspot(b_newTower1Hotspot = new Hotspot(b_newTower1));rokon.addHotspot(b_newTower2Hotspot= new Hotspot(b_newTower2));
-		b_newTower1.setVisible(false);b_newTower2.setVisible(false);
-		/* Menu to modify the towers already created 
-		b_delete = new Sprite(5,415,b_DeleteTexture);rokon.addSprite(b_delete);
-		rokon.addHotspot(b_deleteHotspot = new Hotspot(b_delete));
-		b_delete.setVisible(false);
-
-		testText = new Text("Test !",font,80, 416,32);
-		rokon.addText(testText);
-
-		Log.d("DEBUGTAG", "Everything is loaded ?");
-	}
-	 */
 
 
 

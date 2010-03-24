@@ -7,7 +7,22 @@ public class Game {
 	private int level;
 	private int money;
 	private int lives;
+	private float timeBetweenEachWave=500;
 	
+	/**
+	 * @return the timeBetweenEachWave
+	 */
+	public float getTimeBetweenEachWave() {
+		return timeBetweenEachWave;
+	}
+
+	/**
+	 * @param timeBetweenEachWave the timeBetweenEachWave to set
+	 */
+	public void setTimeBetweenEachWave(float timeBetweenEachWave) {
+		this.timeBetweenEachWave = timeBetweenEachWave;
+	}
+
 	public Game(){
 		this.difficulty = 0;
 	}
