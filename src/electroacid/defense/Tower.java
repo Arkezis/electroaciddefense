@@ -15,7 +15,6 @@ public  class Tower implements Cloneable{
 	private int targetNb;
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
-	private AngleSpriteLayout layout;
 	private AngleSprite sprite;
 	private double upgrade =  1.25;
 	private double destroy = 0.25;
@@ -30,9 +29,21 @@ public  class Tower implements Cloneable{
 		this.targetNb = _targetNb;
 		this.targetPriority = _targetPriority;
 		this.level = _level;
-		this.layout = _layout;
-		this.sprite = new AngleSprite(this.layout);
+		this.sprite = new AngleSprite(_layout);
 	}
+	
+	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSprite _sprite){
+		this.element = _element;
+		this.life = _life;
+		this.fireRate = _fireRate;
+		this.cost = _cost;
+		this.canTargetFly = _fly;
+		this.damage = _damage;
+		this.targetNb = _targetNb;
+		this.targetPriority = _targetPriority;
+		this.level = _level;
+		this.sprite = _sprite;
+	}	
 	
 	public void changePosition(int x, int y){
 		this.sprite.mPosition.set(x, y);
@@ -90,7 +101,7 @@ public  class Tower implements Cloneable{
 	    //Don't clone the texture, it's the same instance in the atlas
 	    // u don't need to create a new
 	    
-	    tower.sprite = new AngleSprite(this.layout);
+	    tower.sprite = new AngleSprite(this.sprite.roLayout);
 	    
 	    return tower;
 	}
@@ -221,17 +232,4 @@ public  class Tower implements Cloneable{
 		this.level = level;
 	}
 
-	/**
-	 * @return the texture
-	 */
-	public AngleSpriteLayout getLayout() {
-		return this.layout;
-	}
-
-	/**
-	 * @param texture the texture to set
-	 */
-	public void setLayout(AngleSpriteLayout _layout) {
-		this.layout = _layout;
-	}
 }

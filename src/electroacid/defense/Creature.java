@@ -1,5 +1,8 @@
 package electroacid.defense;
 
+import com.android.angle.AngleSprite;
+import com.android.angle.AngleSpriteLayout;
+
 import electroacid.defense.enums.Element;
 
 public  class Creature {
@@ -10,6 +13,9 @@ public  class Creature {
 		private int fireRate;
 		private int cost;
 		private boolean fly;
+		private AngleSpriteLayout layout;
+		private AngleSprite sprite;
+		
 		
 		public Creature(Element e,int l,int s, int fR, int c, boolean f){
 			this.element = e;
