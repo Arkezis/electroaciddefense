@@ -90,6 +90,8 @@ public  class Tower implements Cloneable{
 	    //Don't clone the texture, it's the same instance in the atlas
 	    // u don't need to create a new
 	    
+	    tower.sprite = new AngleSprite(this.layout);
+	    
 	    return tower;
 	}
 
