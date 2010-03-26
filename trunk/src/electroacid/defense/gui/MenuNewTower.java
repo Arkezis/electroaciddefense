@@ -31,6 +31,8 @@ public class MenuNewTower {
 		this.t_infosTowerCanTargetFly = new AngleString(font);		
 		this.t_infosTowerDamage = new AngleString(font);
 		
+		//TODO : Récuperer les towers from Play4 pour ne pas avoir à les recréer ici ! 
+		
 		this.bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
 		this.bnewTower1 = new AngleSprite(this.bnewTower1Layout);
 		this.bnewTower1.mPosition.set(16, 432); 

@@ -135,7 +135,8 @@ public class Play4 extends AngleActivity{
 						menuSelectedTower.hide(mGLSurfaceView);
 					}else{
 						menuNewTower.hide(mGLSurfaceView);
-						menuSelectedTower.show(mGLSurfaceView,boxBuildableSelected.getTower());
+						menuNewTower.hideValidateTower(mGLSurfaceView);
+						menuSelectedTower.show(mGLSurfaceView,boxBuildableSelected.getTower(),game);
 					}
 				}else{
 					// it's not a BB, what to do ? 
@@ -178,7 +179,7 @@ public class Play4 extends AngleActivity{
 						}
 					}else{
 						/* A tower is already on this box ! */
-						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected.getTower())){
+						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game)){
 							menuSelectedTower.hide(mGLSurfaceView);
 						}
 						
@@ -200,7 +201,7 @@ public class Play4 extends AngleActivity{
 				// RUN WAVE
 				lastWave = 0;
 			}
-			
+			menu.refresh(game);
 			super.step(secondsElapsed);
 		}
 	}

@@ -16,6 +16,7 @@ public  class Tower implements Cloneable{
 	private int level;
 	private AngleSpriteLayout layout;
 	private double upgrade =  1.25;
+	private double destroy = 0.25;
 	
 	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout){
 		this.element = _element;
@@ -30,15 +31,19 @@ public  class Tower implements Cloneable{
 		this.layout = _layout;
 	}
 	
-	public void upgrade(){
-		this.life *= upgrade;
-		this.fireRate *= upgrade;
-		this.cost *=  upgrade;
-		this.damage *= upgrade;
-		this.targetNb *= upgrade;
+	public void upgrade(Game g){
+		this.life = (int)(this.life*upgrade);
+		this.fireRate =(int)(this.fireRate*upgrade);
+		this.cost =  (int)(this.cost*upgrade);
+		this.damage = (int)(this.damage*upgrade);
+		this.targetNb = (int)(this.targetNb*upgrade);
 		this.level++;
+		g.setMoney(g.getMoney()-this.cost);
 	}
 	
+	public void destroy(Game g){
+		g.setMoney((int)(g.getMoney()+this.cost*this.destroy));
+	}
 	
 	/**
 	 * @return the upgrade

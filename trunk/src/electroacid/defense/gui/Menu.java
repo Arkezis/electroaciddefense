@@ -49,4 +49,11 @@ public  class Menu {
 		
 	}
 
+	public void refresh(Game game){
+		this.t_infosPlayerTitre.set("Game");
+		this.t_infosPlayerSpeed.set("Speed : "+game.getSpeedMultiplicator());
+		this.t_infosPlayerLevel.set("\n Level : "+game.getLevel());
+		this.t_infosPlayerMoney.set("\n Money : "+game.getMoney());
+		this.t_infosPlayerLives.set("\n Lives : "+game.getLives());
+	}
 }
