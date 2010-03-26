@@ -77,6 +77,10 @@ public class Play4 extends AngleActivity{
 			addObject(ogField);
 			ogDashboard=new AngleObject();
 			addObject(ogDashboard);
+			
+			
+			this.createTowerForMenu();
+			
 
 			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,2,2,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
@@ -89,15 +93,12 @@ public class Play4 extends AngleActivity{
 				e.printStackTrace();
 			}
 
-			tower1 = new Tower(eFire,10,10,10,true,10,10,10,10,null);
-			tower2 = new Tower(eFire,20,20,20,false,20,20,20,20,null);
-
 			ogField.addObject(tmGround);		
 
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
 
-			
+	
 			
 			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
 			_bnewTower1 = new AngleSprite(_bnewTower1Layout);
@@ -157,7 +158,10 @@ public class Play4 extends AngleActivity{
 							boxBuildableSelected.changeTower(towerChoice);
 							menuNewTower.hideValidateTower(mGLSurfaceView);
 							menuNewTower.hide(mGLSurfaceView);
+							
+							ogField.addObject(boxBuildableSelected.getTower().getSprite());
 							towerChoice = null;
+							
 						}else if(choiceMenu > 0){					
 							/* Did the user choosen a tower in the menu ?  */
 							switch(choiceMenu){
@@ -172,6 +176,9 @@ public class Play4 extends AngleActivity{
 								towerChoice = (Tower)tower2.clone();
 								break;
 							}
+						
+
+							
 							Log.d("DEBUGTAG", "new tower selected, the user need to confirm");
 						}else{
 							Log.d("DEBUGTAG", "The user touch the menu where there is nothing to touch ... stupid guy !");
@@ -204,6 +211,17 @@ public class Play4 extends AngleActivity{
 			menu.refresh(game);
 			super.step(secondsElapsed);
 		}
+		
+		
+		private void createTowerForMenu(){
+			
+			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
+			AngleSpriteLayout bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower2);
+			tower1 = new Tower(eFire,10,10,10,true,10,10,10,10,bnewTower1Layout);
+			tower2 = new Tower(eFire,20,20,20,false,20,20,20,20,bnewTower2Layout);
+
+		}
+		
 	}
 
 	public void onCreate(Bundle savedInstanceState) {

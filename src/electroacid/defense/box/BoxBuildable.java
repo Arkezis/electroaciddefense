@@ -21,6 +21,9 @@ public class BoxBuildable extends Box {
 	
 	public void changeTower(Tower _tower){
 		this.tower = _tower;
+		if (this.tower != null) {
+			this.tower.changePosition(this.y+this.width/2,this.x+this.height/2);
+		}
 	}
 	
 	public void removeTower() {
