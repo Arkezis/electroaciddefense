@@ -1,5 +1,6 @@
 package electroacid.defense;
 
+import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.enums.Element;
@@ -15,6 +16,7 @@ public  class Tower implements Cloneable{
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private int level;
 	private AngleSpriteLayout layout;
+	private AngleSprite sprite;
 	private double upgrade =  1.25;
 	private double destroy = 0.25;
 	
@@ -29,8 +31,27 @@ public  class Tower implements Cloneable{
 		this.targetPriority = _targetPriority;
 		this.level = _level;
 		this.layout = _layout;
+		this.sprite = new AngleSprite(this.layout);
 	}
 	
+	public void changePosition(int x, int y){
+		this.sprite.mPosition.set(x, y);
+	}
+	
+	/**
+	 * @return the sprite
+	 */
+	public AngleSprite getSprite() {
+		return sprite;
+	}
+
+	/**
+	 * @param sprite the sprite to set
+	 */
+	public void setSprite(AngleSprite sprite) {
+		this.sprite = sprite;
+	}
+
 	public void upgrade(Game g){
 		this.life = (int)(this.life*upgrade);
 		this.fireRate =(int)(this.fireRate*upgrade);
