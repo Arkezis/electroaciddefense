@@ -8,6 +8,7 @@ import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleTileBank;
 import com.android.angle.AngleTileMap;
 import com.android.angle.AngleUI;
+import com.android.angle.AngleVector;
 
 
 import electroacid.defense.box.Box;
@@ -77,7 +78,7 @@ public class Play4 extends AngleActivity{
 			addObject(ogField);
 			ogDashboard=new AngleObject();
 			addObject(ogDashboard);
-			
+			// TODO : passer le menu sur ogDashboard
 			
 			this.createTowerForMenu();
 			
@@ -98,17 +99,13 @@ public class Play4 extends AngleActivity{
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
 
-	
-			
-			_bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
-			_bnewTower1 = new AngleSprite(_bnewTower1Layout);
-			_bnewTower1.mPosition.set(16, 16); 
-			ogField.addObject(_bnewTower1);
-
 			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuNewTower = new MenuNewTower(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuSelectedTower = new MenuSelectedTower(game,fontMenu,fontTitle,mGLSurfaceView);
 		}
+		
+
+		
 		
 		public boolean onTouchEvent(MotionEvent event) {
 			/* too much touch in one touch ! */
@@ -120,8 +117,6 @@ public class Play4 extends AngleActivity{
 			int x = (int)event.getX();
 			int y = (int)event.getY();
 			Box box = matrice.getBox(x, y); /* the box touched */
-			//BoxBuildable boxBuildapleMap = null;
-
 			Log.d("DEBUGTAG","onTouch "+x+" "+y);
 
 			/* -------------------- */
@@ -155,13 +150,26 @@ public class Play4 extends AngleActivity{
 						/* Did the user confirm a new tower ? */
 						if (menuNewTower.isValidationTower(x,y)){
 							Log.d("DEBUGTAG", "Confirmation of new tower ! ");
-							boxBuildableSelected.changeTower(towerChoice);
-							menuNewTower.hideValidateTower(mGLSurfaceView);
-							menuNewTower.hide(mGLSurfaceView);
-							
-							ogField.addObject(boxBuildableSelected.getTower().getSprite());
-							towerChoice = null;
-							
+							if(boxBuildableSelected.changeTower(towerChoice,game)){
+								menuNewTower.hideValidateTower(mGLSurfaceView);
+								menuNewTower.hide(mGLSurfaceView);
+								ogField.addObject(boxBuildableSelected.getTower().getSprite());
+								towerChoice = null;
+								
+								/* =============================  Fire testing ! ============================= */
+								
+								AngleSpriteLayout fireSpriteLayout = new AngleSpriteLayout(mGLSurfaceView, 4, 64, R.drawable.fireblack);
+								AngleSprite fireSprite = new AngleSprite(fireSpriteLayout);
+								fireSprite.mPosition.set(150, 150); 
+								fireSprite.mPosition.rotate((float) 0.34); 
+								
+								
+								ogField.addObject(fireSprite);
+								
+								
+								/* ============================= End fire testing ============================= */
+								
+							}
 						}else if(choiceMenu > 0){					
 							/* Did the user choosen a tower in the menu ?  */
 							switch(choiceMenu){
@@ -176,9 +184,6 @@ public class Play4 extends AngleActivity{
 								towerChoice = (Tower)tower2.clone();
 								break;
 							}
-						
-
-							
 							Log.d("DEBUGTAG", "new tower selected, the user need to confirm");
 						}else{
 							Log.d("DEBUGTAG", "The user touch the menu where there is nothing to touch ... stupid guy !");
@@ -186,7 +191,7 @@ public class Play4 extends AngleActivity{
 						}
 					}else{
 						/* A tower is already on this box ! */
-						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game)){
+						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField)){
 							menuSelectedTower.hide(mGLSurfaceView);
 						}
 						
@@ -218,7 +223,7 @@ public class Play4 extends AngleActivity{
 			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
 			AngleSpriteLayout bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower2);
 			tower1 = new Tower(eFire,10,10,10,true,10,10,10,10,bnewTower1Layout);
-			tower2 = new Tower(eFire,20,20,20,false,20,20,20,20,bnewTower2Layout);
+			tower2 = new Tower(eIron,50,50,50,false,50,50,50,50,bnewTower2Layout);
 
 		}
 		
