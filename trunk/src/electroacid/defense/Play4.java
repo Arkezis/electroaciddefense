@@ -72,6 +72,7 @@ public class Play4 extends AngleActivity{
 	public class MyGame extends  AngleUI{
 		long time= System.currentTimeMillis();
 		float lastWave = 0;
+		float lastRefreshMenu;
 		public MyGame(AngleActivity activity) {
 			super(activity);
 			ogField=new AngleObject();
@@ -98,7 +99,7 @@ public class Play4 extends AngleActivity{
 
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
-
+			
 			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuNewTower = new MenuNewTower(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuSelectedTower = new MenuSelectedTower(game,fontMenu,fontTitle,mGLSurfaceView);
@@ -213,7 +214,12 @@ public class Play4 extends AngleActivity{
 				// RUN WAVE
 				lastWave = 0;
 			}
-			menu.refresh(game);
+			lastRefreshMenu += secondsElapsed;
+			if(lastRefreshMenu > game.getMenuRefreshTime()) {
+				menu.refresh(game);
+				lastRefreshMenu = 0;
+				//Log.d("DEBUGTAGMenu", "Menu refresh");
+			}
 			super.step(secondsElapsed);
 		}
 		
