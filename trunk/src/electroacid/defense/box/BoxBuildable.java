@@ -1,5 +1,6 @@
 package electroacid.defense.box;
 
+import electroacid.defense.Game;
 import electroacid.defense.Tower;
 
 public class BoxBuildable extends Box {
@@ -19,11 +20,16 @@ public class BoxBuildable extends Box {
 		return this.tower;
 	}
 	
-	public void changeTower(Tower _tower){
+	public boolean changeTower(Tower _tower,Game game){
 		this.tower = _tower;
 		if (this.tower != null) {
-			this.tower.changePosition(this.y+this.width/2,this.x+this.height/2);
+			if(game.getMoney() > this.getTower().getCost()){
+				this.tower.changePosition(this.y+this.width/2,this.x+this.height/2);
+				game.setMoney(game.getMoney()-this.getTower().getCost());
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	public void removeTower() {

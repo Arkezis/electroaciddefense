@@ -20,19 +20,19 @@ public class MenuNewTower {
 	public AngleSprite bnewTower1,bnewTower2,bGo;
 	
 	public MenuNewTower(Game game, AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
-		this.t_infosTowerTitle = new AngleString(fontTitle);
-		this.t_infosTowerTitle.set("Tower");
+		//this.t_infosTowerTitle = new AngleString(fontTitle);
+		this.t_infosTowerTitle = new AngleString(font,"Tower \n test",160, 427, AngleString.aCenter);
+		/*this.t_infosTowerTitle.set("Tower \n test");
 		this.t_infosTowerTitle.mAlignment = AngleString.aCenter;
 		this.t_infosTowerTitle.mPosition.set(160, 427); 
-		
+		*/
 		this.t_infosTowerElement = new AngleString(font);		
 		this.t_infosTowerLife = new AngleString(font);		
 		this.t_infosTowerFireRate = new AngleString(font);
 		this.t_infosTowerCanTargetFly = new AngleString(font);		
 		this.t_infosTowerDamage = new AngleString(font);
 		
-		//TODO : Récuperer les towers from Play4 pour ne pas avoir à les recréer ici ! 
-		
+	
 		this.bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
 		this.bnewTower1 = new AngleSprite(this.bnewTower1Layout);
 		this.bnewTower1.mPosition.set(16, 432); 
@@ -40,7 +40,7 @@ public class MenuNewTower {
 		this.bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower2);
 		this.bnewTower2 = new AngleSprite(this.bnewTower2Layout);
 		this.bnewTower2.mPosition.set(16, 464); 
-		
+				
 		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView, 64, 32, R.drawable.go);
 		this.bGo = new AngleSprite(this.bGoLayout);
 		this.bGo.mPosition.set(85, 430); 

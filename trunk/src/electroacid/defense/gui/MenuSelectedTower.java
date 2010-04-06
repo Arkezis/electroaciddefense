@@ -3,6 +3,7 @@ package electroacid.defense.gui;
 import android.util.Log;
 
 import com.android.angle.AngleFont;
+import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleString;
@@ -112,7 +113,7 @@ public class MenuSelectedTower {
 	}
 
 
-	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,Game g){
+	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,Game g,AngleObject ogField){
 		if (x > 134 && x < 166 ){
 			if (y > 416 && y < 448){
 				if (g.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){
@@ -122,8 +123,8 @@ public class MenuSelectedTower {
 				}
 			}else if(y > 448 & y < 480 ){
 				// delete the tower
-				box.getTower().destroy(g);
-				box.changeTower(null);
+				box.getTower().destroy(g,ogField);
+				box.removeTower();
 				Log.d("DEBUGTAG", "PAF, la tower");
 				return true;
 			}
