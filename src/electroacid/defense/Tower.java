@@ -1,5 +1,6 @@
 package electroacid.defense;
 
+import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
@@ -73,7 +74,8 @@ public  class Tower implements Cloneable{
 		g.setMoney(g.getMoney()-this.cost);
 	}
 	
-	public void destroy(Game g){
+	public void destroy(Game g,AngleObject og){
+		og.removeObject(this.sprite);
 		g.setMoney((int)(g.getMoney()+this.cost*this.destroy));
 	}
 	
