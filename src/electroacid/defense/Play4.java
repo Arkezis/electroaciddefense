@@ -213,6 +213,10 @@ public class Play4 extends AngleActivity{
 			if (lastWave > game.getTimeBetweenEachWave()){
 				// RUN WAVE
 				lastWave = 0;
+				
+				
+				
+				
 			}
 			lastRefreshMenu += secondsElapsed;
 			if(lastRefreshMenu > game.getMenuRefreshTime()) {

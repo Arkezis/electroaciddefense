@@ -8,6 +8,7 @@ import com.android.angle.AngleTileMap;
 
 import utils.XmlUtil;
 import android.content.Context;
+import android.util.Log;
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.box.BoxPath;
@@ -40,7 +41,6 @@ public class GenericMap {
 		
 		int numberOfCasePerLigne = this.xMax/this.offsetX;
 		for (int i=0;i<listBox.getLength();i++){
-			
 			Node node = listBox.item(i);
 			
 			int line = i/numberOfCasePerLigne;
@@ -62,11 +62,84 @@ public class GenericMap {
 				//Your xml was so bad
 			}
 			map.mMap[i] = idTexture;
+			
 		}
+		this.affiche();
+		this.buildPath();
+	}
+	
+	private void buildPath(){
+		BoxPath actual = (BoxPath) this.matrice[1][0];
+
+		do {
+			Log.d("BOXPATH",actual.getX()+"       "+actual.getY());
+			actual = getNextBoxPath(actual.getX(),actual.getY());
+		} while (actual != null);
+
+		
+		
+		
+	}
+	
+	private BoxPath getNextBoxPath(int x, int y){
+		
+		Box box = this.getBox(y, x+offsetX);
+		if (box instanceof BoxPath) {
+			BoxPath boxPath = (BoxPath) box;
+			if (boxPath.getNextPath() == null) {
+				BoxPath actual = (BoxPath) this.getBox(y, x);
+				actual.setNextPath(boxPath);
+				return boxPath;
+			}
+		}
+		
+		box = this.getBox(y, x-offsetX);
+		if (box instanceof BoxPath) {
+			BoxPath boxPath = (BoxPath) box;
+			if (boxPath.getNextPath() == null) {
+				BoxPath actual = (BoxPath) this.getBox(y, x);
+				actual.setNextPath(boxPath);
+				return boxPath;
+			}
+		}
+		
+		box = this.getBox(y-offsetY, x);
+		if (box instanceof BoxPath) {
+			BoxPath boxPath = (BoxPath) box;
+			if (boxPath.getNextPath() == null) {
+				BoxPath actual = (BoxPath) this.getBox(y, x);
+				actual.setNextPath(boxPath);
+				return boxPath;
+			}
+		}
+		
+		box = this.getBox( y+offsetY,x);
+		if (box instanceof BoxPath) {
+			BoxPath boxPath = (BoxPath) box;
+			if (boxPath.getNextPath() == null) {
+				BoxPath actual = (BoxPath) this.getBox(y, x);
+				actual.setNextPath(boxPath);
+				return boxPath;
+			}
+		}
+		return null;
+	}
+	
+	private void affiche(){
+		
+		for (int i=0;i<this.matrice.length;i++){
+			String a = "";
+			for (int j=0;j<this.matrice[0].length;j++){
+				a+=this.matrice[i][j] instanceof BoxPath ? "0 " : "1 ";
+			}
+			Log.d("DEBUGTAG",a);
+			a="";
+		}
+		
 	}
 	
 	public Box getBox(int x, int y){
-		if (x>this.xMax || y>this.yMax) return null;
+		if (x>this.xMax || y>this.yMax || x<0 || y<0) return null;
 		return this.matrice[y/this.offsetY][x/this.offsetX];
 	}
 	
