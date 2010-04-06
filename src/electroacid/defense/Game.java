@@ -7,8 +7,23 @@ public class Game {
 	private int level;
 	private int money=500;
 	private int lives;
-	private float timeBetweenEachWave=500;
+	private float timeBetweenEachWave=10;
+	private float menuRefreshTime=(float) 1.5;
 	
+	/**
+	 * @return the menuRefreshTime
+	 */
+	public float getMenuRefreshTime() {
+		return menuRefreshTime;
+	}
+
+	/**
+	 * @param menuRefreshTime the menuRefreshTime to set
+	 */
+	public void setMenuRefreshTime(float menuRefreshTime) {
+		this.menuRefreshTime = menuRefreshTime;
+	}
+
 	/**
 	 * @return the timeBetweenEachWave
 	 */
@@ -87,6 +102,8 @@ public class Game {
 	public void setLives(int lives) {
 		this.lives = lives;
 	}
+
+
 	
 
 }

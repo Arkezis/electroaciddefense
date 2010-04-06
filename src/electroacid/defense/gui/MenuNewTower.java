@@ -3,6 +3,7 @@ package electroacid.defense.gui;
 import android.util.Log;
 
 import com.android.angle.AngleFont;
+import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleString;
