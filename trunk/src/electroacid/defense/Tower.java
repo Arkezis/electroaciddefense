@@ -19,8 +19,9 @@ public  class Tower implements Cloneable{
 	private AngleSprite sprite;
 	private double upgrade =  1.25;
 	private double destroy = 0.25;
+	private int boxArea;
 	
-	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout){
+	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout,int _boxArea){
 		this.element = _element;
 		this.life = _life;
 		this.fireRate = _fireRate;
@@ -31,9 +32,24 @@ public  class Tower implements Cloneable{
 		this.targetPriority = _targetPriority;
 		this.level = _level;
 		this.sprite = new AngleSprite(_layout);
+		this.boxArea = _boxArea;
 	}
 	
-	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSprite _sprite){
+	/**
+	 * @return the boxArea
+	 */
+	public int getBoxArea() {
+		return boxArea;
+	}
+
+	/**
+	 * @param boxArea the boxArea to set
+	 */
+	public void setBoxArea(int boxArea) {
+		this.boxArea = boxArea;
+	}
+
+	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSprite _sprite,int _boxArea){
 		this.element = _element;
 		this.life = _life;
 		this.fireRate = _fireRate;
@@ -44,6 +60,7 @@ public  class Tower implements Cloneable{
 		this.targetPriority = _targetPriority;
 		this.level = _level;
 		this.sprite = _sprite;
+		this.boxArea = _boxArea;
 	}	
 	
 	public void changePosition(int x, int y){

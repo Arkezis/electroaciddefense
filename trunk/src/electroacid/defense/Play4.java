@@ -35,10 +35,11 @@ public class Play4 extends AngleActivity{
 	public Element eIron= Element.Iron;      
 
 	/* TOWERS */
-	public Tower tower1 , tower2,towerChoice=null;	
+	public Tower tower1 , tower2,towerChoice=null;
+	public AngleSprite fireArea;	
 
 	/* TEXTURES */
-	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture;
+	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2;
 	//public Font font;
 
 	private AngleObject ogField;
@@ -130,16 +131,24 @@ public class Play4 extends AngleActivity{
 					if(boxBuildableSelected.getTower() == null){
 						menuNewTower.show(mGLSurfaceView);
 						menuSelectedTower.hide(mGLSurfaceView);
+						fireArea.mAlpha =0;
 					}else{
 						menuNewTower.hide(mGLSurfaceView);
 						menuNewTower.hideValidateTower(mGLSurfaceView);
 						menuSelectedTower.show(mGLSurfaceView,boxBuildableSelected.getTower(),game);
+						/* Show the area of the tower */
+						if(boxBuildableSelected.getTower().getBoxArea() == 2) fireArea.setLayout(fireAreaLayout2);
+						else if(boxBuildableSelected.getTower().getBoxArea() == 1) fireArea.setLayout(fireAreaLayout);
+						fireArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
+						mGLSurfaceView.addObject(fireArea);
+						fireArea.mAlpha = (float) 0.60;
 					}
 				}else{
 					// it's not a BB, what to do ? 
 					Log.d("DEBUGTAG", "Not a BB !");
 					menuSelectedTower.hide(mGLSurfaceView);
 					menuNewTower.hide(mGLSurfaceView);
+					fireArea.mAlpha =0;
 				}
 			}else{
 			/* ------------------------ */
@@ -156,7 +165,7 @@ public class Play4 extends AngleActivity{
 								menuNewTower.hide(mGLSurfaceView);
 								ogField.addObject(boxBuildableSelected.getTower().getSprite());
 								towerChoice = null;
-								
+								fireArea.mAlpha =0;
 								/* =============================  Fire testing ! ============================= */
 								
 								AngleSpriteLayout fireSpriteLayout = new AngleSpriteLayout(mGLSurfaceView, 4, 64, R.drawable.fireblack);
@@ -185,6 +194,11 @@ public class Play4 extends AngleActivity{
 								towerChoice = (Tower)tower2.clone();
 								break;
 							}
+							if(towerChoice.getBoxArea() == 2) fireArea.setLayout(fireAreaLayout2);
+							else if(towerChoice.getBoxArea() == 1) fireArea.setLayout(fireAreaLayout);
+							fireArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
+							mGLSurfaceView.addObject(fireArea);
+							fireArea.mAlpha = (float) 0.60;
 							Log.d("DEBUGTAG", "new tower selected, the user need to confirm");
 						}else{
 							Log.d("DEBUGTAG", "The user touch the menu where there is nothing to touch ... stupid guy !");
@@ -194,6 +208,7 @@ public class Play4 extends AngleActivity{
 						/* A tower is already on this box ! */
 						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField)){
 							menuSelectedTower.hide(mGLSurfaceView);
+							fireArea.mAlpha =0;
 						}
 						
 					}
@@ -232,9 +247,12 @@ public class Play4 extends AngleActivity{
 			
 			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
 			AngleSpriteLayout bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower2);
-			tower1 = new Tower(eFire,10,10,10,true,10,10,10,10,bnewTower1Layout);
-			tower2 = new Tower(eIron,50,50,50,false,50,50,50,50,bnewTower2Layout);
-
+			fireAreaLayout = new AngleSpriteLayout(mGLSurfaceView, 96, 96, R.drawable.firearea);
+			fireAreaLayout2 = new AngleSpriteLayout(mGLSurfaceView, 160, 160, R.drawable.firearea);
+			tower1 = new Tower(eFire,10,10,10,true,10,10,10,10,bnewTower1Layout,2);
+			tower2 = new Tower(eIron,50,50,50,false,50,50,50,50,bnewTower2Layout,1);
+			fireArea = new AngleSprite(fireAreaLayout);
+			
 		}
 		
 	}
