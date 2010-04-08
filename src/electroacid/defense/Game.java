@@ -7,7 +7,7 @@ public class Game {
 	private int level;
 	private int money=500;
 	private int lives;
-	private float timeBetweenEachWave=10;
+	private float timeBetweenEachWave=1;
 	private float menuRefreshTime=(float) 1.5;
 	
 	/**
