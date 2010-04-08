@@ -13,6 +13,7 @@ import com.android.angle.AngleVector;
 
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
+import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
 import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
@@ -37,7 +38,8 @@ public class Play4 extends AngleActivity{
 	/* TOWERS */
 	public Tower tower1 , tower2,towerChoice=null;
 	public AngleSprite fireArea;	
-
+	public Tower creature1=null;
+	
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2;
 	//public Font font;
@@ -45,7 +47,10 @@ public class Play4 extends AngleActivity{
 	private AngleObject ogField;
 	private AngleObject ogDashboard;
 	private AngleTileMap tmGround;
+	private AngleObject ogCreature;
 
+	
+	private boolean test = false;
 
 	//public Text testText;
 
@@ -80,6 +85,8 @@ public class Play4 extends AngleActivity{
 			addObject(ogField);
 			ogDashboard=new AngleObject();
 			addObject(ogDashboard);
+			ogCreature=new AngleObject();
+			addObject(ogCreature);
 			// TODO : passer le menu sur ogDashboard
 			
 			this.createTowerForMenu();
@@ -87,6 +94,10 @@ public class Play4 extends AngleActivity{
 
 			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,2,2,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
+			
+			
+			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
+			creature1 = new Tower(eFire,10,10,10,true,10,10,10,10,bnewTower1Layout,1);
 			
 	
 			try {
@@ -225,14 +236,26 @@ public class Play4 extends AngleActivity{
 		public void step(float secondsElapsed)
 		{
 			lastWave += secondsElapsed;
+			BoxPath boxpath = (BoxPath) matrice.getBox(0, 32);
 			if (lastWave > game.getTimeBetweenEachWave()){
 				// RUN WAVE
+				test = false;
 				lastWave = 0;
 				
+				if (!test) {
+					Tower creatureToAdd = (Tower) creature1.clone();
 				
-				
-				
+					boxpath.addCreature(creatureToAdd);
+					creatureToAdd.getSprite().mPosition.set(0, 32);
+					ogCreature.addObject(creatureToAdd.getSprite());
+					test = true;
+				}
 			}
+			
+			boxpath.nextStep();
+			
+			
+			
 			lastRefreshMenu += secondsElapsed;
 			if(lastRefreshMenu > game.getMenuRefreshTime()) {
 				menu.refresh(game);

@@ -12,6 +12,7 @@ import android.util.Log;
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.box.BoxPath;
+import electroacid.defense.enums.Direction;
 
 public class GenericMap {
 
@@ -83,21 +84,24 @@ public class GenericMap {
 	
 	private BoxPath getNextBoxPath(int x, int y){
 		
+		BoxPath actual = (BoxPath) this.getBox(y, x);
+		BoxPath boxPath;
+		
 		Box box = this.getBox(y, x+offsetX);
 		if (box instanceof BoxPath) {
-			BoxPath boxPath = (BoxPath) box;
-			if (boxPath.getNextPath() == null) {
-				BoxPath actual = (BoxPath) this.getBox(y, x);
-				actual.setNextPath(boxPath);
+			boxPath = (BoxPath) box;
+			if (boxPath.getNextPath() == null) {;
+				actual.setDirection(Direction.Down);
+				actual.setNextPath(boxPath);;
 				return boxPath;
 			}
 		}
 		
 		box = this.getBox(y, x-offsetX);
 		if (box instanceof BoxPath) {
-			BoxPath boxPath = (BoxPath) box;
+			boxPath = (BoxPath) box;
 			if (boxPath.getNextPath() == null) {
-				BoxPath actual = (BoxPath) this.getBox(y, x);
+				actual.setDirection(Direction.Up);
 				actual.setNextPath(boxPath);
 				return boxPath;
 			}
@@ -105,20 +109,22 @@ public class GenericMap {
 		
 		box = this.getBox(y-offsetY, x);
 		if (box instanceof BoxPath) {
-			BoxPath boxPath = (BoxPath) box;
+			boxPath = (BoxPath) box;
 			if (boxPath.getNextPath() == null) {
-				BoxPath actual = (BoxPath) this.getBox(y, x);
+				actual.setDirection(Direction.Left);
 				actual.setNextPath(boxPath);
+				Log.d("DEBUGTESTBOXPATH", actual.getDirection().toString());
 				return boxPath;
 			}
 		}
 		
 		box = this.getBox( y+offsetY,x);
 		if (box instanceof BoxPath) {
-			BoxPath boxPath = (BoxPath) box;
+			boxPath = (BoxPath) box;
 			if (boxPath.getNextPath() == null) {
-				BoxPath actual = (BoxPath) this.getBox(y, x);
+				actual.setDirection(Direction.Right);
 				actual.setNextPath(boxPath);
+				Log.d("DEBUGTESTBOXPATH", actual.getDirection().toString());
 				return boxPath;
 			}
 		}
