@@ -72,6 +72,10 @@ public class Game {
 	public int getLives() {
 		return lives;
 	}
+	
+	public void removeLives(int nbLive){
+		this.lives-=nbLive;
+	}
 	/**
 	 * @param speedMultiplicator the speedMultiplicator to set
 	 */

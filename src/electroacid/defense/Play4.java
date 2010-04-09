@@ -96,7 +96,7 @@ public class Play4 extends AngleActivity{
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
 			
 			
-			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
+			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.creature1);
 			creature1 = new Tower(eFire,10,10,10,true,10,10,10,10,bnewTower1Layout,1);
 			
 	
@@ -246,13 +246,15 @@ public class Play4 extends AngleActivity{
 					Tower creatureToAdd = (Tower) creature1.clone();
 				
 					boxpath.addCreature(creatureToAdd);
-					creatureToAdd.getSprite().mPosition.set(0, 32);
+					creatureToAdd.getSprite().mPosition.set(
+							boxpath.getY(), 
+							boxpath.getX());
 					ogCreature.addObject(creatureToAdd.getSprite());
 					test = true;
 				}
 			}
 			
-			boxpath.nextStep();
+			boxpath.nextStep(game,ogCreature);
 			
 			
 			
