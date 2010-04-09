@@ -2,9 +2,12 @@ package electroacid.defense.box;
 
 import java.util.LinkedList;
 
+import com.android.angle.AngleObject;
+
 import android.util.Log;
 
 import electroacid.defense.Creature;
+import electroacid.defense.Game;
 import electroacid.defense.Tower;
 import electroacid.defense.enums.Direction;
 
@@ -73,17 +76,22 @@ public class BoxPath extends Box {
 		this.listCreature.add(creature);
 	}
 	
-	public void nextStep(){
+	public void nextStep(Game g,AngleObject o){
 
-		if (this.nextPath== null) return;
+		if (this.nextPath== null) {
+			for (int i=0;i<this.listCreature.size();i++) {
+				this.listCreature.get(i).destroy(g, o);
+				this.listCreature.remove(i);
+				i--;
+				g.removeLives(1);
+			}
+		}
 		for (int i=0;i<this.listCreature.size();i++){
 			
 			Tower creature = this.listCreature.get(i);
+
 			float nextY = creature.getSprite().mPosition.mY;
 			float nextX = creature.getSprite().mPosition.mX;
-			
-			
-			Log.d("CREATURE", nextX+"   "+nextY+"   "+x+"    "+y);
 			
 			if (nextY>this.x+this.height || nextY<this.x || 
 					nextX>this.y+this.width || nextX<this.y) {
@@ -112,7 +120,7 @@ public class BoxPath extends Box {
 			}
 		}
 
-		if (this.nextPath!=null) this.nextPath.nextStep();
+		if (this.nextPath!=null) this.nextPath.nextStep(g,o);
 	
 		
 	}
