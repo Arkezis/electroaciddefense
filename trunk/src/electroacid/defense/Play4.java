@@ -1,21 +1,15 @@
 package electroacid.defense;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-
 import utils.AngleSegment;
-
 import com.android.angle.AngleActivity;
 import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
-import com.android.angle.AngleSurfaceView;
 import com.android.angle.AngleTileBank;
 import com.android.angle.AngleTileMap;
 import com.android.angle.AngleUI;
-import com.android.angle.AngleVector;
 
 
 import electroacid.defense.box.Box;
@@ -25,11 +19,10 @@ import electroacid.defense.enums.Element;
 import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
 import electroacid.defense.gui.MenuSelectedTower;
-import electroacid.defense.gui.Shoot;
 import electroacid.defense.map.GenericMap;
 import electroacid.defense.wave.GenericWave;
+import electroacid.defense.wave.Wave;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -266,10 +259,11 @@ public class Play4 extends AngleActivity{
 				// RUN WAVE
 				lastWave = 0;
 
-					if (game.getActualWave()<genericWave.getListWave().size()){
-						ogWave.addObject(genericWave.getListWave().get(game.getActualWave()));
-						
-						genericWave.getListWave().get(game.getActualWave()).start(ogCreature,boxpath);
+				LinkedList<Wave> listWave = genericWave.getListWave();
+					if (game.getActualWave()<listWave.size()){
+						ogWave.addObject(listWave.get(game.getActualWave()));
+
+						listWave.get(game.getActualWave()).start(ogCreature,boxpath);
 						game.setActualWave(game.getActualWave()+1);
 					}
 

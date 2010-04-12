@@ -102,16 +102,16 @@ public class BoxPath extends Box {
 			
 			switch(this.direction) {
 			case Up:
-				nextY--;
+				nextY-=creature.getSpeed();
 				break;
 			case Down:
-				nextY++;
+				nextY+=creature.getSpeed();
 				break;
 			case Left:
-				nextX--;
+				nextX-=creature.getSpeed();
 				break;
 			case Right:
-				nextX++;
+				nextX+=creature.getSpeed();
 				break;
 			}
 			

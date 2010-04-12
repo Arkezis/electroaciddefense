@@ -12,7 +12,7 @@ public class Wave extends AngleObject {
 
 	private LinkedList<Creature> listCreature ;
 	private boolean start = false;
-	private int timeBeetweenCreature = 2;
+	private float timeBeetweenCreature = 2;
 	private AngleObject og;
 	private BoxPath debut;
 	private int actualCreature = 0;
