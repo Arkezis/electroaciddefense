@@ -1,5 +1,11 @@
 package electroacid.defense;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import utils.AngleSegment;
+
 import com.android.angle.AngleActivity;
 import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
@@ -19,6 +25,7 @@ import electroacid.defense.enums.Element;
 import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
 import electroacid.defense.gui.MenuSelectedTower;
+import electroacid.defense.gui.Shoot;
 import electroacid.defense.map.GenericMap;
 import electroacid.defense.wave.GenericWave;
 
@@ -49,7 +56,7 @@ public class Play4 extends AngleActivity{
 	private AngleObject ogField;
 	private AngleObject ogDashboard;
 	private AngleTileMap tmGround;
-	private AngleObject ogCreature;
+	private AngleObject ogCreature,ogUtil,ogShoot;
 	private AngleObject ogWave;
 
 	//public Text testText;
@@ -69,6 +76,7 @@ public class Play4 extends AngleActivity{
 	MenuNewTower menuNewTower;
 	MenuSelectedTower menuSelectedTower;
 
+	LinkedList<BoxBuildable> towerList;
 
 	public BoxBuildable boxBuildableSelected=null; // the BB selected to add a new tower or something else
 	public Game game;
@@ -87,9 +95,19 @@ public class Play4 extends AngleActivity{
 			addObject(ogDashboard);
 			ogCreature=new AngleObject();
 			addObject(ogCreature);
+
+			ogUtil = new AngleObject();
+			addObject(ogUtil);
+			ogShoot = new AngleObject();
+			addObject(ogShoot);
+
 			ogWave = new AngleObject();
 			addObject(ogWave);
+
 			// TODO : passer le menu sur ogDashboard
+			// TODO : Passer le fireArea sur ogUtil + un sprite pour préciser la case pointée
+			
+			towerList = new LinkedList<BoxBuildable>();
 			
 			this.createTowerForMenu();
 			
@@ -183,18 +201,17 @@ public class Play4 extends AngleActivity{
 								ogField.addObject(boxBuildableSelected.getTower().getSprite());
 								towerChoice = null;
 								fireArea.mAlpha =0;
-								/* =============================  Fire testing ! ============================= */
+								boxBuildableSelected.getTower().setPosition(boxBuildableSelected.getX(), boxBuildableSelected.getY());
 								
-								AngleSpriteLayout fireSpriteLayout = new AngleSpriteLayout(mGLSurfaceView, 4, 64, R.drawable.fireblack);
-								AngleSprite fireSprite = new AngleSprite(fireSpriteLayout);
-								fireSprite.mPosition.set(150, 150); 
-								fireSprite.mPosition.rotate((float) 0.34); 
+								/* Add the tower in the list of towers */
+								towerList.add(boxBuildableSelected);
 								
-								
-								ogField.addObject(fireSprite);
-								
-								
-								/* ============================= End fire testing ============================= */
+								boxBuildableSelected.getTower().setListDetection(boxBuildableSelected.getX(),boxBuildableSelected.getY(),matrice);
+							
+								/* TEST */
+
+								AngleSegment test = new AngleSegment(40,40,60,60);
+								ogField.addObject(test);
 								
 							}
 						}else if(choiceMenu > 0){					
@@ -210,12 +227,14 @@ public class Play4 extends AngleActivity{
 								menuNewTower.showValidateTower(mGLSurfaceView, tower2);
 								towerChoice = (Tower)tower2.clone();
 								break;
-							}
+							}							
+							/* fireArea */
 							if(towerChoice.getBoxArea() == 2) fireArea.setLayout(fireAreaLayout2);
 							else if(towerChoice.getBoxArea() == 1) fireArea.setLayout(fireAreaLayout);
 							fireArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
 							mGLSurfaceView.addObject(fireArea);
 							fireArea.mAlpha = (float) 0.60;
+							
 							Log.d("DEBUGTAG", "new tower selected, the user need to confirm");
 						}else{
 							Log.d("DEBUGTAG", "The user touch the menu where there is nothing to touch ... stupid guy !");
@@ -223,7 +242,7 @@ public class Play4 extends AngleActivity{
 						}
 					}else{
 						/* A tower is already on this box ! */
-						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField)){
+						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField,towerList)){
 							menuSelectedTower.hide(mGLSurfaceView);
 							fireArea.mAlpha =0;
 						}
@@ -246,17 +265,22 @@ public class Play4 extends AngleActivity{
 			if (lastWave > game.getTimeBetweenEachWave()){
 				// RUN WAVE
 				lastWave = 0;
+
 					if (game.getActualWave()<genericWave.getListWave().size()){
 						ogWave.addObject(genericWave.getListWave().get(game.getActualWave()));
 						
 						genericWave.getListWave().get(game.getActualWave()).start(ogCreature,boxpath);
 						game.setActualWave(game.getActualWave()+1);
 					}
+
 			}
 			
 			boxpath.nextStep(game,ogCreature);
 			
-			
+			/* Detection des créas par les tours */
+			for(int i=0;i<towerList.size();i++){
+				towerList.get(i).getTower().detection(ogShoot);
+			}
 			
 			lastRefreshMenu += secondsElapsed;
 			if(lastRefreshMenu > game.getMenuRefreshTime()) {
