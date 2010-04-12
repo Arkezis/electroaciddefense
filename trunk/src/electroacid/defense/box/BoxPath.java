@@ -92,4 +92,23 @@ public class BoxPath extends Box {
 		}
 		if (this.nextPath!=null) this.nextPath.nextStep(game,container);
 	}
+
+	/** @return the listCreature */
+	public LinkedList<Creature> getListCreature() {return listCreature;}
+
+	/** @param listCreature the listCreature to set */
+	public void setListCreature(LinkedList<Creature> listCreature) {this.listCreature = listCreature;}
+
+	/** @return the direction */
+	public Direction getDirection() {return direction;}
+
+	/** @param direction the direction to set */
+	public void setDirection(Direction direction) {this.direction = direction;}
+
+	/** @return the nextPath */
+	public BoxPath getNextPath() {return nextPath;}
+
+	/** @param nextPath the nextPath to set */
+	public void setNextPath(BoxPath nextPath) {this.nextPath = nextPath;}
+	
 }
