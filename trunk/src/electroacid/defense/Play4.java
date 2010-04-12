@@ -5,6 +5,7 @@ import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
+import com.android.angle.AngleSurfaceView;
 import com.android.angle.AngleTileBank;
 import com.android.angle.AngleTileMap;
 import com.android.angle.AngleUI;
@@ -19,7 +20,9 @@ import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
 import electroacid.defense.gui.MenuSelectedTower;
 import electroacid.defense.map.GenericMap;
+import electroacid.defense.wave.GenericWave;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +41,6 @@ public class Play4 extends AngleActivity{
 	/* TOWERS */
 	public Tower tower1 , tower2,towerChoice=null;
 	public AngleSprite fireArea;	
-	public Creature creature1=null;
 	
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2;
@@ -48,15 +50,13 @@ public class Play4 extends AngleActivity{
 	private AngleObject ogDashboard;
 	private AngleTileMap tmGround;
 	private AngleObject ogCreature;
-
-	
-	private boolean test = false;
+	private AngleObject ogWave;
 
 	//public Text testText;
 
 	/* Matrice */
 	GenericMap matrice = new GenericMap(320, 416, 32, 32);
-	
+	GenericWave genericWave;
 	
 
 	/* SELECTED BOX MENU */
@@ -87,23 +87,29 @@ public class Play4 extends AngleActivity{
 			addObject(ogDashboard);
 			ogCreature=new AngleObject();
 			addObject(ogCreature);
+			ogWave = new AngleObject();
+			addObject(ogWave);
 			// TODO : passer le menu sur ogDashboard
 			
 			this.createTowerForMenu();
 			
-
 			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,2,2,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
 			
+			try {
+				genericWave = new GenericWave(mGLSurfaceView);
+				genericWave.build(getWindow().getContext(), R.raw.testwave);
+			} catch (Exception e1) {
+				Log.d("testMAPXML","probleme with the creature xml");
+				e1.printStackTrace();
+			}
 			
-			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.creature1);
-			creature1 = new Creature(eFire,10,10,10,10,true,bnewTower1Layout);
 			
 	
 			try {
 				matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
 			} catch (Exception e) {
-				Log.d("testMAPXML","probleme with the xml");
+				Log.d("testMAPXML","probleme with the map xml");
 				e.printStackTrace();
 			}
 
@@ -236,22 +242,16 @@ public class Play4 extends AngleActivity{
 		public void step(float secondsElapsed)
 		{
 			lastWave += secondsElapsed;
-			BoxPath boxpath = (BoxPath) matrice.getBox(0, 32);
+			BoxPath boxpath = matrice.firstBoxPath;
 			if (lastWave > game.getTimeBetweenEachWave()){
 				// RUN WAVE
-				test = false;
 				lastWave = 0;
-				
-				if (!test) {
-					Creature creatureToAdd = (Creature) creature1.clone();
-				
-					boxpath.addCreature(creatureToAdd);
-					creatureToAdd.getSprite().mPosition.set(
-							boxpath.getY(), 
-							boxpath.getX());
-					ogCreature.addObject(creatureToAdd.getSprite());
-					test = true;
-				}
+					if (game.getActualWave()<genericWave.getListWave().size()){
+						ogWave.addObject(genericWave.getListWave().get(game.getActualWave()));
+						
+						genericWave.getListWave().get(game.getActualWave()).start(ogCreature,boxpath);
+						game.setActualWave(game.getActualWave()+1);
+					}
 			}
 			
 			boxpath.nextStep(game,ogCreature);

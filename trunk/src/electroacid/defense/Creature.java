@@ -4,6 +4,7 @@ import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
+import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
 
 public  class Creature implements Cloneable{
@@ -159,5 +160,20 @@ public  class Creature implements Cloneable{
 		 */
 		public void setSprite(AngleSprite sprite) {
 			this.sprite = sprite;
+		}
+
+
+		public void show() {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		public void start(AngleObject og, BoxPath debut) {
+			debut.addCreature(this);
+			this.sprite.mPosition.set(
+					debut.getY(), 
+					debut.getX());
+			og.addObject(this.sprite);
 		}
 }

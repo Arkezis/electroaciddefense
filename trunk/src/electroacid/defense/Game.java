@@ -7,7 +7,21 @@ public class Game {
 	private int level;
 	private int money=500;
 	private int lives;
-	private float timeBetweenEachWave=1;
+	private float timeBetweenEachWave=5;
+	private int actualWave = 0;
+	/**
+	 * @return the actualWave
+	 */
+	public int getActualWave() {
+		return actualWave;
+	}
+
+	/**
+	 * @param actualWave the actualWave to set
+	 */
+	public void setActualWave(int actualWave) {
+		this.actualWave = actualWave;
+	}
 	private float menuRefreshTime=(float) 1.5;
 	
 	/**
