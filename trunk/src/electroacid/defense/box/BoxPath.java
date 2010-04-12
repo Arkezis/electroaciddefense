@@ -89,35 +89,40 @@ public class BoxPath extends Box {
 		for (int i=0;i<this.listCreature.size();i++){
 			
 			Creature creature = this.listCreature.get(i);
+			if(creature.getLife()<=0){
+				creature.destroy(g, o, true);
+				this.listCreature.remove(i--);
+			}else{
+				float nextY = creature.getSprite().mPosition.mY;
+				float nextX = creature.getSprite().mPosition.mX;
+				if (nextY>this.x+this.height || nextY<this.x || 
+						nextX>this.y+this.width || nextX<this.y) {
+						this.nextPath.addCreature(creature);
+						this.listCreature.remove(i);
+						i--;
+				}else {
+				
+				switch(this.direction) {
+				case Up:
+					nextY--;
+					break;
+				case Down:
+					nextY++;
+					break;
+				case Left:
+					nextX--;
+					break;
+				case Right:
+					nextX++;
+					break;
+				}
+				
+				creature.getSprite().mPosition.set(nextX, nextY);
+				
+				}
 
-			float nextY = creature.getSprite().mPosition.mY;
-			float nextX = creature.getSprite().mPosition.mX;
-
-			if (nextY>this.x+this.height || nextY<this.x || 
-					nextX>this.y+this.width || nextX<this.y) {
-					this.nextPath.addCreature(creature);
-					this.listCreature.remove(i);
-					i--;
-			}else {
-			
-			switch(this.direction) {
-			case Up:
-				nextY-=creature.getSpeed();
-				break;
-			case Down:
-				nextY+=creature.getSpeed();
-				break;
-			case Left:
-				nextX-=creature.getSpeed();
-				break;
-			case Right:
-				nextX+=creature.getSpeed();
-				break;
 			}
 			
-			creature.getSprite().mPosition.set(nextX, nextY);
-			
-			}
 		}
 
 		if (this.nextPath!=null) this.nextPath.nextStep(g,o);
