@@ -47,11 +47,6 @@ public class GenericMap {
 			int line = i/numberOfCasePerLigne;
 			int column = i - line*numberOfCasePerLigne;
 			
-			if (i==100) {
-				int a =2;
-				a = a+2;
-			}
-			
 			int idTexture = XmlUtil.getAttributeIntFromNode(node, "texture");
 			String type = XmlUtil.getAttributeFromNode(node, "type");
 			
@@ -63,9 +58,7 @@ public class GenericMap {
 				//Your xml was so bad
 			}
 			map.mMap[i] = idTexture;
-			
 		}
-		this.affiche();
 		this.buildPath();
 	}
 	
@@ -113,7 +106,6 @@ public class GenericMap {
 			if (boxPath.getNextPath() == null) {
 				actual.setDirection(Direction.Left);
 				actual.setNextPath(boxPath);
-				Log.d("DEBUGTESTBOXPATH", actual.getDirection().toString());
 				return boxPath;
 			}
 		}
@@ -124,7 +116,6 @@ public class GenericMap {
 			if (boxPath.getNextPath() == null) {
 				actual.setDirection(Direction.Right);
 				actual.setNextPath(boxPath);
-				Log.d("DEBUGTESTBOXPATH", actual.getDirection().toString());
 				return boxPath;
 			}
 		}
@@ -132,13 +123,11 @@ public class GenericMap {
 	}
 	
 	private void affiche(){
-		
 		for (int i=0;i<this.matrice.length;i++){
 			String a = "";
 			for (int j=0;j<this.matrice[0].length;j++){
 				a+=this.matrice[i][j] instanceof BoxPath ? "0 " : "1 ";
 			}
-			Log.d("DEBUGTAG",a);
 			a="";
 		}
 		

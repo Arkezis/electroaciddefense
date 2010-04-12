@@ -1,71 +1,163 @@
 package electroacid.defense;
 
+import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.enums.Element;
 
-public  class Creature {
+public  class Creature implements Cloneable{
 
 		private Element element; 
 		private int life;
 		private int speed;
 		private int fireRate;
-		private int cost;
+		private int rewardValue;
 		private boolean fly;
-		private AngleSpriteLayout layout;
 		private AngleSprite sprite;
 		
 		
-		public Creature(Element e,int l,int s, int fR, int c, boolean f){
+		public Creature(Element e,int l,int s, int fR, int c, boolean f,AngleSpriteLayout _layout){
 			this.element = e;
 			this.life = l;
 			this.speed = s;
 			this.fireRate = fR;
-			this.cost = c;
-			this.fly = f;			
+			this.rewardValue = c;
+			this.fly = f;
+			this.sprite= new AngleSprite(_layout);
+		}
+
+
+		public Object clone() {
+			Creature creature = null;
+			try {
+				creature = (Creature) super.clone();
+			} catch(CloneNotSupportedException cnse){
+				cnse.printStackTrace(System.err);
+			}
+			
+			creature.sprite = new AngleSprite(this.sprite.roLayout);
+			return creature;
 		}
 		
-		public Element getElement(){
-			return this.element;
+		public void destroy(Game g,AngleObject og,boolean byTower){
+			og.removeObject(this.sprite);
+			if (byTower){
+				g.addMoney(this.rewardValue);
+			}else {
+				g.removeLives(1);
+			}
+			
 		}
-		public int getLife(){
-			return this.life;
-		}	
-		public int getSpeed(){
-			return this.speed;
+		
+		/**
+		 * @return the element
+		 */
+		public Element getElement() {
+			return element;
 		}
-		public int getFireRate(){
-			return this.fireRate;
+
+
+		/**
+		 * @param element the element to set
+		 */
+		public void setElement(Element element) {
+			this.element = element;
 		}
-		public int getCost(){
-			return this.cost;
+
+
+		/**
+		 * @return the life
+		 */
+		public int getLife() {
+			return life;
 		}
-		public boolean getFly(){
-			return this.fly;
+
+
+		/**
+		 * @param life the life to set
+		 */
+		public void setLife(int life) {
+			this.life = life;
 		}
-		public Element setElement(Element e){
-			this.element = e;
-			return this.element;
+
+
+		/**
+		 * @return the speed
+		 */
+		public int getSpeed() {
+			return speed;
 		}
-		public int setLife(int nb){
-			this.life = nb;
-			return this.life;
+
+
+		/**
+		 * @param speed the speed to set
+		 */
+		public void setSpeed(int speed) {
+			this.speed = speed;
 		}
-		public int setSpeed(int nb){
-			this.speed = nb;
-			return this.speed;
+
+
+		/**
+		 * @return the fireRate
+		 */
+		public int getFireRate() {
+			return fireRate;
 		}
-		public int setFireRate(int nb){
-			this.fireRate = nb;
-			return this.fireRate;
+
+
+		/**
+		 * @param fireRate the fireRate to set
+		 */
+		public void setFireRate(int fireRate) {
+			this.fireRate = fireRate;
 		}
-		public int setCost(int nb){
-			this.cost = nb;
-			return this.cost;
+
+
+		/**
+		 * @return the cost
+		 */
+		public int getCost() {
+			return rewardValue;
 		}
-		public boolean setFly(boolean f){
-			this.fly = f;
-			return this.fly;
+
+
+		/**
+		 * @param cost the cost to set
+		 */
+		public void setCost(int cost) {
+			this.rewardValue = cost;
+		}
+
+
+		/**
+		 * @return the fly
+		 */
+		public boolean isFly() {
+			return fly;
+		}
+
+
+		/**
+		 * @param fly the fly to set
+		 */
+		public void setFly(boolean fly) {
+			this.fly = fly;
+		}
+
+
+		/**
+		 * @return the sprite
+		 */
+		public AngleSprite getSprite() {
+			return sprite;
+		}
+
+
+		/**
+		 * @param sprite the sprite to set
+		 */
+		public void setSprite(AngleSprite sprite) {
+			this.sprite = sprite;
 		}
 }

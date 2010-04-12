@@ -38,7 +38,7 @@ public class Play4 extends AngleActivity{
 	/* TOWERS */
 	public Tower tower1 , tower2,towerChoice=null;
 	public AngleSprite fireArea;	
-	public Tower creature1=null;
+	public Creature creature1=null;
 	
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2;
@@ -97,7 +97,7 @@ public class Play4 extends AngleActivity{
 			
 			
 			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.creature1);
-			creature1 = new Tower(eFire,10,10,10,true,10,10,10,10,bnewTower1Layout,1);
+			creature1 = new Creature(eFire,10,10,10,10,true,bnewTower1Layout);
 			
 	
 			try {
@@ -243,7 +243,7 @@ public class Play4 extends AngleActivity{
 				lastWave = 0;
 				
 				if (!test) {
-					Tower creatureToAdd = (Tower) creature1.clone();
+					Creature creatureToAdd = (Creature) creature1.clone();
 				
 					boxpath.addCreature(creatureToAdd);
 					creatureToAdd.getSprite().mPosition.set(
