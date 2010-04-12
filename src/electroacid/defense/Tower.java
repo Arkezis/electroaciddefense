@@ -1,10 +1,19 @@
 package electroacid.defense;
 
+import java.util.LinkedList;
+
+import utils.AngleSegment;
+
+import android.util.Log;
+
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
+import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
+import electroacid.defense.gui.Shoot;
+import electroacid.defense.map.GenericMap;
 
 public  class Tower implements Cloneable{
 	private Element element; 
@@ -20,6 +29,8 @@ public  class Tower implements Cloneable{
 	private double upgrade =  1.25;
 	private double destroy = 0.25;
 	private int boxArea;
+	private LinkedList<BoxPath> boxDetectionList;
+	private int x,y;
 	
 	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout,int _boxArea){
 		this.element = _element;
@@ -42,12 +53,6 @@ public  class Tower implements Cloneable{
 		return boxArea;
 	}
 
-	/**
-	 * @param boxArea the boxArea to set
-	 */
-	public void setBoxArea(int boxArea) {
-		this.boxArea = boxArea;
-	}
 
 	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSprite _sprite,int _boxArea){
 		this.element = _element;
@@ -62,6 +67,73 @@ public  class Tower implements Cloneable{
 		this.sprite = _sprite;
 		this.boxArea = _boxArea;
 	}	
+	
+	/**
+	 * Detection method : Verify if a creature is fireable !
+	 * @param ogField 
+	 */
+	public void detection(AngleObject ogField){
+		Log.d("DETECTION", "Nb d'elements : "+this.boxDetectionList.size());
+		for(int i=0;i<this.boxDetectionList.size();i++){
+			//Log.d("ATTACK", "Are we under attack ? ");
+			if(!this.boxDetectionList.get(i).getListCreature().isEmpty()){
+				Log.d("ATTACK", this.toString()+"is under attack in "+this.boxDetectionList.get(i).getX()+","+this.boxDetectionList.get(i).getY());
+				this.attack(this.boxDetectionList.get(i).getListCreature(),ogField);
+			}
+		}
+	}
+	
+	
+	private void attack(LinkedList<Creature> linkedList, AngleObject ogField) {
+		/* Procédure d'attaque
+		 *  - Récupération du type d'attaque (Nearest...)
+		 *  - Répartition des tirs (en fonction du targetNb et du fireRate)
+		 *  - Résolution des tirs
+		 */
+		LinkedList<Creature> listTarget = new LinkedList<Creature>();
+		if(this.targetPriority==1){
+			// comparer la position de la tour avec la position des créas
+		}else if(this.targetPriority==2){
+			// range dans une nouvelle liste, les créas par ordre de vie croissante
+		}else if(this.targetPriority==3){
+			// range dans une nouvelle liste, les créas par ordre de vie dec
+		}
+		
+		// combien de créas à tirer 
+		int nbCrea = Math.min(this.targetNb, linkedList.size());
+		 
+		// dégats par créas
+		int nbDamagePerCrea = 0,reste = 0;
+		nbDamagePerCrea = this.damage/nbCrea;
+		if(this.targetNb%linkedList.size()!=0) reste = this.damage%nbCrea; // si tout les dégats ne peuvent etre repartis equitablement
+		
+		// on multiplie le nombre de dégats par le fireRate pour représenter le tir multiple
+		nbDamagePerCrea *= fireRate;
+		reste *= fireRate;
+		
+		for(int i=0;i<listTarget.size();i++){
+			/*listTarget.get(i).loseLife(nbDamagePerCrea);
+			AngleSegment fire = new AngleSegment(57, 80, 118, 42);
+			ogField.addObject(fire);*/
+		}
+		
+		// Et il faut gérer le Reste !!!
+		
+		
+		
+		for(int i=0;i<Math.min(this.targetNb, linkedList.size());i++){
+			Log.d("ATTACK", "La créature "+ i +" est touchée");
+			Shoot fire = new Shoot(this.y, this.x, linkedList.get(i).getSprite().mPosition.mX, linkedList.get(i).getSprite().mPosition.mY,ogField);
+		}
+	}
+
+
+	/**
+	 * @param boxArea the boxArea to set
+	 */
+	public void setBoxArea(int boxArea) {
+		this.boxArea = boxArea;
+	}
 	
 	public void changePosition(int x, int y){
 		this.sprite.mPosition.set(x, y);
@@ -251,4 +323,48 @@ public  class Tower implements Cloneable{
 		this.level = level;
 	}
 
+	/**
+	 * Set the boxpath where the tower have to focus if a creature is coming ...
+	 * @param x The x of the boxbuildable containing the tower
+	 * @param y The y of the boxbuildable containing the tower
+	 * @param matrice The matrice
+	 */
+	public void setListDetection(int y,int x,  GenericMap matrice) {
+		int mult=0;
+		Log.d("ATTACK", "Set de la liste de detection pour la box "+x+","+y);
+		this.boxDetectionList=new LinkedList<BoxPath>();
+		for(int i=1;i<=this.boxArea;i++){
+			mult+=32;
+			if(matrice.getBox(x+mult, y) instanceof BoxPath) {
+				Log.d("DETECTION", "Looking 1");
+				this.boxDetectionList.add((BoxPath) matrice.getBox(x+mult, y));}
+			if(matrice.getBox(x+mult, y+mult) instanceof BoxPath) {
+				Log.d("DETECTION", "Looking 2");
+				this.boxDetectionList.add((BoxPath) matrice.getBox(x+mult, y+mult));}
+			if(matrice.getBox(x, y+mult) instanceof BoxPath) {
+				Log.d("DETECTION", "Looking 3");
+				this.boxDetectionList.add((BoxPath) matrice.getBox(x, y+mult));}
+			if(matrice.getBox(x-mult, y+mult) instanceof BoxPath) {
+				Log.d("DETECTION", "Looking 4");
+				this.boxDetectionList.add((BoxPath) matrice.getBox(x-mult, y+mult));}
+			if(matrice.getBox(x-mult, y) instanceof BoxPath) {
+				Log.d("DETECTION", "Looking 5");
+				this.boxDetectionList.add((BoxPath) matrice.getBox(x-mult, y));}
+			if(matrice.getBox(x-mult, y-mult) instanceof BoxPath) {
+				Log.d("DETECTION", "Looking 6");
+				this.boxDetectionList.add((BoxPath) matrice.getBox(x-mult, y-mult));}
+			if(matrice.getBox(x, y-mult) instanceof BoxPath) {
+				Log.d("DETECTION", "Looking 7");
+				this.boxDetectionList.add((BoxPath) matrice.getBox(x, y-mult));}
+			if(matrice.getBox(x+mult, y-mult) instanceof BoxPath) {
+				Log.d("DETECTION", "Looking 8");
+				this.boxDetectionList.add((BoxPath) matrice.getBox(x+mult, y-mult));}
+		}
+	}
+
+	public void setPosition(int _x, int _y){
+		this.x=_x; this.y=_y;
+		Log.d("DEBUGTAG", "New tower in ("+x+","+y+")");
+	}
+	
 }

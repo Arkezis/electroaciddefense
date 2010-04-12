@@ -1,5 +1,7 @@
 package electroacid.defense.gui;
 
+import java.util.LinkedList;
+
 import android.util.Log;
 
 import com.android.angle.AngleFont;
@@ -113,12 +115,13 @@ public class MenuSelectedTower {
 	}
 
 
-	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,Game g,AngleObject ogField){
+	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,Game g,AngleObject ogField,LinkedList<BoxBuildable> towerList){
 		if (x > 134 && x < 166 ){
 			if (y > 416 && y < 448){
 				if (g.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){
 					box.getTower().upgrade(g);
 					Log.d("DEBUGTAG", "Zouip, la tower");
+					towerList.remove(box.getTower());
 					return true;
 				}
 			}else if(y > 448 & y < 480 ){

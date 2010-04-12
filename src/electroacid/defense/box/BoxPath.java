@@ -92,7 +92,7 @@ public class BoxPath extends Box {
 
 			float nextY = creature.getSprite().mPosition.mY;
 			float nextX = creature.getSprite().mPosition.mX;
-			
+
 			if (nextY>this.x+this.height || nextY<this.x || 
 					nextX>this.y+this.width || nextX<this.y) {
 					this.nextPath.addCreature(creature);
