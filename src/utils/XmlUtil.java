@@ -45,7 +45,6 @@ public class XmlUtil {
 	}
 
 	public static Document getDocumentFromResource(Context context, int xmlResourceId) throws Exception {
-		Log.d(TAG, "getXmlDocumentFromFile");
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(context.getResources().openRawResource(xmlResourceId));
 

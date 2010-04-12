@@ -24,6 +24,8 @@ public class GenericMap {
 	int yMax;
 	int offsetY;
 	
+	public BoxPath firstBoxPath;
+	
 	public GenericMap(int _xMax,int _yMax,int _offsetX,int _offsetY){
 		this.xMax = _xMax;
 		this.yMax = _yMax;
@@ -64,9 +66,8 @@ public class GenericMap {
 	
 	private void buildPath(){
 		BoxPath actual = (BoxPath) this.matrice[1][0];
-
+		this.firstBoxPath = actual;
 		do {
-			Log.d("BOXPATH",actual.getX()+"       "+actual.getY());
 			actual = getNextBoxPath(actual.getX(),actual.getY());
 		} while (actual != null);
 
