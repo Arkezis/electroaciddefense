@@ -31,6 +31,15 @@ public enum Element {
 		return modifier;
 	}
 	
+	public static Element getElement(String name){
+		if (name.equalsIgnoreCase("fire")) return Element.Fire;
+		else if (name.equalsIgnoreCase("water")) return Element.Water;
+		else if (name.equalsIgnoreCase("electricity")) return Element.Electricity;
+		else if (name.equalsIgnoreCase("iron")) return Element.Iron;
+		
+		return null;
+	}
+	
 	
 	
 }

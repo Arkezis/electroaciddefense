@@ -13,7 +13,7 @@ import electroacid.defense.enums.Direction;
 
 public class BoxPath extends Box {
 
-	private LinkedList<Tower> listCreature;
+	private LinkedList<Creature> listCreature;
 	
 	private Direction direction;
 	
@@ -23,14 +23,14 @@ public class BoxPath extends Box {
 	/**
 	 * @return the listCreature
 	 */
-	public LinkedList<Tower> getListCreature() {
+	public LinkedList<Creature> getListCreature() {
 		return listCreature;
 	}
 
 	/**
 	 * @param listCreature the listCreature to set
 	 */
-	public void setListCreature(LinkedList<Tower> listCreature) {
+	public void setListCreature(LinkedList<Creature> listCreature) {
 		this.listCreature = listCreature;
 	}
 
@@ -64,7 +64,7 @@ public class BoxPath extends Box {
 
 	public BoxPath(int _x, int _y, int _width, int _height) {
 		super(_x,_y,_width,_height);
-		this.listCreature = new LinkedList<Tower>();
+		this.listCreature = new LinkedList<Creature>();
 	}
 	
 	public BoxPath(int _x, int _y, int _width, int _height,Direction direction) {
@@ -72,7 +72,7 @@ public class BoxPath extends Box {
 		this.direction = direction;
 	}
 	
-	public void addCreature(Tower creature){
+	public void addCreature(Creature creature){
 		this.listCreature.add(creature);
 	}
 	
@@ -80,7 +80,7 @@ public class BoxPath extends Box {
 
 		if (this.nextPath== null) {
 			for (int i=0;i<this.listCreature.size();i++) {
-				this.listCreature.get(i).destroy(g, o);
+				this.listCreature.get(i).destroy(g, o,false);
 				this.listCreature.remove(i);
 				i--;
 				g.removeLives(1);
@@ -88,7 +88,7 @@ public class BoxPath extends Box {
 		}
 		for (int i=0;i<this.listCreature.size();i++){
 			
-			Tower creature = this.listCreature.get(i);
+			Creature creature = this.listCreature.get(i);
 
 			float nextY = creature.getSprite().mPosition.mY;
 			float nextX = creature.getSprite().mPosition.mX;

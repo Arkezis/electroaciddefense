@@ -66,6 +66,11 @@ public class Game {
 	public int getMoney() {
 		return money;
 	}
+	
+	public void addMoney(int _money){
+		this.money+=_money;
+	}
+	
 	/**
 	 * @return the lives
 	 */
