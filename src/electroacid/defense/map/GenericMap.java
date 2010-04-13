@@ -135,7 +135,8 @@ public class GenericMap {
 	}
 	
 	public Box getBox(int x, int y){
-		if (x>this.xMax || y>this.yMax || x<0 || y<0) return null;
+		Log.d("DEBUG", "Recoit ("+x+","+y+")");
+		if (x>=this.xMax || y>=this.yMax || x<0 || y<0) return null;
 		return this.matrice[y/this.offsetY][x/this.offsetX];
 	}
 	

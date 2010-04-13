@@ -121,11 +121,11 @@ public class MenuSelectedTower {
 				if (g.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){
 					box.getTower().upgrade(g);
 					Log.d("DEBUGTAG", "Zouip, la tower");
-					towerList.remove(box.getTower());
 					return true;
 				}
 			}else if(y > 448 & y < 480 ){
 				// delete the tower
+				towerList.remove(box.getTower());
 				box.getTower().destroy(g,ogField);
 				box.removeTower();
 				Log.d("DEBUGTAG", "PAF, la tower");

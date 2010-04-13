@@ -2,6 +2,7 @@ package electroacid.defense.box;
 
 import electroacid.defense.Game;
 import electroacid.defense.Tower;
+import electroacid.defense.map.GenericMap;
 
 /**
  * It's a box which can host a tower
@@ -43,12 +44,14 @@ public class BoxBuildable extends Box {
 	 * @param game parametre of the game
 	 * @return false if tower is null or tower is too much expensive
 	 */
-	public boolean changeTower(Tower _tower,Game game){
+	public boolean changeTower(Tower _tower,Game game, int x, int y, GenericMap matrice){
 		this.tower = _tower;
 		if (this.tower != null) {
 			if(game.getMoney() > this.tower.getCost()){
 				this.tower.changePosition(this.y+this.width/2,this.x+this.height/2);
 				game.addMoney(-this.tower.getCost());
+				this.getTower().changePosition(y, x);
+				this.getTower().setListDetection(x, y, matrice);
 				return true;
 			}
 		}

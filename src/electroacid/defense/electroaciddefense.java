@@ -4,28 +4,27 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
 
 public class electroaciddefense extends Activity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        Button btnGame = (Button)this.findViewById(R.id.Button01);
+        btnGame.setOnClickListener(b_NewGameListener);
 
-		Intent i = new Intent(getBaseContext(),Play4.class);
-		Log.d("DEBUGTAG", "Before launching the activity Play4");
-		startActivity(i);
     }
     
-//    private OnClickListener b_NewGameListener4 = new OnClickListener() {
-//    	public void onClick(View v){
-//    		/*Context context = getApplicationContext();
-//    		CharSequence txt = "Did you think something will happen ? Mouahahaha ! ";
-//    		Toast toast = Toast.makeText(context, txt, Toast.LENGTH_LONG);
-//    		toast.show();*/
-//    		
-//    		Intent i = new Intent(getBaseContext(),Play4.class);
-//    		Log.d("DEBUGTAG", "Before launching the activity Play4");
-//    		startActivity(i);
-//    	}
-//    };
+    private OnClickListener b_NewGameListener = new OnClickListener() {
+    	public void onClick(View v){
+
+    		Intent i = new Intent(getBaseContext(),Play4.class);
+    		startActivity(i);
+    	}
+    };
 }
