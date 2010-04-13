@@ -77,7 +77,7 @@ public class Play extends AngleActivity{
 	/** Boolean for the game */
 	boolean gameStarted;
 	public AngleString t_textEndGame;
-	public AngleSpriteLayout backgroundEndGameLayout;
+	public AngleString t_textEndGame2;
 
 	public class MyGame extends  AngleUI{
 		/** The variable to avoid a high touching map */
@@ -131,11 +131,11 @@ public class Play extends AngleActivity{
 			/* Menus' initialisation */
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
-			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 20, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 0, 0, 0, 0, 255);
+			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 20, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
 
 			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
-			menuNewTower = new MenuNewTower(game,fontMenu,fontTitle,mGLSurfaceView);
-			menuSelectedTower = new MenuSelectedTower(game,fontMenu,fontTitle,mGLSurfaceView);
+			menuNewTower = new MenuNewTower(fontMenu,fontTitle,mGLSurfaceView);
+			menuSelectedTower = new MenuSelectedTower(fontMenu,fontTitle,mGLSurfaceView);
 		}
 		
 		/**
@@ -234,16 +234,17 @@ public class Play extends AngleActivity{
 			}else{
 				// Game finished
 				ogEndGame=new AngleObject(); addObject(ogEndGame);
-				backgroundEndGame = new AngleSprite(0, 240, backgroundEndGameLayout) ;
-				backgroundEndGame.mAlpha = (float)0.40;
-				t_textEndGame = new AngleString(fontTitle,"",160, 208, AngleString.aCenter);
+				t_textEndGame = new AngleString(fontEndGame,"",160, 208, AngleString.aCenter);
+				t_textEndGame2 = new AngleString(fontEndGame,"",160, 238, AngleString.aCenter);
 				if(game.getActualWave() == genericWave.getListWave().size()){ // The player won ! 
-					t_textEndGame.set("Congratulations, you won the game ! \n You've survived to "+genericWave.getListWave().size()+" waves !");
+					t_textEndGame.set("Congratulations, you won the game !");
+					t_textEndGame2.set("You've \t survived to "+genericWave.getListWave().size()+" waves !");
 				}else{ // The player loose ! 
-					t_textEndGame.set("Oh, you lose ! \n You've survived to only "+genericWave.getListWave().size()+" waves !");
+					t_textEndGame.set("Oh, you lose ! ");
+					t_textEndGame2.set("You've survived to only "+genericWave.getListWave().size()+" waves !");
 				}
-				ogEndGame.addObject(backgroundEndGame);
 				ogEndGame.addObject(t_textEndGame);
+				ogEndGame.addObject(t_textEndGame2);
 			}
 			
 			return true;	
@@ -304,9 +305,8 @@ public class Play extends AngleActivity{
 			AngleSpriteLayout bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower2);
 			fireAreaLayout = new AngleSpriteLayout(mGLSurfaceView, 96, 96, R.drawable.firearea);
 			fireAreaLayout2 = new AngleSpriteLayout(mGLSurfaceView, 160, 160, R.drawable.firearea);
-			//backgroundEndGameLayout = new AngleSpriteLayout(mGLSurfaceView, 320, 64, R.drawable.bgendgame);
-			tower1 = new Tower(eFire,5,5,5,true,5,5,5,5,bnewTower1Layout,2);
-			tower2 = new Tower(eIron,2,2,2,false,2,2,2,2,bnewTower2Layout,1);
+			tower1 = new Tower(eFire,5,5,5,true,5,5,5,1,bnewTower1Layout,2);
+			tower2 = new Tower(eIron,2,2,2,false,2,2,2,1,bnewTower2Layout,1);
 			shootArea = new AngleSprite(fireAreaLayout);
 			
 		}
