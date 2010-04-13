@@ -14,18 +14,35 @@ import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Direction;
 
+/**
+ * Read a xml file and create map
+ * create the path
+ * @author cilheo
+ * @version 1.0b
+ */
 public class GenericMap {
 
+	/** it's the map */
 	private Box[][] matrice;
 	
+	/** max x coordinate*/
 	int xMax;
+	/** width of box*/
 	int offsetX;
-	
+	/** max y coordinate*/
 	int yMax;
+	/** height of box */
 	int offsetY;
-	
+	/** box which start the path */
 	public BoxPath firstBoxPath;
 	
+	/**
+	 * Creation of a generic map, create the matrice
+	 * @param _xMax max x coordinate
+	 * @param _yMax max y coordinate
+	 * @param _offsetX width of box
+	 * @param _offsetY height of box
+	 */
 	public GenericMap(int _xMax,int _yMax,int _offsetX,int _offsetY){
 		this.xMax = _xMax;
 		this.yMax = _yMax;
@@ -36,7 +53,13 @@ public class GenericMap {
 		
 	}
 	
-	//texture not in charge
+	/**
+	 * Read a xml file and create the map, load texture, and create path
+	 * @param context
+	 * @param map contains all texture
+	 * @param xmlResourceId id of the xml file
+	 * @throws Exception
+	 */
 	public void buildMap(Context context,AngleTileMap map,int xmlResourceId) throws Exception{
 		Document mapXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
 
@@ -64,23 +87,24 @@ public class GenericMap {
 		this.buildPath();
 	}
 	
+	/** build the path */
 	private void buildPath(){
 		BoxPath actual = (BoxPath) this.matrice[1][0];
 		this.firstBoxPath = actual;
 		do {
 			actual = getNextBoxPath(actual.getX(),actual.getY());
 		} while (actual != null);
-
-		
-		
-		
 	}
 	
+	/**
+	 * search the nextPath
+	 * @param x coordinate of the actual boxPath
+	 * @param y coordinate of the actual boxPath
+	 * @return the next boxPath or null if it the end
+	 */
 	private BoxPath getNextBoxPath(int x, int y){
-		
 		BoxPath actual = (BoxPath) this.getBox(y, x);
 		BoxPath boxPath;
-		
 		Box box = this.getBox(y, x+offsetX);
 		if (box instanceof BoxPath) {
 			boxPath = (BoxPath) box;
@@ -123,25 +147,16 @@ public class GenericMap {
 		return null;
 	}
 	
-	private void affiche(){
-		for (int i=0;i<this.matrice.length;i++){
-			String a = "";
-			for (int j=0;j<this.matrice[0].length;j++){
-				a+=this.matrice[i][j] instanceof BoxPath ? "0 " : "1 ";
-			}
-			a="";
-		}
-		
-	}
-	
+	/**
+	 * get the box
+	 * @param x coordinate of the wanted box
+	 * @param y coordinate of the wanted box
+	 * @return the box wanted or null
+	 */
 	public Box getBox(int x, int y){
 		Log.d("DEBUG", "Recoit ("+x+","+y+")");
 		if (x>=this.xMax || y>=this.yMax || x<0 || y<0) return null;
 		return this.matrice[y/this.offsetY][x/this.offsetX];
-	}
-	
-	public void setBox(Box box,int x, int y){
-		this.matrice[y/this.offsetY][x/this.offsetX] = box;
 	}
 	
 }
