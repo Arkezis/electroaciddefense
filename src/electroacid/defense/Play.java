@@ -29,7 +29,7 @@ import electroacid.defense.map.GenericMap;
 import electroacid.defense.wave.GenericWave;
 import electroacid.defense.wave.Wave;
 
-public class Play4 extends AngleActivity{
+public class Play extends AngleActivity{
 
 	/* ELEMENTS */
 	/* Not implemented yet */

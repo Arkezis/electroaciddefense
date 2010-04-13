@@ -11,7 +11,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-				<activity 	android:name=".Play4"
+				<activity 	android:name=".Play"
 					android:label="@string/game"
 					android:screenOrientation="portrait"
 					android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

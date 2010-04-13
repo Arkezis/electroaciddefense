@@ -3,7 +3,6 @@ package electroacid.defense;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,7 +22,7 @@ public class electroaciddefense extends Activity {
     private OnClickListener b_NewGameListener = new OnClickListener() {
     	public void onClick(View v){
 
-    		Intent i = new Intent(getBaseContext(),Play4.class);
+    		Intent i = new Intent(getBaseContext(),Play.class);
     		startActivity(i);
     	}
     };
