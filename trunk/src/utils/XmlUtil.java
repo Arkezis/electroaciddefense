@@ -3,6 +3,7 @@ package utils;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -32,8 +33,14 @@ public class XmlUtil {
 	public static String getAttributeFromNode(Node currentNode, String attributeName) {
 		if (currentNode == null || attributeName == null || attributeName.length() == 0)
 			return null;
-		return currentNode.getAttributes().getNamedItem(attributeName).getNodeValue();
-
+		NamedNodeMap attributes = currentNode.getAttributes();
+		if (attributes != null) {
+			Node attribut = attributes.getNamedItem(attributeName);
+			if (attribut !=null){
+				return attribut.getNodeValue();
+			}
+		}
+		return null;
 	}
 
 	public static int getAttributeIntFromNode(Node currentNode, String attributeName) {

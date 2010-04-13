@@ -8,7 +8,6 @@ import com.android.angle.AngleTileMap;
 
 import utils.XmlUtil;
 import android.content.Context;
-import android.util.Log;
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.box.BoxPath;
@@ -78,10 +77,13 @@ public class GenericMap {
 			if (type.equalsIgnoreCase("buildable")) {
 				this.matrice[line][column] = new BoxBuildable(line*this.offsetX, column*this.offsetY, this.offsetX, this.offsetY);
 			}else if (type.equalsIgnoreCase("path")){
+				boolean firstBoxPath = XmlUtil.getAttributeBooleanFromNode(node, "startPath");
 				this.matrice[line][column] = new BoxPath(line*this.offsetX, column*this.offsetY, this.offsetX, this.offsetY);
+				if (firstBoxPath) this.firstBoxPath=(BoxPath)this.matrice[line][column];
 			} else {
 				//Your xml was so bad
 			}
+			
 			map.mMap[i] = idTexture;
 		}
 		this.buildPath();
@@ -89,8 +91,7 @@ public class GenericMap {
 	
 	/** build the path */
 	private void buildPath(){
-		BoxPath actual = (BoxPath) this.matrice[1][0];
-		this.firstBoxPath = actual;
+		BoxPath actual = this.firstBoxPath;
 		do {
 			actual = getNextBoxPath(actual.getX(),actual.getY());
 		} while (actual != null);
@@ -154,7 +155,6 @@ public class GenericMap {
 	 * @return the box wanted or null
 	 */
 	public Box getBox(int x, int y){
-		Log.d("DEBUG", "Recoit ("+x+","+y+")");
 		if (x>=this.xMax || y>=this.yMax || x<0 || y<0) return null;
 		return this.matrice[y/this.offsetY][x/this.offsetX];
 	}
