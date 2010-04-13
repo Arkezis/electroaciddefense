@@ -2,8 +2,6 @@ package electroacid.defense;
 
 import java.util.LinkedList;
 
-import android.util.Log;
-
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
@@ -387,7 +385,6 @@ public  class Tower implements Cloneable{
 	 */
 	public void setListDetection(int y,int x,  GenericMap matrice) {
 		int mult=0;
-		Log.d("ATTACK", "Set de la liste de detection pour la box "+x+","+y);
 		this.boxDetectionList=new LinkedList<BoxPath>();
 		for(int i=1;i<=this.shootArea;i++){
 			mult+=32;
