@@ -7,51 +7,90 @@ import com.android.angle.AngleSpriteLayout;
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
 
+/**
+ * It's a simple creature
+ * @author cilheo
+ * @version 1.0b
+ */
 public  class Creature implements Cloneable{
 
+		/** Element of the creature */
 		private Element element; 
+		
+		/** Life of the creature */
 		private int life;
+		
+		/** Speed of the creature */
 		private int speed;
+		
+		/** Not implemented yet */
 		private int fireRate;
+		
+		/** Gain when the creature die */
 		private int rewardValue;
+		
+		/** Not implemented yet */
 		private boolean fly;
+		
+		/** Sprite of the creature */
 		private AngleSprite sprite;
 		
 		
-		public Creature(Element e,int l,int s, int fR, int c, boolean f,AngleSpriteLayout _layout){
-			this.element = e;
-			this.life = l;
-			this.speed = s;
-			this.fireRate = fR;
-			this.rewardValue = c;
-			this.fly = f;
-			this.sprite= new AngleSprite(_layout);
+		/**
+		 * Constructor of a creature
+		 * @param _element Element of the creature
+		 * @param _life Life of the creature
+		 * @param _speed Speed of the creature
+		 * @param _fireRate Not implemented yet
+		 * @param _rewardValue Gain when the creature die
+		 * @param _fly Not implemented yet
+		 * @param layout Layout of the creature
+		 */
+		public Creature(Element _element,int _life,int _speed, int _fireRate, int _rewardValue,
+				boolean _fly,AngleSpriteLayout layout){
+			this.element = _element;
+			this.life = _life;
+			this.speed = _speed;
+			this.fireRate = _fireRate;
+			this.rewardValue = _rewardValue;
+			this.fly = _fly;
+			this.sprite= new AngleSprite(layout);
 		}
 
 		public void loseLife(int nbDamage){
 			this.life -= nbDamage; 
 		}
 
+		/** clone all value of the creature excepted the sprite, create a new */
 		public Object clone() {
 			Creature creature = null;
-			try {
-				creature = (Creature) super.clone();
-			} catch(CloneNotSupportedException cnse){
-				cnse.printStackTrace(System.err);
-			}
-			
+			try { creature = (Creature) super.clone();
+			} catch(CloneNotSupportedException cnse){cnse.printStackTrace(System.err);}
 			creature.sprite = new AngleSprite(this.sprite.roLayout);
 			return creature;
 		}
 		
-		public void destroy(Game g,AngleObject og,boolean byTower){
+		/**
+		 * Destroy a creature
+		 * add money if necessary
+		 * remove live if necessary
+		 * remove the sprite
+		 * @param game game's parameter
+		 * @param og container of the creature (for the sprite)
+		 * @param byTower kill by a tower or not
+		 */
+		public void destroy(Game game,AngleObject og,boolean byTower){
 			og.removeObject(this.sprite);
-			if (byTower){
-				g.addMoney(this.rewardValue);
-			}else {
-				g.removeLives(1);
-			}
-			
+			if (byTower) game.addMoney(this.rewardValue);
+			else game.removeLives(1);
+		}
+
+		public void start(AngleObject og, BoxPath debut) {
+			debut.addCreature(this);
+			this.sprite.mPosition.set(
+					debut.getY(), 
+					debut.getX());
+			og.addObject(this.sprite);
 		}
 		
 		/**
@@ -163,20 +202,5 @@ public  class Creature implements Cloneable{
 		 */
 		public void setSprite(AngleSprite sprite) {
 			this.sprite = sprite;
-		}
-
-
-		public void show() {
-			// TODO Auto-generated method stub
-			
-		}
-
-
-		public void start(AngleObject og, BoxPath debut) {
-			debut.addCreature(this);
-			this.sprite.mPosition.set(
-					debut.getY(), 
-					debut.getX());
-			og.addObject(this.sprite);
 		}
 }

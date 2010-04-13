@@ -4,6 +4,11 @@ import utils.AngleSegment;
 
 import com.android.angle.AngleObject;
 
+/**
+ * Use for creating a shoot picture
+ * @author Arkezis
+ * @version 1.0b
+ */
 public class Shoot extends AngleSegment {
 
 	/**

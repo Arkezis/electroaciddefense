@@ -12,6 +12,11 @@ import electroacid.defense.Creature;
 import electroacid.defense.R;
 import electroacid.defense.enums.Element;
 
+/**
+ * Read a xml file and create all wave
+ * @author cilheo
+ * @version 1.0b
+ */
 public class GenericWave {
 
 	/** Waves' creature */
