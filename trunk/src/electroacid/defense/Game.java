@@ -8,6 +8,8 @@ public class Game {
 	private int money=500;
 	private int lives;
 	private float timeBetweenEachWave=5;
+
+	private float timeBetweenEachTowerTurn=(float)0.5;
 	private int actualWave = 0;
 	/**
 	 * @return the actualWave
@@ -126,7 +128,19 @@ public class Game {
 		this.lives = lives;
 	}
 
+	/**
+	 * @return the timeBetweenEachTowerTurn
+	 */
+	public float getTimeBetweenEachTowerTurn() {
+		return timeBetweenEachTowerTurn;
+	}
 
+	/**
+	 * @param timeBetweenEachTowerTurn the timeBetweenEachTowerTurn to set
+	 */
+	public void setTimeBetweenEachTowerTurn(float timeBetweenEachTowerTurn) {
+		this.timeBetweenEachTowerTurn = timeBetweenEachTowerTurn;
+	}
 	
 
 }

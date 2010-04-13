@@ -69,19 +69,12 @@ public class MenuNewTower {
 	}
 	
 	public  int getNewTowerFromMenuNewTower(int x,int y){
-		Log.d("DEBUGTAG", "X, Y : ("+x+","+y+")");
 		int ret = 0;
 		if(x > 0 && x < 32){ // 1st column
-			if(y > 416 && y < 448){
-				Log.d("DEBUGTAG", "TOWER 1  : ("+x+","+y+")");
-				ret = 1;
-			}else if(y > 448 && y < 480){
-				Log.d("DEBUGTAG", "TOWER 2  : ("+x+","+y+")");
-
-				ret = 2;
-			}	
+			if(y > 416 && y < 448)		ret = 1;
+			else if(y > 448 && y < 480)	ret = 2;
 		}else if(x > 32 && x < 64){ // 2nd column
-				
+				//...
 		}
 		return ret;
 	}

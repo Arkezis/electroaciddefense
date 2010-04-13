@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, electroaciddefense!</string>
+    <string name="hello">Welcome in the Tower Defense : Electro Acid Defense !!</string>
     <string name="app_name">Electro Acid Defense</string>
 <string name="targetPriority1">nearest</string><string name="targetPriority2">weakest</string><string name="targetPriority3">strengthest</string><string name="element1">Fire</string><string name="element2">Snow</string><string name="element3">Electricity</string><string name="element4">Iron</string>
 

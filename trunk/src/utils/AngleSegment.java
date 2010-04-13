@@ -24,12 +24,12 @@ public class AngleSegment extends AngleObject
 		mVertices = ByteBuffer.allocateDirect(2 * 2 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
 		mAlpha = 1;
 		mRed = 1;
-		mGreen = 1;
+		mGreen = 0;
 		mBlue =1;
 		mVertices.put(0, 0);
 		mVertices.put(1, 0);
-		mVertices.put(2,-( mA.mX-mB.mX));
-		mVertices.put(3,-( mA.mY-mB.mY));
+		mVertices.put(2, mB.mX-mA.mX);
+		mVertices.put(3, mB.mY-mA.mY);
 	}
 
 	public void draw(GL10 gl)

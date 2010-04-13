@@ -28,6 +28,9 @@ public  class Creature implements Cloneable{
 			this.sprite= new AngleSprite(_layout);
 		}
 
+		public void loseLife(int nbDamage){
+			this.life -= nbDamage; 
+		}
 
 		public Object clone() {
 			Creature creature = null;
