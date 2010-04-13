@@ -14,6 +14,7 @@ import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
+import com.android.angle.AngleString;
 import com.android.angle.AngleTileBank;
 import com.android.angle.AngleTileMap;
 import com.android.angle.AngleUI;
@@ -50,8 +51,8 @@ public class Play extends AngleActivity{
 	
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2,_bnewTower1Layout;
-
-	private AngleObject ogField,ogWave,ogShoot,ogCreature;
+	AngleSprite backgroundEndGame;
+	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame;
 	private AngleTileMap tmGround;
 
 	/* Matrice */
@@ -60,22 +61,23 @@ public class Play extends AngleActivity{
 	
 
 	/* MENU */
-	AngleFont fontMenu,fontTitle;
+	AngleFont fontMenu,fontTitle,fontEndGame;
 	Menu menu;
 	MenuNewTower menuNewTower;
 	MenuSelectedTower menuSelectedTower;
+	int choiceMenu;
+	BoxBuildable boxBuildableSelected=null;
 
 	/** The list of towers on the game */
 	LinkedList<BoxBuildable> towerList;
-
-	/** The box buildable used in the menu */
-	BoxBuildable boxBuildableSelected=null; 
 	/** Game's information */
 	Game game;
 	/** The AngleUI */
 	MyGame myGame;
-	/** The choice in the menu */
-	int choiceMenu;
+	/** Boolean for the game */
+	boolean gameStarted;
+	public AngleString t_textEndGame;
+	public AngleSpriteLayout backgroundEndGameLayout;
 
 	public class MyGame extends  AngleUI{
 		/** The variable to avoid a high touching map */
@@ -92,6 +94,7 @@ public class Play extends AngleActivity{
 		 */
 		public MyGame(AngleActivity activity) {
 			super(activity);
+			gameStarted=true;
 			ogField=new AngleObject(); addObject(ogField);
 			ogCreature=new AngleObject(); addObject(ogCreature);
 			ogShoot = new AngleObject(); addObject(ogShoot);
@@ -128,6 +131,8 @@ public class Play extends AngleActivity{
 			/* Menus' initialisation */
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
+			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 20, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 0, 0, 0, 0, 255);
+
 			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuNewTower = new MenuNewTower(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuSelectedTower = new MenuSelectedTower(game,fontMenu,fontTitle,mGLSurfaceView);
@@ -138,94 +143,111 @@ public class Play extends AngleActivity{
 		 * @param event The event 
 		 */
 		public boolean onTouchEvent(MotionEvent event) {
-			/* To prevent a lot of touch on the screen */
-			if (System.currentTimeMillis() - time < 500){
-				return true;
-			}
-			time = System.currentTimeMillis();
-
-			
-			int x = (int)event.getX();
-			int y = (int)event.getY();
-			Box box = matrice.getBox(x, y); /* The box touched */
-
-			/* -------------------- */
-			/*   TOUCHING THE MAP   */
-			/* -------------------- */
-			if(y>0 && y<416){
-				if(box instanceof BoxBuildable){
-					boxBuildableSelected = (BoxBuildable) box; 
-					if(boxBuildableSelected.getTower() == null){
-						menuNewTower.show(mGLSurfaceView);
-						menuSelectedTower.hide(mGLSurfaceView);
-						shootArea.mAlpha=0;
-					}else{
-						menuNewTower.hide(mGLSurfaceView);
-						menuNewTower.hideValidateTower(mGLSurfaceView);
-						menuSelectedTower.show(mGLSurfaceView,boxBuildableSelected.getTower(),game);
-						/* Show the shootArea of the tower */
-						if(boxBuildableSelected.getTower().getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
-						else if(boxBuildableSelected.getTower().getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
-						shootArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
-						mGLSurfaceView.addObject(shootArea);
-						shootArea.mAlpha = (float) 0.60;
-					}
-				}else{
-					menuSelectedTower.hide(mGLSurfaceView);
-					menuNewTower.hide(mGLSurfaceView);
-					shootArea.mAlpha=0;
+			if(gameStarted){
+				/* To prevent a lot of touch on the screen */
+				if (System.currentTimeMillis() - time < 500){
+					return true;
 				}
-			}else{
-			/* ------------------------ */
-			/*    TOUCHING THE MENU     */
-			/* ------------------------ */
-				if(boxBuildableSelected != null){
-					if(boxBuildableSelected.getTower() == null){ 
-						choiceMenu = menuNewTower.getNewTowerFromMenuNewTower(x,y);
-						/* Did the user confirm a new tower ? */
-						if (menuNewTower.isValidationTower(x,y)){
-							if(boxBuildableSelected.changeTower(towerChoice,game,boxBuildableSelected.getX(),boxBuildableSelected.getY(),matrice)){
-								ogField.addObject(boxBuildableSelected.getTower().getSprite());
-								towerList.add(boxBuildableSelected);
-								/* Hide unused stuff */
-								menuNewTower.hideValidateTower(mGLSurfaceView);
-								menuNewTower.hide(mGLSurfaceView);
-								towerChoice = null;
-								shootArea.mAlpha =0;
-							}
-						}else if(choiceMenu > 0){					
-							/* Did the user has chosen a tower in the menu ?  */
-							switch(choiceMenu){
-							case 1:
-								menuNewTower.showValidateTower(mGLSurfaceView, tower1);
-								towerChoice = (Tower)tower1.clone();
-								break;
-							case 2:
-								menuNewTower.showValidateTower(mGLSurfaceView, tower2);
-								towerChoice = (Tower)tower2.clone();
-								break;
-							}							
-							/* shootArea */
-							if(towerChoice.getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
-							else if(towerChoice.getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
-							shootArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
-							shootArea.mAlpha = (float) 0.60;
-							mGLSurfaceView.addObject(shootArea); 
-						}else{
-							// The user has touched the menu where there is nothing to touch ... stupid guy !
-						}
-					}else{
-						/* A tower is already on this box ! */
-						if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField,towerList)){
+				time = System.currentTimeMillis();
+	
+				
+				int x = (int)event.getX();
+				int y = (int)event.getY();
+				Box box = matrice.getBox(x, y); /* The box touched */
+	
+				/* -------------------- */
+				/*   TOUCHING THE MAP   */
+				/* -------------------- */
+				if(y>0 && y<416){
+					if(box instanceof BoxBuildable){
+						boxBuildableSelected = (BoxBuildable) box; 
+						if(boxBuildableSelected.getTower() == null){
+							menuNewTower.show(mGLSurfaceView);
 							menuSelectedTower.hide(mGLSurfaceView);
 							shootArea.mAlpha=0;
+						}else{
+							menuNewTower.hide(mGLSurfaceView);
+							menuNewTower.hideValidateTower(mGLSurfaceView);
+							menuSelectedTower.show(mGLSurfaceView,boxBuildableSelected.getTower(),game);
+							/* Show the shootArea of the tower */
+							if(boxBuildableSelected.getTower().getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
+							else if(boxBuildableSelected.getTower().getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
+							shootArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
+							mGLSurfaceView.addObject(shootArea);
+							shootArea.mAlpha = (float) 0.60;
 						}
+					}else{
+						menuSelectedTower.hide(mGLSurfaceView);
+						menuNewTower.hide(mGLSurfaceView);
+						shootArea.mAlpha=0;
 					}
 				}else{
-					// We touched the menu, but nothing is in the menu because no box was selected before ! Nothing to do
+				/* ------------------------ */
+				/*    TOUCHING THE MENU     */
+				/* ------------------------ */
+					if(boxBuildableSelected != null){
+						if(boxBuildableSelected.getTower() == null){ 
+							choiceMenu = menuNewTower.getNewTowerFromMenuNewTower(x,y);
+							/* Did the user confirm a new tower ? */
+							if (menuNewTower.isValidationTower(x,y)){
+								if(boxBuildableSelected.changeTower(towerChoice,game,boxBuildableSelected.getX(),boxBuildableSelected.getY(),matrice)){
+									ogField.addObject(boxBuildableSelected.getTower().getSprite());
+									towerList.add(boxBuildableSelected);
+									/* Hide unused stuff */
+									menuNewTower.hideValidateTower(mGLSurfaceView);
+									menuNewTower.hide(mGLSurfaceView);
+									towerChoice = null;
+									shootArea.mAlpha =0;
+								}
+							}else if(choiceMenu > 0){					
+								/* Did the user has chosen a tower in the menu ?  */
+								switch(choiceMenu){
+								case 1:
+									menuNewTower.showValidateTower(mGLSurfaceView, tower1);
+									towerChoice = (Tower)tower1.clone();
+									break;
+								case 2:
+									menuNewTower.showValidateTower(mGLSurfaceView, tower2);
+									towerChoice = (Tower)tower2.clone();
+									break;
+								}							
+								/* shootArea */
+								if(towerChoice.getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
+								else if(towerChoice.getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
+								shootArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
+								shootArea.mAlpha = (float) 0.60;
+								mGLSurfaceView.addObject(shootArea); 
+							}else{
+								// The user has touched the menu where there is nothing to touch ... stupid guy !
+							}
+						}else{
+							/* A tower is already on this box ! */
+							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField,towerList)){
+								menuSelectedTower.hide(mGLSurfaceView);
+								shootArea.mAlpha=0;
+							}
+						}
+					}else{
+						// We touched the menu, but nothing is in the menu because no box was selected before ! Nothing to do
+					}
 				}
+			}else{
+				// Game finished
+				ogEndGame=new AngleObject(); addObject(ogEndGame);
+				backgroundEndGame = new AngleSprite(0, 240, backgroundEndGameLayout) ;
+				backgroundEndGame.mAlpha = (float)0.40;
+				t_textEndGame = new AngleString(fontTitle,"",160, 208, AngleString.aCenter);
+				if(game.getActualWave() == genericWave.getListWave().size()){ // The player won ! 
+					t_textEndGame.set("Congratulations, you won the game ! \n You've survived to "+genericWave.getListWave().size()+" waves !");
+				}else{ // The player loose ! 
+					t_textEndGame.set("Oh, you lose ! \n You've survived to only "+genericWave.getListWave().size()+" waves !");
+				}
+				ogEndGame.addObject(backgroundEndGame);
+				ogEndGame.addObject(t_textEndGame);
 			}
-			return true;					
+			
+			return true;	
+
 		}
 		
 		/**
@@ -235,35 +257,40 @@ public class Play extends AngleActivity{
 		@Override
 		public void step(float secondsElapsed)
 		{
-			/* WAVES */
-			lastWave += secondsElapsed;
-			BoxPath boxpath = matrice.firstBoxPath;
-			if (lastWave > game.getTimeBetweenEachWave()){
-				lastWave = 0;
-				LinkedList<Wave> listWave = genericWave.getListWave();
-				if (game.getActualWave()<listWave.size()){
-					ogWave.addObject(listWave.get(game.getActualWave()));
-					listWave.get(game.getActualWave()).start(ogCreature,boxpath);
-					game.setActualWave(game.getActualWave()+1);
+			if(gameStarted){
+				/* WAVES */
+				lastWave += secondsElapsed;
+				BoxPath boxpath = matrice.firstBoxPath;
+				if (lastWave > game.getTimeBetweenEachWave()){
+					lastWave = 0;
+					LinkedList<Wave> listWave = genericWave.getListWave();
+					if (game.getActualWave()<listWave.size()){
+						ogWave.addObject(listWave.get(game.getActualWave()));
+						listWave.get(game.getActualWave()).start(ogCreature,boxpath);
+						game.setActualWave(game.getActualWave()+1);
+					}
+	
 				}
-
-			}
-			/* SHOOTS */
-			boxpath.nextStep(game,ogCreature);
-			timeBetweenEachTowerTurn += secondsElapsed;
-			if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
-				timeBetweenEachTowerTurn =0;
-				for(int i=0;i<towerList.size();i++){
-					if(towerList.get(i).getTower() != null){
-						towerList.get(i).getTower().detection(ogShoot);
+				/* SHOOTS */
+				boxpath.nextStep(game,ogCreature);
+				timeBetweenEachTowerTurn += secondsElapsed;
+				if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
+					timeBetweenEachTowerTurn =0;
+					for(int i=0;i<towerList.size();i++){
+						if(towerList.get(i).getTower() != null){
+							towerList.get(i).getTower().detection(ogShoot);
+						}
 					}
 				}
-			}
-			/* MENUS */
-			lastRefreshMenu += secondsElapsed;
-			if(lastRefreshMenu > game.getMenuRefreshTime()) {
-				lastRefreshMenu = 0;
-				menu.refresh(game);
+				/* MENUS */
+				lastRefreshMenu += secondsElapsed;
+				if(lastRefreshMenu > game.getMenuRefreshTime()) {
+					lastRefreshMenu = 0;
+					menu.refresh(game);
+				}
+				
+				// Gérer la fin de toutes les Waves pour voir si la partie est finie
+
 			}
 			super.step(secondsElapsed);
 		}
@@ -277,6 +304,7 @@ public class Play extends AngleActivity{
 			AngleSpriteLayout bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower2);
 			fireAreaLayout = new AngleSpriteLayout(mGLSurfaceView, 96, 96, R.drawable.firearea);
 			fireAreaLayout2 = new AngleSpriteLayout(mGLSurfaceView, 160, 160, R.drawable.firearea);
+			//backgroundEndGameLayout = new AngleSpriteLayout(mGLSurfaceView, 320, 64, R.drawable.bgendgame);
 			tower1 = new Tower(eFire,5,5,5,true,5,5,5,5,bnewTower1Layout,2);
 			tower2 = new Tower(eIron,2,2,2,false,2,2,2,2,bnewTower2Layout,1);
 			shootArea = new AngleSprite(fireAreaLayout);
