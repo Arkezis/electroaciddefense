@@ -4,7 +4,7 @@ public class Game {
 
 	private int speedMultiplicator =1;
 	private int difficulty;
-	private int level;
+	@Deprecated private int level; 
 	private int money=500;
 	private int lives;
 	private float timeBetweenEachWave=5;

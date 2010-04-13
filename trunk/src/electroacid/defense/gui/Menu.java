@@ -3,7 +3,6 @@ package electroacid.defense.gui;
 
 
 import com.android.angle.AngleFont;
-import com.android.angle.AngleObject;
 import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
 
@@ -12,48 +11,33 @@ import electroacid.defense.Game;
 public  class Menu {
 
 	private AngleString t_infosPlayerTitre,t_infosPlayerSpeed,t_infosPlayerLevel,t_infosPlayerMoney,t_infosPlayerLives;
-	
+	/**
+	 * The constructor for the menu of general informations
+	 * @param game The informations about the game
+	 * @param font The general font 
+	 * @param fontTitle The title font
+	 * @param mGLSurfaceView The view
+	 */
 	public Menu(Game game, AngleFont font, AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
-		this.t_infosPlayerTitre = new AngleString(fontTitle);
-		this.t_infosPlayerSpeed = new AngleString(font);
-		this.t_infosPlayerLevel = new AngleString(font);
-		this.t_infosPlayerMoney = new AngleString(font);
-		this.t_infosPlayerLives = new AngleString(font);
+		this.t_infosPlayerTitre = new AngleString(fontTitle,"Game",270, 427,AngleString.aCenter);
+		this.t_infosPlayerSpeed = new AngleString(font,"Speed : "+game.getSpeedMultiplicator(),270,440,AngleString.aCenter);
+		this.t_infosPlayerLevel = new AngleString(font,"Wave : "+game.getActualWave()+1,270,450,AngleString.aCenter);
+		this.t_infosPlayerMoney = new AngleString(font,"Money : "+game.getMoney(),270,460,AngleString.aCenter);
+		this.t_infosPlayerLives = new AngleString(font,"Lives : "+game.getLives(),270,470,AngleString.aCenter);
 
-		this.t_infosPlayerTitre.set("Game");
-		this.t_infosPlayerSpeed.set("Speed : "+game.getSpeedMultiplicator());
-		this.t_infosPlayerLevel.set("\n Level : "+game.getLevel());
-		this.t_infosPlayerMoney.set("\n Money : "+game.getMoney());
-		this.t_infosPlayerLives.set("\n Lives : "+game.getLives());
-
-		this.t_infosPlayerTitre.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerTitre.mPosition.set(270, 427); 
 		mGLSurfaceView.addObject(this.t_infosPlayerTitre);
-	
-		this.t_infosPlayerSpeed.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerSpeed.mPosition.set(270, 440); 
 		mGLSurfaceView.addObject(this.t_infosPlayerSpeed);
-		
-		this.t_infosPlayerLevel.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerLevel.mPosition.set(270, 450); 
 		mGLSurfaceView.addObject(this.t_infosPlayerLevel);
-		
-		this.t_infosPlayerMoney.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerMoney.mPosition.set(270, 460); 
 		mGLSurfaceView.addObject(this.t_infosPlayerMoney);
-		
-		this.t_infosPlayerLives.mAlignment = AngleString.aCenter;
-		this.t_infosPlayerLives.mPosition.set(270, 470); 
-		mGLSurfaceView.addObject(this.t_infosPlayerLives);
-		
-		
-		
+		mGLSurfaceView.addObject(this.t_infosPlayerLives);	
 	}
-
+	/**
+	 * The method to refresh the menu
+	 * @param game The informationsa about the game
+	 */
 	public void refresh(Game game){
-		this.t_infosPlayerTitre.set("Game");
 		this.t_infosPlayerSpeed.set("Speed : "+game.getSpeedMultiplicator());
-		this.t_infosPlayerLevel.set("\n Level : "+game.getLevel());
+		this.t_infosPlayerLevel.set("\n Wave : "+game.getActualWave()+1);
 		this.t_infosPlayerMoney.set("\n Money : "+game.getMoney());
 		this.t_infosPlayerLives.set("\n Lives : "+game.getLives());
 	}
