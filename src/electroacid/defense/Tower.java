@@ -2,8 +2,6 @@ package electroacid.defense;
 
 import java.util.LinkedList;
 
-import android.util.Log;
-
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
@@ -206,11 +204,9 @@ public  class Tower implements Cloneable{
 	 * @param g Game's information
 	 */
 	public void upgrade(Game g){
-		this.life = (int)(this.life*upgrade);
-		this.fireRate =(int)(this.fireRate*upgrade);
-		this.cost =  (int)(this.cost*upgrade);
-		this.damage = (int)(this.damage*upgrade);
-		this.targetNb = (int)(this.targetNb*upgrade);
+		this.life = (int)Math.ceil((this.life*upgrade));
+		this.cost =  (int)Math.ceil((this.cost*upgrade));
+		this.damage = (int)Math.ceil((this.damage*upgrade));
 		this.level++;
 		g.setMoney(g.getMoney()-this.cost);
 	}
@@ -241,8 +237,9 @@ public  class Tower implements Cloneable{
 
 	/**
 	 * Cloning the tower
+	 * @param bnewTower2Layout 
 	 */
-	public Object clone() {
+	public Object clone( ) {
 	    Tower tower = null;
 	    try {
 	      	tower = (Tower) super.clone();

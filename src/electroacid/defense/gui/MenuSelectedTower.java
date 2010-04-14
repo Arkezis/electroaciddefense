@@ -2,7 +2,6 @@ package electroacid.defense.gui;
 
 import java.util.LinkedList;
 
-import android.util.Log;
 
 import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
@@ -20,7 +19,6 @@ public class MenuSelectedTower {
 	
 	public AngleString t_infosTowerTitle,t_infosTowerLevel,t_infosTowerElement ;
 	public AngleString t_infosTowerCanTargetFly, t_infosTowerDamage;
-	public AngleSpriteLayout bDeleteTowerLayout,bUpgradeTowerLayout;
 	public AngleSprite bDeleteTower,bUpgradeTower;
 	/**
 	 * Constructor 
@@ -36,12 +34,10 @@ public class MenuSelectedTower {
 		this.t_infosTowerDamage = new AngleString(font,"",16,460,AngleString.aLeft);		
 		this.t_infosTowerCanTargetFly = new AngleString(font,"",16,470,AngleString.aLeft);		
 		
-		this.bUpgradeTowerLayout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.upgradetower);
-		this.bUpgradeTower = new AngleSprite(this.bUpgradeTowerLayout);
+		this.bUpgradeTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,160,32,32));
 		this.bUpgradeTower.mPosition.set(150, 432); 
 		
-		this.bDeleteTowerLayout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.deletetower);
-		this.bDeleteTower = new AngleSprite(this.bDeleteTowerLayout);
+		this.bDeleteTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,160,32,32));
 		this.bDeleteTower.mPosition.set(150, 464); 
 		
 		mGLSurfaceView.addObject(t_infosTowerElement);
@@ -64,7 +60,6 @@ public class MenuSelectedTower {
 	 * @param mGLSurfaceView The view
 	 */
 	public void hide(AngleSurfaceView mGLSurfaceView){
-		Log.d("DEBUGTAG", "HIDDING SelectedMenu");
 		this.t_infosTowerTitle.mAlpha = 0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
@@ -82,7 +77,7 @@ public class MenuSelectedTower {
 	public void show(AngleSurfaceView mGLSurfaceView,Tower tower,Game g){
 		this.t_infosTowerElement.set("Element : "+tower.getElement().toString());
 		this.t_infosTowerLevel.set("Level : "+tower.getLevel()+"==>"+(tower.getLevel()+1));
-		this.t_infosTowerDamage.set("Damage : "+tower.getDamage()+"==>"+(int)(tower.getDamage()*tower.getUpgrade()));
+		this.t_infosTowerDamage.set("Damage : "+tower.getDamage()+"==>"+(int)Math.ceil((tower.getDamage()*tower.getUpgrade())));
 		if(tower.isCanTargetFly())	this.t_infosTowerCanTargetFly.set("Can target fly");
 		else this.t_infosTowerCanTargetFly.set("");
 

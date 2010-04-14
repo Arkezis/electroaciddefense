@@ -1,6 +1,5 @@
 package electroacid.defense.gui;
 
-import android.util.Log;
 
 import com.android.angle.AngleFont;
 import com.android.angle.AngleSprite;
@@ -15,7 +14,7 @@ public class MenuNewTower {
 	
 	public AngleString t_infosTowerTitle,t_infosTowerElement;
 	public AngleString t_infosTowerCanTargetFly, t_infosTowerDamage;
-	public AngleSpriteLayout bnewTower1Layout,bnewTower2Layout,bGoLayout;
+	public AngleSpriteLayout bGoLayout;
 	public AngleSprite bnewTower1,bnewTower2,bGo;
 	
 	/**
@@ -31,15 +30,14 @@ public class MenuNewTower {
 		this.t_infosTowerCanTargetFly = new AngleString(font,"",160,460,AngleString.aCenter);		
 		
 		
-		this.bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
-		this.bnewTower1 = new AngleSprite(this.bnewTower1Layout);
+		this.bnewTower1 = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,128,32,32));
 		this.bnewTower1.mPosition.set(16, 432); 
 
-		this.bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower2);
-		this.bnewTower2 = new AngleSprite(this.bnewTower2Layout);
+		
+		this.bnewTower2 = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,128,32,32));
 		this.bnewTower2.mPosition.set(16, 464); 
 				
-		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView, 64, 32, R.drawable.go);
+		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView,64,32,R.drawable.tilemap,128,160,64,32);
 		this.bGo = new AngleSprite(this.bGoLayout);
 		this.bGo.mPosition.set(85, 430); 
 		
@@ -66,7 +64,6 @@ public class MenuNewTower {
 	 */
 	public  int getNewTowerFromMenuNewTower(int x,int y){
 		int ret = 0;
-		Log.d("getNewTowerFromMenuNewTower", "x:"+x+"     y:"+y);
 		if(x > 0 && x < 32){ // 1st column
 			if(y > 416 && y < 448)		ret = 1;
 			else if(y > 448 && y < 480)	ret = 2;

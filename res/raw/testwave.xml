@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listwave name="testwave">
 	<wave>
-		<creature element="fire" life="10" speed="1" fireRate="0" rewardValue="10" fly="false" textureId="0" number="1"/>
+		<creature element="fire" life="2" speed="1" fireRate="0" rewardValue="10" fly="false" textureId="0" number="50"/>
 	</wave>
 </listwave>
