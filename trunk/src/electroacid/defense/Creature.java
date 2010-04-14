@@ -84,12 +84,12 @@ public  class Creature implements Cloneable{
 			if (byTower) game.addMoney(this.rewardValue);
 			else game.removeLives(1);
 		}
-
+		
 		public void start(AngleObject og, BoxPath debut) {
 			debut.addCreature(this);
 			this.sprite.mPosition.set(
-					debut.getY(), 
-					debut.getX());
+					debut.getX()+16,
+					debut.getY()+16);
 			og.addObject(this.sprite);
 		}
 		

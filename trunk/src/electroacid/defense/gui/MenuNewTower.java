@@ -1,5 +1,7 @@
 package electroacid.defense.gui;
 
+import android.util.Log;
+
 import com.android.angle.AngleFont;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
@@ -64,6 +66,7 @@ public class MenuNewTower {
 	 */
 	public  int getNewTowerFromMenuNewTower(int x,int y){
 		int ret = 0;
+		Log.d("getNewTowerFromMenuNewTower", "x:"+x+"     y:"+y);
 		if(x > 0 && x < 32){ // 1st column
 			if(y > 416 && y < 448)		ret = 1;
 			else if(y > 448 && y < 480)	ret = 2;
