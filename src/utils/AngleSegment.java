@@ -37,6 +37,7 @@ public class AngleSegment extends AngleObject
 		gl.glDisable(GL11.GL_TEXTURE_2D);
 		gl.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 
+		gl.glLineWidth(2);
 		gl.glPushMatrix();
 		gl.glLoadIdentity();
 		gl.glColor4f(mRed, mGreen, mBlue, mAlpha);

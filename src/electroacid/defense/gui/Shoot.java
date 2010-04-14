@@ -2,6 +2,8 @@ package electroacid.defense.gui;
 
 import utils.AngleSegment;
 
+import android.util.Log;
+
 import com.android.angle.AngleObject;
 
 /**
@@ -15,6 +17,8 @@ public class Shoot extends AngleSegment {
 	 * The AngleObject used to add/remove the shoot
 	 */
 	AngleObject ogWork;
+	float timeShoot=(float)0.3;
+	float timeElapsed ;
 	/**
 	 * The constructor
 	 * @param x1 The x of the tower
@@ -33,7 +37,13 @@ public class Shoot extends AngleSegment {
 	 * At each step, the shoot is removed
 	 */	
 	public void step(float secondsElapsed){
-		this.ogWork.removeObject(this);
+		timeElapsed += secondsElapsed;
+		if(timeElapsed >= timeShoot){
+			this.ogWork.removeObject(this);
+			timeElapsed=0;
+			Log.d("DEBUG","Del");
+		}
+		Log.d("DEBUG","Step !"+secondsElapsed+" and "+timeElapsed);
 		super.step(secondsElapsed);
 	}
 	
