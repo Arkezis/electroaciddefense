@@ -8,7 +8,6 @@ import com.android.angle.AngleTileMap;
 
 import utils.XmlUtil;
 import android.content.Context;
-import android.util.Log;
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.box.BoxPath;
@@ -79,7 +78,6 @@ public class GenericMap {
 				this.matrice[line][column] = new BoxPath(column*this.offsetX, line*this.offsetY, this.offsetX, this.offsetY);
 				if (firstBoxPath){
 					this.firstBoxPath=(BoxPath)this.matrice[line][column];
-					Log.d("creature", "first boxPath    x:"+this.firstBoxPath.getX()+"      y:"+this.firstBoxPath.getY());
 				}
 			} else {
 				//Your xml was so bad

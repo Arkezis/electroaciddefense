@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -51,6 +50,7 @@ public class Play extends AngleActivity{
 	
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2,_bnewTower1Layout;
+	AngleSpriteLayout  bnewTower2Layout,bnewTower1Layout;
 	AngleSprite backgroundEndGame;
 	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame;
 	private AngleTileMap tmGround;
@@ -78,6 +78,8 @@ public class Play extends AngleActivity{
 	boolean gameStarted;
 	public AngleString t_textEndGame;
 	public AngleString t_textEndGame2;
+	AngleSprite pointerNewTower;
+	AngleSpriteLayout pointerNewTowerLayout;
 
 	public class MyGame extends  AngleUI{
 		/** The variable to avoid a high touching map */
@@ -114,7 +116,6 @@ public class Play extends AngleActivity{
 			try {
 				matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
 			} catch (Exception e) {
-				Log.d("testMAPXML","probleme with the map xml");
 				e.printStackTrace();
 			}
 			
@@ -124,12 +125,11 @@ public class Play extends AngleActivity{
 				genericWave = new GenericWave(mGLSurfaceView);
 				genericWave.build(getWindow().getContext(), R.raw.testwave);
 			} catch (Exception e1) {
-				Log.d("testMAPXML","probleme with the creature xml");
 				e1.printStackTrace();
 			}
 			
 			/* Menus' initialisation */
-			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
+			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
 			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 20, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
 
@@ -145,7 +145,7 @@ public class Play extends AngleActivity{
 		public boolean onTouchEvent(MotionEvent event) {
 			if(gameStarted){
 				/* To prevent a lot of touch on the screen */
-				if (System.currentTimeMillis() - time < 500){
+				if (System.currentTimeMillis() - time < 100){
 					return true;
 				}
 				time = System.currentTimeMillis();
@@ -165,6 +165,9 @@ public class Play extends AngleActivity{
 							menuNewTower.show(mGLSurfaceView);
 							menuSelectedTower.hide(mGLSurfaceView);
 							shootArea.mAlpha=0;
+							pointerNewTower.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
+							pointerNewTower.mAlpha=1;
+							mGLSurfaceView.addObject(pointerNewTower);						
 						}else{
 							menuNewTower.hide(mGLSurfaceView);
 							menuNewTower.hideValidateTower(mGLSurfaceView);
@@ -175,6 +178,8 @@ public class Play extends AngleActivity{
 							shootArea.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 							mGLSurfaceView.addObject(shootArea);
 							shootArea.mAlpha = (float) 0.60;
+							pointerNewTower.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
+							pointerNewTower.mAlpha=1;
 						}
 					}else{
 						menuSelectedTower.hide(mGLSurfaceView);
@@ -182,7 +187,6 @@ public class Play extends AngleActivity{
 						shootArea.mAlpha=0;
 					}
 				}else{
-					Log.d("event", "touching the menu");
 				/* ------------------------ */
 				/*    TOUCHING THE MENU     */
 				/* ------------------------ */
@@ -199,6 +203,7 @@ public class Play extends AngleActivity{
 									menuNewTower.hide(mGLSurfaceView);
 									towerChoice = null;
 									shootArea.mAlpha =0;
+									pointerNewTower.mAlpha=0;
 								}
 							}else if(choiceMenu > 0){					
 								/* Did the user has chosen a tower in the menu ?  */
@@ -226,6 +231,7 @@ public class Play extends AngleActivity{
 							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField,towerList)){
 								menuSelectedTower.hide(mGLSurfaceView);
 								shootArea.mAlpha=0;
+								pointerNewTower.mAlpha=0;
 							}
 						}
 					}else{
@@ -236,16 +242,12 @@ public class Play extends AngleActivity{
 				// Game finished
 				ogEndGame=new AngleObject(); addObject(ogEndGame);
 				t_textEndGame = new AngleString(fontEndGame,"",160, 208, AngleString.aCenter);
-				t_textEndGame2 = new AngleString(fontEndGame,"",160, 238, AngleString.aCenter);
-				if(game.getActualWave() == genericWave.getListWave().size()){ // The player won ! 
-					t_textEndGame.set("Congratulations, you won the game !");
-					t_textEndGame2.set("You've \t survived to "+genericWave.getListWave().size()+" waves !");
-				}else{ // The player loose ! 
-					t_textEndGame.set("Oh, you lose ! ");
-					t_textEndGame2.set("You've survived to only "+genericWave.getListWave().size()+" waves !");
+				if(game.getActualWave() == genericWave.getListWave().size()){
+					t_textEndGame.set("Congratulations, you won the game ! \n You've survived to "+genericWave.getListWave().size()+" waves !");
+				}else{ 
+					t_textEndGame.set("Oh, you lose ! \n You've survived to only "+genericWave.getListWave().size()+" waves !");
 				}
 				ogEndGame.addObject(t_textEndGame);
-				ogEndGame.addObject(t_textEndGame2);
 			}
 			
 			return true;	
@@ -303,13 +305,14 @@ public class Play extends AngleActivity{
 		 * This method create the tower which will be used in the menu and to create the new tower (clone). The shootArea's Sprite is also created here
 		 */
 		private void createTowerForMenu(){
-			AngleSpriteLayout bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower1);
-			AngleSpriteLayout bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView, 32, 32, R.drawable.tower2);
-			fireAreaLayout = new AngleSpriteLayout(mGLSurfaceView, 96, 96, R.drawable.firearea);
-			fireAreaLayout2 = new AngleSpriteLayout(mGLSurfaceView, 160, 160, R.drawable.firearea);
+			bnewTower1Layout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,128,32,32);
+			bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,128,32,32);
+			fireAreaLayout = new AngleSpriteLayout(mGLSurfaceView, 96, 96, R.drawable.tilemap,96,160,32,32);
+			fireAreaLayout2 = new AngleSpriteLayout(mGLSurfaceView, 160, 160, R.drawable.tilemap,96,160,32,32);
 			tower1 = new Tower(eFire,5,5,5,true,5,5,5,1,bnewTower1Layout,2);
 			tower2 = new Tower(eIron,2,2,2,false,2,2,2,1,bnewTower2Layout,1);
 			shootArea = new AngleSprite(fireAreaLayout);
+			pointerNewTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,160,32,32));
 			
 		}
 		
