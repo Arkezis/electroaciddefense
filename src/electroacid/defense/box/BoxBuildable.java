@@ -48,9 +48,9 @@ public class BoxBuildable extends Box {
 		this.tower = _tower;
 		if (this.tower != null) {
 			if(game.getMoney() > this.tower.getCost()){
-				this.tower.changePosition(this.y+this.width/2,this.x+this.height/2);
+				this.tower.changePosition(this.x+this.height/2,this.y+this.width/2);
 				game.addMoney(-this.tower.getCost());
-				this.getTower().changePosition(y, x);
+				this.getTower().changePosition(x,y);
 				this.getTower().setListDetection(x, y, matrice);
 				return true;
 			}

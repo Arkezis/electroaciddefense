@@ -1,6 +1,7 @@
 package electroacid.defense.box;
 
 import java.util.LinkedList;
+
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
 import electroacid.defense.Game;
@@ -59,12 +60,10 @@ public class BoxPath extends Box {
 	 * @param container creature's container
 	 */
 	public void nextStep(Game game,AngleObject container){
-
 		if (this.nextPath== null) {
 			for (int i=0;i<this.listCreature.size();i++) {
 				this.listCreature.get(i).destroy(game, container,false);
 				this.listCreature.remove(i--);
-				game.removeLives(1);
 			}
 		}
 		for (int i=0;i<this.listCreature.size();i++){
@@ -75,8 +74,8 @@ public class BoxPath extends Box {
 			}else{
 				float nextY = creature.getSprite().mPosition.mY;
 				float nextX = creature.getSprite().mPosition.mX;
-				if (nextY>this.x+this.height || nextY<this.x || 
-						nextX>this.y+this.width || nextX<this.y) {
+
+				if (!creatureInBox(nextX, nextY)){
 					this.nextPath.addCreature(creature);
 					this.listCreature.remove(i--);
 				}else {
@@ -93,6 +92,25 @@ public class BoxPath extends Box {
 		if (this.nextPath!=null) this.nextPath.nextStep(game,container);
 	}
 
+	private boolean creatureInBox(float x,float y){
+		boolean test = false;
+		switch(this.direction) {
+			case Up   :
+				test = y>this.y-this.height/2.0 && y>0;
+				break;
+			case Down :
+				test = this.nextPath==null ? y<this.y+this.height : y<this.y+1.5*this.height;
+				break;
+			case Left :
+				test = x>this.x-this.width/2.0 && x>0;
+				break;
+			case Right:
+				test = this.nextPath==null ? x<this.x+this.width : x<this.x+1.5*this.width;
+				break;
+		}
+		return test;
+	}
+	
 	/** @return the listCreature */
 	public LinkedList<Creature> getListCreature() {return listCreature;}
 

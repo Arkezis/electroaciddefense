@@ -56,7 +56,7 @@ public class Play extends AngleActivity{
 	private AngleTileMap tmGround;
 
 	/* Matrice */
-	GenericMap matrice = new GenericMap(320, 416, 32, 32);
+	GenericMap matrice = new GenericMap(13, 10, 32, 32);
 	GenericWave genericWave;
 	
 
@@ -172,7 +172,7 @@ public class Play extends AngleActivity{
 							/* Show the shootArea of the tower */
 							if(boxBuildableSelected.getTower().getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
 							else if(boxBuildableSelected.getTower().getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
-							shootArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
+							shootArea.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 							mGLSurfaceView.addObject(shootArea);
 							shootArea.mAlpha = (float) 0.60;
 						}
@@ -182,6 +182,7 @@ public class Play extends AngleActivity{
 						shootArea.mAlpha=0;
 					}
 				}else{
+					Log.d("event", "touching the menu");
 				/* ------------------------ */
 				/*    TOUCHING THE MENU     */
 				/* ------------------------ */
@@ -214,7 +215,7 @@ public class Play extends AngleActivity{
 								/* shootArea */
 								if(towerChoice.getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
 								else if(towerChoice.getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
-								shootArea.mPosition.set(boxBuildableSelected.getY()+16, boxBuildableSelected.getX()+16);
+								shootArea.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 								shootArea.mAlpha = (float) 0.60;
 								mGLSurfaceView.addObject(shootArea); 
 							}else{
@@ -262,6 +263,7 @@ public class Play extends AngleActivity{
 				/* WAVES */
 				lastWave += secondsElapsed;
 				BoxPath boxpath = matrice.firstBoxPath;
+				
 				if (lastWave > game.getTimeBetweenEachWave()){
 					lastWave = 0;
 					LinkedList<Wave> listWave = genericWave.getListWave();
