@@ -2,6 +2,8 @@ package electroacid.defense;
 
 import java.util.LinkedList;
 
+import android.util.Log;
+
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
@@ -383,22 +385,16 @@ public  class Tower implements Cloneable{
 	 * @param y The y of the boxbuildable containing the tower
 	 * @param matrice The matrice
 	 */
-	public void setListDetection(int y,int x,  GenericMap matrice) {
-		int mult=0;
+	public void setListDetection(int width,int height,  GenericMap matrice) {
 		this.boxDetectionList=new LinkedList<BoxPath>();
-		for(int i=1;i<=this.shootArea;i++){
-			mult+=32;
-			if(matrice.getBox(x+mult, y) instanceof BoxPath)this.boxDetectionList.add((BoxPath) matrice.getBox(x+mult, y));
-			if(matrice.getBox(x+mult, y+mult) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(x+mult, y+mult));
-			if(matrice.getBox(x, y+mult) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(x, y+mult));
-			if(matrice.getBox(x-mult, y+mult) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(x-mult, y+mult));
-			if(matrice.getBox(x-mult, y) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(x-mult, y));
-			if(matrice.getBox(x-mult, y-mult) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(x-mult, y-mult));
-			if(matrice.getBox(x, y-mult) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(x, y-mult));
-			if(matrice.getBox(x+mult, y-mult) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(x+mult, y-mult));
+		int maxAreaForX = this.shootArea*width;
+		int maxAreaForY = this.shootArea*height;
+		
+		for (int i = this.y-maxAreaForY;i<=this.y+maxAreaForY;i+=height){
+			for (int j = this.x-maxAreaForX;j<=this.x+maxAreaForX;j+=width){
+				if (matrice.getBox(j, i) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(j,i)); 
+			}
 		}
 	}
-
-	
 	
 }
