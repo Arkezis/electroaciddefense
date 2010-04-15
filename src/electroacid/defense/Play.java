@@ -75,7 +75,7 @@ public class Play extends AngleActivity{
 	/** The AngleUI */
 	MyGame myGame;
 	/** Boolean for the game */
-	boolean gameStarted;
+	
 	public AngleString t_textEndGame;
 	public AngleString t_textEndGame2;
 	AngleSprite pointerNewTower;
@@ -96,7 +96,7 @@ public class Play extends AngleActivity{
 		 */
 		public MyGame(AngleActivity activity) {
 			super(activity);
-			gameStarted=true;
+			game.setGameStarted(true);
 			ogField=new AngleObject(); addObject(ogField);
 			ogCreature=new AngleObject(); addObject(ogCreature);
 			ogShoot = new AngleObject(); addObject(ogShoot);
@@ -123,7 +123,7 @@ public class Play extends AngleActivity{
 			/* Read the waves' informations for this game */
 			try {
 				genericWave = new GenericWave(mGLSurfaceView);
-				genericWave.build(getWindow().getContext(), R.raw.testwave);
+				genericWave.build(getWindow().getContext(), R.raw.testwave,game);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -143,7 +143,7 @@ public class Play extends AngleActivity{
 		 * @param event The event 
 		 */
 		public boolean onTouchEvent(MotionEvent event) {
-			if(gameStarted){
+			if(!game.isGameEnd()){
 				/* To prevent a lot of touch on the screen */
 				if (System.currentTimeMillis() - time < 100){
 					return true;
@@ -261,7 +261,7 @@ public class Play extends AngleActivity{
 		@Override
 		public void step(float secondsElapsed)
 		{
-			if(gameStarted){
+			if(!game.isGameEnd()){
 				/* WAVES */
 				lastWave += secondsElapsed;
 				BoxPath boxpath = matrice.firstBoxPath;

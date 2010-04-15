@@ -9,6 +9,7 @@ import android.content.Context;
 import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleSurfaceView;
 import electroacid.defense.Creature;
+import electroacid.defense.Game;
 import electroacid.defense.R;
 import electroacid.defense.enums.Element;
 
@@ -39,15 +40,17 @@ public class GenericWave {
 	 * Read the xml file and create waves and creatures
 	 * @param context use for read the xml file
 	 * @param xmlResourceId id of the xml file
+	 * @param game game's parameters
 	 * @throws Exception
 	 */
-	public void build(final Context context,final int xmlResourceId) throws Exception{
+	public void build(final Context context,final int xmlResourceId,Game game) throws Exception{
 		Document waveXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
 		NodeList listNodeWave = waveXml.getDocumentElement().getElementsByTagName("wave");
 		for (int i=0;i<listNodeWave.getLength();i++){
 			NodeList listCreature = listNodeWave.item(i).getChildNodes();
 			Wave wave = new Wave();
-			this.listWave.add(wave);	
+			this.listWave.add(wave);
+			game.setNbMaxWave(game.getNbMaxWave()+1);
 			for (int j=0;j<listCreature.getLength();j++){
 				Node creature = listCreature.item(j);
 				if (creature.getNodeName().equalsIgnoreCase("creature")){
@@ -69,7 +72,7 @@ public class GenericWave {
 								rewardValue,
 								fly,
 								this.listLayout.get(idTexture));
-						wave.addCreature(creat);				
+						wave.addCreature(creat,game);				
 					}
 				}
 			}

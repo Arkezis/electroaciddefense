@@ -83,6 +83,7 @@ public  class Creature implements Cloneable{
 			og.removeObject(this.sprite);
 			if (byTower) game.addMoney(this.rewardValue);
 			else game.removeLives(1);
+			game.removeOneCreatureInGame();
 		}
 		
 		public void start(AngleObject og, BoxPath debut) {

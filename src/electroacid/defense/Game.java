@@ -8,9 +8,12 @@ public class Game {
 	private int money=500;
 	private int lives;
 	private float timeBetweenEachWave=5;
-
+	boolean gameStarted;
 	private float timeBetweenEachTowerTurn=(float)0.5;
 	private int actualWave = 0;
+	private int nbCreatureInGame=0;
+	private int nbMaxWave=0;
+	private boolean gameEnd;
 	/**
 	 * @return the actualWave
 	 */
@@ -96,6 +99,7 @@ public class Game {
 	
 	public void removeLives(int nbLive){
 		this.lives-=nbLive;
+		if (this.lives<=0) this.gameStarted=false;
 	}
 	/**
 	 * @param speedMultiplicator the speedMultiplicator to set
@@ -140,6 +144,63 @@ public class Game {
 	 */
 	public void setTimeBetweenEachTowerTurn(float timeBetweenEachTowerTurn) {
 		this.timeBetweenEachTowerTurn = timeBetweenEachTowerTurn;
+	}
+
+	/**
+	 * @return the gameStarted
+	 */
+	public boolean isGameStarted() {
+		return gameStarted;
+	}
+
+	/**
+	 * @param gameStarted the gameStarted to set
+	 */
+	public void setGameStarted(boolean gameStarted) {
+		this.gameStarted = gameStarted;
+	}
+
+	/**
+	 * @return the nbCreatureInGame
+	 */
+	public int getNbCreatureInGame() {
+		return nbCreatureInGame;
+	}
+
+	/**
+	 * @param nbCreatureInGame the nbCreatureInGame to set
+	 */
+	public void setNbCreatureInGame(int nbCreatureInGame) {
+		this.nbCreatureInGame = nbCreatureInGame;
+	}
+	
+	/** add one creature at the nbCreatureInGame parameter */
+	public void addOneCreatureInGame(){
+		this.nbCreatureInGame++;
+	}
+	/** remove one creature at the nbCreatureInGame parameter */
+	public void removeOneCreatureInGame(){
+		this.nbCreatureInGame--;
+		this.gameEnd = !this.gameStarted || (this.nbCreatureInGame==0 && this.actualWave==this.getNbMaxWave());
+		
+	}
+	
+	public boolean isGameEnd(){
+		return this.gameEnd;
+	}
+
+	/**
+	 * @return the nbMaxWave
+	 */
+	public int getNbMaxWave() {
+		return nbMaxWave;
+	}
+
+	/**
+	 * @param nbMaxWave the nbMaxWave to set
+	 */
+	public void setNbMaxWave(int nbMaxWave) {
+		this.nbMaxWave = nbMaxWave;
 	}
 	
 
