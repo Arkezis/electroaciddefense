@@ -29,7 +29,7 @@ public class Shoot extends AngleSegment {
 	 */
 	public Shoot(float x1, float y1, float x2, float y2, AngleObject og) {
 
-		super(x1+16,y1+16,x2+16,y2+16);
+		super(x1+16,y1+16,x2,y2);
 		og.addObject(this);
 		this.ogWork = og;
 	}
