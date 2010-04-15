@@ -57,7 +57,7 @@ public class Play extends AngleActivity{
 	private AngleTileMap tmGround;
 
 	/* Matrice */
-	GenericMap matrice = new GenericMap(13, 10, 32, 32,3);
+	GenericMap matrice = new GenericMap(13, 10, 32, 32,9);
 	GenericWave genericWave;
 	GenericTower genericTower;
 	
@@ -113,7 +113,7 @@ public class Play extends AngleActivity{
 			this.createTowerForMenu();
 			
 			/* Create the map */
-			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,6,3,32,32);
+			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,18,9,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
 			ogField.addObject(tmGround);		
 			try {
@@ -198,6 +198,7 @@ public class Play extends AngleActivity{
 						menuSelectedTower.hide(mGLSurfaceView);
 						menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
 						shootArea.mAlpha=0;
+						pointerNewTower.mAlpha=0;
 					}
 				}else{
 				/* ------------------------ */

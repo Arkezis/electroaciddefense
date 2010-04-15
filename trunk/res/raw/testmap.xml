@@ -5,48 +5,48 @@
 		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
-		<box type='path' texture='2' startPath='true'/><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' />
-		<box type='path' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
+		<box type='path' texture='2' startPath='true'/><box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='4' />
+		<box type='path' texture='4' /><box type='path' texture='6' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
 		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />
-		<box type='buildable' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
+		<box type='buildable' texture='0' /><box type='path' texture='3' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
 		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />
-		<box type='buildable' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
+		<box type='buildable' texture='0' /><box type='path' texture='3' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
-		<box type='buildable' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' />
-		<box type='path' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
+		<box type='buildable' texture='0' /><box type='path' texture='5' /><box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='4' />
+		<box type='path' texture='4' /><box type='path' texture='8' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
-		<box type='buildable' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />
+		<box type='buildable' texture='0' /><box type='path' texture='3' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />
 		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
-		<box type='buildable' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' />
-		<box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' />	
+		<box type='buildable' texture='0' /><box type='path' texture='7' /><box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='4' />
+		<box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='6' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
 		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />
-		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' />	
+		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='3' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
 		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />
-		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' />	
+		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='3' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
-		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='0' />
-		<box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='buildable' texture='0' />	
+		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='5' />
+		<box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='8' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
-		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='0' />
+		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='3' />
 		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />	
 	</line>
 	<line>
-		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='0' />
-		<box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='0' /><box type='path' texture='1'/>	
+		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='path' texture='7' />
+		<box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='4' /><box type='path' texture='1'/>	
 	</line>
 		<line>
 		<box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' /><box type='buildable' texture='0' />
