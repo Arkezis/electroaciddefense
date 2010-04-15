@@ -10,9 +10,21 @@
     android:text="@string/hello"
     />
 <Button 
-	android:text="@+string/NewGame" 
+	android:text="@+string/NewGame1" 
 	android:id="@+id/Button01" 
-	android:layout_width="wrap_content" 
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content">
+</Button>
+<Button 
+	android:text="@+string/NewGame2" 
+	android:id="@+id/Button02" 
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content">
+</Button>
+<Button 
+	android:text="@+string/Quit" 
+	android:id="@+id/ButtonQuit" 
+	android:layout_width="fill_parent" 
 	android:layout_height="wrap_content">
 </Button>
 </LinearLayout>
