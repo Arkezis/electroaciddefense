@@ -80,6 +80,7 @@ public class Play extends AngleActivity{
 	public AngleString t_textEndGame2;
 	AngleSprite pointerNewTower;
 	AngleSpriteLayout pointerNewTowerLayout;
+	public AngleSprite endGameSprite;
 
 	public class MyGame extends  AngleUI{
 		/** The variable to avoid a high touching map */
@@ -131,7 +132,7 @@ public class Play extends AngleActivity{
 			/* Menus' initialisation */
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
-			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 20, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
+			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 18, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
 
 			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
 			menuNewTower = new MenuNewTower(fontMenu,fontTitle,mGLSurfaceView);
@@ -239,15 +240,17 @@ public class Play extends AngleActivity{
 					}
 				}
 			}else{
-				// Game finished
-				ogEndGame=new AngleObject(); addObject(ogEndGame);
-				t_textEndGame = new AngleString(fontEndGame,"",160, 208, AngleString.aCenter);
-				if(game.getActualWave() == genericWave.getListWave().size()){
-					t_textEndGame.set("Congratulations, you won the game ! \n You've survived to "+genericWave.getListWave().size()+" waves !");
-				}else{ 
-					t_textEndGame.set("Oh, you lose ! \n You've survived to only "+genericWave.getListWave().size()+" waves !");
-				}
-				ogEndGame.addObject(t_textEndGame);
+//				// Game finished
+//				ogEndGame=new AngleObject(); addObject(ogEndGame);
+//				t_textEndGame = new AngleString(fontEndGame,"",160, 208, AngleString.aCenter);
+//				endGameSprite.mAlpha=(float)0.40;
+//				if(game.getActualWave() == genericWave.getListWave().size()){
+//					t_textEndGame.set("Congratulations, \n you won the game ! \n You've survived to "+genericWave.getListWave().size()+" waves !");
+//				}else{ 
+//					t_textEndGame.set("Oh, you lose ! \n You've survived to \n only "+game.getActualWave()+" waves !");
+//				}
+//				ogEndGame.addObject(endGameSprite);
+//				ogEndGame.addObject(t_textEndGame);
 			}
 			
 			return true;	
@@ -293,9 +296,18 @@ public class Play extends AngleActivity{
 					lastRefreshMenu = 0;
 					menu.refresh(game);
 				}
-				
-				// Gérer la fin de toutes les Waves pour voir si la partie est finie
-
+			}else{
+				// Game finished
+				ogEndGame=new AngleObject(); addObject(ogEndGame);
+				t_textEndGame = new AngleString(fontEndGame,"",160, 208, AngleString.aCenter);
+				endGameSprite.mAlpha=(float)0.03;
+				if(game.getLives()==0){
+					t_textEndGame.set("Oh, you lose ! \n You've survived to \n only "+game.getActualWave()+" waves !");
+				}else{ 
+					t_textEndGame.set("Congratulations, \n you won the game ! \n You've survived to "+genericWave.getListWave().size()+" waves !");
+				}
+				ogEndGame.addObject(endGameSprite);
+				ogEndGame.addObject(t_textEndGame);
 			}
 			super.step(secondsElapsed);
 		}
@@ -309,11 +321,11 @@ public class Play extends AngleActivity{
 			bnewTower2Layout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,128,32,32);
 			fireAreaLayout = new AngleSpriteLayout(mGLSurfaceView, 96, 96, R.drawable.tilemap,96,160,32,32);
 			fireAreaLayout2 = new AngleSpriteLayout(mGLSurfaceView, 160, 160, R.drawable.tilemap,96,160,32,32);
+			endGameSprite = new AngleSprite(160,208,new AngleSpriteLayout(mGLSurfaceView,320,416,R.drawable.tilemap,192,160,32,32));
 			tower1 = new Tower(eFire,5,5,5,true,5,5,5,1,bnewTower1Layout,2);
 			tower2 = new Tower(eIron,2,2,2,false,2,2,2,1,bnewTower2Layout,1);
 			shootArea = new AngleSprite(fireAreaLayout);
-			pointerNewTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,160,32,32));
-			
+			pointerNewTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,160,32,32));	
 		}
 		
 	}
