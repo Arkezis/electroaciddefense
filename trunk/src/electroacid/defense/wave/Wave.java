@@ -3,6 +3,7 @@ package electroacid.defense.wave;
 import java.util.LinkedList;
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
+import electroacid.defense.Game;
 import electroacid.defense.box.BoxPath;
 
 /**
@@ -43,7 +44,8 @@ public class Wave extends AngleObject {
 	 * @param creature creature to add
 	 * @return true if the add is correct
 	 */
-	public boolean addCreature(Creature creature){
+	public boolean addCreature(Creature creature,Game game){
+		game.addOneCreatureInGame();
 		return this.listCreature.add(creature);
 	}
 
