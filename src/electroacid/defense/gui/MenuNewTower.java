@@ -1,6 +1,8 @@
 package electroacid.defense.gui;
 
 
+import java.util.LinkedList;
+
 import com.android.angle.AngleFont;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
@@ -15,7 +17,8 @@ public class MenuNewTower {
 	public AngleString t_infosTowerTitle,t_infosTowerElement;
 	public AngleString t_infosTowerCanTargetFly, t_infosTowerDamage;
 	public AngleSpriteLayout bGoLayout;
-	public AngleSprite bnewTower1,bnewTower2,bGo;
+	//public AngleSprite bnewTower1,bnewTower2,bGo;
+	public AngleSprite bGo;
 	
 	/**
 	 * The constructor
@@ -23,34 +26,39 @@ public class MenuNewTower {
 	 * @param fontTitle The font for the title text
  	 * @param mGLSurfaceView The view
 	 */
-	public MenuNewTower(AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
+	public MenuNewTower(AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView,LinkedList<Tower> listTower){
 		this.t_infosTowerTitle = new AngleString(font,"Tower",160, 427, AngleString.aCenter);
 		this.t_infosTowerElement = new AngleString(font,"",160,440,AngleString.aCenter);		
 		this.t_infosTowerDamage = new AngleString(font,"",160,450,AngleString.aCenter);
 		this.t_infosTowerCanTargetFly = new AngleString(font,"",160,460,AngleString.aCenter);		
 		
 		
-		this.bnewTower1 = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,128,32,32));
-		this.bnewTower1.mPosition.set(16, 432); 
-
 		
-		this.bnewTower2 = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,128,32,32));
-		this.bnewTower2.mPosition.set(16, 464); 
+		listTower.get(0).changePosition(0, 416);
+		listTower.get(0).getSprite().mAlpha = 0;
+		//this.bnewTower1 = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,128,32,32));
+		//this.bnewTower1.mPosition.set(16, 432); 
+
+		listTower.get(1).changePosition(0, 448);
+		listTower.get(1).getSprite().mAlpha = 0;
+		//this.bnewTower2 = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,128,32,32));
+		//this.bnewTower2.mPosition.set(16, 464); 
 				
 		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView,64,32,R.drawable.tilemap,128,160,64,32);
 		this.bGo = new AngleSprite(this.bGoLayout);
 		this.bGo.mPosition.set(85, 430); 
 		
 		this.t_infosTowerTitle.mAlpha = 0;
-		this.bnewTower1.mAlpha = 0;
-		this.bnewTower2.mAlpha = 0;
+		
+		//this.bnewTower1.mAlpha = 0;
+		//this.bnewTower2.mAlpha = 0;
 		this.bGo.mAlpha=0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
 		this.t_infosTowerCanTargetFly.mAlpha = 0;
 		mGLSurfaceView.addObject(this.t_infosTowerTitle);
-		mGLSurfaceView.addObject(bnewTower1);
-		mGLSurfaceView.addObject(bnewTower2);
+		//mGLSurfaceView.addObject(bnewTower1);
+		//mGLSurfaceView.addObject(bnewTower2);
 		mGLSurfaceView.addObject(bGo);
 		mGLSurfaceView.addObject(t_infosTowerElement);
 		mGLSurfaceView.addObject(t_infosTowerDamage);
@@ -76,20 +84,26 @@ public class MenuNewTower {
 	 * This function hide the menu 
 	 * @param mGLSurfaceView The view
 	 */
-	public void hide(AngleSurfaceView mGLSurfaceView){
+	public void hide(AngleSurfaceView mGLSurfaceView,LinkedList<Tower> listTower){
 		this.t_infosTowerTitle.mAlpha = 0;
-		this.bnewTower1.mAlpha = 0;
-		this.bnewTower2.mAlpha = 0;
+		//this.bnewTower1.mAlpha = 0;
+		//this.bnewTower2.mAlpha = 0;
+		for (int i=0;i<listTower.size();i++){
+			listTower.get(i).getSprite().mAlpha=0;
+		}
 	}
 	
 	/**
 	 * This function show the menu the towers
 	 * @param mGLSurfaceView
 	 */
-	public void show(AngleSurfaceView mGLSurfaceView){
+	public void show(AngleSurfaceView mGLSurfaceView,LinkedList<Tower> listTower){
 		this.t_infosTowerTitle.mAlpha = 1;
-		this.bnewTower1.mAlpha = 1;
-		this.bnewTower2.mAlpha = 1;
+		//this.bnewTower1.mAlpha = 1;
+		//this.bnewTower2.mAlpha = 1;
+		for (int i=0;i<listTower.size();i++){
+			listTower.get(i).getSprite().mAlpha=1;
+		}
 		this.hideValidateTower(mGLSurfaceView); // if you want to show the selection, the validation must be hidden (for the moment !)
 	}
 	
