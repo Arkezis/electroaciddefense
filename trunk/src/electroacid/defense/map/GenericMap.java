@@ -34,6 +34,8 @@ public class GenericMap {
 	/** box which start the path */
 	public BoxPath firstBoxPath;
 	
+	private int nbDiffTexture=0;
+	
 	/**
 	 * Creation of a generic map, create the matrice
 	 * @param _xMax max x coordinate
@@ -41,12 +43,13 @@ public class GenericMap {
 	 * @param _offsetX width of box
 	 * @param _offsetY height of box
 	 */
-	public GenericMap(int _xMax,int _yMax,int _offsetX,int _offsetY){
+	public GenericMap(int _xMax,int _yMax,int _offsetX,int _offsetY,int _nbDiffTexture){
 		this.nbLine = _xMax;
 		this.nbColumn = _yMax;
 		this.offsetX = _offsetX;
 		this.offsetY = _offsetY;
-
+		this.nbDiffTexture= _nbDiffTexture;
+		
 		this.matrice = new Box[this.nbLine][this.nbColumn];
 	}
 	
@@ -73,17 +76,19 @@ public class GenericMap {
 			
 			if (type.equalsIgnoreCase("buildable")) {
 				this.matrice[line][column] = new BoxBuildable(column*this.offsetX, line*this.offsetY, this.offsetX, this.offsetY);
+				map.mMap[i] = idTexture;
 			}else if (type.equalsIgnoreCase("path")){
 				boolean firstBoxPath = XmlUtil.getAttributeBooleanFromNode(node, "startPath");
 				this.matrice[line][column] = new BoxPath(column*this.offsetX, line*this.offsetY, this.offsetX, this.offsetY);
 				if (firstBoxPath){
 					this.firstBoxPath=(BoxPath)this.matrice[line][column];
 				}
+				map.mMap[i] = idTexture+this.nbDiffTexture;
 			} else {
 				//Your xml was so bad
 			}
 			
-			map.mMap[i] = idTexture;
+			
 		}
 		this.buildPath();
 	}
