@@ -1,5 +1,6 @@
 package electroacid.defense;
 
+import electroacid.defense.play.Maptest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ public class electroaciddefense extends Activity {
     
     private OnClickListener b_NewGameListener = new OnClickListener() {
     	public void onClick(View v){
-    		Intent i = new Intent(getBaseContext(),Play.class);
+    		Intent i = new Intent(getBaseContext(),Maptest.class);
     		startActivity(i);
     	}
     };
