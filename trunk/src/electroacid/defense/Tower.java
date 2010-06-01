@@ -71,7 +71,6 @@ public  class Tower implements Cloneable{
 	 * The speed as a tower can shoot
 	 */
 	private int fireRate;
-	private int life;
 	
 	/**
 	 * The constructor of the towers
@@ -87,9 +86,8 @@ public  class Tower implements Cloneable{
 	 * @param _layout Layout of the tower 
 	 * @param _shootArea The shooting area
 	 */
-	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout,int _shootArea){
+	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout,int _shootArea){
 		this.element = _element;
-		this.life = _life;
 		this.fireRate = _fireRate;
 		this.cost = _cost;
 		this.canTargetFly = _fly;
@@ -122,9 +120,8 @@ public  class Tower implements Cloneable{
 	 * @param _sprite Sprite of the tower 
 	 * @param _shootArea The shooting area
 	 */
-	public Tower(Element _element,int _life, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSprite _sprite,int _shootArea){
+	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSprite _sprite,int _shootArea){
 		this.element = _element;
-		this.life = _life;
 		this.fireRate = _fireRate;
 		this.cost = _cost;
 		this.canTargetFly = _fly;
@@ -221,7 +218,6 @@ public  class Tower implements Cloneable{
 	 * @param g Game's information
 	 */
 	public void upgrade(Game g){
-		this.life = (int)Math.ceil((this.life*upgrade));
 		this.cost =  (int)Math.ceil((this.cost*upgrade));
 		this.damage = (int)Math.ceil((this.damage*upgrade));
 		this.level++;
@@ -279,20 +275,6 @@ public  class Tower implements Cloneable{
 	 */
 	public void setElement(Element element) {
 		this.element = element;
-	}
-
-	/**
-	 * @return the life
-	 */
-	public int getLife() {
-		return life;
-	}
-
-	/**
-	 * @param life the life to set
-	 */
-	public void setLife(int life) {
-		this.life = life;
 	}
 
 	/**

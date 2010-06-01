@@ -37,7 +37,6 @@ public class GenericTower {
 		for (int i=0;i<listNodeTower.getLength();i++){
 			Node tower = listNodeTower.item(i);
 			Element element = Element.getElement(XmlUtil.getAttributeFromNode(tower, "element"));
-			int life = XmlUtil.getAttributeIntFromNode(tower, "life");
 			int fireRate = XmlUtil.getAttributeIntFromNode(tower, "fireRate");
 			int cost = XmlUtil.getAttributeIntFromNode(tower, "cost");
 			boolean fly = XmlUtil.getAttributeBooleanFromNode(tower, "fly");
@@ -49,7 +48,6 @@ public class GenericTower {
 			int shootArea = XmlUtil.getAttributeIntFromNode(tower, "shootArea");
 
 			Tower tow = new Tower(element,
-					life,
 					fireRate,
 					cost,
 					fly,
