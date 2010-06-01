@@ -207,7 +207,7 @@ public class GenericPlay extends  AngleUI{
 					}
 				}else if(choiceMenu > 0 && choiceMenu<genericTower.getListTower().size()+1){	
 					Tower tower= genericTower.getListTower().get(choiceMenu-1);
-					menuNewTower.showValidateTower(activity.mGLSurfaceView, tower);
+					menuNewTower.showValidateTower(game,activity.mGLSurfaceView, tower);
 					towerChoice = (Tower)tower.clone();
 		
 					/* shootArea */

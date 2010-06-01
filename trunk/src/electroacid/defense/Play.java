@@ -205,10 +205,17 @@ public class Play extends AngleActivity{
 									towerChoice = null;
 									shootArea.mAlpha =0;
 									pointerNewTower.mAlpha=0;
+								}else{
+									/* Hide unused stuff */
+									menuNewTower.hideValidateTower(mGLSurfaceView);
+									menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
+									towerChoice = null;
+									shootArea.mAlpha =0;
+									pointerNewTower.mAlpha=0;
 								}
 							}else if(choiceMenu > 0 && choiceMenu<genericTower.getListTower().size()+1){	
 								Tower tower= genericTower.getListTower().get(choiceMenu-1);
-								menuNewTower.showValidateTower(mGLSurfaceView, tower);
+								menuNewTower.showValidateTower(game,mGLSurfaceView, tower);
 								towerChoice = (Tower)tower.clone();
 					
 								/* shootArea */
