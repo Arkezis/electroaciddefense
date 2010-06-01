@@ -37,6 +37,12 @@ public class MenuNewTower {
 		listTower.get(1).changePosition(0, 448);
 		listTower.get(1).getSprite().mAlpha = 0;
 				
+		listTower.get(2).changePosition(32, 416);
+		listTower.get(2).getSprite().mAlpha = 0;
+		
+		listTower.get(3).changePosition(32, 448);
+		listTower.get(3).getSprite().mAlpha = 0;
+		
 		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView,64,32,R.drawable.tilemap,128,160,64,32);
 		this.bGo = new AngleSprite(this.bGoLayout);
 		this.bGo.mPosition.set(85, 430); 
@@ -65,7 +71,8 @@ public class MenuNewTower {
 			if(y > 416 && y < 448)		ret = 1;
 			else if(y > 448 && y < 480)	ret = 2;
 		}else if(x > 32 && x < 64){ // 2nd column
-				//...
+			if(y > 416 && y < 448)		ret = 3;
+			else if(y > 448 && y < 480)	ret = 4;
 		}
 		return ret;
 	}
