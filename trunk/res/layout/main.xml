@@ -3,18 +3,30 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:gravity="center"
     >
 <TextView  
+	android:id="@+id/text2" 
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
-<Button 
-	android:text="@+string/NewGame1" 
-	android:id="@+id/Button01" 
-	android:layout_width="fill_parent" 
+    android:text="@string/title"
+    android:textSize="30px"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:layout_gravity="center"/>
+<ImageView 
+	android:id="@+id/ImageView01" 
+	android:layout_width="wrap_content" 
 	android:layout_height="wrap_content">
-</Button>
+</ImageView>
+<TextView  
+	android:id="@+id/text1" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/intro"
+    android:textSize="20px"
+    android:gravity="center"
+    android:layout_gravity="center"/>
 <Button 
 	android:text="@+string/NewGame2" 
 	android:id="@+id/Button02" 
@@ -27,4 +39,6 @@
 	android:layout_width="fill_parent" 
 	android:layout_height="wrap_content">
 </Button>
+
+
 </LinearLayout>

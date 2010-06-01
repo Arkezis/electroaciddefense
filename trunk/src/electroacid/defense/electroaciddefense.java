@@ -5,48 +5,49 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
-import electroacid.defense.play.Maptest;
 
 
-public class electroaciddefense extends Activity {
+public class electroaciddefense extends Activity implements OnClickListener {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-       /* Button btnGame1 = (Button)this.findViewById(R.id.Button01);
-        btnGame1.setOnClickListener(b_NewGameListener); */
-        Button btnGame2 = (Button)this.findViewById(R.id.Button02);
-        btnGame2.setOnClickListener(b_NewGameListener2);
-        Button btnQuit = (Button)this.findViewById(R.id.ButtonQuit);
-        btnQuit.setOnClickListener(b_QuitListener);
+      //  ((Button)this.findViewById(R.id.Button01)).setOnClickListener(this);
+        ((Button)this.findViewById(R.id.Button02)).setOnClickListener(this);
+        ((Button)this.findViewById(R.id.ButtonQuit)).setOnClickListener(this);    
+        ((ImageView)this.findViewById(R.id.ImageView01)).setImageResource(R.drawable.icon);
     }
     
-    private OnClickListener b_NewGameListener = new OnClickListener() {
-    	public void onClick(View v){
-    		Intent i = new Intent(getBaseContext(),Maptest.class);
-    		startActivity(i);
-    	}
-    };
-    
-    private OnClickListener b_NewGameListener2 = new OnClickListener() {
-    	public void onClick(View v){
-    		Intent i = new Intent(getBaseContext(),Play.class);
-    		startActivity(i);
-    	}
-    };
-    
-    private OnClickListener b_QuitListener = new OnClickListener() {
-    	public void onClick(View v){
-    		finish();
-    	}
-    };
+	@Override
+	public void onClick(View arg0) {
+		Intent i = null;
+		switch(arg0.getId()){
+			/*case R.id.Button01 :
+	    		//i = new Intent(getBaseContext(),Maptest.class);
+				Toast.makeText(this, "This action is desactivated for the moment", 1000).show();
+				break;*/
+			case R.id.Button02 :
+	    		i = new Intent(this,Play.class);
+	    		i.putExtra("map", "testmap");
+	    		Log.d("DEBUGTAG", "On lance l'activity");
+	    		this.startActivityForResult(i, 1000);
+				break;
+			case R.id.ButtonQuit :
+	    		finish();
+				break;
+		}
+		
+		
+	}
     
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
     	MenuItem m1 = menu.add(0, 1, 0, "Parameters");
@@ -82,7 +83,7 @@ public class electroaciddefense extends Activity {
 	private void InstructionsAlertDialog() {
 		AlertDialog.Builder dial = new AlertDialog.Builder(this);
 		dial.setTitle("Instructions");
-		dial.setMessage("The rules are following classic tower defense games ! You have to create tower on the way of the creatures to destroy them. You have a number of lives and each creatures who will go until the end of the path will cost you a life ! When you're lifes reach 0, you lose ! ");
+		dial.setMessage("The rules are following classic tower defense games ! \n You have to create tower on the way of the creatures to destroy them. You have a number of lives and each creatures who will go until the end of the path will cost you a life ! \n When you're lifes reach 0, you lose ! ");
 				
 		dial.setOnCancelListener(new DialogInterface.OnCancelListener() {
 			public void onCancel(DialogInterface dialog) {
@@ -114,4 +115,6 @@ public class electroaciddefense extends Activity {
 		// The activity is totally killed ! 
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
+
+
 }
