@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -318,7 +317,6 @@ public class Play extends AngleActivity{
 		super.onCreate(savedInstanceState);
 		
 		/* Getting the informations about the game choosen previously */
-		if (this.getIntent() == null) { Log.d("DEBUGTAG", "c'est la merde !"); }
 		if(this.getIntent().getExtras() != null){
 			mapChoosen = this.getIntent().getExtras().getString("map");
 			//TODO Il faudrait vérifier que cette ressource existe bien ! 		
