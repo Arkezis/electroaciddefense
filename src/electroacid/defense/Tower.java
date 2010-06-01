@@ -165,7 +165,10 @@ public  class Tower implements Cloneable{
 			int i=0; // TODO : Choisir quelle créa attaquer
 			
 			fire = new Shoot(this.x, this.y, linkedList.get(i).getSprite().mPosition.mX, linkedList.get(i).getSprite().mPosition.mY,ogField);
-			linkedList.get(i).loseLife(this.damage);
+			
+			// Apply the element vs element modifiers
+			double modifiers = this.element.getModifier(linkedList.get(i).getElement());
+			linkedList.get(i).loseLife((int)(this.damage*modifiers));
 		
 	}
 

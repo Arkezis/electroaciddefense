@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listwave name="testwave">
 	<wave>
-		<creature element="fire" life="2" speed="1" fireRate="0" rewardValue="10" fly="false" textureId="0" number="10"/>
+		<creature element="water" life="2" speed="1" fireRate="0" rewardValue="10" fly="false" textureId="0" number="10"/>
 	</wave>
 	<wave>
 		<creature element="iron" life="12" speed="2" fireRate="0" rewardValue="10" fly="false" textureId="0" number="10"/>
