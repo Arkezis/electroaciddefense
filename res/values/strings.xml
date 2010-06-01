@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Welcome in the Tower Defense : Electro Acid Defense !!</string>
+    <string name="intro">This game is a classic Tower Defense, for more informations you could use the menu. \n \n The beta will be finished soon and more levels and features will appear ! \n</string>
     <string name="app_name">Electro Acid Defense</string>
 <string name="targetPriority1">nearest</string><string name="targetPriority2">weakest</string><string name="targetPriority3">strengthest</string><string name="element1">Fire</string><string name="element2">Snow</string><string name="element3">Electricity</string><string name="element4">Iron</string>
 
 <string name="welcome">Welcome in the game Electro Acid Defense !!</string>
 <string name="NewGame1">New game with the test map! </string>
 <string name="game">game</string>
-<string name="NewGame2">New game with the map 2 !</string>
+<string name="NewGame2">New game !</string>
 <string name="Quit">Quit the game ! :-(</string>
+<string name="title">Welcome in the Beta of Electro Acid Defense !</string>
 </resources>

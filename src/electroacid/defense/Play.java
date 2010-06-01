@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -39,7 +40,6 @@ public class Play extends AngleActivity{
 	
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2,_bnewTower1Layout;
-	//AngleSpriteLayout  bnewTower2Layout,bnewTower1Layout;
 	AngleSprite backgroundEndGame;
 	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame;
 	private AngleTileMap tmGround;
@@ -62,6 +62,7 @@ public class Play extends AngleActivity{
 	LinkedList<BoxBuildable> towerList;
 	/** Game's information */
 	Game game;
+	String mapChoosen;
 	/** The AngleUI */
 	MyGame myGame;
 	/** Boolean for the game */
@@ -71,7 +72,7 @@ public class Play extends AngleActivity{
 	AngleSprite pointerNewTower;
 	AngleSpriteLayout pointerNewTowerLayout;
 	public AngleSprite endGameSprite;
-
+	
 	public class MyGame extends  AngleUI{
 		/** The variable to avoid a high touching map */
 		long time= System.currentTimeMillis();
@@ -93,41 +94,38 @@ public class Play extends AngleActivity{
 			ogShoot = new AngleObject(); addObject(ogShoot);
 			ogWave = new AngleObject(); addObject(ogWave);
 
-			// TODO : passer le menu sur ogDashboard
-			// TODO : Passer le fireArea sur ogUtil + un sprite pour préciser la case pointée
+			// TODO : passer le menu sur ogDashboard	
 			
 			/* Initialisation */
 			towerList = new LinkedList<BoxBuildable>();
 			this.createTowerForMenu();
 			
-			/* Create the map */
+			/* Create the map, the waves and the towers */
 			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,18,9,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
-			ogField.addObject(tmGround);		
-			try {
-				matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
-			} catch (Exception e) {
-				e.printStackTrace();
+			ogField.addObject(tmGround);
+			if(mapChoosen.equals("testmap")){
+				try {
+					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
+					genericWave = new GenericWave(mGLSurfaceView);
+					genericWave.build(getWindow().getContext(), R.raw.testwave,game);
+					genericTower = new GenericTower();
+					genericTower.build(getWindow().getContext(), R.raw.testtower,mGLSurfaceView);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(mapChoosen.equals("map1")){
+				/*try {
+					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
+					genericWave = new GenericWave(mGLSurfaceView);
+					genericWave.build(getWindow().getContext(), R.raw.testwave,game);
+					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
+					genericTower = new GenericTower();
+					genericTower.build(getWindow().getContext(), R.raw.testtower,mGLSurfaceView);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}*/
 			}
-			
-
-			/* Read the waves' informations for this game */
-			try {
-				genericWave = new GenericWave(mGLSurfaceView);
-				genericWave.build(getWindow().getContext(), R.raw.testwave,game);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			
-			
-			/* Read the tower' informations for this game */
-			try {
-				genericTower = new GenericTower();
-				genericTower.build(getWindow().getContext(), R.raw.testtower,mGLSurfaceView);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			
 			
 			/* Menus' initialisation */
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza"), 222, 0, 0, 30, 200, 255, 255);
@@ -280,7 +278,7 @@ public class Play extends AngleActivity{
 				// Game finished
 				ogEndGame=new AngleObject(); addObject(ogEndGame);
 				t_textEndGame = new AngleString(fontEndGame,"",160, 208, AngleString.aCenter);
-				endGameSprite.mAlpha=(float)0.03;
+				endGameSprite.mAlpha=(float)0.07;
 				if(game.getLives()==0){
 					t_textEndGame.set("Oh, you lose ! \n You've survived to \n only "+game.getActualWave()+" waves !");
 				}else{ 
@@ -299,7 +297,7 @@ public class Play extends AngleActivity{
 		private void createTowerForMenu(){
 			fireAreaLayout = new AngleSpriteLayout(mGLSurfaceView, 96, 96, R.drawable.tilemap,96,160,32,32);
 			fireAreaLayout2 = new AngleSpriteLayout(mGLSurfaceView, 160, 160, R.drawable.tilemap,96,160,32,32);
-			endGameSprite = new AngleSprite(160,208,new AngleSpriteLayout(mGLSurfaceView,320,416,R.drawable.tilemap,192,160,32,32));
+			endGameSprite = new AngleSprite(160,208,new AngleSpriteLayout(mGLSurfaceView,320,416,R.drawable.tilemap,96,160,32,32));
 			shootArea = new AngleSprite(fireAreaLayout);
 			pointerNewTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,160,32,32));	
 		}
@@ -310,6 +308,14 @@ public class Play extends AngleActivity{
 	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		/* Getting the informations about the game choosen previously */
+		if (this.getIntent() == null) { Log.d("DEBUGTAG", "c'est la merde !"); }
+		if(this.getIntent().getExtras() != null){
+			mapChoosen = this.getIntent().getExtras().getString("map");
+			//TODO Il faudrait vérifier que cette ressource existe bien ! 		
+		}else finish();
+			
 		game = new Game();
 
 		FrameLayout mMainLayout=new FrameLayout(this);
