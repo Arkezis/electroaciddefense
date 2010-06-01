@@ -34,6 +34,10 @@ public class GenericWave {
 		this.listLayout = new LinkedList<AngleSpriteLayout>();
 		this.listLayout.add(new AngleSpriteLayout(
 				mGLSurfaceView,32,32,R.drawable.tilemap,0,96,32,32));
+		this.listLayout.add(new AngleSpriteLayout(
+				mGLSurfaceView,32,32,R.drawable.tilemap,32,96,32,32));
+		this.listLayout.add(new AngleSpriteLayout(
+				mGLSurfaceView,32,32,R.drawable.tilemap,64,96,32,32));
 	}
 	
 	/**
