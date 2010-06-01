@@ -80,10 +80,10 @@ public class BoxPath extends Box {
 					this.listCreature.remove(i--);
 				}else {
 					switch(this.direction) {
-					case Up   :nextY--;break;
-					case Down :nextY++;break;
-					case Left :nextX--;break;
-					case Right:nextX++;break;
+					case Up   :nextY -= creature.getSpeed();break;
+					case Down :nextY += creature.getSpeed();break;
+					case Left :nextX -= creature.getSpeed();break;
+					case Right:nextX += creature.getSpeed();break;
 					}
 					creature.getSprite().mPosition.set(nextX, nextY);
 				}
