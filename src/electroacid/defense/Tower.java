@@ -2,6 +2,9 @@ package electroacid.defense;
 
 import java.util.LinkedList;
 
+import utils.Observable;
+import utils.Observateur;
+
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
@@ -17,7 +20,7 @@ import electroacid.defense.map.GenericMap;
  * @author Arkezis
  * @version 1.0b
  */
-public  class Tower implements Cloneable{
+public  class Tower implements Cloneable,Observateur{
 	/**
 	 * The shoot shooted by the tower
 	 */
@@ -57,6 +60,9 @@ public  class Tower implements Cloneable{
 	/**
 	 * Coordonate of the tower
 	 */
+	
+	private LinkedList<Creature> listTarget = new LinkedList<Creature>();
+	
 	private int x,y;
 	
 	// TODO : Not implemented yet
@@ -138,12 +144,12 @@ public  class Tower implements Cloneable{
 	 * @param ogField The AngleObject where the shoot should be add
 	 */
 	public void detection(AngleObject ogField){
-		LinkedList<Creature> listTarget = new LinkedList<Creature>();
+		/*this.listTarget = new LinkedList<Creature>();
 		for(int i=0;i<this.boxDetectionList.size();i++){
 			if(!this.boxDetectionList.get(i).getListCreature().isEmpty()){
 				listTarget.addAll(boxDetectionList.get(i).getListCreature());
 			}
-		}
+		}*/
 		if(!listTarget.isEmpty()) this.attack(listTarget,ogField); 
 	}
 	/**
@@ -230,6 +236,7 @@ public  class Tower implements Cloneable{
 	 * @param og
 	 */
 	public void destroy(Game g,AngleObject og){
+		for (BoxPath box:this.boxDetectionList) box.delObservateur(this);
 		og.removeObject(this.sprite);
 		g.setMoney((int)(g.getMoney()+this.cost*this.destroy));
 	}
@@ -388,9 +395,24 @@ public  class Tower implements Cloneable{
 		
 		for (int i = this.y-maxAreaForY;i<=this.y+maxAreaForY;i+=height){
 			for (int j = this.x-maxAreaForX;j<=this.x+maxAreaForX;j+=width){
-				if (matrice.getBox(j, i) instanceof BoxPath) this.boxDetectionList.add((BoxPath) matrice.getBox(j,i)); 
+				if (matrice.getBox(j, i) instanceof BoxPath){
+					//this.boxDetectionList.add((BoxPath) matrice.getBox(j,i)); 
+					((BoxPath) matrice.getBox(j, i)).addObservateur(this);
+				}
 			}
 		}
 	}
+
+	@Override
+	public void add(Object c) {
+		this.listTarget.add((Creature) c);
+	}
+
+	@Override
+	public void remove(Object c) {
+		this.listTarget.remove(c);
+	}
+
+
 	
 }

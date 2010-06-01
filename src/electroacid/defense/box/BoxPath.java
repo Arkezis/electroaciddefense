@@ -1,6 +1,10 @@
 package electroacid.defense.box;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+
+import utils.Observable;
+import utils.Observateur;
 
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
@@ -12,7 +16,7 @@ import electroacid.defense.enums.Direction;
  * @author cilheo
  * @version 1.0b
  */
-public class BoxPath extends Box {
+public class BoxPath extends Box implements Observable{
 
 	/** Creatures' list who are actually on the box */
 	private LinkedList<Creature> listCreature;
@@ -23,6 +27,8 @@ public class BoxPath extends Box {
 	/** the next path after this */
 	private BoxPath nextPath;
 
+	/** Observator's list */
+	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
 
 	/**
 	 * Constructor of a boxPath
@@ -52,6 +58,7 @@ public class BoxPath extends Box {
 	/** add a creature to the listCreature */
 	public void addCreature(Creature creature){
 		this.listCreature.add(creature);
+		this.updateObservateurAdd(creature);
 	}
 
 	/**
@@ -62,6 +69,7 @@ public class BoxPath extends Box {
 	public void nextStep(Game game,AngleObject container){
 		if (this.nextPath== null) {
 			for (int i=0;i<this.listCreature.size();i++) {
+	
 				this.listCreature.get(i).destroy(game, container,false);
 				this.listCreature.remove(i--);
 			}
@@ -69,6 +77,7 @@ public class BoxPath extends Box {
 		for (int i=0;i<this.listCreature.size();i++){
 			Creature creature = this.listCreature.get(i);
 			if(creature.getLife()<=0){
+				this.updateObservateurRemove(creature);
 				creature.destroy(game ,container, true);
 				this.listCreature.remove(i--);
 			}else{
@@ -76,6 +85,7 @@ public class BoxPath extends Box {
 				float nextX = creature.getSprite().mPosition.mX;
 
 				if (!creatureInBox(nextX, nextY)){
+					this.updateObservateurRemove(creature);
 					this.nextPath.addCreature(creature);
 					this.listCreature.remove(i--);
 				}else {
@@ -128,5 +138,31 @@ public class BoxPath extends Box {
 
 	/** @param nextPath the nextPath to set */
 	public void setNextPath(BoxPath nextPath) {this.nextPath = nextPath;}
+
+	@Override
+	public void addObservateur(Observateur obs) {
+		this.listObservateur.add(obs);
+		for(Creature c :this.listCreature) obs.add(c);
+	}
+
+	@Override
+	public void delAllObservateur() {
+		this.listObservateur = new ArrayList<Observateur>();
+	}
+
+	@Override
+	public void delObservateur(Observateur obs) {
+			this.listObservateur.remove(obs);
+	}
+
+	@Override
+	public void updateObservateurAdd(Object c) {
+		for (Observateur obs : this.listObservateur) obs.add(c);
+	}
+
+	@Override
+	public void updateObservateurRemove(Object c) {
+		for (Observateur obs : this.listObservateur) obs.remove(c);
+	}
 	
 }
