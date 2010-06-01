@@ -63,7 +63,13 @@ public  class Tower implements Cloneable{
 	private int targetNb;
 	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
 	private Element element;	
+	/**
+	 * The capacity to shoot a flying creature
+	 */
 	private boolean canTargetFly;
+	/**
+	 * The speed as a tower can shoot
+	 */
 	private int fireRate;
 	private int life;
 	
@@ -71,9 +77,9 @@ public  class Tower implements Cloneable{
 	 * The constructor of the towers
 	 * @param _element  Not implemented yet
 	 * @param _life The life of the tower
-	 * @param _fireRate Not implemented yet
+	 * @param _fireRate The speed as a tower can shoot
 	 * @param _cost The cost of the tower
-	 * @param _fly Not implemented yet
+	 * @param _fly The capacity to shoot a flying creature
 	 * @param _damage The damage done by the box
 	 * @param _targetNb Not implemented yet
 	 * @param _targetPriority Not implemented yet
@@ -106,9 +112,9 @@ public  class Tower implements Cloneable{
 	 * The constructor of the tower (with a Sprite !)
 	 * @param _element  Not implemented yet
 	 * @param _life The life of the tower
-	 * @param _fireRate Not implemented yet
+	 * @param _fireRate The speed as a tower can shoot
 	 * @param _cost The cost of the tower
-	 * @param _fly Not implemented yet
+	 * @param _fly The capacity to shoot a flying creature
 	 * @param _damage The damage done by the box
 	 * @param _targetNb Not implemented yet
 	 * @param _targetPriority Not implemented yet
@@ -148,7 +154,7 @@ public  class Tower implements Cloneable{
 	 * @param linkedList The creature's list to shoot
 	 * @param ogField
 	 */
-	private void attack(LinkedList<Creature> linkedList, AngleObject ogField) {
+	private void attack(LinkedList<Creature> listTarget, AngleObject ogField) {
 		//TODO : Gérer les cibles à viser en premier
 				/*LinkedList<Creature> listTarget = new LinkedList<Creature>();
 				if(this.targetPriority==1){
@@ -164,12 +170,20 @@ public  class Tower implements Cloneable{
 		
 			int i=0; // TODO : Choisir quelle créa attaquer
 			
-			fire = new Shoot(this.x, this.y, linkedList.get(i).getSprite().mPosition.mX, linkedList.get(i).getSprite().mPosition.mY,ogField);
-			
-			// Apply the element vs element modifiers
-			double modifiers = this.element.getModifier(linkedList.get(i).getElement());
-			linkedList.get(i).loseLife((int)(this.damage*modifiers));
-		
+			if(!this.canTargetFly){ // if the tower can't target fly, we have to remove the flying creatures !
+				for(int j=0;j<listTarget.size();j++){
+					if(listTarget.get(j).isFly()){
+						listTarget.remove(j);j--;
+					}
+				}
+			}
+			if(!listTarget.isEmpty()){
+				fire = new Shoot(this.x, this.y, listTarget.get(i).getSprite().mPosition.mX, listTarget.get(i).getSprite().mPosition.mY,ogField);
+				// Apply the element vs element modifiers
+				double modifiers = this.element.getModifier(listTarget.get(i).getElement());
+				listTarget.get(i).loseLife((int)(this.damage*modifiers));
+			}
+
 	}
 
 

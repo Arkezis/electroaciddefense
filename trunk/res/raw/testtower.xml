@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listtower name="testtower">
-	<tower element="fire" life="5" fireRate="5" cost="5" fly="true" damage="5" targetNb="5" targetPriority="5" level="1" idTexture="1" shootArea="2"/>
-	<tower element="iron" life="2" fireRate="2" cost="2" fly="false" damage="2" targetNb="2" targetPriority="2" level="1" idTexture="0" shootArea="1"/>
+	<tower element="fire" life="5" fireRate="2" cost="5" fly="false" damage="5" targetNb="5" targetPriority="5" level="1" idTexture="1" shootArea="2"/>
+	<tower element="iron" life="2" fireRate="1" cost="2" fly="true" damage="2" targetNb="2" targetPriority="2" level="1" idTexture="0" shootArea="1"/>
 </listtower>
