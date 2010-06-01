@@ -38,7 +38,6 @@ public class electroaciddefense extends Activity implements OnClickListener {
 			case R.id.Button02 :
 	    		i = new Intent(this,Play.class);
 	    		i.putExtra("map", "testmap");
-	    		Log.d("DEBUGTAG", "On lance l'activity");
 	    		this.startActivityForResult(i, 1000);
 				break;
 			case R.id.ButtonQuit :

@@ -41,9 +41,7 @@ public class Shoot extends AngleSegment {
 		if(timeElapsed >= timeShoot){
 			this.ogWork.removeObject(this);
 			timeElapsed=0;
-			Log.d("DEBUG","Del");
 		}
-		Log.d("DEBUG","Step !"+secondsElapsed+" and "+timeElapsed);
 		super.step(secondsElapsed);
 	}
 	
