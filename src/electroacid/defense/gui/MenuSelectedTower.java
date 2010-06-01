@@ -76,8 +76,8 @@ public class MenuSelectedTower {
 	 */
 	public void show(AngleSurfaceView mGLSurfaceView,Tower tower,Game g){
 		this.t_infosTowerElement.set("Element : "+tower.getElement().toString());
-		this.t_infosTowerLevel.set("Level : "+tower.getLevel()+"==>"+(tower.getLevel()+1));
-		this.t_infosTowerDamage.set("Damage : "+tower.getDamage()+"==>"+(int)Math.ceil((tower.getDamage()*tower.getUpgrade())));
+		this.t_infosTowerLevel.set("Level : "+tower.getLevel()+"=>"+(tower.getLevel()+1));
+		this.t_infosTowerDamage.set("Damage : "+tower.getDamage()+"=>"+(int)Math.ceil((tower.getDamage()*tower.getUpgrade())));
 		if(tower.isCanTargetFly())	this.t_infosTowerCanTargetFly.set("Can target fly");
 		else this.t_infosTowerCanTargetFly.set("");
 

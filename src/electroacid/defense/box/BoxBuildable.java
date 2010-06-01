@@ -30,7 +30,7 @@ public class BoxBuildable extends Box {
 	 * @param _x the x coordinate on the map
 	 * @param _y the y coordinate on the map
 	 * @param _width widht of the box
-	 * @param _height height of the box
+	 * @param _height height of the boxs
 	 * @param _tower tower host by the box
 	 */
 	public BoxBuildable(int _x, int _y, int _width, int _height,Tower _tower) {
@@ -45,9 +45,9 @@ public class BoxBuildable extends Box {
 	 * @return false if tower is null or tower is too much expensive
 	 */
 	public boolean changeTower(Tower _tower,Game game, int x, int y, GenericMap matrice){
-		this.tower = _tower;
-		if (this.tower != null) {
-			if(game.getMoney() > this.tower.getCost()){
+		if (this.tower == null && _tower != null) {
+			if(game.getMoney() > _tower.getCost()){
+				this.tower = _tower;
 				this.tower.changePosition(this.x+this.height/2,this.y+this.width/2);
 				game.addMoney(-this.tower.getCost());
 				this.getTower().changePosition(x,y);
