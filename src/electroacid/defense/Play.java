@@ -37,6 +37,8 @@ public class Play extends AngleActivity{
 	public Tower towerChoice=null;
 	/** The are where a tower can shoot*/
 	public AngleSprite shootArea;
+	/** Counter for the fireRate of the tower */
+	public int counterFireRate=0;
 	
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2,_bnewTower1Layout;
@@ -258,13 +260,19 @@ public class Play extends AngleActivity{
 	
 				}
 				/* SHOOTS */
+				/* To manage tower shooting faster than other towers, we are using a counter incremented at each step.
+				 * At each step, if (counter % fireRate == 0), the tower shoot !  
+				 */
 				boxpath.nextStep(game,ogCreature);
 				timeBetweenEachTowerTurn += secondsElapsed;
+				counterFireRate++; 
 				if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
 					timeBetweenEachTowerTurn =0;
 					for(int i=0;i<towerList.size();i++){
 						if(towerList.get(i).getTower() != null){
-							towerList.get(i).getTower().detection(ogShoot);
+							if(counterFireRate%towerList.get(i).getTower().getFireRate()==0){
+								towerList.get(i).getTower().detection(ogShoot);
+							}
 						}
 					}
 				}
