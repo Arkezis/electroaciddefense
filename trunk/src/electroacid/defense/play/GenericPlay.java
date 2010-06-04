@@ -269,7 +269,7 @@ public class GenericPlay extends  AngleUI{
 			lastRefreshMenu += secondsElapsed;
 			if(lastRefreshMenu > game.getMenuRefreshTime()) {
 				lastRefreshMenu = 0;
-				menu.refresh(game);
+				menu.refresh(game,(int)lastWave);
 			}
 		}else{
 			// Game finished
