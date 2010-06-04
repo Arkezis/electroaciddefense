@@ -4,9 +4,11 @@ import java.util.LinkedList;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.android.angle.AngleActivity;
 import com.android.angle.AngleFont;
@@ -215,15 +217,16 @@ public class Play extends AngleActivity{
 								}
 							}else if(choiceMenu > 0 && choiceMenu<genericTower.getListTower().size()+1){	
 								Tower tower= genericTower.getListTower().get(choiceMenu-1);
-								menuNewTower.showValidateTower(game,mGLSurfaceView, tower);
+								menuNewTower.showValidateTower(game,mGLSurfaceView, tower,(tower.getCost() < game.getMoney()));
 								towerChoice = (Tower)tower.clone();
-					
+
 								/* shootArea */
 								if(towerChoice.getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
 								else if(towerChoice.getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
 								shootArea.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 								shootArea.mAlpha = (float) 0.60;
-								mGLSurfaceView.addObject(shootArea); 
+								mGLSurfaceView.addObject(shootArea);
+								
 							}else{
 								// The user has touched the menu where there is nothing to touch ... stupid guy !
 							}
@@ -250,8 +253,9 @@ public class Play extends AngleActivity{
 		@Override
 		public void step(float secondsElapsed)
 		{
-			if(!game.isGameEnd()){
+			if(!game.isGameEnd() ){
 				/* WAVES */
+				if(game.getActualWave() == 0 && lastWave==0 ) { lastWave = game.getTimeBetweenEachWave()-10;}
 				lastWave += secondsElapsed;
 				BoxPath boxpath = matrice.firstBoxPath;
 				
@@ -335,9 +339,25 @@ public class Play extends AngleActivity{
 		mMainLayout.addView(mGLSurfaceView);
 		setContentView(mMainLayout);
 
+		Toast t = Toast.makeText(this, "Welcome to Electro Acid Defense ! ", 0);
+		t.setGravity(Gravity.CENTER, 0, 0);
+		t.show();
+		
 		myGame=new MyGame(this);
 		setUI(myGame);
 
+		t = Toast.makeText(this, "The game will start !  ", 0);
+		t.setGravity(Gravity.CENTER, 0, 0);
+		t.show();
+		t = Toast.makeText(this, "Touch the map to select a place for your new tower  ", 0);
+		t.setGravity(Gravity.CENTER, 0, 0);
+		t.show();
+		t = Toast.makeText(this, "Select the tower to create and validate it !", 0);
+		t.setGravity(Gravity.BOTTOM, 0, 150);
+		t.show();
+		t = Toast.makeText(this, "Get ready, creatures are coming....", 0);
+		t.setGravity(Gravity.BOTTOM, 0, 150);
+		t.show();
 	}
 	
 	/**

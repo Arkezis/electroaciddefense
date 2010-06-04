@@ -15,10 +15,11 @@ import electroacid.defense.Tower;
 
 public class MenuNewTower {
 	
-	public AngleString t_infosTowerTitle,t_infosTowerElement;
+	public AngleString t_infosTowerTitle,t_infosTowerElement,t_infosTowerFireRate;
 	public AngleString t_infosTowerCanTargetFly, t_infosTowerDamage, t_infosTowerCost;
-	public AngleSpriteLayout bGoLayout;
-	public AngleSprite bGo;
+	public AngleSpriteLayout bGoLayout,bNGoLayout;
+	public AngleSprite bGo,bNGo;
+	private boolean isPossible; /* enough money to add the tower ? */
 	
 	/**
 	 * The constructor
@@ -28,11 +29,13 @@ public class MenuNewTower {
  	 * @param mGLSurfaceView The view
 	 */
 	public MenuNewTower(AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView,LinkedList<Tower> listTower){
-		this.t_infosTowerTitle = new AngleString(font,"Tower",160, 427, AngleString.aCenter);
+		this.t_infosTowerTitle = new AngleString(fontTitle,"Tower",160, 427, AngleString.aCenter);
 		this.t_infosTowerElement = new AngleString(font,"",160,440,AngleString.aCenter);		
 		this.t_infosTowerDamage = new AngleString(font,"",160,450,AngleString.aCenter);
-		this.t_infosTowerCanTargetFly = new AngleString(font,"",160,460,AngleString.aCenter);	
-		this.t_infosTowerCost = new AngleString(font,"",160,470,AngleString.aCenter);
+		this.t_infosTowerCanTargetFly = new AngleString(font,"",160,470,AngleString.aCenter);
+		this.t_infosTowerFireRate = new AngleString(font,"",160,460,AngleString.aCenter);	
+		this.t_infosTowerCost = new AngleString(font,"",85,460,AngleString.aCenter);
+		
 		listTower.get(0).changePosition(0, 416);
 		listTower.get(0).getSprite().mAlpha = 0;
 
@@ -47,7 +50,10 @@ public class MenuNewTower {
 		
 		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,128,160,32,32);
 		this.bGo = new AngleSprite(this.bGoLayout);
-		this.bGo.mPosition.set(85, 430); 
+		this.bGo.mPosition.set(85, 430);
+		this.bNGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,160,32,32);
+		this.bNGo = new AngleSprite(this.bNGoLayout);
+		this.bNGo.mPosition.set(85, 430); 
 		
 		this.t_infosTowerTitle.mAlpha = 0;
 		
@@ -55,12 +61,14 @@ public class MenuNewTower {
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
 		this.t_infosTowerCanTargetFly.mAlpha = 0;
+		this.t_infosTowerFireRate.mAlpha = 0;
 		this.t_infosTowerCost.mAlpha = 0;
 		mGLSurfaceView.addObject(this.t_infosTowerTitle);
 		mGLSurfaceView.addObject(bGo);
 		mGLSurfaceView.addObject(t_infosTowerElement);
 		mGLSurfaceView.addObject(t_infosTowerDamage);
-		mGLSurfaceView.addObject(t_infosTowerCanTargetFly);	
+		mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
+		mGLSurfaceView.addObject(t_infosTowerFireRate);
 		mGLSurfaceView.addObject(t_infosTowerCost);	
 	}
 	/**
@@ -104,16 +112,21 @@ public class MenuNewTower {
 	 * @param mGLSurfaceView
 	 * @param tower
 	 */
-	public void showValidateTower(Game g, AngleSurfaceView mGLSurfaceView,Tower tower){
-		this.bGo.mAlpha=1;
+	public void showValidateTower(Game g, AngleSurfaceView mGLSurfaceView,Tower tower,boolean possible){
+		if (possible) 	{this.bGo.mAlpha=1; this.bNGo.mAlpha=0;}
+		else 			{this.bGo.mAlpha=0; this.bNGo.mAlpha=1;}
+		this.isPossible=possible;
+		
 		this.t_infosTowerElement.mAlpha = 1;
 		this.t_infosTowerDamage.mAlpha =1 ;
 		this.t_infosTowerCanTargetFly.mAlpha = 1;
+		this.t_infosTowerFireRate.mAlpha = 1;
 		this.t_infosTowerCost.mAlpha = 1;
 		
 		this.t_infosTowerElement.set("Element : "+tower.getElement().toString());	
 		this.t_infosTowerDamage.set("Damage : "+tower.getDamage());
-		this.t_infosTowerCost.set("Cost : "+tower.getCost());
+		this.t_infosTowerFireRate.set("Shoot : "+tower.getFireRate());
+		this.t_infosTowerCost.set(tower.getCost()+"$");
 				
 		if(tower.isCanTargetFly()){
 			this.t_infosTowerCanTargetFly.set("Can target fly");
@@ -131,6 +144,7 @@ public class MenuNewTower {
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
 		this.t_infosTowerCanTargetFly.mAlpha = 0;
+		this.t_infosTowerFireRate.mAlpha = 0;
 		this.t_infosTowerCost.mAlpha = 0;
 	}
 
@@ -141,7 +155,7 @@ public class MenuNewTower {
 	 * @return True if the user wanted to add the tower
 	 */
 	public boolean isValidationTower(int x,int y){
-		if (x > 53 && x < 117 ){
+		if ((x > 53 && x < 117 ) && (this.isPossible)){
 			if (y > 414 && y < 446){
 				return true;
 			}

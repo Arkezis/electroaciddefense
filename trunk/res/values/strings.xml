@@ -4,7 +4,7 @@
     <string name="app_name">Electro Acid Defense</string>
 <string name="targetPriority1">nearest</string><string name="targetPriority2">weakest</string><string name="targetPriority3">strengthest</string><string name="element1">Fire</string><string name="element2">Snow</string><string name="element3">Electricity</string><string name="element4">Iron</string>
 
-<string name="welcome">Welcome in the game Electro Acid Defense !!</string>
+<string name="welcome">Welcome to the game Electro Acid Defense !!</string>
 <string name="NewGame1">New game with the test map! </string>
 <string name="game">game</string>
 <string name="NewGame2">New game !</string>

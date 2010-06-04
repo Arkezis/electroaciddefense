@@ -6,8 +6,8 @@ public class Game {
 	private int difficulty;
 	@Deprecated private int level; 
 	private int money=275;
-	private int lives=10;
-	private float timeBetweenEachWave=5;
+	private int lives=20;
+	private float timeBetweenEachWave=50;
 	boolean gameStarted;
 	private float timeBetweenEachTowerTurn=(float)0.5;
 	private int actualWave = 0;

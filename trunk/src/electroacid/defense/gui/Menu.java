@@ -22,7 +22,7 @@ public  class Menu {
 	public Menu(Game game, AngleFont font, AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
 		this.t_infosPlayerTitre = new AngleString(fontTitle,"Game",270, 427,AngleString.aCenter);
 		this.t_infosPlayerLevel = new AngleString(font,"Wave : ",270,450,AngleString.aCenter);
-		this.t_infosPlayerMoney = new AngleString(font,"Money : "+game.getMoney(),270,460,AngleString.aCenter);
+		this.t_infosPlayerMoney = new AngleString(font,"Money : "+game.getMoney()+"$",270,460,AngleString.aCenter);
 		this.t_infosPlayerLives = new AngleString(font,"Lives : "+game.getLives(),270,470,AngleString.aCenter);
 
 		mGLSurfaceView.addObject(this.t_infosPlayerTitre);
