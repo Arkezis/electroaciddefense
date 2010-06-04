@@ -21,7 +21,7 @@ public  class Creature implements Cloneable{
 		private int life;
 		
 		/** Speed of the creature */
-		private int speed;
+		private float speed;
 		
 		/** Not implemented yet */
 		private int fireRate;
@@ -40,17 +40,17 @@ public  class Creature implements Cloneable{
 		 * Constructor of a creature
 		 * @param _element Element of the creature
 		 * @param _life Life of the creature
-		 * @param _speed Speed of the creature
+		 * @param speed2 Speed of the creature
 		 * @param _fireRate Not implemented yet
 		 * @param _rewardValue Gain when the creature die
 		 * @param _fly Not implemented yet
 		 * @param layout Layout of the creature
 		 */
-		public Creature(Element _element,int _life,int _speed, int _fireRate, int _rewardValue,
+		public Creature(Element _element,int _life,float speed2, int _fireRate, int _rewardValue,
 				boolean _fly,AngleSpriteLayout layout){
 			this.element = _element;
 			this.life = _life;
-			this.speed = _speed;
+			this.speed = speed2;
 			this.fireRate = _fireRate;
 			this.rewardValue = _rewardValue;
 			this.fly = _fly;
@@ -129,7 +129,7 @@ public  class Creature implements Cloneable{
 		/**
 		 * @return the speed
 		 */
-		public int getSpeed() {
+		public float getSpeed() {
 			return speed;
 		}
 

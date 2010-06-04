@@ -61,7 +61,7 @@ public class GenericWave {
 
 					Element element = Element.getElement(XmlUtil.getAttributeFromNode(creature, "element"));
 					int life = XmlUtil.getAttributeIntFromNode(creature, "life");
-					int speed = XmlUtil.getAttributeIntFromNode(creature, "speed");
+					float speed = XmlUtil.getAttributeIntFromNode(creature, "speed");
 					int fireRate = XmlUtil.getAttributeIntFromNode(creature, "fireRate");
 					int rewardValue = XmlUtil.getAttributeIntFromNode(creature, "rewardValue");
 					boolean fly = XmlUtil.getAttributeBooleanFromNode(creature, "fly");

@@ -144,12 +144,12 @@ public  class Tower implements Cloneable,Observateur{
 	 * @param ogField The AngleObject where the shoot should be add
 	 */
 	public void detection(AngleObject ogField){
-		/*this.listTarget = new LinkedList<Creature>();
+		this.listTarget = new LinkedList<Creature>();
 		for(int i=0;i<this.boxDetectionList.size();i++){
 			if(!this.boxDetectionList.get(i).getListCreature().isEmpty()){
 				listTarget.addAll(boxDetectionList.get(i).getListCreature());
 			}
-		}*/
+		}
 		if(!listTarget.isEmpty()) this.attack(listTarget,ogField); 
 	}
 	/**
@@ -396,8 +396,8 @@ public  class Tower implements Cloneable,Observateur{
 		for (int i = this.y-maxAreaForY;i<=this.y+maxAreaForY;i+=height){
 			for (int j = this.x-maxAreaForX;j<=this.x+maxAreaForX;j+=width){
 				if (matrice.getBox(j, i) instanceof BoxPath){
-					//this.boxDetectionList.add((BoxPath) matrice.getBox(j,i)); 
-					((BoxPath) matrice.getBox(j, i)).addObservateur(this);
+					this.boxDetectionList.add((BoxPath) matrice.getBox(j,i)); 
+					//((BoxPath) matrice.getBox(j, i)).addObservateur(this);
 				}
 			}
 		}
