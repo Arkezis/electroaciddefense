@@ -2,7 +2,6 @@ package electroacid.defense;
 
 import java.util.LinkedList;
 
-import utils.Observable;
 import utils.Observateur;
 
 import com.android.angle.AngleObject;
