@@ -346,19 +346,20 @@ public class Play extends AngleActivity{
 		
 		myGame=new MyGame(this);
 		setUI(myGame);
-
-		t = Toast.makeText(this, "The game will start !  ", 0);
-		t.setGravity(Gravity.CENTER, 0, 0);
-		t.show();
-		t = Toast.makeText(this, "Touch the map to select a place for your new tower  ", 0);
-		t.setGravity(Gravity.CENTER, 0, 0);
-		t.show();
-		t = Toast.makeText(this, "Select the tower to create and validate it !", 0);
-		t.setGravity(Gravity.BOTTOM, 0, 150);
-		t.show();
-		t = Toast.makeText(this, "Get ready, creatures are coming....", 0);
-		t.setGravity(Gravity.BOTTOM, 0, 150);
-		t.show();
+		if(mapChoosen.equals("tutomap")){
+			t = Toast.makeText(this, "The game will start !  ", 0);
+			t.setGravity(Gravity.CENTER, 0, 0);
+			t.show();
+			t = Toast.makeText(this, "Touch the map to select a place for your new tower  ", 0);
+			t.setGravity(Gravity.CENTER, 0, 0);
+			t.show();
+			t = Toast.makeText(this, "Select the tower to create and validate it !", 0);
+			t.setGravity(Gravity.BOTTOM, 0, 150);
+			t.show();
+			t = Toast.makeText(this, "Get ready, creatures are coming....", 0);
+			t.setGravity(Gravity.BOTTOM, 0, 150);
+			t.show();
+		}
 	}
 	
 	/**
