@@ -2,7 +2,7 @@ package electroacid.defense;
 
 import java.util.LinkedList;
 
-import utils.Observateur;
+import utils.ObservateurTower;
 
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
@@ -19,7 +19,7 @@ import electroacid.defense.map.GenericMap;
  * @author Arkezis
  * @version 1.0b
  */
-public  class Tower implements Cloneable,Observateur{
+public  class Tower implements Cloneable,ObservateurTower{
 	/**
 	 * The shoot shooted by the tower
 	 */

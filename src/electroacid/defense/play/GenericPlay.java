@@ -249,7 +249,7 @@ public class GenericPlay extends  AngleUI{
 				LinkedList<Wave> listWave = genericWave.getListWave();
 				if (game.getActualWave()<listWave.size()){
 					ogWave.addObject(listWave.get(game.getActualWave()));
-					listWave.get(game.getActualWave()).start(ogCreature,boxpath);
+					listWave.get(game.getActualWave()).start(menu,ogCreature,boxpath);
 					game.setActualWave(game.getActualWave()+1);
 				}
 

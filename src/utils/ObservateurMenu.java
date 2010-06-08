@@ -1,6 +1,6 @@
 package utils;
 
-public interface Observateur {
+public interface ObservateurMenu {
 	
 	public void add(Object c);
 	public void remove(Object c);

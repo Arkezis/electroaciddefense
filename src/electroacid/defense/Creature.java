@@ -1,11 +1,18 @@
 package electroacid.defense;
 
+import java.util.ArrayList;
+
+import utils.ObservableCreature;
+import utils.ObservateurMenu;
+import utils.ObservateurTower;
+
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
+import electroacid.defense.gui.Menu;
 
 /**
  * It's a simple creature
@@ -35,6 +42,7 @@ public  class Creature implements Cloneable{
 		/** Sprite of the creature */
 		private AngleSprite sprite;
 		
+		private Menu menu;
 		
 		/**
 		 * Constructor of a creature
@@ -82,17 +90,21 @@ public  class Creature implements Cloneable{
 		public void destroy(Game game,AngleObject og,boolean byTower){
 			og.removeObject(this.sprite);
 			if (byTower) game.addMoney(this.rewardValue);
-			else game.removeLives(1);
+			else {
+				game.removeLives(1);
+				
+			}
 			game.removeOneCreatureInGame();
 			//menu.refreshLives(game);
 		}
 		
-		public void start(AngleObject og, BoxPath debut) {
+		public void start(Menu menu,AngleObject og, BoxPath debut) {
 			debut.addCreature(this);
 			this.sprite.mPosition.set(
 					debut.getX()+16,
 					debut.getY()+16);
 			og.addObject(this.sprite);
+			this.menu = menu;
 		}
 		
 		/**
