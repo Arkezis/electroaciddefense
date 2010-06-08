@@ -20,7 +20,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-      //  ((Button)this.findViewById(R.id.Button01)).setOnClickListener(this);
+        ((Button)this.findViewById(R.id.Button01)).setOnClickListener(this);
         ((Button)this.findViewById(R.id.Button02)).setOnClickListener(this);
         ((Button)this.findViewById(R.id.ButtonQuit)).setOnClickListener(this);    
         ((ImageView)this.findViewById(R.id.ImageView01)).setImageResource(R.drawable.icon);
@@ -30,14 +30,15 @@ public class electroaciddefense extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		Intent i = null;
 		switch(arg0.getId()){
-			/*case R.id.Button01 :
-	    		//i = new Intent(getBaseContext(),Maptest.class);
-				Toast.makeText(this, "This action is desactivated for the moment", 1000).show();
-				break;*/
+			case R.id.Button01 :
+				i = new Intent(this,Play.class);
+	    		i.putExtra("map", "tutomap");
+	    		this.startActivity(i);
+				break;
 			case R.id.Button02 :
 	    		i = new Intent(this,Play.class);
-	    		i.putExtra("map", "testmap");
-	    		this.startActivityForResult(i, 1000);
+	    		i.putExtra("map", "map1");
+	    		this.startActivity(i);
 				break;
 			case R.id.ButtonQuit :
 	    		finish();
@@ -72,7 +73,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
     		InstructionsAlertDialog();
     		break;
     	case 4:
-    		Toast.makeText(this, "Game developed by Mathieu Deschamps and Tom Dubin. All rights reserved.", 2000).show();
+    		Toast.makeText(this, "Game developed by Mathieu Deschamps (aka cilheo) and Tom Dubin (aka Arkezis). \n Contact : ElectroAcidDefense@gmail.com . \n All rights reserved.", 2000).show();
     		break;
     	}
     	return super.onOptionsItemSelected(item);

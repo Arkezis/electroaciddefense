@@ -11,7 +11,7 @@ public class Game implements ObservableGame{
 	private int speedMultiplicator =1;
 	private int difficulty;
 	@Deprecated private int level; 
-	private int money=5000;
+	private int money=275;
 	private int lives=20;
 	private int timeBetweenEachWave=50;
 	boolean gameStarted;

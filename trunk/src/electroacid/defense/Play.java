@@ -82,6 +82,7 @@ public class Play extends AngleActivity{
 		
 		/* Informations used in the step */
 		float lastWave = 0;
+		float timeBetweenEachTowerTurn=0;
 		float lastRefreshMenu=0;
 		
 		/**
@@ -106,27 +107,26 @@ public class Play extends AngleActivity{
 			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,18,9,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
 			ogField.addObject(tmGround);
-			if(mapChoosen.equals("testmap")){
+			if(mapChoosen.equals("tutomap")){
 				try {
-					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
+					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.tutomap);
 					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.testwave,game);
+					genericWave.build(getWindow().getContext(), R.raw.tutowave,game);
 					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.testtower,mGLSurfaceView);
+					genericTower.build(getWindow().getContext(), R.raw.tutotower,mGLSurfaceView);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}else if(mapChoosen.equals("map1")){
-				/*try {
-					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
+				try {
+				/*	matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map1map);
 					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.testwave,game);
-					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.testmap);
+					genericWave.build(getWindow().getContext(), R.raw.map1wav e,game);
 					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.testtower,mGLSurfaceView);
+					genericTower.build(getWindow().getContext(), R.raw.map1tower,mGLSurfaceView);*/
 				} catch (Exception e) {
 					e.printStackTrace();
-				}*/
+				}
 			}
 			
 			/* Menus' initialisation */
@@ -273,7 +273,10 @@ public class Play extends AngleActivity{
 				 * At each step, if (counter % fireRate == 0), the tower shoot !  
 				 */
 				boxpath.nextStep(game,ogCreature);
+				timeBetweenEachTowerTurn += secondsElapsed;
 				counterFireRate++; 
+				if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
+					timeBetweenEachTowerTurn =0;
 					for(int i=0;i<towerList.size();i++){
 						if(towerList.get(i).getTower() != null){
 							if(counterFireRate%towerList.get(i).getTower().getFireRate()==0){
@@ -281,6 +284,7 @@ public class Play extends AngleActivity{
 							}
 						}
 					}
+				}
 				/* MENUS */
 				lastRefreshMenu += secondsElapsed;
 				if(lastRefreshMenu > game.getMenuRefreshTime()) {
@@ -316,6 +320,8 @@ public class Play extends AngleActivity{
 		}
 		
 	}
+	
+	
 	/**
 	 * Called at the beginning of the activity
 	 */

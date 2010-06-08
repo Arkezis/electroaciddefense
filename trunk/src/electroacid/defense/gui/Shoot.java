@@ -2,8 +2,6 @@ package electroacid.defense.gui;
 
 import utils.AngleSegment;
 
-import android.util.Log;
-
 import com.android.angle.AngleObject;
 
 /**
