@@ -13,7 +13,7 @@ public class Game implements ObservableGame{
 	@Deprecated private int level; 
 	private int money=5000;
 	private int lives=20;
-	private float timeBetweenEachWave=50;
+	private int timeBetweenEachWave=50;
 	boolean gameStarted;
 	private float timeBetweenEachTowerTurn=(float)0.5;
 	private int actualWave = 0;
@@ -37,7 +37,7 @@ public class Game implements ObservableGame{
 		this.actualWave = actualWave;
 		this.updateObservateurWave();
 	}
-	private float menuRefreshTime=(float) 1.5;
+	private float menuRefreshTime=(float) 1;
 	
 	/**
 	 * @return the menuRefreshTime
@@ -56,14 +56,14 @@ public class Game implements ObservableGame{
 	/**
 	 * @return the timeBetweenEachWave
 	 */
-	public float getTimeBetweenEachWave() {
+	public int getTimeBetweenEachWave() {
 		return timeBetweenEachWave;
 	}
 
 	/**
 	 * @param timeBetweenEachWave the timeBetweenEachWave to set
 	 */
-	public void setTimeBetweenEachWave(float timeBetweenEachWave) {
+	public void setTimeBetweenEachWave(int timeBetweenEachWave) {
 		this.timeBetweenEachWave = timeBetweenEachWave;
 	}
 
