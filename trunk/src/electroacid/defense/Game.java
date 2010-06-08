@@ -35,6 +35,7 @@ public class Game implements ObservableGame{
 	 */
 	public void setActualWave(int actualWave) {
 		this.actualWave = actualWave;
+		this.updateObservateurWave();
 	}
 	private float menuRefreshTime=(float) 1.5;
 	
@@ -242,6 +243,13 @@ public class Game implements ObservableGame{
 	public void updateObservateurMoney() {
 		for (ObservateurMenu obs: this.listObservateur){
 			obs.refreshMoney(this);
+		}
+	}
+
+	@Override
+	public void updateObservateurWave() {
+		for (ObservateurMenu obs: this.listObservateur){
+			obs.refreshWaves(this);
 		}
 	}
 	

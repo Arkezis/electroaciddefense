@@ -5,7 +5,6 @@ import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
 import electroacid.defense.Game;
 import electroacid.defense.box.BoxPath;
-import electroacid.defense.gui.Menu;
 
 /**
  * it's a wave of creatures

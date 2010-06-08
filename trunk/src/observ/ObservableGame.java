@@ -6,4 +6,5 @@ public interface ObservableGame {
 	public void delAllObservateur();
 	public void updateObservateurLive();
 	public void updateObservateurMoney();
+	public void updateObservateurWave();
 }
