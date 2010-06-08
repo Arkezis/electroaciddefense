@@ -2,16 +2,16 @@ package electroacid.defense;
 
 import java.util.ArrayList;
 
-import utils.ObservableGame;
-import utils.ObservateurMenu;
-import utils.ObservateurTower;
+import observ.ObservableGame;
+import observ.ObservateurMenu;
+
 
 public class Game implements ObservableGame{
 
 	private int speedMultiplicator =1;
 	private int difficulty;
 	@Deprecated private int level; 
-	private int money=275;
+	private int money=5000;
 	private int lives=20;
 	private float timeBetweenEachWave=50;
 	boolean gameStarted;

@@ -1,18 +1,11 @@
 package electroacid.defense;
 
-import java.util.ArrayList;
-
-import utils.ObservableGame;
-import utils.ObservateurMenu;
-import utils.ObservateurTower;
-
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
-import electroacid.defense.gui.Menu;
 
 /**
  * It's a simple creature

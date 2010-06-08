@@ -2,7 +2,8 @@ package electroacid.defense;
 
 import java.util.LinkedList;
 
-import utils.ObservateurTower;
+import observ.ObservateurTower;
+
 
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
