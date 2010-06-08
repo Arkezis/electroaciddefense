@@ -7,4 +7,5 @@ public interface Observable {
 	public void updateObservateurAdd(Object c);
 	public void delObservateur(Observateur obs);
 	public void delAllObservateur();
+	void updateObservateurRemoveAndAdd(Object c);
 }

@@ -406,12 +406,28 @@ public  class Tower implements Cloneable,Observateur{
 
 	@Override
 	public void add(Object c) {
-		this.listTarget.add((Creature) c);
+		if (!this.listTarget.contains(c)){
+			this.listTarget.add((Creature) c);
+		}
 	}
 
 	@Override
 	public void remove(Object c) {
 		this.listTarget.remove(c);
+	}
+
+	/**
+	 * @return the listTarget
+	 */
+	public LinkedList<Creature> getListTarget() {
+		return listTarget;
+	}
+
+	/**
+	 * @param listTarget the listTarget to set
+	 */
+	public void setListTarget(LinkedList<Creature> listTarget) {
+		this.listTarget = listTarget;
 	}
 
 
