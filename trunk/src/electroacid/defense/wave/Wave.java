@@ -5,6 +5,7 @@ import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
 import electroacid.defense.Game;
 import electroacid.defense.box.BoxPath;
+import electroacid.defense.gui.Menu;
 
 /**
  * it's a wave of creatures
@@ -31,6 +32,8 @@ public class Wave extends AngleObject {
 	/** position in the list of the actual creature */
 	private int actualCreature = 0;
 
+	private Menu menu;
+	
 	/**
 	 * Constructor of wave
 	 * initialise the creatures' list
@@ -54,10 +57,11 @@ public class Wave extends AngleObject {
 	 * @param ogCreature container for creature
 	 * @param boxpath first boxPath
 	 */
-	public void start(AngleObject ogCreature, BoxPath boxpath){
+	public void start(Menu menu,AngleObject ogCreature, BoxPath boxpath){
 		this.debut = boxpath;
 		this.og = ogCreature;
 		this.start = true;
+		this.menu=menu;
 	}
 
 	/**
@@ -70,6 +74,7 @@ public class Wave extends AngleObject {
 				this.timeBetweenCreature=2;
 				if (this.actualCreature<this.listCreature.size()){
 					this.listCreature.get(this.actualCreature).start(
+							this.menu,
 							this.og,
 							this.debut);
 					this.actualCreature++;

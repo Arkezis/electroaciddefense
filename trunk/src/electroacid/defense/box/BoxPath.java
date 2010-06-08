@@ -3,8 +3,8 @@ package electroacid.defense.box;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import utils.Observable;
-import utils.Observateur;
+import utils.ObservableBoxPath;
+import utils.ObservateurTower;
 
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
@@ -17,7 +17,7 @@ import electroacid.defense.enums.Direction;
  * @author cilheo
  * @version 1.0b
  */
-public class BoxPath extends Box implements Observable{
+public class BoxPath extends Box implements ObservableBoxPath{
 
 	/** Creatures' list who are actually on the box */
 	private LinkedList<Creature> listCreature;
@@ -29,7 +29,7 @@ public class BoxPath extends Box implements Observable{
 	private BoxPath nextPath;
 
 	/** Observator's list */
-	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
+	private ArrayList<ObservateurTower> listObservateur = new ArrayList<ObservateurTower>();
 
 	/**
 	 * Constructor of a boxPath
@@ -141,24 +141,24 @@ public class BoxPath extends Box implements Observable{
 	public void setNextPath(BoxPath nextPath) {this.nextPath = nextPath;}
 
 	@Override
-	public void addObservateur(Observateur obs) {
+	public void addObservateur(ObservateurTower obs) {
 		this.listObservateur.add(obs);
 		for(Creature c :this.listCreature) obs.add(c);
 	}
 
 	@Override
 	public void delAllObservateur() {
-		this.listObservateur = new ArrayList<Observateur>();
+		this.listObservateur = new ArrayList<ObservateurTower>();
 	}
 
 	@Override
-	public void delObservateur(Observateur obs) {
+	public void delObservateur(ObservateurTower obs) {
 			this.listObservateur.remove(obs);
 	}
 
 	@Override
 	public void updateObservateurAdd(Object c) {
-			for (Observateur obs : this.listObservateur) {
+			for (ObservateurTower obs : this.listObservateur) {
 					obs.add(c);
 			}
 	}
@@ -166,7 +166,7 @@ public class BoxPath extends Box implements Observable{
 	@Override
 	public void updateObservateurRemoveAndAdd(Object c){
 		if (this.nextPath!=null){
-			for (Observateur obs : this.listObservateur) {
+			for (ObservateurTower obs : this.listObservateur) {
 				if (!this.nextPath.listObservateur.contains(obs)){
 					obs.remove(c);
 				}
@@ -177,7 +177,7 @@ public class BoxPath extends Box implements Observable{
 	
 	@Override
 	public void updateObservateurRemove(Object c) {
-		for (Observateur obs : this.listObservateur) obs.remove(c);
+		for (ObservateurTower obs : this.listObservateur) obs.remove(c);
 	}
 	
 }
