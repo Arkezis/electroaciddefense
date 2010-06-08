@@ -82,7 +82,6 @@ public class Play extends AngleActivity{
 		
 		/* Informations used in the step */
 		float lastWave = 0;
-		float timeBetweenEachTowerTurn=0;
 		float lastRefreshMenu=0;
 		
 		/**
@@ -268,17 +267,13 @@ public class Play extends AngleActivity{
 						listWave.get(game.getActualWave()).start(ogCreature,boxpath);
 						game.setActualWave(game.getActualWave()+1);
 					}
-	
 				}
 				/* SHOOTS */
 				/* To manage tower shooting faster than other towers, we are using a counter incremented at each step.
 				 * At each step, if (counter % fireRate == 0), the tower shoot !  
 				 */
 				boxpath.nextStep(game,ogCreature);
-				timeBetweenEachTowerTurn += secondsElapsed;
 				counterFireRate++; 
-				//if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
-					timeBetweenEachTowerTurn =0;
 					for(int i=0;i<towerList.size();i++){
 						if(towerList.get(i).getTower() != null){
 							if(counterFireRate%towerList.get(i).getTower().getFireRate()==0){
@@ -286,7 +281,6 @@ public class Play extends AngleActivity{
 							}
 						}
 					}
-				//}
 				/* MENUS */
 				lastRefreshMenu += secondsElapsed;
 				if(lastRefreshMenu > game.getMenuRefreshTime()) {
