@@ -84,6 +84,7 @@ public  class Creature implements Cloneable{
 			if (byTower) game.addMoney(this.rewardValue);
 			else game.removeLives(1);
 			game.removeOneCreatureInGame();
+			//menu.refreshLives(game);
 		}
 		
 		public void start(AngleObject og, BoxPath debut) {

@@ -32,7 +32,7 @@ public class MenuSelectedTower {
 		this.t_infosTowerElement = new AngleString(font,"",16, 440,AngleString.aLeft);	
 		this.t_infosTowerLevel = new AngleString(font,"",16,450,AngleString.aLeft);	
 		this.t_infosTowerDamage = new AngleString(font,"",16,460,AngleString.aLeft);		
-		this.t_infosTowerCanTargetFly = new AngleString(font,"",16,470,AngleString.aLeft);		
+	//	this.t_infosTowerCanTargetFly = new AngleString(font,"",16,470,AngleString.aLeft);		
 		
 		this.bUpgradeTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,160,32,32));
 		this.bUpgradeTower.mPosition.set(150, 432); 
@@ -43,13 +43,13 @@ public class MenuSelectedTower {
 		mGLSurfaceView.addObject(t_infosTowerElement);
 		mGLSurfaceView.addObject(t_infosTowerDamage);
 		mGLSurfaceView.addObject(t_infosTowerLevel);
-		mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
+	//	mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
 		mGLSurfaceView.addObject(bDeleteTower);
 		mGLSurfaceView.addObject(bUpgradeTower);
 		this.t_infosTowerTitle.mAlpha = 0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
-		this.t_infosTowerCanTargetFly.mAlpha = 0;
+	//	this.t_infosTowerCanTargetFly.mAlpha = 0;
 		this.t_infosTowerLevel.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
 		this.bUpgradeTower.mAlpha = 0;
@@ -63,7 +63,7 @@ public class MenuSelectedTower {
 		this.t_infosTowerTitle.mAlpha = 0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
-		this.t_infosTowerCanTargetFly.mAlpha = 0;
+	//	this.t_infosTowerCanTargetFly.mAlpha = 0;
 		this.t_infosTowerLevel.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
 		this.bUpgradeTower.mAlpha = 0;
@@ -78,13 +78,13 @@ public class MenuSelectedTower {
 		this.t_infosTowerElement.set("Element : "+tower.getElement().toString());
 		this.t_infosTowerLevel.set("Level : "+tower.getLevel()+"=>"+(tower.getLevel()+1));
 		this.t_infosTowerDamage.set("Damage : "+tower.getDamage()+"=>"+(int)Math.ceil((tower.getDamage()*tower.getUpgrade())));
-		if(tower.isCanTargetFly())	this.t_infosTowerCanTargetFly.set("Can target fly");
-		else this.t_infosTowerCanTargetFly.set("");
+		//if(tower.isCanTargetFly())	this.t_infosTowerCanTargetFly.set("Can target fly");
+		//else this.t_infosTowerCanTargetFly.set("");
 
 		this.t_infosTowerTitle.mAlpha = 1;
 		this.t_infosTowerElement.mAlpha = 1;
 		this.t_infosTowerDamage.mAlpha = 1;
-		this.t_infosTowerCanTargetFly.mAlpha = 1;
+		//this.t_infosTowerCanTargetFly.mAlpha = 1;
 		this.t_infosTowerLevel.mAlpha = 1;
 		this.bDeleteTower.mAlpha = 1;
 		if (g.getMoney() > tower.getCost()*tower.getUpgrade()){
