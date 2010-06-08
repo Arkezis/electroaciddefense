@@ -119,11 +119,11 @@ public class Play extends AngleActivity{
 				}
 			}else if(mapChoosen.equals("map1")){
 				try {
-				/*	matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map1map);
+					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map1map);
 					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.map1wav e,game);
+					genericWave.build(getWindow().getContext(), R.raw.map1wave,game);
 					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.map1tower,mGLSurfaceView);*/
+					genericTower.build(getWindow().getContext(), R.raw.map1tower,mGLSurfaceView);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
