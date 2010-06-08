@@ -267,7 +267,6 @@ public class Play extends AngleActivity{
 						ogWave.addObject(listWave.get(game.getActualWave()));
 						listWave.get(game.getActualWave()).start(ogCreature,boxpath);
 						game.setActualWave(game.getActualWave()+1);
-						menu.refreshWaves(game);
 					}
 	
 				}
