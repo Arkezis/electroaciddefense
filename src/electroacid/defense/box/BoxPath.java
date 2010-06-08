@@ -9,6 +9,7 @@ import utils.Observateur;
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
 import electroacid.defense.Game;
+import electroacid.defense.Tower;
 import electroacid.defense.enums.Direction;
 
 /**
@@ -69,7 +70,7 @@ public class BoxPath extends Box implements Observable{
 	public void nextStep(Game game,AngleObject container){
 		if (this.nextPath== null) {
 			for (int i=0;i<this.listCreature.size();i++) {
-	
+				this.updateObservateurRemove(this.listCreature.get(i));
 				this.listCreature.get(i).destroy(game, container,false);
 				this.listCreature.remove(i--);
 			}
@@ -85,7 +86,7 @@ public class BoxPath extends Box implements Observable{
 				float nextX = creature.getSprite().mPosition.mX;
 
 				if (!creatureInBox(nextX, nextY)){
-					this.updateObservateurRemove(creature);
+					this.updateObservateurRemoveAndAdd(creature);
 					this.nextPath.addCreature(creature);
 					this.listCreature.remove(i--);
 				}else {
@@ -157,9 +158,23 @@ public class BoxPath extends Box implements Observable{
 
 	@Override
 	public void updateObservateurAdd(Object c) {
-		for (Observateur obs : this.listObservateur) obs.add(c);
+			for (Observateur obs : this.listObservateur) {
+					obs.add(c);
+			}
 	}
 
+	@Override
+	public void updateObservateurRemoveAndAdd(Object c){
+		if (this.nextPath!=null){
+			for (Observateur obs : this.listObservateur) {
+				if (!this.nextPath.listObservateur.contains(obs)){
+					obs.remove(c);
+				}
+			}
+		}else 
+			this.updateObservateurRemove(c);
+	}
+	
 	@Override
 	public void updateObservateurRemove(Object c) {
 		for (Observateur obs : this.listObservateur) obs.remove(c);
