@@ -1,6 +1,12 @@
 package electroacid.defense;
 
-public class Game {
+import java.util.ArrayList;
+
+import utils.ObservableGame;
+import utils.ObservateurMenu;
+import utils.ObservateurTower;
+
+public class Game implements ObservableGame{
 
 	private int speedMultiplicator =1;
 	private int difficulty;
@@ -14,6 +20,9 @@ public class Game {
 	private int nbCreatureInGame=0;
 	private int nbMaxWave=0;
 	private boolean gameEnd;
+	
+	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
+	
 	/**
 	 * @return the actualWave
 	 */
@@ -88,6 +97,7 @@ public class Game {
 	
 	public void addMoney(int _money){
 		this.money+=_money;
+		this.updateObservateurMoney();
 	}
 	
 	/**
@@ -99,6 +109,7 @@ public class Game {
 	
 	public void removeLives(int nbLive){
 		this.lives-=nbLive;
+		this.updateObservateurLive();
 		if (this.lives<=0) this.gameStarted=false;
 	}
 	/**
@@ -124,12 +135,14 @@ public class Game {
 	 */
 	public void setMoney(int money) {
 		this.money = money;
+		this.updateObservateurMoney();
 	}
 	/**
 	 * @param lives the lives to set
 	 */
 	public void setLives(int lives) {
 		this.lives = lives;
+		this.updateObservateurLive();
 	}
 
 	/**
@@ -201,6 +214,35 @@ public class Game {
 	 */
 	public void setNbMaxWave(int nbMaxWave) {
 		this.nbMaxWave = nbMaxWave;
+	}
+
+	@Override
+	public void addObservateur(ObservateurMenu obs) {
+		this.listObservateur.add(obs);
+	}
+
+	@Override
+	public void delAllObservateur() {
+		this.listObservateur = new ArrayList<ObservateurMenu>(); 
+	}
+
+	@Override
+	public void delObservateur(ObservateurMenu obs) {
+		this.listObservateur.remove(obs);
+	}
+
+	@Override
+	public void updateObservateurLive() {
+		for (ObservateurMenu obs: this.listObservateur){
+			obs.refreshLives(this);
+		}
+	}
+
+	@Override
+	public void updateObservateurMoney() {
+		for (ObservateurMenu obs: this.listObservateur){
+			obs.refreshMoney(this);
+		}
 	}
 	
 

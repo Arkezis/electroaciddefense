@@ -136,6 +136,7 @@ public class Play extends AngleActivity{
 			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 18, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
 
 			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
+			game.addObservateur(menu);
 			menuNewTower = new MenuNewTower(fontMenu,fontTitle,mGLSurfaceView,genericTower.getListTower());
 			menuSelectedTower = new MenuSelectedTower(fontMenu,fontTitle,mGLSurfaceView);
 		}
@@ -264,7 +265,7 @@ public class Play extends AngleActivity{
 					LinkedList<Wave> listWave = genericWave.getListWave();
 					if (game.getActualWave()<listWave.size()){
 						ogWave.addObject(listWave.get(game.getActualWave()));
-						listWave.get(game.getActualWave()).start(menu,ogCreature,boxpath);
+						listWave.get(game.getActualWave()).start(ogCreature,boxpath);
 						game.setActualWave(game.getActualWave()+1);
 						menu.refreshWaves(game);
 					}

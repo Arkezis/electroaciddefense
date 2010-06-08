@@ -3,13 +3,15 @@ package electroacid.defense.gui;
 
 
 
+import utils.ObservateurMenu;
+
 import com.android.angle.AngleFont;
 import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
 
 import electroacid.defense.Game;
 
-public  class Menu {
+public  class Menu implements ObservateurMenu{
 
 	private AngleString t_infosPlayerTitre,t_infosPlayerLevel,t_infosPlayerMoney,t_infosPlayerLives,t_infosPlayerNext;
 	private AngleString t_infosPlayerNextText,t_infosPlayerLivesText,t_infosPlayerMoneyText;
@@ -68,5 +70,7 @@ public  class Menu {
 	public void refreshLives(Game game){
 		this.t_infosPlayerLives.set(""+game.getLives());
 	}
+
+
 	
 }

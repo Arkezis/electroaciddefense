@@ -1,8 +1,10 @@
 package utils;
 
+import electroacid.defense.Game;
+
 public interface ObservateurMenu {
 	
-	public void add(Object c);
-	public void remove(Object c);
+	public void refreshMoney(Game g);
+	public void refreshLives(Game g);
 
 }
