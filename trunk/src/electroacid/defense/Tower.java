@@ -172,13 +172,13 @@ public  class Tower implements Cloneable,Observateur{
 		
 			int i=0; // TODO : Choisir quelle créa attaquer
 			
-			if(!this.canTargetFly){ // if the tower can't target fly, we have to remove the flying creatures !
+			/*if(!this.canTargetFly){ // if the tower can't target fly, we have to remove the flying creatures !
 				for(int j=0;j<listTarget.size();j++){
 					if(listTarget.get(j).isFly()){
 						listTarget.remove(j);j--;
 					}
 				}
-			}
+			}*/
 			if(!listTarget.isEmpty()){
 				fire = new Shoot(this.x, this.y, listTarget.get(i).getSprite().mPosition.mX, listTarget.get(i).getSprite().mPosition.mY,ogField);
 				// Apply the element vs element modifiers
