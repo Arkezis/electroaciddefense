@@ -28,6 +28,12 @@
     android:gravity="center"
     android:layout_gravity="center"/>
 <Button 
+	android:text="@+string/NewGame1" 
+	android:id="@+id/Button01" 
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content">
+</Button>
+<Button 
 	android:text="@+string/NewGame2" 
 	android:id="@+id/Button02" 
 	android:layout_width="fill_parent" 

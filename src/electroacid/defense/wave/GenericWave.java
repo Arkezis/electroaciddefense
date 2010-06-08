@@ -38,6 +38,8 @@ public class GenericWave {
 				mGLSurfaceView,32,32,R.drawable.tilemap,32,96,32,32));
 		this.listLayout.add(new AngleSpriteLayout(
 				mGLSurfaceView,32,32,R.drawable.tilemap,64,96,32,32));
+		this.listLayout.add(new AngleSpriteLayout(
+				mGLSurfaceView,32,32,R.drawable.tilemap,96,96,32,32));
 	}
 	
 	/**

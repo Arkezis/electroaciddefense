@@ -49,9 +49,9 @@ public class MenuNewTower {
 		listTower.get(3).getSprite().mAlpha = 0;
 		
 		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,128,160,32,32);
+		this.bNGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,160,32,32); 
 		this.bGo = new AngleSprite(this.bGoLayout);
 		this.bGo.mPosition.set(85, 430);
-		this.bNGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,160,32,32); 
 		
 		this.t_infosTowerTitle.mAlpha = 0;
 		
@@ -113,6 +113,7 @@ public class MenuNewTower {
 	public void showValidateTower(Game g, AngleSurfaceView mGLSurfaceView,Tower tower,boolean possible){
 		if (possible) 	{this.bGo.setLayout(this.bGoLayout);}
 		else 			{this.bGo.setLayout(this.bNGoLayout);}
+		this.bGo.mAlpha=1;
 		this.isPossible=possible;
 		
 		this.t_infosTowerElement.mAlpha = 1;
