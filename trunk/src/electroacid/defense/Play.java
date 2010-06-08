@@ -277,7 +277,7 @@ public class Play extends AngleActivity{
 				boxpath.nextStep(game,ogCreature);
 				timeBetweenEachTowerTurn += secondsElapsed;
 				counterFireRate++; 
-				if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
+				//if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
 					timeBetweenEachTowerTurn =0;
 					for(int i=0;i<towerList.size();i++){
 						if(towerList.get(i).getTower() != null){
@@ -286,7 +286,7 @@ public class Play extends AngleActivity{
 							}
 						}
 					}
-				}
+				//}
 				/* MENUS */
 				lastRefreshMenu += secondsElapsed;
 				if(lastRefreshMenu > game.getMenuRefreshTime()) {
