@@ -3,7 +3,7 @@ package electroacid.defense.gui;
 
 
 
-import utils.ObservateurMenu;
+import observ.ObservateurMenu;
 
 import com.android.angle.AngleFont;
 import com.android.angle.AngleString;

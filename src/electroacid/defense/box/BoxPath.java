@@ -3,13 +3,13 @@ package electroacid.defense.box;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import utils.ObservableBoxPath;
-import utils.ObservateurTower;
+import observ.ObservableBoxPath;
+import observ.ObservateurTower;
+
 
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
 import electroacid.defense.Game;
-import electroacid.defense.Tower;
 import electroacid.defense.enums.Direction;
 
 /**
