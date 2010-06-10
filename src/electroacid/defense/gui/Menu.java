@@ -26,10 +26,8 @@ public  class Menu implements ObservateurMenu{
 		this.t_infosPlayerTitre = new AngleString(fontTitle,"Game",270, 427,AngleString.aCenter);
 		this.t_infosPlayerNext = new AngleString(font,"",300,440,AngleString.aCenter);
 		this.t_infosPlayerNextText = new AngleString(font,"Next : ",270,440,AngleString.aCenter);
-		
 		this.t_infosPlayerLevelText = new AngleString(font,"Wave : ",270,450,AngleString.aCenter);
 		this.t_infosPlayerLevel = new AngleString(font,"",300,450,AngleString.aCenter);
-		
 		this.t_infosPlayerMoney = new AngleString(font,""+game.getMoney(),300,460,AngleString.aCenter);
 		this.t_infosPlayerMoneyText = new AngleString(font,"Money : ",265,460,AngleString.aCenter);
 		this.t_infosPlayerLives = new AngleString(font,""+game.getLives(),300,470,AngleString.aCenter);
@@ -44,12 +42,11 @@ public  class Menu implements ObservateurMenu{
 	
 	/**
 	 * The method to refresh the menu
-	 * @param game The informationsa about the game
+	 * @param game The informations about the game
 	 */
 	public void refresh(Game game,int lastWave){
 		this.t_infosPlayerNext.set(""+ (game.getTimeBetweenEachWave()-lastWave));
 	}
-	
 	/**
 	 * The method to refresh the menu of money
 	 * @param game The informationsa about the game
@@ -57,7 +54,6 @@ public  class Menu implements ObservateurMenu{
 	public void refreshMoney(Game game){
 		this.t_infosPlayerMoney.set(""+game.getMoney());
 	}
-	
 	/**
 	 * The method to refresh the number of waves
 	 * @param game The informations about the game
@@ -65,7 +61,6 @@ public  class Menu implements ObservateurMenu{
 	public void refreshWaves(Game game){
 		this.t_infosPlayerLevel.set(""+game.getActualWave());
 	}
-	
 	/**
 	 * The method to refresh the menu of lives
 	 * @param game The informationsa about the game
@@ -73,7 +68,12 @@ public  class Menu implements ObservateurMenu{
 	public void refreshLives(Game game){
 		this.t_infosPlayerLives.set(""+game.getLives());
 	}
-
-
+	/**
+	 * The method to test if the user has touched the button to launch next wave
+	 * 
+	 */
+	public boolean nextWaveButtonIsTouched(int x, int y){
+		return ( (x>270 && x<330) && (y>427 && y<470) );
+	}
 	
 }

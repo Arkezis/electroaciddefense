@@ -181,7 +181,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 				}
 			}*/
 			if(!listTarget.isEmpty()){
-				fire = new Shoot(this.x, this.y, listTarget.get(i).getSprite().mPosition.mX, listTarget.get(i).getSprite().mPosition.mY,ogField);
+				fire = new Shoot(this.x, this.y, listTarget.get(i).getSprite().mPosition.mX, listTarget.get(i).getSprite().mPosition.mY,ogField,this.getElement());
 				// Apply the element vs element modifiers
 				double modifiers = this.element.getModifier(listTarget.get(i).getElement());
 				listTarget.get(i).loseLife((int)(this.damage*modifiers));
