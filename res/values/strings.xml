@@ -7,7 +7,7 @@
 <string name="welcome">Welcome to the game Electro Acid Defense !!</string>
 <string name="NewGame1">New game ! (tutorial) </string>
 <string name="game">game</string>
-<string name="NewGame2">New game ! </string>
+<string name="NewGame2">New game ! </string><string name="NewGame3">New game ! </string>
 <string name="Quit">Quit the game ! :-(</string>
 <string name="title">Welcome to \n Electro Acid Defense</string>
 </resources>
