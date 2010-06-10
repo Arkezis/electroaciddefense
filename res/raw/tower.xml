@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listtower name="tower">
+	<tower element="fire" fireRate="1" cost="100" fly="false" damage="52" targetNb="5" targetPriority="5" level="1" idTexture="0" shootArea="2"/>
+	<tower element="Electricity" fireRate="2" cost="200" fly="false" damage="110" targetNb="5" targetPriority="5" level="1" idTexture="1" shootArea="2"/>
+	<tower element="water" fireRate="5" cost="300" fly="false" damage="2650" targetNb="5" targetPriority="5" level="1" idTexture="2" shootArea="2"/>
+	<tower element="iron" fireRate="3" cost="300" fly="false" damage="500" targetNb="2" targetPriority="2" level="1" idTexture="3" shootArea="3"/>
+</listtower>
