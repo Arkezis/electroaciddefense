@@ -1,9 +1,9 @@
 package observ;
 
-import electroacid.defense.Game;
+import electroacid.defense.game.GenericGame;
 
 public interface ObservateurMenu{
-	public void refreshMoney(Game g);
-	public void refreshLives(Game g);
-	public void refreshWaves(Game g);
+	public void refreshMoney(GenericGame g);
+	public void refreshLives(GenericGame g);
+	public void refreshWaves(GenericGame g);
 }

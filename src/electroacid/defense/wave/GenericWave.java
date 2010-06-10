@@ -9,9 +9,9 @@ import android.content.Context;
 import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleSurfaceView;
 import electroacid.defense.Creature;
-import electroacid.defense.Game;
 import electroacid.defense.R;
 import electroacid.defense.enums.Element;
+import electroacid.defense.game.GenericGame;
 
 /**
  * Read a xml file and create all wave
@@ -49,7 +49,7 @@ public class GenericWave {
 	 * @param game game's parameters
 	 * @throws Exception
 	 */
-	public void build(final Context context,final int xmlResourceId,Game game) throws Exception{
+	public void build(final Context context,final int xmlResourceId,GenericGame game) throws Exception{
 		Document waveXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
 		NodeList listNodeWave = waveXml.getDocumentElement().getElementsByTagName("wave");
 		for (int i=0;i<listNodeWave.getLength();i++){

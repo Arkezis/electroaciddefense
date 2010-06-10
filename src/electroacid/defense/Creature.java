@@ -6,6 +6,7 @@ import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
+import electroacid.defense.game.GenericGame;
 
 /**
  * It's a simple creature
@@ -100,7 +101,7 @@ public  class Creature implements Cloneable{
 		 * @param og container of the creature (for the sprite)
 		 * @param byTower kill by a tower or not
 		 */
-		public void destroy(Game game,AngleObject og,boolean byTower){
+		public void destroy(GenericGame game,AngleObject og,boolean byTower){
 			og.removeObject(this.sprite);
 			if (byTower) game.addMoney(this.rewardValue);
 			else

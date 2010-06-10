@@ -8,7 +8,7 @@ import observ.ObservateurTower;
 
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
-import electroacid.defense.Game;
+import electroacid.defense.game.GenericGame;
 import electroacid.defense.enums.Direction;
 
 /**
@@ -72,7 +72,7 @@ public class BoxPath extends Box implements ObservableBoxPath{
 	 * @param game game's parameter
 	 * @param container creature's container
 	 */
-	public void nextStep(Game game,AngleObject container){
+	public void nextStep(GenericGame game,AngleObject container){
 		
 		boolean nextOk = this.numberPred==1;
 		
