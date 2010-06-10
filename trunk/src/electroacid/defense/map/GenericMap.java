@@ -116,27 +116,31 @@ public class GenericMap {
 		switch(actual.getDirection()){
 			case Up:
 				box = this.getBox(x,y-offsetY);
-				if (box instanceof BoxPath)
+				if (box instanceof BoxPath){
 					actual.setNextPath((BoxPath) box);
 					if (box != null)((BoxPath) box).addNumberMaxPred();
+				}
 				break;
 			case Down:
 				box = this.getBox(x, y+offsetY);
-				if (box instanceof BoxPath)
+				if (box instanceof BoxPath){
 					actual.setNextPath((BoxPath) box);
 					if (box != null)((BoxPath) box).addNumberMaxPred();
+				}
 				break;
 			case Right:
 				box = this.getBox(x+offsetX,y);
-				if (box instanceof BoxPath)
+				if (box instanceof BoxPath){
 					actual.setNextPath((BoxPath) box);
 					if (box != null)((BoxPath) box).addNumberMaxPred();
+				}
 				break;
 			case Left:
 				box = this.getBox(x-offsetX,y);
-				if (box instanceof BoxPath)
+				if (box instanceof BoxPath){
 					actual.setNextPath((BoxPath) box);
 					if (box != null)((BoxPath) box).addNumberMaxPred();
+				}
 				break;
 		}
 		setNextBoxPath(actual.getNextPath());
