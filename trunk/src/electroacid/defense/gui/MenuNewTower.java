@@ -32,7 +32,6 @@ public class MenuNewTower {
 		this.t_infosTowerTitle = new AngleString(fontTitle,"Tower",160, 427, AngleString.aCenter);
 		this.t_infosTowerElement = new AngleString(font,"",160,440,AngleString.aCenter);		
 		this.t_infosTowerDamage = new AngleString(font,"",160,450,AngleString.aCenter);
-		//this.t_infosTowerCanTargetFly = new AngleString(font,"",160,470,AngleString.aCenter);
 		this.t_infosTowerFireRate = new AngleString(font,"",160,460,AngleString.aCenter);	
 		this.t_infosTowerCost = new AngleString(font,"",85,460,AngleString.aCenter);
 		
@@ -58,14 +57,12 @@ public class MenuNewTower {
 		this.bGo.mAlpha=0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
-		//this.t_infosTowerCanTargetFly.mAlpha = 0;
 		this.t_infosTowerFireRate.mAlpha = 0;
 		this.t_infosTowerCost.mAlpha = 0;
 		mGLSurfaceView.addObject(this.t_infosTowerTitle);
 		mGLSurfaceView.addObject(bGo);
 		mGLSurfaceView.addObject(t_infosTowerElement);
 		mGLSurfaceView.addObject(t_infosTowerDamage);
-		//mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
 		mGLSurfaceView.addObject(t_infosTowerFireRate);
 		mGLSurfaceView.addObject(t_infosTowerCost);	
 	}
@@ -118,7 +115,6 @@ public class MenuNewTower {
 		
 		this.t_infosTowerElement.mAlpha = 1;
 		this.t_infosTowerDamage.mAlpha =1 ;
-		//this.t_infosTowerCanTargetFly.mAlpha = 1;
 		this.t_infosTowerFireRate.mAlpha = 1;
 		this.t_infosTowerCost.mAlpha = 1;
 		
@@ -126,12 +122,6 @@ public class MenuNewTower {
 		this.t_infosTowerDamage.set("Damage : "+tower.getDamage());
 		this.t_infosTowerFireRate.set("Shoot : "+tower.getFireRate());
 		this.t_infosTowerCost.set(tower.getCost()+"$");
-				
-		/*if(tower.isCanTargetFly()){
-			this.t_infosTowerCanTargetFly.set("Can target fly");
-		}else{
-			this.t_infosTowerCanTargetFly.set("");
-		}*/
 	}
 
 	/**
@@ -142,7 +132,6 @@ public class MenuNewTower {
 		this.bGo.mAlpha=0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
-	//this.t_infosTowerCanTargetFly.mAlpha = 0;
 		this.t_infosTowerFireRate.mAlpha = 0;
 		this.t_infosTowerCost.mAlpha = 0;
 	}

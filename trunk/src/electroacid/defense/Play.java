@@ -5,6 +5,7 @@ import java.util.Random;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -27,6 +28,7 @@ import electroacid.defense.box.BoxPath;
 import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
 import electroacid.defense.gui.MenuSelectedTower;
+import electroacid.defense.gui.MenuStatsCreature;
 import electroacid.defense.map.GenericMap;
 import electroacid.defense.tower.GenericTower;
 import electroacid.defense.wave.GenericWave;
@@ -59,8 +61,11 @@ public class Play extends AngleActivity{
 	Menu menu;
 	MenuNewTower menuNewTower;
 	MenuSelectedTower menuSelectedTower;
+	MenuStatsCreature menuStatsCreature;
 	int choiceMenu;
-	BoxBuildable boxBuildableSelected=null;
+	BoxBuildable boxBuildableSelected=null;		
+	BoxPath boxPathSelected=null;
+
 
 	/** The list of towers on the game */
 	LinkedList<BoxBuildable> towerList;
@@ -85,6 +90,8 @@ public class Play extends AngleActivity{
 		float lastWave = 0;
 		float timeBetweenEachTowerTurn=0;
 		float lastRefreshMenu=0;
+
+
 		
 		/**
 		 * The constructor
@@ -125,6 +132,7 @@ public class Play extends AngleActivity{
 					genericWave.build(getWindow().getContext(), R.raw.map1wave,game);
 					genericTower = new GenericTower();
 					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
+					Log.d("DEBUGTAG", "TAGADAPOUET");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -149,6 +157,7 @@ public class Play extends AngleActivity{
 			game.addObservateur(menu);
 			menuNewTower = new MenuNewTower(fontMenu,fontTitle,mGLSurfaceView,genericTower.getListTower());
 			menuSelectedTower = new MenuSelectedTower(fontMenu,fontTitle,mGLSurfaceView);
+			menuStatsCreature = new MenuStatsCreature(fontMenu,fontTitle,mGLSurfaceView);
 		}
 		
 		/**
@@ -177,11 +186,13 @@ public class Play extends AngleActivity{
 						if(boxBuildableSelected.getTower() == null){
 							menuNewTower.show(mGLSurfaceView,genericTower.getListTower());
 							menuSelectedTower.hide(mGLSurfaceView);
+							menuStatsCreature.hide(mGLSurfaceView);
 							shootArea.mAlpha=0;
 							pointerNewTower.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 							pointerNewTower.mAlpha=1;
 							mGLSurfaceView.addObject(pointerNewTower);						
 						}else{
+							menuStatsCreature.hide(mGLSurfaceView);
 							menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
 							menuNewTower.hideValidateTower(mGLSurfaceView);
 							menuSelectedTower.show(mGLSurfaceView,boxBuildableSelected.getTower(),game);
@@ -194,17 +205,28 @@ public class Play extends AngleActivity{
 							pointerNewTower.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 							pointerNewTower.mAlpha=1;
 						}
-					}else{
+					}else{ // BoxPath
 						menuSelectedTower.hide(mGLSurfaceView);
 						menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
+						menuNewTower.hideValidateTower(mGLSurfaceView);
 						shootArea.mAlpha=0;
 						pointerNewTower.mAlpha=0;
+						boxPathSelected = (BoxPath) box;
+						if(!boxPathSelected.getListCreature().isEmpty()){
+							menuStatsCreature.show(mGLSurfaceView, boxPathSelected.getListCreature().get(0), game);
+						}
 					}
 				}else{
 				/* ------------------------ */
 				/*    TOUCHING THE MENU     */
 				/* ------------------------ */
-					if(boxBuildableSelected != null){
+					// Run the next wave ?
+					if(menu.nextWaveButtonIsTouched(x,y)){
+						if(game.getActualWave()<game.getNbMaxWave()){
+							lastWave = game.getTimeBetweenEachWave();
+							menu.refreshWaves(game);
+						}
+					}else if(boxBuildableSelected != null){
 						if(boxBuildableSelected.getTower() == null){ 
 							choiceMenu = menuNewTower.getNewTowerFromMenuNewTower(x,y);
 							/* Did the user confirm a new tower ? */
@@ -215,6 +237,7 @@ public class Play extends AngleActivity{
 									/* Hide unused stuff */
 									menuNewTower.hideValidateTower(mGLSurfaceView);
 									menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
+									menuStatsCreature.hide(mGLSurfaceView);
 									towerChoice = null;
 									shootArea.mAlpha =0;
 									pointerNewTower.mAlpha=0;
@@ -222,6 +245,7 @@ public class Play extends AngleActivity{
 									/* Hide unused stuff */
 									menuNewTower.hideValidateTower(mGLSurfaceView);
 									menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
+									menuStatsCreature.hide(mGLSurfaceView);
 									towerChoice = null;
 									shootArea.mAlpha =0;
 									pointerNewTower.mAlpha=0;
@@ -230,7 +254,7 @@ public class Play extends AngleActivity{
 								Tower tower= genericTower.getListTower().get(choiceMenu-1);
 								menuNewTower.showValidateTower(game,mGLSurfaceView, tower,(tower.getCost() < game.getMoney()));
 								towerChoice = (Tower)tower.clone();
-
+								menuStatsCreature.hide(mGLSurfaceView);
 								/* shootArea */
 								if(towerChoice.getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
 								else if(towerChoice.getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
@@ -245,12 +269,13 @@ public class Play extends AngleActivity{
 							/* A tower is already on this box ! */
 							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField,towerList)){
 								menuSelectedTower.hide(mGLSurfaceView);
+								menuStatsCreature.hide(mGLSurfaceView);
 								shootArea.mAlpha=0;
 								pointerNewTower.mAlpha=0;
 							}
 						}
 					}else{
-						// We touched the menu, but nothing is in the menu because no box was selected before ! Nothing to do
+						// We touched the menu, but nothing to do !
 					}
 				}
 			}

@@ -24,7 +24,7 @@ public class AngleSegment extends AngleObject
 		mVertices = ByteBuffer.allocateDirect(2 * 2 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
 		mAlpha = 1;
 		mRed = 1;
-		mGreen = 0;
+		mGreen = 1;
 		mBlue =1;
 		mVertices.put(0, 0);
 		mVertices.put(1, 0);
@@ -32,6 +32,12 @@ public class AngleSegment extends AngleObject
 		mVertices.put(3, mB.mY-mA.mY);
 	}
 
+	public void setRGB(float mRed2, float mGreen2, float mBlue2){
+		mRed = mRed2;
+		mGreen = mGreen2;
+		mBlue =mBlue2;
+	}
+	
 	public void draw(GL10 gl)
 	{
 		gl.glDisable(GL11.GL_TEXTURE_2D);

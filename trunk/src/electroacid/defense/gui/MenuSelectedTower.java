@@ -17,8 +17,7 @@ import electroacid.defense.box.BoxBuildable;
 
 public class MenuSelectedTower {
 	
-	public AngleString t_infosTowerTitle,t_infosTowerLevel,t_infosTowerElement ;
-	public AngleString t_infosTowerCanTargetFly, t_infosTowerDamage;
+	public AngleString t_infosTowerText,t_infosTowerValue;
 	public AngleSprite bDeleteTower,bUpgradeTower;
 	/**
 	 * Constructor 
@@ -27,30 +26,19 @@ public class MenuSelectedTower {
  	 * @param mGLSurfaceView The view
 	 */
 	public MenuSelectedTower( AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
-		this.t_infosTowerTitle = new AngleString(fontTitle,"Tower Infos",100, 427,AngleString.aCenter);
-
-		this.t_infosTowerElement = new AngleString(font,"",16, 440,AngleString.aLeft);	
-		this.t_infosTowerLevel = new AngleString(font,"",16,450,AngleString.aLeft);	
-		this.t_infosTowerDamage = new AngleString(font,"",16,460,AngleString.aLeft);		
-	//	this.t_infosTowerCanTargetFly = new AngleString(font,"",16,470,AngleString.aLeft);		
-		
+		this.t_infosTowerText = new AngleString(font,"Element : \n Level : \n Damage : \n Price :",16, 427,AngleString.aLeft);
+		this.t_infosTowerValue = new AngleString(font,"",100, 427,AngleString.aLeft);	
 		this.bUpgradeTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,160,32,32));
 		this.bUpgradeTower.mPosition.set(150, 432); 
-		
 		this.bDeleteTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,160,32,32));
 		this.bDeleteTower.mPosition.set(150, 464); 
 		
-		mGLSurfaceView.addObject(t_infosTowerElement);
-		mGLSurfaceView.addObject(t_infosTowerDamage);
-		mGLSurfaceView.addObject(t_infosTowerLevel);
-	//	mGLSurfaceView.addObject(t_infosTowerCanTargetFly);
+		mGLSurfaceView.addObject(t_infosTowerValue);
+		mGLSurfaceView.addObject(t_infosTowerText);
 		mGLSurfaceView.addObject(bDeleteTower);
 		mGLSurfaceView.addObject(bUpgradeTower);
-		this.t_infosTowerTitle.mAlpha = 0;
-		this.t_infosTowerElement.mAlpha = 0;
-		this.t_infosTowerDamage.mAlpha = 0;
-	//	this.t_infosTowerCanTargetFly.mAlpha = 0;
-		this.t_infosTowerLevel.mAlpha = 0;
+		this.t_infosTowerText.mAlpha = 0;
+		this.t_infosTowerValue.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
 		this.bUpgradeTower.mAlpha = 0;
 	}
@@ -60,11 +48,8 @@ public class MenuSelectedTower {
 	 * @param mGLSurfaceView The view
 	 */
 	public void hide(AngleSurfaceView mGLSurfaceView){
-		this.t_infosTowerTitle.mAlpha = 0;
-		this.t_infosTowerElement.mAlpha = 0;
-		this.t_infosTowerDamage.mAlpha = 0;
-	//	this.t_infosTowerCanTargetFly.mAlpha = 0;
-		this.t_infosTowerLevel.mAlpha = 0;
+		this.t_infosTowerText.mAlpha = 0;
+		this.t_infosTowerValue.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
 		this.bUpgradeTower.mAlpha = 0;
 	}
@@ -75,17 +60,10 @@ public class MenuSelectedTower {
 	 * @param g The game informations
 	 */
 	public void show(AngleSurfaceView mGLSurfaceView,Tower tower,Game g){
-		this.t_infosTowerElement.set("Element : "+tower.getElement().toString());
-		this.t_infosTowerLevel.set("Level : "+tower.getLevel()+"=>"+(tower.getLevel()+1));
-		this.t_infosTowerDamage.set("Damage : "+tower.getDamage()+"=>"+(int)Math.ceil((tower.getDamage()*tower.getUpgrade())));
-		//if(tower.isCanTargetFly())	this.t_infosTowerCanTargetFly.set("Can target fly");
-		//else this.t_infosTowerCanTargetFly.set("");
-
-		this.t_infosTowerTitle.mAlpha = 1;
-		this.t_infosTowerElement.mAlpha = 1;
-		this.t_infosTowerDamage.mAlpha = 1;
-		//this.t_infosTowerCanTargetFly.mAlpha = 1;
-		this.t_infosTowerLevel.mAlpha = 1;
+		
+		this.t_infosTowerValue.set(tower.getElement().toString()+"\n"+tower.getLevel()+"\n"+tower.getDamage()+"\n"+(int)Math.ceil((tower.getCost()*tower.getUpgrade())));
+		this.t_infosTowerValue.mAlpha = 1;
+		this.t_infosTowerText.mAlpha = 1;
 		this.bDeleteTower.mAlpha = 1;
 		if (g.getMoney() > tower.getCost()*tower.getUpgrade()){
 			this.bUpgradeTower.mAlpha = 1;

@@ -14,6 +14,28 @@ import electroacid.defense.enums.Element;
  */
 public  class Creature implements Cloneable{
 
+		/**
+	 * @return the rewardValue
+	 */
+	public int getRewardValue() {
+		return rewardValue;
+	}
+
+	/**
+	 * @param speed the speed to set
+	 */
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	/**
+	 * @param rewardValue the rewardValue to set
+	 */
+	public void setRewardValue(int rewardValue) {
+		this.rewardValue = rewardValue;
+	}
+
+
 		/** Element of the creature */
 		private Element element; 
 		
