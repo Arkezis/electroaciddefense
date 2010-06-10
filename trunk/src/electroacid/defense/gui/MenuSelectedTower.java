@@ -10,7 +10,7 @@ import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
 
-import electroacid.defense.Game;
+import electroacid.defense.game.GenericGame;
 import electroacid.defense.R;
 import electroacid.defense.Tower;
 import electroacid.defense.box.BoxBuildable;
@@ -59,7 +59,7 @@ public class MenuSelectedTower {
 	 * @param tower The tower to upgrade
 	 * @param g The game informations
 	 */
-	public void show(AngleSurfaceView mGLSurfaceView,Tower tower,Game g){
+	public void show(AngleSurfaceView mGLSurfaceView,Tower tower,GenericGame g){
 		
 		this.t_infosTowerValue.set(tower.getElement().toString()+"\n"+tower.getLevel()+"\n"+tower.getDamage()+"\n"+(int)Math.ceil((tower.getCost()*tower.getUpgrade())));
 		this.t_infosTowerValue.mAlpha = 1;
@@ -80,7 +80,7 @@ public class MenuSelectedTower {
 	 * @param towerList The list of tower in the game
 	 * @return True if the tower is upgraded or deleted
 	 */
-	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,Game g,AngleObject ogField,LinkedList<BoxBuildable> towerList){
+	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,GenericGame g,AngleObject ogField,LinkedList<BoxBuildable> towerList){
 		if (x > 134 && x < 166 ){
 			if (y > 416 && y < 448){
 				if (g.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){

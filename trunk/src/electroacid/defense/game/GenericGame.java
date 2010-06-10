@@ -1,17 +1,26 @@
-package electroacid.defense;
+package electroacid.defense.game;
 
 import java.util.ArrayList;
 
 import observ.ObservableGame;
 import observ.ObservateurMenu;
 
+import org.w3c.dom.Document;
 
-public class Game implements ObservableGame{
+import utils.XmlUtil;
+import android.content.Context;
+
+/**
+ * Read a xml file and create game's options
+ * @author cilheo
+ * @version 1.0b
+ */
+public class GenericGame implements ObservableGame{
 
 	private int speedMultiplicator =1;
-	private int difficulty;
+	private int difficulty=0;
 	@Deprecated private int level; 
-	private int money=8000;
+	private int money=275;
 	private int lives=20;
 	private int timeBetweenEachWave=50;
 	boolean gameStarted;
@@ -20,8 +29,27 @@ public class Game implements ObservableGame{
 	private int nbCreatureInGame=0;
 	private int nbMaxWave=0;
 	private boolean gameEnd;
+	private float menuRefreshTime=(float) 1;
 	
 	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
+	
+	/**
+	 * Constructor of genericWave
+	 * init all layout
+	 * @param mGLSurfaceView
+	 * @throws Exception 
+	 */
+	public GenericGame(final Context context, final int xmlResourceId) throws Exception {
+		Document gameXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
+	
+		this.speedMultiplicator=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("speedMultiplicator").item(0),"value");
+		this.difficulty=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("difficulty").item(0),"value");
+		this.money=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("money").item(0),"value");
+		this.lives=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("lives").item(0),"value");
+		this.timeBetweenEachWave=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("timeBetweenEachWave").item(0),"value");
+		this.timeBetweenEachTowerTurn=XmlUtil.getAttributeFloatFromNode(gameXml.getElementsByTagName("timeBetweenEachTowerTurn").item(0),"value");
+
+	}
 	
 	/**
 	 * @return the actualWave
@@ -37,7 +65,7 @@ public class Game implements ObservableGame{
 		this.actualWave = actualWave;
 		this.updateObservateurWave();
 	}
-	private float menuRefreshTime=(float) 1;
+	
 	
 	/**
 	 * @return the menuRefreshTime
@@ -65,10 +93,6 @@ public class Game implements ObservableGame{
 	 */
 	public void setTimeBetweenEachWave(int timeBetweenEachWave) {
 		this.timeBetweenEachWave = timeBetweenEachWave;
-	}
-
-	public Game(){
-		this.difficulty = 0;
 	}
 	
 	/**
@@ -253,5 +277,4 @@ public class Game implements ObservableGame{
 		}
 	}
 	
-
 }

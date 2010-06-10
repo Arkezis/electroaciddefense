@@ -9,7 +9,7 @@ import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
 
-import electroacid.defense.Game;
+import electroacid.defense.game.GenericGame;
 import electroacid.defense.R;
 import electroacid.defense.Tower;
 
@@ -107,7 +107,7 @@ public class MenuNewTower {
 	 * @param mGLSurfaceView
 	 * @param tower
 	 */
-	public void showValidateTower(Game g, AngleSurfaceView mGLSurfaceView,Tower tower,boolean possible){
+	public void showValidateTower(GenericGame g, AngleSurfaceView mGLSurfaceView,Tower tower,boolean possible){
 		if (possible) 	{this.bGo.setLayout(this.bGoLayout);}
 		else 			{this.bGo.setLayout(this.bNGoLayout);}
 		this.bGo.mAlpha=1;

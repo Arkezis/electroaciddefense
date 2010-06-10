@@ -5,7 +5,6 @@ import java.util.Random;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -25,6 +24,7 @@ import com.android.angle.AngleUI;
 import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.box.BoxPath;
+import electroacid.defense.game.GenericGame;
 import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
 import electroacid.defense.gui.MenuSelectedTower;
@@ -70,7 +70,7 @@ public class Play extends AngleActivity{
 	/** The list of towers on the game */
 	LinkedList<BoxBuildable> towerList;
 	/** Game's information */
-	Game game;
+	GenericGame game;
 	String mapChoosen;
 	/** The AngleUI */
 	MyGame myGame;
@@ -99,7 +99,7 @@ public class Play extends AngleActivity{
 		 */
 		public MyGame(AngleActivity activity) {
 			super(activity);
-			game.setGameStarted(true);
+			
 			ogField=new AngleObject(); addObject(ogField);
 			ogCreature=new AngleObject(); addObject(ogCreature);
 			ogShoot = new AngleObject(); addObject(ogShoot);
@@ -117,6 +117,7 @@ public class Play extends AngleActivity{
 			ogField.addObject(tmGround);
 			if(mapChoosen.equals("tutomap")){
 				try {
+					game = new GenericGame(getWindow().getContext(), R.raw.tutogame);
 					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.tutomap);
 					genericWave = new GenericWave(mGLSurfaceView);
 					genericWave.build(getWindow().getContext(), R.raw.tutowave,game);
@@ -127,17 +128,18 @@ public class Play extends AngleActivity{
 				}
 			}else if(mapChoosen.equals("map1")){
 				try {
+					game = new GenericGame(getWindow().getContext(), R.raw.game1game);
 					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map1map);
 					genericWave = new GenericWave(mGLSurfaceView);
 					genericWave.build(getWindow().getContext(), R.raw.map1wave,game);
 					genericTower = new GenericTower();
 					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
-					Log.d("DEBUGTAG", "TAGADAPOUET");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}else if(mapChoosen.equals("map2")){
 				try {
+					game=new GenericGame(getWindow().getContext(),R.raw.game2game);
 					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map2map);
 					genericWave = new GenericWave(mGLSurfaceView);
 					genericWave.build(getWindow().getContext(), R.raw.map2wave,game);
@@ -147,7 +149,7 @@ public class Play extends AngleActivity{
 					e.printStackTrace();
 				}
 			}
-			
+			game.setGameStarted(true);
 			/* Menus' initialisation */
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
@@ -213,7 +215,7 @@ public class Play extends AngleActivity{
 						pointerNewTower.mAlpha=0;
 						boxPathSelected = (BoxPath) box;
 						if(!boxPathSelected.getListCreature().isEmpty()){
-							menuStatsCreature.show(mGLSurfaceView, boxPathSelected.getListCreature().get(0), game);
+							menuStatsCreature.show(mGLSurfaceView, boxPathSelected.getListCreature().get(0));
 						}
 					}
 				}else{
@@ -376,8 +378,6 @@ public class Play extends AngleActivity{
 			mapChoosen = this.getIntent().getExtras().getString("map");
 			//TODO Il faudrait vérifier que cette ressource existe bien ! 		
 		}else finish();
-			
-		game = new Game();
 
 		FrameLayout mMainLayout=new FrameLayout(this);
 		mMainLayout.addView(mGLSurfaceView);

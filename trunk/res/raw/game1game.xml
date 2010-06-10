@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game name="game">
+	<speedMultiplicator value="1" />	
+	<difficulty value="0" />
+	<money value="275" />
+	<lives value="20" />
+	<timeBetweenEachWave value="50" />
+	<timeBetweenEachTowerTurn value="0.5" />
+</game>

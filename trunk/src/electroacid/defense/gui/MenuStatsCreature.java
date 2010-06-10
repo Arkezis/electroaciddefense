@@ -5,7 +5,6 @@ import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
 
 import electroacid.defense.Creature;
-import electroacid.defense.Game;
 
 public class MenuStatsCreature {
 	
@@ -41,7 +40,7 @@ public class MenuStatsCreature {
 	 * @param Crea The creature
 	 * @param g The game informations
 	 */
-	public void show(AngleSurfaceView mGLSurfaceView,Creature crea,Game g){
+	public void show(AngleSurfaceView mGLSurfaceView,Creature crea){
 		this.t_infosCreaValue.set(crea.getElement().toString()+"\n"+(int)crea.getSpeed()+"\n"+crea.getRewardValue()+"\n"+crea.getLife());
 		this.t_infosCreaText.mAlpha = 1;
 		this.t_infosCreaValue.mAlpha = 1;

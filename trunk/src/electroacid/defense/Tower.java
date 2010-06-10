@@ -11,6 +11,7 @@ import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
+import electroacid.defense.game.GenericGame;
 import electroacid.defense.gui.Shoot;
 import electroacid.defense.map.GenericMap;
 
@@ -223,7 +224,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * Upgrading a tower (thanks to upgrade coefficient)
 	 * @param g Game's information
 	 */
-	public void upgrade(Game g){
+	public void upgrade(GenericGame g){
 		this.cost =  (int)Math.ceil((this.cost*upgrade));
 		this.damage = (int)Math.ceil((this.damage*upgrade));
 		this.level++;
@@ -235,7 +236,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param g
 	 * @param og
 	 */
-	public void destroy(Game g,AngleObject og){
+	public void destroy(GenericGame g,AngleObject og){
 		for (BoxPath box:this.boxDetectionList) box.delObservateur(this);
 		og.removeObject(this.sprite);
 		g.setMoney((int)(g.getMoney()+this.cost*this.destroy));
