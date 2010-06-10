@@ -10,4 +10,14 @@ public enum Direction {
 	Down,
 	Right,
 	Left;
+	
+	
+	public static Direction getDirection(String name){
+		if (name.equalsIgnoreCase("up")) return Direction.Up;
+		else if (name.equalsIgnoreCase("down")) return Direction.Down;
+		else if (name.equalsIgnoreCase("right")) return Direction.Right;
+		else if (name.equalsIgnoreCase("left")) return Direction.Left;
+		return null;
+	}
+	
 }

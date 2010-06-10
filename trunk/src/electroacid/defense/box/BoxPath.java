@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import observ.ObservableBoxPath;
 import observ.ObservateurTower;
 
-
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
 import electroacid.defense.Game;
@@ -27,7 +26,11 @@ public class BoxPath extends Box implements ObservableBoxPath{
 
 	/** the next path after this */
 	private BoxPath nextPath;
-
+	
+	private int numberMaxPred=0;
+	
+	private int numberPred=0;
+	
 	/** Observator's list */
 	private ArrayList<ObservateurTower> listObservateur = new ArrayList<ObservateurTower>();
 
@@ -62,12 +65,19 @@ public class BoxPath extends Box implements ObservableBoxPath{
 		this.updateObservateurAdd(creature);
 	}
 
+	public long time=System.currentTimeMillis();
+	
 	/**
 	 * Action during one step
 	 * @param game game's parameter
 	 * @param container creature's container
 	 */
 	public void nextStep(Game game,AngleObject container){
+		
+		boolean nextOk = this.numberPred==1;
+		
+		if (nextOk){
+		
 		if (this.nextPath== null) {
 			for (int i=0;i<this.listCreature.size();i++) {
 				this.updateObservateurRemove(this.listCreature.get(i));
@@ -100,7 +110,13 @@ public class BoxPath extends Box implements ObservableBoxPath{
 				}
 			}
 		}
-		if (this.nextPath!=null) this.nextPath.nextStep(game,container);
+		}
+		if (nextOk){
+			this.numberPred=this.numberMaxPred;
+			if (this.nextPath!=null) this.nextPath.nextStep(game,container);
+		} else {
+			this.numberPred--;
+		}
 	}
 
 	private boolean creatureInBox(float x,float y){
@@ -178,6 +194,25 @@ public class BoxPath extends Box implements ObservableBoxPath{
 	@Override
 	public void updateObservateurRemove(Object c) {
 		for (ObservateurTower obs : this.listObservateur) obs.remove(c);
+	}
+
+	/**
+	 * @return the numberMaxPred
+	 */
+	public int getNumberMaxPred() {
+		return numberMaxPred;
+	}
+
+	public void addNumberMaxPred(){
+		this.numberMaxPred++;
+		this.numberPred++;
+	}
+
+	/**
+	 * @return the numberPred
+	 */
+	public int getNumberPred() {
+		return numberPred;
 	}
 	
 }

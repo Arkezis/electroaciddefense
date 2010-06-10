@@ -1,6 +1,7 @@
 package electroacid.defense;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -113,7 +114,7 @@ public class Play extends AngleActivity{
 					genericWave = new GenericWave(mGLSurfaceView);
 					genericWave.build(getWindow().getContext(), R.raw.tutowave,game);
 					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.tutotower,mGLSurfaceView);
+					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -123,7 +124,17 @@ public class Play extends AngleActivity{
 					genericWave = new GenericWave(mGLSurfaceView);
 					genericWave.build(getWindow().getContext(), R.raw.map1wave,game);
 					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.map1tower,mGLSurfaceView);
+					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(mapChoosen.equals("map2")){
+				try {
+					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map2map);
+					genericWave = new GenericWave(mGLSurfaceView);
+					genericWave.build(getWindow().getContext(), R.raw.map2wave,game);
+					genericTower = new GenericTower();
+					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -257,22 +268,29 @@ public class Play extends AngleActivity{
 				/* WAVES */
 				if(game.getActualWave() == 0 && lastWave==0 ) { lastWave = game.getTimeBetweenEachWave()-10;}
 				lastWave += secondsElapsed;
-				BoxPath boxpath = matrice.firstBoxPath;
 				
 				if (lastWave > game.getTimeBetweenEachWave()){
 					lastWave = 0;
 					LinkedList<Wave> listWave = genericWave.getListWave();
 					if (game.getActualWave()<listWave.size()){
 						ogWave.addObject(listWave.get(game.getActualWave()));
-						listWave.get(game.getActualWave()).start(ogCreature,boxpath);
+
+						int whichEntry = new Random().nextInt(matrice.firstBoxPath.size());
+						listWave.get(game.getActualWave()).start(ogCreature,matrice.firstBoxPath.get(whichEntry));
 						game.setActualWave(game.getActualWave()+1);
 					}
+				}
+				
+				
+				
+				for (BoxPath first : matrice.firstBoxPath){
+					first.nextStep(game, ogCreature);
 				}
 				/* SHOOTS */
 				/* To manage tower shooting faster than other towers, we are using a counter incremented at each step.
 				 * At each step, if (counter % fireRate == 0), the tower shoot !  
 				 */
-				boxpath.nextStep(game,ogCreature);
+				
 				timeBetweenEachTowerTurn += secondsElapsed;
 				counterFireRate++; 
 				if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){

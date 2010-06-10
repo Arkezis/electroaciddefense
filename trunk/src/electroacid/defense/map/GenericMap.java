@@ -1,5 +1,7 @@
 package electroacid.defense.map;
 
+import java.util.LinkedList;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -32,7 +34,7 @@ public class GenericMap {
 	/** height of box */
 	int offsetY;
 	/** box which start the path */
-	public BoxPath firstBoxPath;
+	public LinkedList<BoxPath> firstBoxPath;
 	
 	private int nbDiffTexture=0;
 	
@@ -62,7 +64,8 @@ public class GenericMap {
 	 */
 	public void buildMap(Context context,AngleTileMap map,int xmlResourceId) throws Exception{
 		Document mapXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
-
+		this.firstBoxPath = new LinkedList<BoxPath>();
+		
 		NodeList listBox = mapXml.getDocumentElement().getElementsByTagName("box");
 		
 		for (int i=0;i<listBox.getLength();i++){
@@ -79,78 +82,64 @@ public class GenericMap {
 				map.mMap[i] = idTexture;
 			}else if (type.equalsIgnoreCase("path")){
 				boolean firstBoxPath = XmlUtil.getAttributeBooleanFromNode(node, "startPath");
-				this.matrice[line][column] = new BoxPath(column*this.offsetX, line*this.offsetY, this.offsetX, this.offsetY);
+				BoxPath b = new BoxPath(column*this.offsetX, line*this.offsetY, this.offsetX, this.offsetY);
+				b.setDirection(Direction.getDirection(XmlUtil.getAttributeFromNode(node, "direction")));
+				this.matrice[line][column] = b;
 				if (firstBoxPath){
-					this.firstBoxPath=(BoxPath)this.matrice[line][column];
+					this.firstBoxPath.add((BoxPath)this.matrice[line][column]);
 				}
 				map.mMap[i] = idTexture+this.nbDiffTexture;
 			} else {
 				//Your xml was so bad
 			}
-			
-			
 		}
 		this.buildPath();
 	}
 	
 	/** build the path */
 	private void buildPath(){
-		BoxPath actual = this.firstBoxPath;
-		do {
-			actual = getNextBoxPath(actual.getX(),actual.getY());
-		} while (actual != null);
+		for (BoxPath first : this.firstBoxPath){
+			setNextBoxPath(first);
+			first.addNumberMaxPred();
+		}
 	}
 	
 	/**
-	 * search the nextPath
-	 * @param x coordinate of the actual boxPath
-	 * @param y coordinate of the actual boxPath
-	 * @return the next boxPath or null if it the end
+	 * set the next box after the actuel
+	 * @param actual the actual box
 	 */
-	private BoxPath getNextBoxPath(int x, int y){
-		BoxPath actual = (BoxPath) this.getBox(x, y);
-		
-		BoxPath boxPath;
-		Box box = this.getBox(x+offsetX,y);
-		if (box instanceof BoxPath) {
-			boxPath = (BoxPath) box;
-			if (boxPath.getNextPath() == null) {;
-				actual.setDirection(Direction.Right);
-				actual.setNextPath(boxPath);;
-				return boxPath;
-			}
+	private void setNextBoxPath(BoxPath actual){
+		if (actual==null || actual.getNextPath()!=null ) return;
+		int x = actual.getX();
+		int y = actual.getY();
+		Box box;
+		switch(actual.getDirection()){
+			case Up:
+				box = this.getBox(x,y-offsetY);
+				if (box instanceof BoxPath)
+					actual.setNextPath((BoxPath) box);
+					if (box != null)((BoxPath) box).addNumberMaxPred();
+				break;
+			case Down:
+				box = this.getBox(x, y+offsetY);
+				if (box instanceof BoxPath)
+					actual.setNextPath((BoxPath) box);
+					if (box != null)((BoxPath) box).addNumberMaxPred();
+				break;
+			case Right:
+				box = this.getBox(x+offsetX,y);
+				if (box instanceof BoxPath)
+					actual.setNextPath((BoxPath) box);
+					if (box != null)((BoxPath) box).addNumberMaxPred();
+				break;
+			case Left:
+				box = this.getBox(x-offsetX,y);
+				if (box instanceof BoxPath)
+					actual.setNextPath((BoxPath) box);
+					if (box != null)((BoxPath) box).addNumberMaxPred();
+				break;
 		}
-		
-		box = this.getBox( x-offsetX,y);
-		if (box instanceof BoxPath) {
-			boxPath = (BoxPath) box;
-			if (boxPath.getNextPath() == null) {
-				actual.setDirection(Direction.Left);
-				actual.setNextPath(boxPath);
-				return boxPath;
-			}
-		}
-		
-		box = this.getBox(x,y-offsetY);
-		if (box instanceof BoxPath) {
-			boxPath = (BoxPath) box;
-			if (boxPath.getNextPath() == null) {
-				actual.setDirection(Direction.Up);
-				actual.setNextPath(boxPath);
-				return boxPath;
-			}
-		}
-		
-		box = this.getBox(x, y+offsetY);
-		if (box instanceof BoxPath) {
-			boxPath = (BoxPath) box;
-			if (boxPath.getNextPath() == null) {
-				actual.setDirection(Direction.Down);
-				actual.setNextPath(boxPath);
-				return boxPath;
-			}
-		}
-		return null;
+		setNextBoxPath(actual.getNextPath());
 	}
 	
 	/**
