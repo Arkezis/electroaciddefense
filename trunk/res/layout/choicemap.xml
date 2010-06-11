@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="*">
+    
+<TableRow>
+    <TextView 
+        android:layout_span="3"
+	    android:text="Choose the map ! " 
+	    android:textSize="23px"
+	    android:id="@+id/TextView01" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:paddingTop="30px"
+	    android:paddingBottom="30px"></TextView>
+</TableRow>
+
+    <TableRow>
+        <ImageButton
+        	android:id="@+id/ImgButton1"
+        	android:src="@drawable/tutomap"></ImageButton>
+        <ImageButton
+        	android:id="@+id/ImgButton2"
+        	android:src="@drawable/map1map"></ImageButton>
+</TableRow>
+<TableRow>
+	<TextView 
+	    android:text="No game saved" 
+	    android:id="@+id/TextView01" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"></TextView>
+	<TextView 
+	    android:text="No game saved" 
+	    android:id="@+id/TextView01" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"></TextView>
+</TableRow>
+
+<TableRow>
+    <ImageButton
+    	android:id="@+id/ImgButton3"
+    	android:src="@drawable/map2map"
+    	android:layout_span="3"></ImageButton>
+</TableRow>
+<TableRow>
+	<TextView 
+	    android:text="No game saved" 
+	    android:id="@+id/TextView01" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_span="3"
+	    android:paddingBottom="40px"></TextView>
+</TableRow>
+<TableRow>
+    <Button
+    	android:id="@+id/Button1"
+    	android:gravity="center"
+    	android:layout_gravity="center"
+    	android:text="Go back"
+    	android:layout_span="3"
+    	></Button>
+</TableRow>
+
+
+</TableLayout>
