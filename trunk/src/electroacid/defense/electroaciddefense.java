@@ -21,8 +21,6 @@ public class electroaciddefense extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         ((Button)this.findViewById(R.id.Button01)).setOnClickListener(this);
-        ((Button)this.findViewById(R.id.Button02)).setOnClickListener(this);
-        ((Button)this.findViewById(R.id.Button03)).setOnClickListener(this);
         ((Button)this.findViewById(R.id.ButtonQuit)).setOnClickListener(this);    
         ((ImageView)this.findViewById(R.id.ImageView01)).setImageResource(R.drawable.icon);
     }
@@ -32,19 +30,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
 		Intent i = null;
 		switch(arg0.getId()){
 			case R.id.Button01 :
-				//i = new Intent(this,ChoiceOfMap.class);
-				i = new Intent(this,Play.class);
-	    		i.putExtra("map", "tutomap");
-	    		this.startActivity(i);
-				break;
-			case R.id.Button02 :
-	    		i = new Intent(this,Play.class);
-	    		i.putExtra("map", "map1");
-	    		this.startActivity(i);
-				break;
-			case R.id.Button03 :
-	    		i = new Intent(this,Play.class);
-	    		i.putExtra("map", "map2");
+				i = new Intent(this,ChoiceOfMap.class);
 	    		this.startActivity(i);
 				break;
 			case R.id.ButtonQuit :
@@ -111,6 +97,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
 	public void onKey(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK)
 			finish();
+			
 	}
 	
 	/**
