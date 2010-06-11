@@ -52,9 +52,12 @@ public class ChoiceOfMap extends Activity implements OnClickListener {
 	 * @param keyCode Code of the key pressed
 	 * @param event Event generated
 	 */
-	public void onKey(int keyCode, KeyEvent event) {
-		//if(keyCode == KeyEvent.KEYCODE_BACK)
-			//finish();
+	public boolean onKey(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			finish();
+			return true;
+		}
+		return false;
 	}
 	
 	/**

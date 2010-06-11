@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -36,6 +37,38 @@ import electroacid.defense.wave.Wave;
 
 public class Play extends AngleActivity { 
 
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    	MenuItem m1 = menu.add(0, 1, 0, "Parameters");
+    	MenuItem m2 = menu.add(0,2,0,"High Scores");
+    	MenuItem m3 = menu.add(0,3,0,"Instructions");
+    	MenuItem m4 = menu.add(0,4,0,"About");
+    	m1.setIcon(android.R.drawable.ic_menu_preferences);
+    	m2.setIcon(android.R.drawable.ic_menu_agenda);
+    	m3.setIcon(android.R.drawable.ic_menu_directions);
+    	m4.setIcon(android.R.drawable.ic_menu_zoom);
+    	return super.onCreateOptionsMenu(menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()){
+    	case 1:
+    		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
+    		break;
+    	case 2:
+    		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
+    		break;
+    	case 3:
+    		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
+    		break;
+    	case 4:
+    		Toast.makeText(this, "Game developed by Mathieu Deschamps (aka cilheo) and Tom Dubin (aka Arkezis). \n Contact : ElectroAcidDefense@gmail.com . \n All rights reserved.", 2000).show();
+    		break;
+    	}
+    	return super.onOptionsItemSelected(item);
+    }
+	
+	
 	/* TOWERS */
 	/** The tower choosen to add*/
 	public Tower towerChoice=null;
@@ -90,8 +123,6 @@ public class Play extends AngleActivity {
 		float lastWave = 0;
 		float timeBetweenEachTowerTurn=0;
 		float lastRefreshMenu=0;
-
-
 		
 		/**
 		 * The constructor
@@ -105,6 +136,8 @@ public class Play extends AngleActivity {
 			ogShoot = new AngleObject(); addObject(ogShoot);
 			ogWave = new AngleObject(); addObject(ogWave);
 
+			
+			
 			// TODO : passer le menu sur ogDashboard	
 			
 			/* Initialisation */
@@ -161,6 +194,7 @@ public class Play extends AngleActivity {
 			menuSelectedTower = new MenuSelectedTower(fontMenu,fontTitle,mGLSurfaceView);
 			menuStatsCreature = new MenuStatsCreature(fontMenu,fontTitle,mGLSurfaceView);
 		}
+		
 		
 		/**
 		 * The action to do when the user touch the screen
@@ -410,9 +444,12 @@ public class Play extends AngleActivity {
 	 * @param keyCode Code of the key pressed
 	 * @param event Event generated
 	 */
-	public void onKey(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK)
+	public boolean onKey(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
 			finish();
+			return true;
+		}
+		return false;
 	}
 
 
