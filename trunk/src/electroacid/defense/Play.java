@@ -34,7 +34,7 @@ import electroacid.defense.tower.GenericTower;
 import electroacid.defense.wave.GenericWave;
 import electroacid.defense.wave.Wave;
 
-public class Play extends AngleActivity{ 
+public class Play extends AngleActivity { 
 
 	/* TOWERS */
 	/** The tower choosen to add*/
