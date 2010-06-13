@@ -66,6 +66,7 @@ public class GenericWave {
 					float speed = XmlUtil.getAttributeIntFromNode(creature, "speed");
 					int fireRate = XmlUtil.getAttributeIntFromNode(creature, "fireRate");
 					int rewardValue = XmlUtil.getAttributeIntFromNode(creature, "rewardValue");
+					int scoreValue = XmlUtil.getAttributeIntFromNode(creature, "scoreValue");
 					boolean fly = XmlUtil.getAttributeBooleanFromNode(creature, "fly");
 					int idTexture = XmlUtil.getAttributeIntFromNode(creature, "textureId");
 					int number = XmlUtil.getAttributeIntFromNode(creature, "number");
@@ -76,6 +77,7 @@ public class GenericWave {
 								speed,
 								fireRate,
 								rewardValue,
+								scoreValue,
 								fly,
 								this.listLayout.get(idTexture));
 						wave.addCreature(creat,game);				
