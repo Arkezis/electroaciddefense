@@ -3,6 +3,8 @@ package electroacid.defense;
 import java.util.LinkedList;
 import java.util.Random;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -69,7 +71,9 @@ public class Play extends AngleActivity {
 	BoxPath boxPathSelected=null;
 	AngleSprite previewBuyMap;
 
-
+	//alert dialog for close
+	AlertDialog alert;
+	
 	/** The list of towers on the game */
 	LinkedList<BoxBuildable> towerList;
 	/** Game's information */
@@ -443,6 +447,23 @@ public class Play extends AngleActivity {
     	m1.setIcon(android.R.drawable.ic_media_pause);
     	m2.setIcon(android.R.drawable.ic_menu_save);
     	m3.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+    	
+    	//preparing dialog for close
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to exit?")
+		       .setCancelable(false)
+		       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   finish();
+		           }
+		       })
+		       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                dialog.cancel();
+		           }
+		       });
+		alert = builder.create();
+    	
     	return super.onCreateOptionsMenu(menu);
     }
     
@@ -470,7 +491,7 @@ public class Play extends AngleActivity {
     		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
     		break;
     	case 3:
-    		finish();
+    		alert.show();
     		break;
     	}
     	return super.onOptionsItemSelected(item);
