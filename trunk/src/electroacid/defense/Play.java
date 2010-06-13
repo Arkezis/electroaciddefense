@@ -191,7 +191,7 @@ public class Play extends AngleActivity {
 				/* -------------------- */
 				/*   TOUCHING THE MAP   */
 				/* -------------------- */
-				if(y>0 && y<416){
+				if(box != null){
 					if(box instanceof BoxBuildable){
 						boxBuildableSelected = (BoxBuildable) box; 
 						if(boxBuildableSelected.getTower() == null){
@@ -238,7 +238,6 @@ public class Play extends AngleActivity {
 					if(menu.nextWaveButtonIsTouched(x,y)){
 						if(game.getActualWave()<game.getNbMaxWave()){
 							lastWave = game.getTimeBetweenEachWave();
-							menu.refreshWaves(game);
 						}
 					}else if(boxBuildableSelected != null){
 						if(boxBuildableSelected.getTower() == null){ 
@@ -435,7 +434,7 @@ public class Play extends AngleActivity {
 	 * @param keyCode Code of the key pressed
 	 * @param event Event generated
 	 */
-	public boolean onKey(int keyCode, KeyEvent event) {
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		return false;
 	}
 
