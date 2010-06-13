@@ -31,6 +31,7 @@ public class GenericGame implements ObservableGame{
 	private boolean gameEnd;
 	private float menuRefreshTime=(float) 1;
 	private boolean pause=false;
+	private int score=0;
 	
 	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
 	
@@ -124,6 +125,18 @@ public class GenericGame implements ObservableGame{
 	public void addMoney(int _money){
 		this.money+=_money;
 		this.updateObservateurMoney();
+	}
+
+	/**
+	 * @return the score
+	 */
+	public int getScore() {
+		return score;
+	}
+	
+	public void addScore(int _score){
+		this.score+=_score;
+		this.updateObservateurScore();
 	}
 	
 	/**
@@ -277,7 +290,14 @@ public class GenericGame implements ObservableGame{
 			obs.refreshWaves(this);
 		}
 	}
-
+	
+	@Override
+	public void updateObservateurScore() {
+		for (ObservateurMenu obs: this.listObservateur){
+			obs.refreshScore(this);
+		}		
+	}
+	
 	/**
 	 * @return the pause
 	 */

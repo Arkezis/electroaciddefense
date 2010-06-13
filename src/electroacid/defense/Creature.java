@@ -52,6 +52,9 @@ public  class Creature implements Cloneable{
 		/** Gain when the creature die */
 		private int rewardValue;
 		
+		/** Gain score when the creature die */
+		private int scoreValue;
+		
 		/** Not implemented yet */
 		private boolean fly;
 		
@@ -69,7 +72,7 @@ public  class Creature implements Cloneable{
 		 * @param layout Layout of the creature
 		 */
 		public Creature(Element _element,int _life,float speed2, int _fireRate, int _rewardValue,
-				boolean _fly,AngleSpriteLayout layout){
+				int scoreValue,boolean _fly,AngleSpriteLayout layout){
 			this.element = _element;
 			this.life = _life;
 			this.speed = speed2;
@@ -103,7 +106,10 @@ public  class Creature implements Cloneable{
 		 */
 		public void destroy(GenericGame game,AngleObject og,boolean byTower){
 			og.removeObject(this.sprite);
-			if (byTower) game.addMoney(this.rewardValue);
+			if (byTower) {
+				game.addMoney(this.rewardValue);
+				game.addMoney(this.scoreValue);
+			}
 			else
 				game.removeLives(1);
 			game.removeOneCreatureInGame();

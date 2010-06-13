@@ -75,5 +75,10 @@ public  class Menu implements ObservateurMenu{
 	public boolean nextWaveButtonIsTouched(int x, int y){
 		return ( (x>270 && x<330) && (y>427 && y<470) );
 	}
+
+	@Override
+	public void refreshScore(GenericGame g) {
+		// TODO Auto-generated method stub
+	}
 	
 }
