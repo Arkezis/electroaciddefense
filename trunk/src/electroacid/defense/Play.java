@@ -3,6 +3,8 @@ package electroacid.defense;
 import java.util.LinkedList;
 import java.util.Random;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -353,8 +355,8 @@ public class Play extends AngleActivity {
 				 */
 				
 				timeBetweenEachTowerTurn += secondsElapsed;
-				counterFireRate++; 
 				if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
+					counterFireRate++; 
 					timeBetweenEachTowerTurn =0;
 					for(int i=0;i<towerList.size();i++){
 						if(towerList.get(i).getTower() != null){
