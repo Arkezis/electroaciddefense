@@ -31,6 +31,20 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 */
 	private int cost;
 	/**
+	 * @return the destroy
+	 */
+	public double getDestroy() {
+		return destroy;
+	}
+
+	/**
+	 * @param destroy the destroy to set
+	 */
+	public void setDestroy(double destroy) {
+		this.destroy = destroy;
+	}
+
+	/**
 	 * Damage of the tower
 	 */
 	private int damage;

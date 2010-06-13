@@ -49,7 +49,7 @@ public class Play extends AngleActivity {
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2,_bnewTower1Layout;
 	AngleSprite backgroundEndGame;
-	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame;
+	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame,ogUtils;
 	private AngleTileMap tmGround;
 
 	/* Matrice */
@@ -67,6 +67,7 @@ public class Play extends AngleActivity {
 	int choiceMenu;
 	BoxBuildable boxBuildableSelected=null;		
 	BoxPath boxPathSelected=null;
+	AngleSprite previewBuyMap;
 
 
 	/** The list of towers on the game */
@@ -104,6 +105,7 @@ public class Play extends AngleActivity {
 			ogCreature=new AngleObject(); addObject(ogCreature);
 			ogShoot = new AngleObject(); addObject(ogShoot);
 			ogWave = new AngleObject(); addObject(ogWave);
+			ogUtils = new AngleObject(); addObject(ogUtils);
 
 			
 			
@@ -193,9 +195,10 @@ public class Play extends AngleActivity {
 							menuSelectedTower.hide(mGLSurfaceView);
 							menuStatsCreature.hide(mGLSurfaceView);
 							shootArea.mAlpha=0;
+							previewBuyMap.mAlpha = 0;
 							pointerNewTower.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 							pointerNewTower.mAlpha=1;
-							mGLSurfaceView.addObject(pointerNewTower);						
+							ogUtils.addObject(pointerNewTower);						
 						}else{
 							menuStatsCreature.hide(mGLSurfaceView);
 							menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
@@ -206,9 +209,10 @@ public class Play extends AngleActivity {
 							else if(boxBuildableSelected.getTower().getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
 							shootArea.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 							mGLSurfaceView.addObject(shootArea);
-							shootArea.mAlpha = (float) 0.60;
+							shootArea.mAlpha = (float) 0.50;
 							pointerNewTower.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 							pointerNewTower.mAlpha=1;
+							previewBuyMap.mAlpha = 0;
 						}
 					}else{ // BoxPath
 						menuSelectedTower.hide(mGLSurfaceView);
@@ -216,6 +220,7 @@ public class Play extends AngleActivity {
 						menuNewTower.hideValidateTower(mGLSurfaceView);
 						shootArea.mAlpha=0;
 						pointerNewTower.mAlpha=0;
+						previewBuyMap.mAlpha = 0;
 						boxPathSelected = (BoxPath) box;
 						if(!boxPathSelected.getListCreature().isEmpty()){
 							menuStatsCreature.show(mGLSurfaceView, boxPathSelected.getListCreature().get(0));
@@ -246,6 +251,7 @@ public class Play extends AngleActivity {
 									towerChoice = null;
 									shootArea.mAlpha =0;
 									pointerNewTower.mAlpha=0;
+									previewBuyMap.mAlpha = 0;
 								}else{
 									/* Hide unused stuff */
 									menuNewTower.hideValidateTower(mGLSurfaceView);
@@ -254,19 +260,24 @@ public class Play extends AngleActivity {
 									towerChoice = null;
 									shootArea.mAlpha =0;
 									pointerNewTower.mAlpha=0;
+									previewBuyMap.mAlpha = 0;
 								}
 							}else if(choiceMenu > 0 && choiceMenu<genericTower.getListTower().size()+1){	
 								Tower tower= genericTower.getListTower().get(choiceMenu-1);
 								menuNewTower.showValidateTower(game,mGLSurfaceView, tower,(tower.getCost() < game.getMoney()));
 								towerChoice = (Tower)tower.clone();
 								menuStatsCreature.hide(mGLSurfaceView);
-								/* shootArea */
+								/* Previews */
+								previewBuyMap.setLayout(tower.getSprite().roLayout);
+								previewBuyMap.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
+								previewBuyMap.mAlpha = (float)0.80;
+								pointerNewTower.mAlpha=0;
+								ogUtils.addObject(previewBuyMap);
 								if(towerChoice.getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
 								else if(towerChoice.getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
 								shootArea.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
-								shootArea.mAlpha = (float) 0.60;
-								mGLSurfaceView.addObject(shootArea);
-								
+								shootArea.mAlpha = (float) 0.65;
+								ogUtils.addObject(shootArea);
 							}else{
 								// The user has touched the menu where there is nothing to touch ... stupid guy !
 							}
@@ -370,6 +381,7 @@ public class Play extends AngleActivity {
 			fireAreaLayout2 = new AngleSpriteLayout(mGLSurfaceView, 160, 160, R.drawable.tilemap,96,160,32,32);
 			endGameSprite = new AngleSprite(160,208,new AngleSpriteLayout(mGLSurfaceView,320,416,R.drawable.tilemap,96,160,32,32));
 			shootArea = new AngleSprite(fireAreaLayout);
+			previewBuyMap = new AngleSprite(fireAreaLayout2);
 			pointerNewTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,160,32,32));	
 		}
 		
