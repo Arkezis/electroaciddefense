@@ -11,7 +11,9 @@ import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleSurfaceView;
 import electroacid.defense.R;
 import electroacid.defense.Tower;
+import electroacid.defense.enums.Direction;
 import electroacid.defense.enums.Element;
+import electroacid.defense.enums.ShootPriority;
 
 /**
  * Read a xml file and create all wave
@@ -42,7 +44,7 @@ public class GenericTower {
 			boolean fly = XmlUtil.getAttributeBooleanFromNode(tower, "fly");
 			int damage = XmlUtil.getAttributeIntFromNode(tower, "damage");
 			int targetNb = XmlUtil.getAttributeIntFromNode(tower, "targetNb");
-			int targetPriority = XmlUtil.getAttributeIntFromNode(tower, "targetPriority");
+			ShootPriority targetPriority=ShootPriority.getShootPriority(XmlUtil.getAttributeFromNode(tower, "targetPriority"));
 			int level = XmlUtil.getAttributeIntFromNode(tower, "level");
 			int idTexture = XmlUtil.getAttributeIntFromNode(tower, "idTexture");
 			int shootArea = XmlUtil.getAttributeIntFromNode(tower, "shootArea");

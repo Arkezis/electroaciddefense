@@ -40,8 +40,11 @@ public  class Creature implements Cloneable{
 		/** Element of the creature */
 		private Element element; 
 		
-		/** Life of the creature */
+		/** actual Life of the creature */
 		private int life;
+		
+		/** Life of the creature */
+		private int maxLife;
 		
 		/** Speed of the creature */
 		private float speed;
@@ -80,6 +83,7 @@ public  class Creature implements Cloneable{
 			this.rewardValue = _rewardValue;
 			this.fly = _fly;
 			this.sprite= new AngleSprite(layout);
+			this.maxLife=_life;
 		}
 
 		public void loseLife(int nbDamage){
@@ -108,7 +112,7 @@ public  class Creature implements Cloneable{
 			og.removeObject(this.sprite);
 			if (byTower) {
 				game.addMoney(this.rewardValue);
-				game.addMoney(this.scoreValue);
+				game.addScore(this.scoreValue);
 			}
 			else
 				game.removeLives(1);
@@ -232,5 +236,33 @@ public  class Creature implements Cloneable{
 		 */
 		public void setSprite(AngleSprite sprite) {
 			this.sprite = sprite;
+		}
+
+		/**
+		 * @return the maxLife
+		 */
+		public int getMaxLife() {
+			return maxLife;
+		}
+
+		/**
+		 * @param maxLife the maxLife to set
+		 */
+		public void setMaxLife(int maxLife) {
+			this.maxLife = maxLife;
+		}
+
+		/**
+		 * @return the scoreValue
+		 */
+		public int getScoreValue() {
+			return scoreValue;
+		}
+
+		/**
+		 * @param scoreValue the scoreValue to set
+		 */
+		public void setScoreValue(int scoreValue) {
+			this.scoreValue = scoreValue;
 		}
 }
