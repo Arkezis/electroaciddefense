@@ -71,8 +71,8 @@ public class MenuSelectedTower {
 		
 		this.t_infosTowerValue.set(tower.getElement().toString()+"\n"+tower.getLevel()+"=>"+(tower.getLevel()+1)+"\n"+tower.getDamage()+"=>"+(int)(tower.getDamage()*tower.getUpgrade())+"\n");
 		this.t_infosTowerValue.mAlpha = 1;
-		this.t_infosTowerDestroy.set(tower.getCost()*tower.getDestroy()+"$");
-		this.t_infosTowerUpgrade.set(tower.getCost()*tower.getUpgrade()+"$");
+		this.t_infosTowerDestroy.set((int)(tower.getCost()*tower.getDestroy())+"$");
+		this.t_infosTowerUpgrade.set((int)(tower.getCost()*tower.getUpgrade())+"$");
 		this.t_infosTowerText.mAlpha = 1;
 		this.bDeleteTower.mAlpha = 1;
 		this.t_infosTowerDestroy.mAlpha=1;

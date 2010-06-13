@@ -155,7 +155,7 @@ public class Play extends AngleActivity {
 			}
 			game.setGameStarted(true);
 			/* Menus' initialisation */
-			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
+			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 11, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
 			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 18, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
 
@@ -174,7 +174,7 @@ public class Play extends AngleActivity {
 		public boolean onTouchEvent(MotionEvent event) {
 			if(!game.isGameEnd()){
 				/* To prevent a lot of touch on the screen */
-				if (System.currentTimeMillis() - time < 100){
+				if (System.currentTimeMillis() - time < 400){
 					return true;
 				}
 				time = System.currentTimeMillis();
