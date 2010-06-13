@@ -11,6 +11,7 @@ import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
+import electroacid.defense.enums.ShootPriority;
 import electroacid.defense.game.GenericGame;
 import electroacid.defense.gui.Shoot;
 import electroacid.defense.map.GenericMap;
@@ -80,9 +81,13 @@ public  class Tower implements Cloneable,ObservateurTower{
 	
 	private int x,y;
 	
+	private ShootPriority targetPriority ;
+	private Creature weakest_highest;
+	
+	
 	// TODO : Not implemented yet
 	private int targetNb;
-	private int targetPriority ; // 1=nearest, 2=weakest, 3=strengtest
+	
 	private Element element;	
 	/**
 	 * The capacity to shoot a flying creature
@@ -107,7 +112,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param _layout Layout of the tower 
 	 * @param _shootArea The shooting area
 	 */
-	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSpriteLayout _layout,int _shootArea){
+	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, ShootPriority _targetPriority, int _level,AngleSpriteLayout _layout,int _shootArea){
 		this.element = _element;
 		this.fireRate = _fireRate;
 		this.cost = _cost;
@@ -141,7 +146,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param _sprite Sprite of the tower 
 	 * @param _shootArea The shooting area
 	 */
-	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, int _targetPriority, int _level,AngleSprite _sprite,int _shootArea){
+	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, ShootPriority _targetPriority, int _level,AngleSprite _sprite,int _shootArea){
 		this.element = _element;
 		this.fireRate = _fireRate;
 		this.cost = _cost;
@@ -173,35 +178,24 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param ogField
 	 */
 	private void attack(LinkedList<Creature> listTarget, AngleObject ogField) {
-		//TODO : Gérer les cibles à viser en premier
-				/*LinkedList<Creature> listTarget = new LinkedList<Creature>();
-				if(this.targetPriority==1){
-					// comparer la position de la tour avec la position des créas
-				}else if(this.targetPriority==2){
-					// range dans une nouvelle liste, les créas par ordre de vie croissante
-				}else if(this.targetPriority==3){
-					// range dans une nouvelle liste, les créas par ordre de vie dec
-				}
-				for(int i=0;i<listTarget.size();i++){
-					listTarget.get(i).loseLife(nbDamagePerCrea);
-				}*/
 		
-			int i=0; // TODO : Choisir quelle créa attaquer
+		if (!this.listTarget.isEmpty()){			
+			Creature target;
+			if (this.targetPriority!=ShootPriority.FIRSTIN_FIRSTDIE)
+				target=this.weakest_highest;
+			else
+				target = this.listTarget.get(0);
 			
-			/*if(!this.canTargetFly){ // if the tower can't target fly, we have to remove the flying creatures !
-				for(int j=0;j<listTarget.size();j++){
-					if(listTarget.get(j).isFly()){
-						listTarget.remove(j);j--;
-					}
-				}
-			}*/
-			if(!listTarget.isEmpty()){
-				fire = new Shoot(this.x, this.y, listTarget.get(i).getSprite().mPosition.mX, listTarget.get(i).getSprite().mPosition.mY,ogField,this.getElement());
-				// Apply the element vs element modifiers
-				double modifiers = this.element.getModifier(listTarget.get(i).getElement());
-				listTarget.get(i).loseLife((int)(this.damage*modifiers));
-			}
-
+			
+			fire = new Shoot(this.x, this.y, 
+					target.getSprite().mPosition.mX, 
+					target.getSprite().mPosition.mY,
+					ogField,this.getElement());
+			
+			// Apply the element vs element modifiers
+			double modifiers = this.element.getModifier(target.getElement());
+			target.loseLife((int)(this.damage*modifiers));		
+		}
 	}
 
 
@@ -281,7 +275,8 @@ public  class Tower implements Cloneable,ObservateurTower{
 	    } catch(CloneNotSupportedException cnse) {
 	      	cnse.printStackTrace(System.err);
 	    }	    
-	    tower.sprite = new AngleSprite(this.sprite.roLayout);    
+	    tower.sprite = new AngleSprite(this.sprite.roLayout);   
+	    tower.weakest_highest=null;
 	    return tower;
 	}
 
@@ -372,14 +367,14 @@ public  class Tower implements Cloneable,ObservateurTower{
 	/**
 	 * @return the targetPriority
 	 */
-	public int getTargetPriority() {
+	public ShootPriority getTargetPriority() {
 		return targetPriority;
 	}
 
 	/**
 	 * @param targetPriority the targetPriority to set
 	 */
-	public void setTargetPriority(int targetPriority) {
+	public void setTargetPriority(ShootPriority targetPriority) {
 		this.targetPriority = targetPriority;
 	}
 
@@ -406,6 +401,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	public void setListDetection(int width,int height,  GenericMap matrice) {
 		this.boxDetectionList=new LinkedList<BoxPath>();
 		this.listTarget = new LinkedList<Creature>();
+		this.weakest_highest=null;
 		int maxAreaForX = this.shootArea*width;
 		int maxAreaForY = this.shootArea*height;
 		
@@ -423,15 +419,48 @@ public  class Tower implements Cloneable,ObservateurTower{
 	@Override
 	public void add(Object c) {
 		if (!this.listTarget.contains(c)){
-			this.listTarget.add((Creature) c);
+			Creature crea = (Creature) c;
+			this.listTarget.add(crea);
+
+			switch(this.targetPriority){
+			case WEAKEST:
+				if (this.weakest_highest==null || crea.getMaxLife()<this.weakest_highest.getMaxLife()) this.weakest_highest=crea;
+				break;
+			case HIGHEST:
+				if (this.weakest_highest==null || crea.getMaxLife()>this.weakest_highest.getMaxLife()) this.weakest_highest=crea;
+				break;
+			case FIRSTIN_FIRSTDIE:
+				break;
+			}
 		}
 	}
 
 	@Override
 	public void remove(Object c) {
 		this.listTarget.remove(c);
+		if (this.weakest_highest==c){
+			this.recalculWH();
+		}
 	}
 
+	private void recalculWH(){
+		this.weakest_highest=null;
+		for (Creature c : this.listTarget){
+			switch(this.targetPriority){
+			case WEAKEST:
+				if (this.weakest_highest==null || c.getMaxLife()<this.weakest_highest.getMaxLife())
+					this.weakest_highest=c;
+				break;
+			case HIGHEST:
+				if (this.weakest_highest==null || c.getMaxLife()>this.weakest_highest.getMaxLife())
+					this.weakest_highest=c;
+				break;
+			case FIRSTIN_FIRSTDIE:
+				break;
+			}			
+		}
+	}
+	
 	/**
 	 * @return the listTarget
 	 */
@@ -444,6 +473,8 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 */
 	public void setListTarget(LinkedList<Creature> listTarget) {
 		this.listTarget = listTarget;
+		this.weakest_highest=null;
+		this.recalculWH();
 	}
 
 
