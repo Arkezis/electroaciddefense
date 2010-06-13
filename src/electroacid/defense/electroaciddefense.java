@@ -88,16 +88,12 @@ public class electroaciddefense extends Activity implements OnClickListener {
 		dial.show();
 		
 	}
-
-	/**
-	 * Managing some keys
-	 * @param keyCode Code of the key pressed
-	 * @param event Event generated
-	 */
-	public void onKey(int keyCode, KeyEvent event) {
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK)
-			finish();
-			
+			return true;
+		return false;
+		
 	}
 	
 	/**
