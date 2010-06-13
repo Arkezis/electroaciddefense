@@ -3,8 +3,6 @@ package electroacid.defense;
 import java.util.LinkedList;
 import java.util.Random;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -38,39 +36,8 @@ import electroacid.defense.wave.GenericWave;
 import electroacid.defense.wave.Wave;
 
 public class Play extends AngleActivity { 
-
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-    	MenuItem m1 = menu.add(0, 1, 0, "Parameters");
-    	MenuItem m2 = menu.add(0,2,0,"High Scores");
-    	MenuItem m3 = menu.add(0,3,0,"Instructions");
-    	MenuItem m4 = menu.add(0,4,0,"About");
-    	m1.setIcon(android.R.drawable.ic_menu_preferences);
-    	m2.setIcon(android.R.drawable.ic_menu_agenda);
-    	m3.setIcon(android.R.drawable.ic_menu_directions);
-    	m4.setIcon(android.R.drawable.ic_menu_zoom);
-    	return super.onCreateOptionsMenu(menu);
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-    	switch(item.getItemId()){
-    	case 1:
-    		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
-    		break;
-    	case 2:
-    		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
-    		break;
-    	case 3:
-    		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
-    		break;
-    	case 4:
-    		Toast.makeText(this, "Game developed by Mathieu Deschamps (aka cilheo) and Tom Dubin (aka Arkezis). \n Contact : ElectroAcidDefense@gmail.com . \n All rights reserved.", 2000).show();
-    		break;
-    	}
-    	return super.onOptionsItemSelected(item);
-    }
 	
-	
+	private boolean afterAndroidMenu = false;
 	/* TOWERS */
 	/** The tower choosen to add*/
 	public Tower towerChoice=null;
@@ -186,7 +153,7 @@ public class Play extends AngleActivity {
 			}
 			game.setGameStarted(true);
 			/* Menus' initialisation */
-			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza"), 222, 0, 0, 30, 200, 255, 255);
+			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
 			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 18, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
 
@@ -327,6 +294,12 @@ public class Play extends AngleActivity {
 		@Override
 		public void step(float secondsElapsed)
 		{
+			if (afterAndroidMenu){
+				afterAndroidMenu=false;
+				return;
+			}
+			
+			if (!game.isPause()){
 			if(!game.isGameEnd() ){
 				/* WAVES */
 				if(game.getActualWave() == 0 && lastWave==0 ) { lastWave = game.getTimeBetweenEachWave()-10;}
@@ -386,8 +359,8 @@ public class Play extends AngleActivity {
 				ogEndGame.addObject(t_textEndGame);
 			}
 			super.step(secondsElapsed);
+			}
 		}
-		
 		
 		/**
 		 * This method create the tower which will be used in the menu and to create the new tower (clone). The shootArea's Sprite is also created here
@@ -447,14 +420,49 @@ public class Play extends AngleActivity {
 	 * @param event Event generated
 	 */
 	public boolean onKey(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK){
-			finish();
-			return true;
-		}
 		return false;
 	}
 
-
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    	MenuItem m1 = menu.add(0, 1, 0, R.string.Pause_game);
+    	MenuItem m2 = menu.add(0,2,0,R.string.Save_game);
+    	MenuItem m3 = menu.add(0,3,0,R.string.Quit_game);
+    	
+    	m1.setIcon(android.R.drawable.ic_media_pause);
+    	m2.setIcon(android.R.drawable.ic_menu_save);
+    	m3.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+    	return super.onCreateOptionsMenu(menu);
+    }
+    
+    @Override
+    public boolean onMenuOpened (int featureId, android.view.Menu menu){
+    	return super.onMenuOpened(featureId, menu);
+    }
+  
+    public void onOptionsMenuClosed (android.view.Menu menu){
+    	afterAndroidMenu=true;
+    	super.onOptionsMenuClosed(menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()){
+    	case 1:
+    		game.changePause();
+    		if (game.isPause())
+    			item.setIcon(android.R.drawable.ic_media_play);
+    		else
+    			item.setIcon(android.R.drawable.ic_media_pause);
+    		break;
+    	case 2:
+    		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
+    		break;
+    	case 3:
+    		finish();
+    		break;
+    	}
+    	return super.onOptionsItemSelected(item);
+    }
 
 }
 

@@ -30,6 +30,7 @@ public class GenericGame implements ObservableGame{
 	private int nbMaxWave=0;
 	private boolean gameEnd;
 	private float menuRefreshTime=(float) 1;
+	private boolean pause=false;
 	
 	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
 	
@@ -275,6 +276,20 @@ public class GenericGame implements ObservableGame{
 		for (ObservateurMenu obs: this.listObservateur){
 			obs.refreshWaves(this);
 		}
+	}
+
+	/**
+	 * @return the pause
+	 */
+	public boolean isPause() {
+		return pause;
+	}
+
+	/**
+	 * @param pause the pause to set
+	 */
+	public void changePause() {
+		this.pause = !this.pause;
 	}
 	
 }

@@ -12,4 +12,8 @@
 <string name="Quit">Quit the game ! :-(</string>
 <string name="title">Welcome to \n Electro Acid Defense</string>
 <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help him fix the issue !</string>
+
+<string name="Pause_game">Pause</string>
+<string name="Quit_game">Quit</string>
+<string name="Save_game">Save</string>
 </resources>
