@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -91,7 +92,6 @@ public class Play extends AngleActivity {
 	
 	public class MyGame extends  AngleUI{
 		/** The variable to avoid a high touching map */
-		long time= System.currentTimeMillis();
 		
 		/* Informations used in the step */
 		float lastWave = 0;
@@ -175,13 +175,7 @@ public class Play extends AngleActivity {
 		 * @param event The event 
 		 */
 		public boolean onTouchEvent(MotionEvent event) {
-			if(!game.isGameEnd()){
-				/* To prevent a lot of touch on the screen */
-				if (System.currentTimeMillis() - time < 400){
-					return true;
-				}
-				time = System.currentTimeMillis();
-	
+			if(!game.isGameEnd() && event.getAction()==MotionEvent.ACTION_DOWN){
 				
 				int x = (int)event.getX();
 				int y = (int)event.getY();
@@ -236,6 +230,7 @@ public class Play extends AngleActivity {
 					// Run the next wave ?
 					if(menu.nextWaveButtonIsTouched(x,y)){
 						if(game.getActualWave()<game.getNbMaxWave()){
+							game.addScore((int) (game.getTimeBetweenEachWave()-lastWave));
 							lastWave = game.getTimeBetweenEachWave();
 						}
 					}else if(boxBuildableSelected != null){

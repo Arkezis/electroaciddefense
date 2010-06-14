@@ -4,6 +4,6 @@
 	<difficulty value="0" />
 	<money value="275" />
 	<lives value="20" />
-	<timeBetweenEachWave value="50" />
+	<timeBetweenEachWave value="35" />
 	<timeBetweenEachTowerTurn value="0.5" />
 </game>
