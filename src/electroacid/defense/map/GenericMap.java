@@ -155,7 +155,7 @@ public class GenericMap {
 	public Box getBox(int x, int y){
 		//the box is not in the matrice
 		if (x>=this.nbColumn*this.offsetX || y>=this.nbLine*this.offsetY ||
-			x<0 || y<0) return null;
+			x<0 || y<32) return null;
 		return this.matrice[y/this.offsetY][x/this.offsetX];
 	}
 	

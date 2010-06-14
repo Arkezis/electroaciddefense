@@ -32,6 +32,7 @@ import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
 import electroacid.defense.gui.MenuSelectedTower;
 import electroacid.defense.gui.MenuStatsCreature;
+import electroacid.defense.gui.MenuTop;
 import electroacid.defense.map.GenericMap;
 import electroacid.defense.tower.GenericTower;
 import electroacid.defense.wave.GenericWave;
@@ -51,7 +52,7 @@ public class Play extends AngleActivity {
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2,_bnewTower1Layout;
 	AngleSprite backgroundEndGame;
-	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame,ogUtils;
+	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame,ogUtils,ogTest;
 	private AngleTileMap tmGround;
 
 	/* Matrice */
@@ -62,7 +63,7 @@ public class Play extends AngleActivity {
 
 	/* MENU */
 	AngleFont fontMenu,fontTitle,fontEndGame;
-	Menu menu;
+	MenuTop menu;
 	MenuNewTower menuNewTower;
 	MenuSelectedTower menuSelectedTower;
 	MenuStatsCreature menuStatsCreature;
@@ -109,7 +110,7 @@ public class Play extends AngleActivity {
 			ogShoot = new AngleObject(); addObject(ogShoot);
 			ogWave = new AngleObject(); addObject(ogWave);
 			ogUtils = new AngleObject(); addObject(ogUtils);
-
+			ogTest = new AngleObject(); addObject(ogTest);
 			
 			
 			// TODO : passer le menu sur ogDashboard	
@@ -121,6 +122,9 @@ public class Play extends AngleActivity {
 			/* Create the map, the waves and the towers */
 			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,18,9,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
+			
+			
+			
 			ogField.addObject(tmGround);
 			if(mapChoosen.equals("tutomap")){
 				try {
@@ -162,11 +166,13 @@ public class Play extends AngleActivity {
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
 			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 18, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
 
-			menu = new Menu(game,fontMenu,fontTitle,mGLSurfaceView);
-			game.addObservateur(menu);
 			menuNewTower = new MenuNewTower(fontMenu,fontTitle,mGLSurfaceView,genericTower.getListTower());
 			menuSelectedTower = new MenuSelectedTower(fontMenu,fontTitle,mGLSurfaceView);
 			menuStatsCreature = new MenuStatsCreature(fontMenu,fontTitle,mGLSurfaceView);
+			
+			
+			menu = new MenuTop(game,fontTitle,mGLSurfaceView,ogTest);
+			game.addObservateur(menu);
 		}
 		
 		
