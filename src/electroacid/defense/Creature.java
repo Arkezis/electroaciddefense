@@ -1,6 +1,7 @@
 package electroacid.defense;
 
 import com.android.angle.AngleObject;
+import com.android.angle.AngleRotatingSprite;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
@@ -62,7 +63,7 @@ public  class Creature implements Cloneable{
 		private boolean fly;
 		
 		/** Sprite of the creature */
-		private AngleSprite sprite;
+		private AngleRotatingSprite sprite;
 
 		/**
 		 * Constructor of a creature
@@ -82,7 +83,7 @@ public  class Creature implements Cloneable{
 			this.fireRate = _fireRate;
 			this.rewardValue = _rewardValue;
 			this.fly = _fly;
-			this.sprite= new AngleSprite(layout);
+			this.sprite= new AngleRotatingSprite(layout);
 			this.maxLife=_life;
 		}
 
@@ -95,7 +96,7 @@ public  class Creature implements Cloneable{
 			Creature creature = null;
 			try { creature = (Creature) super.clone();
 			} catch(CloneNotSupportedException cnse){cnse.printStackTrace(System.err);}
-			creature.sprite = new AngleSprite(this.sprite.roLayout);
+			creature.sprite = new AngleRotatingSprite(this.sprite.roLayout);
 			return creature;
 		}
 		
@@ -226,7 +227,7 @@ public  class Creature implements Cloneable{
 		/**
 		 * @return the sprite
 		 */
-		public AngleSprite getSprite() {
+		public AngleRotatingSprite getSprite() {
 			return sprite;
 		}
 
@@ -234,7 +235,7 @@ public  class Creature implements Cloneable{
 		/**
 		 * @param sprite the sprite to set
 		 */
-		public void setSprite(AngleSprite sprite) {
+		public void setSprite(AngleRotatingSprite sprite) {
 			this.sprite = sprite;
 		}
 

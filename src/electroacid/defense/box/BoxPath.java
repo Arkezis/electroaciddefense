@@ -92,6 +92,9 @@ public class BoxPath extends Box implements ObservableBoxPath{
 				creature.destroy(game ,container, true);
 				this.listCreature.remove(i--);
 			}else{
+				
+				
+				
 				float nextY = creature.getSprite().mPosition.mY;
 				float nextX = creature.getSprite().mPosition.mX;
 
@@ -107,6 +110,7 @@ public class BoxPath extends Box implements ObservableBoxPath{
 					case Right:nextX += creature.getSpeed();break;
 					}
 					creature.getSprite().mPosition.set(nextX, nextY);
+					creature.getSprite().mRotation+=creature.getSpeed()*10;
 				}
 			}
 		}
