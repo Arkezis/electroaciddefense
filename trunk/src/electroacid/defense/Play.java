@@ -169,6 +169,7 @@ public class Play extends AngleActivity {
 			menuStatsCreature = new MenuStatsCreature(fontMenu,fontTitle,mGLSurfaceView);
 		}
 		
+		
 		/**
 		 * The action to do when the user touch the screen
 		 * @param event The event 

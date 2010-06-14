@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:stretchColumns="*">
     
 <TableRow>
@@ -20,20 +20,25 @@
     <TableRow>
         <ImageButton
         	android:id="@+id/ImgButton1"
-        	android:src="@drawable/tutomap"></ImageButton>
+        	android:src="@drawable/tutomap"	
+	   		android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content"
+        	></ImageButton>
         <ImageButton
         	android:id="@+id/ImgButton2"
-        	android:src="@drawable/map1map"></ImageButton>
+        	android:src="@drawable/map1map"
+        	android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content"></ImageButton>
 </TableRow>
 <TableRow>
 	<TextView 
-	    android:text="No game saved" 
+	    android:text="Tutorial map" 
 	    android:id="@+id/TextView01" 
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"></TextView>
 	<TextView 
-	    android:text="No game saved" 
+	    android:text="Map 1" 
 	    android:id="@+id/TextView01" 
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
@@ -44,17 +49,17 @@
     <ImageButton
     	android:id="@+id/ImgButton3"
     	android:src="@drawable/map2map"
-    	android:layout_span="3"></ImageButton>
+    	android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"></ImageButton>
 </TableRow>
 <TableRow>
 	<TextView 
-	    android:text="No game saved" 
+	    android:text="Map 2" 
 	    android:id="@+id/TextView01" 
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"
-	    android:layout_span="3"
-	    android:paddingBottom="40px"></TextView>
+	    android:paddingBottom="20px"></TextView>
 </TableRow>
 <TableRow>
     <Button

@@ -1,14 +1,19 @@
 package electroacid.defense.tower;
 
 import java.util.LinkedList;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import utils.XmlUtil;
 import android.content.Context;
+import android.graphics.Typeface;
 
+import com.android.angle.AngleFont;
 import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleSurfaceView;
+
 import electroacid.defense.R;
 import electroacid.defense.Tower;
 import electroacid.defense.enums.Element;
@@ -48,6 +53,9 @@ public class GenericTower {
 			int idTexture = XmlUtil.getAttributeIntFromNode(tower, "idTexture");
 			int shootArea = XmlUtil.getAttributeIntFromNode(tower, "shootArea");
 
+			
+
+			
 			Tower tow = new Tower(element,
 					fireRate,
 					cost,

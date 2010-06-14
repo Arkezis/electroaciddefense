@@ -42,7 +42,7 @@ public class ChoiceOfMap extends Activity implements OnClickListener {
 	    		this.startActivity(i);
 				break;
 			case R.id.Button1 :
-	    		//finish();
+	    		finish();
 				break;
 		}
 	}
@@ -66,7 +66,7 @@ public class ChoiceOfMap extends Activity implements OnClickListener {
 	protected void onDestroy(){
 		super.onDestroy();
 		// The activity is totally killed ! 
-		android.os.Process.killProcess(android.os.Process.myPid());
+		//android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
 

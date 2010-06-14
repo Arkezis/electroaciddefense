@@ -26,7 +26,8 @@
     android:text="@string/intro"
     android:textSize="20px"
     android:gravity="center"
-    android:layout_gravity="center"/>
+    android:layout_gravity="center"
+    android:paddingBottom="40px"/>
 <Button 
 	android:text="@+string/NewGame1" 
 	android:id="@+id/Button01" 
