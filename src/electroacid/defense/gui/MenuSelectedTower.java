@@ -31,7 +31,7 @@ public class MenuSelectedTower implements ObservateurMenu{
  	 * @param mGLSurfaceView The view
 	 */
 	public MenuSelectedTower( AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
-		this.t_infosTowerText = new AngleString(font,"Element : \n Level : \n Damage :",2, 427,AngleString.aLeft);
+		this.t_infosTowerText = new AngleString(font,"Element : \n Level : \n Damage : \n Shoot : ",2, 427,AngleString.aLeft);
 		this.t_infosTowerValue = new AngleString(font,"",80, 427,AngleString.aLeft);	
 		this.t_infosTowerUpgrade = new AngleString(font,"",170,440,AngleString.aLeft);
 		this.t_infosTowerDestroy = new AngleString(font,"",170,470,AngleString.aLeft);
@@ -73,7 +73,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 */
 	public void show(Tower tower,GenericGame g){
 		
-		this.t_infosTowerValue.set(tower.getElement().toString()+"\n"+tower.getLevel()+"=>"+(tower.getLevel()+1)+"\n"+tower.getDamage()+"=>"+(int)(tower.getDamage()*tower.getUpgrade())+"\n");
+		this.t_infosTowerValue.set(tower.getElement().toString()+"\n"+tower.getLevel()+"=>"+(tower.getLevel()+1)+"\n"+tower.getDamage()+"=>"+(int)(tower.getDamage()*tower.getUpgrade())+"\n"+tower.getFireRate());
 		this.t_infosTowerValue.mAlpha = 1;
 		this.t_infosTowerDestroy.set((int)(tower.getCost()*tower.getDestroy())+"$");
 		this.t_infosTowerUpgrade.set((int)(tower.getCost()*tower.getUpgrade())+"$");

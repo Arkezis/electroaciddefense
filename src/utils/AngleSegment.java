@@ -17,6 +17,7 @@ public class AngleSegment extends AngleObject
 	public float mBlue;	//Blue tint (0 - 1)
 	public float mAlpha;	//Alpha channel (0 - 1)
 	private FloatBuffer mVertices;
+	public int mWidth;
 	public AngleSegment (float x1, float y1, float x2, float y2)
 	{
 		mA = new AngleVector(x1, y1);
@@ -38,12 +39,16 @@ public class AngleSegment extends AngleObject
 		mBlue =mBlue2;
 	}
 	
+	public void setWidth(int mWidth2){
+		mWidth = mWidth2;
+	}
+	
 	public void draw(GL10 gl)
 	{
 		gl.glDisable(GL11.GL_TEXTURE_2D);
 		gl.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-
-		gl.glLineWidth(2);
+		
+		gl.glLineWidth(mWidth);
 		gl.glPushMatrix();
 		gl.glLoadIdentity();
 		gl.glColor4f(mRed, mGreen, mBlue, mAlpha);
@@ -51,7 +56,7 @@ public class AngleSegment extends AngleObject
 		gl.glVertexPointer(2, GL11.GL_FLOAT, 0, mVertices);
 		gl.glDrawArrays(GL11.GL_LINES, 0, 2);
 		gl.glPopMatrix();
-
+		
 		gl.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 		gl.glEnable(GL11.GL_TEXTURE_2D);
 		super.draw(gl);  //No childs

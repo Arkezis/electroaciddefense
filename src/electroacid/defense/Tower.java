@@ -4,10 +4,11 @@ import java.util.LinkedList;
 
 import observ.ObservateurTower;
 
-
+import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
+import com.android.angle.AngleString;
 
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
@@ -187,11 +188,25 @@ public  class Tower implements Cloneable,ObservateurTower{
 				target = this.listTarget.get(0);
 			
 			
-			fire = new Shoot(this.x, this.y, 
-					target.getSprite().mPosition.mX, 
-					target.getSprite().mPosition.mY,
-					ogField,this.getElement());
-			
+
+			switch(this.element){
+			case Electricity:
+				fire = new Shoot(this.x, this.y,target.getSprite().mPosition.mX,target.getSprite().mPosition.mY,
+						ogField,1,(float)0.8,0,3);
+				break;
+			case Fire:
+				fire = new Shoot(this.x, this.y,target.getSprite().mPosition.mX,target.getSprite().mPosition.mY,
+						ogField,1,0,0,3);
+				break;
+			case Iron:
+				fire = new Shoot(this.x, this.y, target.getSprite().mPosition.mX,target.getSprite().mPosition.mY,
+						ogField,(float)0.4, (float)0.4, (float)0.4,3);
+				break;
+			case Water:
+				fire = new Shoot(this.x, this.y, target.getSprite().mPosition.mX, target.getSprite().mPosition.mY,
+						ogField,0, 0, 1,3);
+				break;
+		}
 			// Apply the element vs element modifiers
 			double modifiers = this.element.getModifier(target.getElement());
 			target.loseLife((int)(this.damage*modifiers));		

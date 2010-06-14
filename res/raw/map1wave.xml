@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listwave name="testwave">
 	<wave>
-		<creature element="water" life="230" speed="1" fireRate="0" rewardValue="10" scoreValue="10" fly="false" textureId="0" number="10"/>
+		<creature element="water" life="150" speed="1" fireRate="0" rewardValue="10" scoreValue="10" fly="false" textureId="0" number="10"/>
 	</wave>
 	<wave>
-		<creature element="fire" life="300" speed="2" fireRate="0" rewardValue="12" scoreValue="12" fly="false" textureId="0" number="10"/>
+		<creature element="fire" life="350" speed="2" fireRate="0" rewardValue="12" scoreValue="12" fly="false" textureId="1" number="10"/>
 	</wave>
 	<wave>
-		<creature element="iron" life="355" speed="1" fireRate="0" rewardValue="12" scoreValue="12" fly="false" textureId="0" number="15"/>
+		<creature element="iron" life="400" speed="1" fireRate="0" rewardValue="12" scoreValue="12" fly="false" textureId="2" number="15"/>
 	</wave>
 	<wave>
-		<creature element="fire" life="400" speed="1" fireRate="0" rewardValue="25" scoreValue="25" fly="false" textureId="2" number="4"/>
+		<creature element="fire" life="450" speed="1" fireRate="0" rewardValue="15" scoreValue="25" fly="false" textureId="1" number="4"/>
 	</wave>
 	<wave>
-		<creature element="electricity" life="1000" speed="1" fireRate="0" rewardValue="30" scoreValue="30" fly="false" textureId="1" number="1"/>	
-		<creature element="fire" life="600" speed="2" fireRate="0" rewardValue="20" scoreValue="20" fly="false" textureId="0" number="15"/>
+		<creature element="electricity" life="1000" speed="1" fireRate="0" rewardValue="30" scoreValue="30" fly="false" textureId="3" number="1"/>	
+		<creature element="fire" life="600" speed="2" fireRate="0" rewardValue="17" scoreValue="20" fly="false" textureId="1" number="15"/>
 	</wave>
 	<wave>
-		<creature element="fire" life="230" speed="4" fireRate="0" rewardValue="17" scoreValue="17" fly="false" textureId="0" number="20"/>
+		<creature element="fire" life="230" speed="4" fireRate="0" rewardValue="17" scoreValue="17" fly="false" textureId="1" number="20"/>
 	</wave>
 	<wave>
 		<creature element="water" life="630" speed="1" fireRate="0" rewardValue="20" scoreValue="20" fly="false" textureId="0" number="10"/>
 	</wave>
 	<wave>
-		<creature element="fire" life="700" speed="2" fireRate="0" rewardValue="22" scoreValue="22" fly="false" textureId="0" number="10"/>
+		<creature element="fire" life="700" speed="2" fireRate="0" rewardValue="22" scoreValue="22" fly="false" textureId="1" number="10"/>
 	</wave>
 	<wave>
-		<creature element="fire" life="750" speed="1" fireRate="0" rewardValue="30" scoreValue="30" fly="false" textureId="2" number="8"/>
+		<creature element="iron" life="750" speed="1" fireRate="0" rewardValue="26" scoreValue="30" fly="false" textureId="2" number="8"/>
 	</wave>
 	<wave>
-		<creature element="electricity" life="1500" speed="1" fireRate="0" rewardValue="50" scoreValue="50" fly="false" textureId="1" number="1"/>	
-		<creature element="fire" life="850" speed="2" fireRate="0" rewardValue="20" scoreValue="20" fly="false" textureId="0" number="15"/>
+		<creature element="electricity" life="1500" speed="1" fireRate="0" rewardValue="40" scoreValue="50" fly="false" textureId="3" number="1"/>	
+		<creature element="fire" life="850" speed="2" fireRate="0" rewardValue="28" scoreValue="20" fly="false" textureId="1" number="15"/>
 	</wave>
 	<wave>
-		<creature element="fire" life="400" speed="4" fireRate="0" rewardValue="22" scoreValue="22" fly="false" textureId="0" number="20"/>
+		<creature element="fire" life="400" speed="4" fireRate="0" rewardValue="22" scoreValue="22" fly="false" textureId="1" number="20"/>
 	</wave>
 	<wave>
-		<creature element="iron" life="850" speed="1" fireRate="0" rewardValue="31" scoreValue="31" fly="false" textureId="0" number="10"/>
+		<creature element="iron" life="850" speed="1" fireRate="0" rewardValue="31" scoreValue="31" fly="false" textureId="2" number="10"/>
 	</wave>
 	<wave>
-		<creature element="iron" life="900" speed="2" fireRate="0" rewardValue="31" scoreValue="31" fly="false" textureId="0" number="10"/>
+		<creature element="iron" life="900" speed="2" fireRate="0" rewardValue="31" scoreValue="31" fly="false" textureId="2" number="10"/>
 	</wave>
 	<wave>
-		<creature element="water" life="950" speed="1" fireRate="0" rewardValue="45" scoreValue="45" fly="false" textureId="2" number="8"/>
+		<creature element="water" life="950" speed="1" fireRate="0" rewardValue="39" scoreValue="45" fly="false" textureId="0" number="8"/>
 	</wave>
 	<wave>
-		<creature element="electricity" life="1500" speed="1" fireRate="0" rewardValue="70" scoreValue="70" fly="false" textureId="1" number="1"/>	
-		<creature element="electricity" life="1200" speed="2" fireRate="0" rewardValue="50" scoreValue="50" fly="false" textureId="1" number="1"/>
-		<creature element="fire" life="900" speed="2" fireRate="0" rewardValue="25" scoreValue="25" fly="false" textureId="0" number="15"/>
+		<creature element="electricity" life="1500" speed="1" fireRate="0" rewardValue="55" scoreValue="70" fly="false" textureId="3" number="1"/>	
+		<creature element="electricity" life="1200" speed="2" fireRate="0" rewardValue="50" scoreValue="50" fly="false" textureId="3" number="1"/>
+		<creature element="fire" life="900" speed="2" fireRate="0" rewardValue="41" scoreValue="25" fly="false" textureId="1" number="15"/>
 	</wave>
 		<wave>
-		<creature element="fire" life="500" speed="4" fireRate="0" rewardValue="30" scoreValue="30" fly="false" textureId="0" number="20"/>
+		<creature element="fire" life="500" speed="4" fireRate="0" rewardValue="30" scoreValue="30" fly="false" textureId="1" number="20"/>
 	</wave>
 	<wave>
 		<creature element="water" life="850" speed="1" fireRate="0" rewardValue="38" scoreValue="38" fly="false" textureId="0" number="10"/>
@@ -59,10 +59,10 @@
 		<creature element="water" life="900" speed="2" fireRate="0" rewardValue="43" scoreValue="43" fly="false" textureId="0" number="10"/>
 	</wave>
 	<wave>
-		<creature element="water" life="950" speed="1" fireRate="0" rewardValue="43" scoreValue="43" fly="false" textureId="2" number="8"/>
+		<creature element="iron" life="950" speed="1" fireRate="0" rewardValue="43" scoreValue="43" fly="false" textureId="2" number="8"/>
 	</wave>
 		<wave>
-		<creature element="electricity" life="1800" speed="1" fireRate="0" rewardValue="100" scoreValue="100" fly="false" textureId="1" number="3"/>	
-		<creature element="electricity" life="1700" speed="2" fireRate="0" rewardValue="90" scoreValue="90" fly="false" textureId="2" number="1"/>
+		<creature element="electricity" life="1800" speed="1" fireRate="0" rewardValue="100" scoreValue="100" fly="false" textureId="3" number="3"/>	
+		<creature element="electricity" life="1700" speed="2" fireRate="0" rewardValue="90" scoreValue="90" fly="false" textureId="3" number="1"/>
 	</wave>
 </listwave>
