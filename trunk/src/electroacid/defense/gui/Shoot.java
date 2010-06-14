@@ -4,8 +4,6 @@ import utils.AngleSegment;
 
 import com.android.angle.AngleObject;
 
-import electroacid.defense.enums.Element;
-
 /**
  * Use for creating a shoot picture
  * @author Arkezis
