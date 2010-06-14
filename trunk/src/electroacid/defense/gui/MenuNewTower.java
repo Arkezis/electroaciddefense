@@ -33,11 +33,11 @@ public class MenuNewTower implements ObservateurMenu{
  	 * @param mGLSurfaceView The view
 	 */
 	public MenuNewTower(AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView,LinkedList<Tower> listTower){
-		this.t_infosTowerTitle = new AngleString(fontTitle,"Tower",160, 427, AngleString.aCenter);
-		this.t_infosTowerElement = new AngleString(font,"",160,440,AngleString.aCenter);		
-		this.t_infosTowerDamage = new AngleString(font,"",160,450,AngleString.aCenter);
-		this.t_infosTowerFireRate = new AngleString(font,"",160,460,AngleString.aCenter);	
-		this.t_infosTowerCost = new AngleString(font,"",85,460,AngleString.aCenter);
+		//this.t_infosTowerTitle = new AngleString(fontTitle,"Tower",160, 427, AngleString.aCenter);
+		this.t_infosTowerElement = new AngleString(font,"",220,430,AngleString.aCenter);		
+		this.t_infosTowerDamage = new AngleString(font,"",220,445,AngleString.aCenter);
+		this.t_infosTowerFireRate = new AngleString(font,"",220,460,AngleString.aCenter);	
+		this.t_infosTowerCost = new AngleString(font,"",100,460,AngleString.aCenter);
 		
 		listTower.get(0).changePosition(0, 416);
 		listTower.get(0).getSprite().mAlpha = 0;
@@ -54,16 +54,16 @@ public class MenuNewTower implements ObservateurMenu{
 		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,128,160,32,32);
 		this.bNGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,160,32,32); 
 		this.bGo = new AngleSprite(this.bGoLayout);
-		this.bGo.mPosition.set(85, 430);
+		this.bGo.mPosition.set(100, 430);
 		
-		this.t_infosTowerTitle.mAlpha = 0;
+		//this.t_infosTowerTitle.mAlpha = 0;
 		
 		this.bGo.mAlpha=0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
 		this.t_infosTowerFireRate.mAlpha = 0;
 		this.t_infosTowerCost.mAlpha = 0;
-		mGLSurfaceView.addObject(this.t_infosTowerTitle);
+		//mGLSurfaceView.addObject(this.t_infosTowerTitle);
 		mGLSurfaceView.addObject(bGo);
 		mGLSurfaceView.addObject(t_infosTowerElement);
 		mGLSurfaceView.addObject(t_infosTowerDamage);
@@ -92,7 +92,7 @@ public class MenuNewTower implements ObservateurMenu{
 	 * @param mGLSurfaceView The view
 	 */
 	public void hide(AngleSurfaceView mGLSurfaceView,LinkedList<Tower> listTower){
-		this.t_infosTowerTitle.mAlpha = 0;
+		//this.t_infosTowerTitle.mAlpha = 0;
 		for (int i=0;i<listTower.size();i++) listTower.get(i).getSprite().mAlpha=0;
 	}
 	
@@ -101,7 +101,7 @@ public class MenuNewTower implements ObservateurMenu{
 	 * @param mGLSurfaceView
 	 */
 	public void show(GenericGame g,LinkedList<Tower> listTower){
-		this.t_infosTowerTitle.mAlpha = 1;
+		//this.t_infosTowerTitle.mAlpha = 1;
 		for (int i=0;i<listTower.size();i++) listTower.get(i).getSprite().mAlpha=1;
 		this.hideValidateTower(g); // if you want to show the selection, the validation must be hidden (for the moment !)
 	}
@@ -153,7 +153,7 @@ public class MenuNewTower implements ObservateurMenu{
 	 * @return True if the user wanted to add the tower
 	 */
 	public boolean isValidationTower(int x,int y){
-		if ((x > 53 && x < 117 ) && (this.isPossible)){
+		if ((x > 68 && x < 132 ) && (this.isPossible)){
 			if (y > 414 && y < 446){
 				return true;
 			}

@@ -33,12 +33,12 @@ public class MenuSelectedTower implements ObservateurMenu{
 	public MenuSelectedTower( AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
 		this.t_infosTowerText = new AngleString(font,"Element : \n Level : \n Damage : \n Shoot : ",2, 427,AngleString.aLeft);
 		this.t_infosTowerValue = new AngleString(font,"",80, 427,AngleString.aLeft);	
-		this.t_infosTowerUpgrade = new AngleString(font,"",170,440,AngleString.aLeft);
-		this.t_infosTowerDestroy = new AngleString(font,"",170,470,AngleString.aLeft);
+		this.t_infosTowerUpgrade = new AngleString(font,"",220,440,AngleString.aLeft);
+		this.t_infosTowerDestroy = new AngleString(font,"",220,470,AngleString.aLeft);
 		this.bUpgradeTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,160,32,32));
-		this.bUpgradeTower.mPosition.set(150, 432); 
+		this.bUpgradeTower.mPosition.set(200, 432); 
 		this.bDeleteTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,160,32,32));
-		this.bDeleteTower.mPosition.set(150, 464); 
+		this.bDeleteTower.mPosition.set(200, 464); 
 		
 		mGLSurfaceView.addObject(t_infosTowerValue);
 		mGLSurfaceView.addObject(t_infosTowerText);
@@ -72,7 +72,6 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 * @param g The game informations
 	 */
 	public void show(Tower tower,GenericGame g){
-		
 		this.t_infosTowerValue.set(tower.getElement().toString()+"\n"+tower.getLevel()+"=>"+(tower.getLevel()+1)+"\n"+tower.getDamage()+"=>"+(int)(tower.getDamage()*tower.getUpgrade())+"\n"+tower.getFireRate());
 		this.t_infosTowerValue.mAlpha = 1;
 		this.t_infosTowerDestroy.set((int)(tower.getCost()*tower.getDestroy())+"$");
@@ -85,6 +84,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 		if (g.getMoney() >= this.cashNeedForUpgradeTower){
 			this.bUpgradeTower.mAlpha = 1;
 		}else {
+			this.bUpgradeTower.mAlpha = (float)0.4;
 			g.addObservateur(this);
 		}
 	}
@@ -100,7 +100,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 * @return True if the tower is upgraded or deleted
 	 */
 	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,GenericGame g,AngleObject ogField,LinkedList<BoxBuildable> towerList){
-		if (x > 134 && x < 166 ){
+		if (x > 184 && x < 216 ){
 			if (y > 416 && y < 448){
 				if (g.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){
 					box.getTower().upgrade(g);
