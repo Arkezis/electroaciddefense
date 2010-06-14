@@ -11,7 +11,6 @@ import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleSurfaceView;
 import electroacid.defense.R;
 import electroacid.defense.Tower;
-import electroacid.defense.enums.Direction;
 import electroacid.defense.enums.Element;
 import electroacid.defense.enums.ShootPriority;
 
