@@ -110,7 +110,7 @@ public class BoxPath extends Box implements ObservableBoxPath{
 					case Right:nextX += creature.getSpeed();break;
 					}
 					creature.getSprite().mPosition.set(nextX, nextY);
-					creature.getSprite().mRotation+=creature.getSpeed()*10;
+					creature.getSprite().mRotation+=creature.getSpeed()*5;
 				}
 			}
 		}

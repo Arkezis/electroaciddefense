@@ -2,7 +2,6 @@ package electroacid.defense;
 
 import com.android.angle.AngleObject;
 import com.android.angle.AngleRotatingSprite;
-import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
 
 import electroacid.defense.box.BoxPath;
