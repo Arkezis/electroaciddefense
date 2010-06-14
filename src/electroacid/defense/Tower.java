@@ -85,7 +85,6 @@ public  class Tower implements Cloneable,ObservateurTower{
 	private ShootPriority targetPriority ;
 	private Creature weakest_highest;
 	
-	
 	// TODO : Not implemented yet
 	private int targetNb;
 	

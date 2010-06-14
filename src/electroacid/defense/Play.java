@@ -162,7 +162,7 @@ public class Play extends AngleActivity {
 			}
 			game.setGameStarted(true);
 			/* Menus' initialisation */
-			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 11, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
+			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 15, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
 			fontTitle = new AngleFont(mActivity.mGLSurfaceView, 13, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 222, 1, 0, 30, 200, 255, 255);
 			fontEndGame = new AngleFont(mActivity.mGLSurfaceView, 18, Typeface.createFromAsset(getAssets(),"chintzy.ttf"), 555, 0, 2, 0, 0, 0, 255);
 

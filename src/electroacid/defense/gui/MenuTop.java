@@ -27,7 +27,7 @@ public class MenuTop implements ObservateurMenu{
 	public MenuTop(GenericGame game,AngleFont font, AngleSurfaceView mGLSurfaceView,AngleObject og){
 		
 		AngleSpriteLayout a = new AngleSpriteLayout(mGLSurfaceView,320,32,R.drawable.tilemap,32,0,32,32);
-		AngleSprite b = new AngleSprite(160, 16,(float)0.7, a);
+		AngleSprite b = new AngleSprite(160, 16,(float)0.85, a);
 		og.addObject(b);
 		
 		
@@ -35,27 +35,24 @@ public class MenuTop implements ObservateurMenu{
 		this.t_infosPlayerLivesSpr = new AngleSprite(16, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,192,32,32));
 		
-		this.t_infosPlayerLives = new AngleString(font,""+game.getLives(),48,16,AngleString.aCenter);
+		this.t_infosPlayerLives = new AngleString(font,""+game.getLives(),48,22,AngleString.aCenter);
 		
 
 		this.t_infosPlayerMoneySpr = new AngleSprite(82, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,192,32,32));	
 		
-		this.t_infosPlayerMoney = new AngleString(font,""+game.getMoney(),114,16,AngleString.aCenter);
+		this.t_infosPlayerMoney = new AngleString(font,""+game.getMoney(),114,22,AngleString.aCenter);
 		
 		
-		this.t_infosPlayerLevelSpr = new AngleSprite(176, 16,
+		this.t_infosPlayerLevelSpr = new AngleSprite(208, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,192,32,32));	
 		
-		this.t_infosPlayerLevel = new AngleString(font,"",208,16,AngleString.aCenter);
-		
-			
-
+		this.t_infosPlayerLevel = new AngleString(font,"",240,22,AngleString.aCenter);
 		
 		this.t_infosPlayerNextSpr = new AngleSprite(274, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,192,32,32));
 
-		this.t_infosPlayerNext = new AngleString(font,"",306,16,AngleString.aCenter);
+		this.t_infosPlayerNext = new AngleString(font,"",306,22,AngleString.aCenter);
 		
 
 		og.addObject(this.t_infosPlayerNext);og.addObject(this.t_infosPlayerNextSpr);
