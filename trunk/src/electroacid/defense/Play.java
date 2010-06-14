@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -188,19 +187,19 @@ public class Play extends AngleActivity {
 					if(box instanceof BoxBuildable){
 						boxBuildableSelected = (BoxBuildable) box; 
 						if(boxBuildableSelected.getTower() == null){
-							menuNewTower.show(mGLSurfaceView,genericTower.getListTower());
-							menuSelectedTower.hide(mGLSurfaceView);
-							menuStatsCreature.hide(mGLSurfaceView);
+							menuNewTower.show(game,genericTower.getListTower());
+							menuSelectedTower.hide(game);
+							menuStatsCreature.hide();
 							shootArea.mAlpha=0;
 							previewBuyMap.mAlpha = 0;
 							pointerNewTower.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
 							pointerNewTower.mAlpha=1;
 							ogUtils.addObject(pointerNewTower);						
 						}else{
-							menuStatsCreature.hide(mGLSurfaceView);
+							menuStatsCreature.hide();
 							menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
-							menuNewTower.hideValidateTower(mGLSurfaceView);
-							menuSelectedTower.show(mGLSurfaceView,boxBuildableSelected.getTower(),game);
+							menuNewTower.hideValidateTower(game);
+							menuSelectedTower.show(boxBuildableSelected.getTower(),game);
 							/* Show the shootArea of the tower */
 							if(boxBuildableSelected.getTower().getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
 							else if(boxBuildableSelected.getTower().getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
@@ -212,9 +211,9 @@ public class Play extends AngleActivity {
 							previewBuyMap.mAlpha = 0;
 						}
 					}else{ // BoxPath
-						menuSelectedTower.hide(mGLSurfaceView);
+						menuSelectedTower.hide(game);
 						menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
-						menuNewTower.hideValidateTower(mGLSurfaceView);
+						menuNewTower.hideValidateTower(game);
 						shootArea.mAlpha=0;
 						pointerNewTower.mAlpha=0;
 						previewBuyMap.mAlpha = 0;
@@ -242,18 +241,18 @@ public class Play extends AngleActivity {
 									ogField.addObject(boxBuildableSelected.getTower().getSprite());
 									towerList.add(boxBuildableSelected);
 									/* Hide unused stuff */
-									menuNewTower.hideValidateTower(mGLSurfaceView);
+									menuNewTower.hideValidateTower(game);
 									menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
-									menuStatsCreature.hide(mGLSurfaceView);
+									menuStatsCreature.hide();
 									towerChoice = null;
 									shootArea.mAlpha =0;
 									pointerNewTower.mAlpha=0;
 									previewBuyMap.mAlpha = 0;
 								}else{
 									/* Hide unused stuff */
-									menuNewTower.hideValidateTower(mGLSurfaceView);
+									menuNewTower.hideValidateTower(game);
 									menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
-									menuStatsCreature.hide(mGLSurfaceView);
+									menuStatsCreature.hide();
 									towerChoice = null;
 									shootArea.mAlpha =0;
 									pointerNewTower.mAlpha=0;
@@ -261,9 +260,9 @@ public class Play extends AngleActivity {
 								}
 							}else if(choiceMenu > 0 && choiceMenu<genericTower.getListTower().size()+1){	
 								Tower tower= genericTower.getListTower().get(choiceMenu-1);
-								menuNewTower.showValidateTower(game,mGLSurfaceView, tower,(tower.getCost() < game.getMoney()));
+								menuNewTower.showValidateTower(game, tower);
 								towerChoice = (Tower)tower.clone();
-								menuStatsCreature.hide(mGLSurfaceView);
+								menuStatsCreature.hide();
 								/* Previews */
 								previewBuyMap.setLayout(tower.getSprite().roLayout);
 								previewBuyMap.mPosition.set(boxBuildableSelected.getX()+16,boxBuildableSelected.getY()+16);
@@ -281,8 +280,8 @@ public class Play extends AngleActivity {
 						}else{
 							/* A tower is already on this box ! */
 							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField,towerList)){
-								menuSelectedTower.hide(mGLSurfaceView);
-								menuStatsCreature.hide(mGLSurfaceView);
+								menuSelectedTower.hide(game);
+								menuStatsCreature.hide();
 								shootArea.mAlpha=0;
 								pointerNewTower.mAlpha=0;
 							}
