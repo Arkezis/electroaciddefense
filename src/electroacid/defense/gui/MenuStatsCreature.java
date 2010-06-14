@@ -1,15 +1,20 @@
 package electroacid.defense.gui;
 
+import observ.ObservateurMenu;
+
 import com.android.angle.AngleFont;
 import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
 
 import electroacid.defense.Creature;
+import electroacid.defense.game.GenericGame;
 
-public class MenuStatsCreature {
+public class MenuStatsCreature implements ObservateurMenu{
 	
 
 	private AngleString t_infosCreaText, t_infosCreaValue;
+	
+	Creature actualCrea;
 	/**
 	 * Constructor 
 	 * @param font The font for the classic text 
@@ -28,11 +33,12 @@ public class MenuStatsCreature {
 	
 	/**
 	 * Hide the general menu
-	 * @param mGLSurfaceView The view
 	 */
-	public void hide(AngleSurfaceView mGLSurfaceView){
+	public void hide(){
 		this.t_infosCreaText.mAlpha = 0;
 		this.t_infosCreaValue.mAlpha = 0;
+		if (this.actualCrea!=null)
+			this.actualCrea.delObservateur(this);
 	}
 	/**
 	 * Show the general menu
@@ -44,7 +50,33 @@ public class MenuStatsCreature {
 		this.t_infosCreaValue.set(crea.getElement().toString()+"\n"+(int)crea.getSpeed()+"\n"+crea.getRewardValue()+"\n"+crea.getLife());
 		this.t_infosCreaText.mAlpha = 1;
 		this.t_infosCreaValue.mAlpha = 1;
+		if (this.actualCrea!=null)
+			this.actualCrea.delObservateur(this);
+		this.actualCrea=crea;
+		crea.addObservateur(this);
 	}
+
+	@Override
+	public void refreshCreature() {
+		if (this.actualCrea.getLife()<=0) {
+			this.hide();
+		}else {
+			this.t_infosCreaValue.set(
+					this.actualCrea.getElement().toString()+"\n"
+					+(int)this.actualCrea.getSpeed()+"\n"
+					+this.actualCrea.getRewardValue()+"\n"
+					+this.actualCrea.getLife());
+		}
+		
+	}
+	@Override
+	public void refreshLives(GenericGame g) {}
+	@Override
+	public void refreshMoney(GenericGame g) {}
+	@Override
+	public void refreshScore(GenericGame g) {}
+	@Override
+	public void refreshWaves(GenericGame g) {}
 
 	
 }

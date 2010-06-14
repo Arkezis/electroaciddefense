@@ -3,6 +3,8 @@ package electroacid.defense.gui;
 
 import java.util.LinkedList;
 
+import observ.ObservateurMenu;
+
 import com.android.angle.AngleFont;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
@@ -13,13 +15,15 @@ import electroacid.defense.game.GenericGame;
 import electroacid.defense.R;
 import electroacid.defense.Tower;
 
-public class MenuNewTower {
+public class MenuNewTower implements ObservateurMenu{
 	
 	public AngleString t_infosTowerTitle,t_infosTowerElement,t_infosTowerFireRate;
 	public AngleString t_infosTowerCanTargetFly, t_infosTowerDamage, t_infosTowerCost;
 	public AngleSpriteLayout bGoLayout,bNGoLayout;
 	public AngleSprite bGo,bNGo;
 	private boolean isPossible; /* enough money to add the tower ? */
+	
+	private int cashNeedForAddTower;
 	
 	/**
 	 * The constructor
@@ -96,22 +100,27 @@ public class MenuNewTower {
 	 * This function show the menu the towers
 	 * @param mGLSurfaceView
 	 */
-	public void show(AngleSurfaceView mGLSurfaceView,LinkedList<Tower> listTower){
+	public void show(GenericGame g,LinkedList<Tower> listTower){
 		this.t_infosTowerTitle.mAlpha = 1;
 		for (int i=0;i<listTower.size();i++) listTower.get(i).getSprite().mAlpha=1;
-		this.hideValidateTower(mGLSurfaceView); // if you want to show the selection, the validation must be hidden (for the moment !)
+		this.hideValidateTower(g); // if you want to show the selection, the validation must be hidden (for the moment !)
 	}
 	
 	/**
 	 * This function show the informations about the tower selected 
-	 * @param mGLSurfaceView
 	 * @param tower
 	 */
-	public void showValidateTower(GenericGame g, AngleSurfaceView mGLSurfaceView,Tower tower,boolean possible){
-		if (possible) 	{this.bGo.setLayout(this.bGoLayout);}
-		else 			{this.bGo.setLayout(this.bNGoLayout);}
+	public void showValidateTower(GenericGame g,Tower tower){
+		this.cashNeedForAddTower=tower.getCost();
+		this.isPossible=tower.getCost() <= g.getMoney();
+		
+		
+		if (this.isPossible) 	{this.bGo.setLayout(this.bGoLayout);}
+		else 	{
+			this.bGo.setLayout(this.bNGoLayout);
+			g.addObservateur(this);
+		}
 		this.bGo.mAlpha=1;
-		this.isPossible=possible;
 		
 		this.t_infosTowerElement.mAlpha = 1;
 		this.t_infosTowerDamage.mAlpha =1 ;
@@ -128,12 +137,13 @@ public class MenuNewTower {
 	 * This function hide the tower selected by the user
 	 * @param mGLSurfaceView
 	 */
-	public void hideValidateTower(AngleSurfaceView mGLSurfaceView){
+	public void hideValidateTower(GenericGame g){
 		this.bGo.mAlpha=0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
 		this.t_infosTowerFireRate.mAlpha = 0;
 		this.t_infosTowerCost.mAlpha = 0;
+		g.delObservateur(this);
 	}
 
 	/**
@@ -150,4 +160,19 @@ public class MenuNewTower {
 		}
 		return false;
 	}
+	@Override
+	public void refreshCreature() {}
+	@Override
+	public void refreshLives(GenericGame g) {}
+	@Override
+	public void refreshMoney(GenericGame g) {
+		this.isPossible=this.cashNeedForAddTower <= g.getMoney();
+		if (this.isPossible) {
+			this.bGo.setLayout(this.bGoLayout);
+		}
+	}
+	@Override
+	public void refreshScore(GenericGame g) {}
+	@Override
+	public void refreshWaves(GenericGame g) {}
 }

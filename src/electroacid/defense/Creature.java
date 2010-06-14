@@ -1,5 +1,10 @@
 package electroacid.defense;
 
+import java.util.ArrayList;
+
+import observ.ObservableCreature;
+import observ.ObservateurMenu;
+
 import com.android.angle.AngleObject;
 import com.android.angle.AngleRotatingSprite;
 import com.android.angle.AngleSpriteLayout;
@@ -13,8 +18,10 @@ import electroacid.defense.game.GenericGame;
  * @author cilheo
  * @version 1.0b
  */
-public  class Creature implements Cloneable{
+public  class Creature implements Cloneable,ObservableCreature{
 
+	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
+	
 		/**
 	 * @return the rewardValue
 	 */
@@ -88,6 +95,7 @@ public  class Creature implements Cloneable{
 
 		public void loseLife(int nbDamage){
 			this.life -= nbDamage; 
+			this.updateObservateur();
 		}
 
 		/** clone all value of the creature excepted the sprite, create a new */
@@ -156,6 +164,7 @@ public  class Creature implements Cloneable{
 		 */
 		public void setLife(int life) {
 			this.life = life;
+			this.updateObservateur();
 		}
 
 
@@ -264,5 +273,26 @@ public  class Creature implements Cloneable{
 		 */
 		public void setScoreValue(int scoreValue) {
 			this.scoreValue = scoreValue;
+		}
+
+		@Override
+		public void addObservateur(ObservateurMenu obs) {
+			this.listObservateur.add(obs);
+		}
+
+		@Override
+		public void delAllObservateur() {
+			this.listObservateur = new ArrayList<ObservateurMenu>(); 
+		}
+
+		@Override
+		public void delObservateur(ObservateurMenu obs) {
+			this.listObservateur.remove(obs);
+		}
+
+		@Override
+		public void updateObservateur() {
+			for( ObservateurMenu obs : this.listObservateur)
+				obs.refreshCreature();
 		}
 }

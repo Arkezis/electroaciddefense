@@ -51,22 +51,25 @@ public  class Menu implements ObservateurMenu{
 	 * The method to refresh the menu of money
 	 * @param game The informationsa about the game
 	 */
-	public void refreshMoney(GenericGame game){
-		this.t_infosPlayerMoney.set(""+game.getMoney());
+	@Override
+	public void refreshMoney(GenericGame g){
+		this.t_infosPlayerMoney.set(""+g.getMoney());
 	}
 	/**
 	 * The method to refresh the number of waves
 	 * @param game The informations about the game
 	 */
-	public void refreshWaves(GenericGame game){
-		this.t_infosPlayerLevel.set(""+game.getActualWave());
+	@Override
+	public void refreshWaves(GenericGame g){
+		this.t_infosPlayerLevel.set(""+g.getActualWave());
 	}
 	/**
 	 * The method to refresh the menu of lives
 	 * @param game The informationsa about the game
 	 */
-	public void refreshLives(GenericGame game){
-		this.t_infosPlayerLives.set(""+game.getLives());
+	@Override
+	public void refreshLives(GenericGame g){
+		this.t_infosPlayerLives.set(""+g.getLives());
 	}
 	/**
 	 * The method to test if the user has touched the button to launch next wave
@@ -80,5 +83,8 @@ public  class Menu implements ObservateurMenu{
 	public void refreshScore(GenericGame g) {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public void refreshCreature() {return;}
 	
 }

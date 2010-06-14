@@ -2,6 +2,8 @@ package electroacid.defense.gui;
 
 import java.util.LinkedList;
 
+import observ.ObservateurMenu;
+
 
 import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
@@ -15,10 +17,13 @@ import electroacid.defense.R;
 import electroacid.defense.Tower;
 import electroacid.defense.box.BoxBuildable;
 
-public class MenuSelectedTower {
+public class MenuSelectedTower implements ObservateurMenu{
 	
 	public AngleString t_infosTowerText,t_infosTowerValue,t_infosTowerUpgrade,t_infosTowerDestroy;
 	public AngleSprite bDeleteTower,bUpgradeTower;
+	
+	private int cashNeedForUpgradeTower;
+	
 	/**
 	 * Constructor 
 	 * @param font The font for the classic text 
@@ -51,23 +56,22 @@ public class MenuSelectedTower {
 	
 	/**
 	 * Hide the general menu
-	 * @param mGLSurfaceView The view
 	 */
-	public void hide(AngleSurfaceView mGLSurfaceView){
+	public void hide(GenericGame g){
 		this.t_infosTowerText.mAlpha = 0;
 		this.t_infosTowerValue.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
 		this.bUpgradeTower.mAlpha = 0;
 		this.t_infosTowerDestroy.mAlpha=0;
 		this.t_infosTowerUpgrade.mAlpha=0;
+		g.delObservateur(this);
 	}
 	/**
 	 * Show the general menu
-	 * @param mGLSurfaceView The view
 	 * @param tower The tower to upgrade
 	 * @param g The game informations
 	 */
-	public void show(AngleSurfaceView mGLSurfaceView,Tower tower,GenericGame g){
+	public void show(Tower tower,GenericGame g){
 		
 		this.t_infosTowerValue.set(tower.getElement().toString()+"\n"+tower.getLevel()+"=>"+(tower.getLevel()+1)+"\n"+tower.getDamage()+"=>"+(int)(tower.getDamage()*tower.getUpgrade())+"\n");
 		this.t_infosTowerValue.mAlpha = 1;
@@ -77,8 +81,11 @@ public class MenuSelectedTower {
 		this.bDeleteTower.mAlpha = 1;
 		this.t_infosTowerDestroy.mAlpha=1;
 		this.t_infosTowerUpgrade.mAlpha=1;
-		if (g.getMoney() > tower.getCost()*tower.getUpgrade()){
+		this.cashNeedForUpgradeTower=(int)Math.ceil((tower.getCost()*tower.getUpgrade()));
+		if (g.getMoney() >= this.cashNeedForUpgradeTower){
 			this.bUpgradeTower.mAlpha = 1;
+		}else {
+			g.addObservateur(this);
 		}
 	}
 
@@ -108,4 +115,19 @@ public class MenuSelectedTower {
 		}
 		return false;
 	}
+
+	@Override
+	public void refreshCreature() {}
+	@Override
+	public void refreshLives(GenericGame g) {}
+	@Override
+	public void refreshMoney(GenericGame g) {
+		if (g.getMoney() >= this.cashNeedForUpgradeTower){
+			this.bUpgradeTower.mAlpha = 1;
+		}
+	}
+	@Override
+	public void refreshScore(GenericGame g) {}
+	@Override
+	public void refreshWaves(GenericGame g) {}
 }
