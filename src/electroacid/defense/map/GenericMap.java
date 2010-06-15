@@ -25,19 +25,19 @@ public class GenericMap {
 
 	/** it's the map */
 	private Box[][] matrice;
-	
+
 	int nbLine;
 	int nbColumn;
-	
+
 	/** width of box*/
 	int offsetX;
 	/** height of box */
 	int offsetY;
 	/** box which start the path */
 	public LinkedList<BoxPath> firstBoxPath;
-	
+
 	private int nbDiffTexture=0;
-	
+
 	/**
 	 * Creation of a generic map, create the matrice
 	 * @param _xMax max x coordinate
@@ -51,10 +51,10 @@ public class GenericMap {
 		this.offsetX = _offsetX;
 		this.offsetY = _offsetY;
 		this.nbDiffTexture= _nbDiffTexture;
-		
+
 		this.matrice = new Box[this.nbLine][this.nbColumn];
 	}
-	
+
 	/**
 	 * Read a xml file and create the map, load texture, and create path
 	 * @param context
@@ -65,18 +65,18 @@ public class GenericMap {
 	public void buildMap(Context context,AngleTileMap map,int xmlResourceId) throws Exception{
 		Document mapXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
 		this.firstBoxPath = new LinkedList<BoxPath>();
-		
+
 		NodeList listBox = mapXml.getDocumentElement().getElementsByTagName("box");
-		
+
 		for (int i=0;i<listBox.getLength();i++){
 			Node node = listBox.item(i);
-			
+
 			int line = i/this.nbColumn;
 			int column = i - line*this.nbColumn;
-			
+
 			int idTexture = XmlUtil.getAttributeIntFromNode(node, "texture");
 			String type = XmlUtil.getAttributeFromNode(node, "type");
-			
+
 			if (type.equalsIgnoreCase("buildable")) {
 				this.matrice[line][column] = new BoxBuildable(column*this.offsetX, line*this.offsetY, this.offsetX, this.offsetY);
 				map.mMap[i] = idTexture;
@@ -95,7 +95,7 @@ public class GenericMap {
 		}
 		this.buildPath();
 	}
-	
+
 	/** build the path */
 	private void buildPath(){
 		for (BoxPath first : this.firstBoxPath){
@@ -103,7 +103,7 @@ public class GenericMap {
 			first.addNumberMaxPred();
 		}
 	}
-	
+
 	/**
 	 * set the next box after the actuel
 	 * @param actual the actual box
@@ -114,38 +114,38 @@ public class GenericMap {
 		int y = actual.getY();
 		Box box;
 		switch(actual.getDirection()){
-			case Up:
-				box = this.getBox(x,y-offsetY);
-				if (box instanceof BoxPath){
-					actual.setNextPath((BoxPath) box);
-					if (box != null)((BoxPath) box).addNumberMaxPred();
-				}
-				break;
-			case Down:
-				box = this.getBox(x, y+offsetY);
-				if (box instanceof BoxPath){
-					actual.setNextPath((BoxPath) box);
-					if (box != null)((BoxPath) box).addNumberMaxPred();
-				}
-				break;
-			case Right:
-				box = this.getBox(x+offsetX,y);
-				if (box instanceof BoxPath){
-					actual.setNextPath((BoxPath) box);
-					if (box != null)((BoxPath) box).addNumberMaxPred();
-				}
-				break;
-			case Left:
-				box = this.getBox(x-offsetX,y);
-				if (box instanceof BoxPath){
-					actual.setNextPath((BoxPath) box);
-					if (box != null)((BoxPath) box).addNumberMaxPred();
-				}
-				break;
+		case Up:
+			box = this.getBox(x,y-offsetY);
+			if (box instanceof BoxPath){
+				actual.setNextPath((BoxPath) box);
+				if (box != null)((BoxPath) box).addNumberMaxPred();
+			}
+			break;
+		case Down:
+			box = this.getBox(x, y+offsetY);
+			if (box instanceof BoxPath){
+				actual.setNextPath((BoxPath) box);
+				if (box != null)((BoxPath) box).addNumberMaxPred();
+			}
+			break;
+		case Right:
+			box = this.getBox(x+offsetX,y);
+			if (box instanceof BoxPath){
+				actual.setNextPath((BoxPath) box);
+				if (box != null)((BoxPath) box).addNumberMaxPred();
+			}
+			break;
+		case Left:
+			box = this.getBox(x-offsetX,y);
+			if (box instanceof BoxPath){
+				actual.setNextPath((BoxPath) box);
+				if (box != null)((BoxPath) box).addNumberMaxPred();
+			}
+			break;
 		}
 		setNextBoxPath(actual.getNextPath());
 	}
-	
+
 	/**
 	 * get the box
 	 * @param x coordinate of the wanted box
@@ -155,8 +155,8 @@ public class GenericMap {
 	public Box getBox(int x, int y){
 		//the box is not in the matrice
 		if (x>=this.nbColumn*this.offsetX || y>=this.nbLine*this.offsetY ||
-			x<0 || y<32) return null;
+				x<0 || y<32) return null;
 		return this.matrice[y/this.offsetY][x/this.offsetX];
 	}
-	
+
 }

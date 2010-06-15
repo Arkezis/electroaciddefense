@@ -31,7 +31,7 @@ public class Wave extends AngleObject {
 
 	/** position in the list of the actual creature */
 	private int actualCreature = 0;
-	
+
 	/**
 	 * Constructor of wave
 	 * initialise the creatures' list
@@ -66,18 +66,19 @@ public class Wave extends AngleObject {
 	 */
 	public void step(float secondsElapsed){
 		if (this.start){
-			this.timeBetweenCreature-=secondsElapsed;
-			if (this.timeBetweenCreature<=0){
-				this.timeBetweenCreature=2;
-				if (this.actualCreature<this.listCreature.size()){
-					this.listCreature.get(this.actualCreature).start(
-							this.og,
-							this.debut);
-					this.actualCreature++;
+			for (int timeMult=0;timeMult<GenericGame.getInstance().getSpeedMultiplicator();timeMult++){
+				this.timeBetweenCreature-=secondsElapsed;
+				if (this.timeBetweenCreature<=0){
+					this.timeBetweenCreature=2;
+					if (this.actualCreature<this.listCreature.size()){
+						this.listCreature.get(this.actualCreature).start(
+								this.og,
+								this.debut);
+						this.actualCreature++;
+					}
 				}
-			}
-		}
+			}}
 		super.step(secondsElapsed);
 	}
-	
+
 }

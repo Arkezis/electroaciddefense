@@ -38,7 +38,7 @@ import electroacid.defense.wave.GenericWave;
 import electroacid.defense.wave.Wave;
 
 public class Play extends AngleActivity { 
-	
+
 	private boolean afterAndroidMenu = false;
 	/* TOWERS */
 	/** The tower choosen to add*/
@@ -47,7 +47,7 @@ public class Play extends AngleActivity {
 	public AngleSprite shootArea;
 	/** Counter for the fireRate of the tower */
 	public int counterFireRate=0;
-	
+
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2,_bnewTower1Layout;
 	AngleSprite backgroundEndGame;
@@ -58,7 +58,7 @@ public class Play extends AngleActivity {
 	GenericMap matrice = new GenericMap(13, 10, 32, 32,9);
 	GenericWave genericWave;
 	GenericTower genericTower;
-	
+
 
 	/* MENU */
 	AngleFont fontMenu,fontTitle,fontEndGame;
@@ -73,7 +73,7 @@ public class Play extends AngleActivity {
 
 	//alert dialog for close
 	AlertDialog alert;
-	
+
 	/** The list of towers on the game */
 	LinkedList<BoxBuildable> towerList;
 	/** Game's information */
@@ -82,48 +82,48 @@ public class Play extends AngleActivity {
 	/** The AngleUI */
 	MyGame myGame;
 	/** Boolean for the game */
-	
+
 	public AngleString t_textEndGame;
 	public AngleString t_textEndGame2;
 	AngleSprite pointerNewTower;
 	AngleSpriteLayout pointerNewTowerLayout;
 	public AngleSprite endGameSprite;
-	
+
 	public class MyGame extends  AngleUI{
 		/** The variable to avoid a high touching map */
-		
+
 		/* Informations used in the step */
 		float lastWave = 0;
 		float timeBetweenEachTowerTurn=0;
 		float lastRefreshMenu=0;
-		
+
 		/**
 		 * The constructor
 		 * @param activity The parent AngleActivity 
 		 */
 		public MyGame(AngleActivity activity) {
 			super(activity);
-			
+
 			ogField=new AngleObject(); addObject(ogField);
 			ogCreature=new AngleObject(); addObject(ogCreature);
 			ogShoot = new AngleObject(); addObject(ogShoot);
 			ogWave = new AngleObject(); addObject(ogWave);
 			ogUtils = new AngleObject(); addObject(ogUtils);
 			ogTest = new AngleObject(); addObject(ogTest);
-			
-			
+
+
 			// TODO : passer le menu sur ogDashboard	
-			
+
 			/* Initialisation */
 			towerList = new LinkedList<BoxBuildable>();
 			this.createTowerForMenu();
-			
+
 			/* Create the map, the waves and the towers */
 			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,18,9,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
-			
-			
-			
+
+
+
 			ogField.addObject(tmGround);
 			game = GenericGame.getInstance();
 			if(mapChoosen.equals("tutomap")){
@@ -169,22 +169,22 @@ public class Play extends AngleActivity {
 			menuNewTower = new MenuNewTower(fontMenu,fontTitle,mGLSurfaceView,genericTower.getListTower());
 			menuSelectedTower = new MenuSelectedTower(fontMenu,fontTitle,mGLSurfaceView);
 			menuStatsCreature = new MenuStatsCreature(fontMenu,fontTitle,mGLSurfaceView);
-	
+
 			menu = new MenuTop(fontTitle,mGLSurfaceView,ogTest);
 		}
-		
-		
+
+
 		/**
 		 * The action to do when the user touch the screen
 		 * @param event The event 
 		 */
 		public boolean onTouchEvent(MotionEvent event) {
 			if(!game.isGameEnd() && event.getAction()==MotionEvent.ACTION_DOWN){
-				
+
 				int x = (int)event.getX();
 				int y = (int)event.getY();
 				Box box = matrice.getBox(x, y); /* The box touched */
-	
+
 				/* -------------------- */
 				/*   TOUCHING THE MAP   */
 				/* -------------------- */
@@ -228,9 +228,9 @@ public class Play extends AngleActivity {
 						}
 					}
 				}else{
-				/* ------------------------ */
-				/*    TOUCHING THE MENU     */
-				/* ------------------------ */
+					/* ------------------------ */
+					/*    TOUCHING THE MENU     */
+					/* ------------------------ */
 					// Run the next wave ?
 					if(menu.nextWaveButtonIsTouched(x,y)){
 						if(game.getActualWave()<game.getNbMaxWave()){
@@ -300,7 +300,7 @@ public class Play extends AngleActivity {
 			}
 			return true;	
 		}
-		
+
 		/**
 		 * Called every frame 
 		 * @param secondsElapsed Seconds elapsed since last frame
@@ -312,78 +312,78 @@ public class Play extends AngleActivity {
 				afterAndroidMenu=false;
 				return;
 			}
-			
-			if (!game.isPause()){
-				
-			for (int timeMult=0;timeMult<game.getSpeedMultiplicator();timeMult++){
-				
-			if(!game.isGameEnd() ){
-				/* WAVES */
-				if(game.getActualWave() == 0 && lastWave==0 ) { lastWave = game.getTimeBetweenEachWave()-10;}
-				lastWave += secondsElapsed;
-				
-				if (lastWave > game.getTimeBetweenEachWave()){
-					lastWave = 0;
-					LinkedList<Wave> listWave = genericWave.getListWave();
-					if (game.getActualWave()<listWave.size()){
-						ogWave.addObject(listWave.get(game.getActualWave()));
 
-						int whichEntry = new Random().nextInt(matrice.firstBoxPath.size());
-						listWave.get(game.getActualWave()).start(ogCreature,matrice.firstBoxPath.get(whichEntry));
-						game.setActualWave(game.getActualWave()+1);
-					}
-				}
-				
-				
-				
-				for (BoxPath first : matrice.firstBoxPath){
-					first.nextStep(ogCreature);
-				}
-				/* SHOOTS */
-				/* To manage tower shooting faster than other towers, we are using a counter incremented at each step.
-				 * At each step, if (counter % fireRate == 0), the tower shoot !  
-				 */
-				
-				timeBetweenEachTowerTurn += secondsElapsed;
-				if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
-					counterFireRate++; 
-					timeBetweenEachTowerTurn =0;
-					for(int i=0;i<towerList.size();i++){
-						if(towerList.get(i).getTower() != null){
-							if(counterFireRate%towerList.get(i).getTower().getFireRate()==0){
-								towerList.get(i).getTower().detection(ogShoot);
+			if (!game.isPause()){
+
+				for (int timeMult=0;timeMult<game.getSpeedMultiplicator();timeMult++){
+
+					if(!game.isGameEnd() ){
+						/* WAVES */
+						if(game.getActualWave() == 0 && lastWave==0 ) { lastWave = game.getTimeBetweenEachWave()-10;}
+						lastWave += secondsElapsed;
+
+						if (lastWave > game.getTimeBetweenEachWave()){
+							lastWave = 0;
+							LinkedList<Wave> listWave = genericWave.getListWave();
+							if (game.getActualWave()<listWave.size()){
+								ogWave.addObject(listWave.get(game.getActualWave()));
+
+								int whichEntry = new Random().nextInt(matrice.firstBoxPath.size());
+								listWave.get(game.getActualWave()).start(ogCreature,matrice.firstBoxPath.get(whichEntry));
+								game.setActualWave(game.getActualWave()+1);
 							}
 						}
+
+
+
+						for (BoxPath first : matrice.firstBoxPath){
+							first.nextStep(ogCreature);
+						}
+						/* SHOOTS */
+						/* To manage tower shooting faster than other towers, we are using a counter incremented at each step.
+						 * At each step, if (counter % fireRate == 0), the tower shoot !  
+						 */
+
+						timeBetweenEachTowerTurn += secondsElapsed;
+						if(timeBetweenEachTowerTurn > game.getTimeBetweenEachTowerTurn()){
+							counterFireRate++; 
+							timeBetweenEachTowerTurn =0;
+							for(int i=0;i<towerList.size();i++){
+								if(towerList.get(i).getTower() != null){
+									if(counterFireRate%towerList.get(i).getTower().getFireRate()==0){
+										towerList.get(i).getTower().detection(ogShoot);
+									}
+								}
+							}
+						}
+						/* MENUS */
+						lastRefreshMenu += secondsElapsed;
+						if(lastRefreshMenu > game.getMenuRefreshTime()) {
+							lastRefreshMenu = 0;
+							menu.refresh((int)lastWave);
+						}
+					}else{
+						// Game finished
+						ogEndGame=new AngleObject(); addObject(ogEndGame);
+						t_textEndGame = new AngleString(fontEndGame,"",160, 208, AngleString.aCenter);
+						endGameSprite.mAlpha=(float)0.07;
+						if(game.getLives()==0){
+							t_textEndGame.set("Oh, you lose ! \n You've survived to \n only "+game.getActualWave()+" waves !");
+						}else{ 
+							t_textEndGame.set("Congratulations, \n you won the game ! \n You've survived to "+genericWave.getListWave().size()+" waves !");
+						}
+						ogEndGame.addObject(endGameSprite);
+						ogEndGame.addObject(t_textEndGame);
 					}
-				}
-				/* MENUS */
-				lastRefreshMenu += secondsElapsed;
-				if(lastRefreshMenu > game.getMenuRefreshTime()) {
-					lastRefreshMenu = 0;
-					menu.refresh((int)lastWave);
-				}
-			}else{
-				// Game finished
-				ogEndGame=new AngleObject(); addObject(ogEndGame);
-				t_textEndGame = new AngleString(fontEndGame,"",160, 208, AngleString.aCenter);
-				endGameSprite.mAlpha=(float)0.07;
-				if(game.getLives()==0){
-					t_textEndGame.set("Oh, you lose ! \n You've survived to \n only "+game.getActualWave()+" waves !");
-				}else{ 
-					t_textEndGame.set("Congratulations, \n you won the game ! \n You've survived to "+genericWave.getListWave().size()+" waves !");
-				}
-				ogEndGame.addObject(endGameSprite);
-				ogEndGame.addObject(t_textEndGame);
-			}
 
 
 
-		
-			}
-			super.step(secondsElapsed);
+
+				}
+				super.step(secondsElapsed);
 			}
 		}
-		
+
 		/**
 		 * This method create the tower which will be used in the menu and to create the new tower (clone). The shootArea's Sprite is also created here
 		 */
@@ -395,16 +395,16 @@ public class Play extends AngleActivity {
 			previewBuyMap = new AngleSprite(fireAreaLayout2);
 			pointerNewTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,160,32,32));	
 		}
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Called at the beginning of the activity
 	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		/* Getting the informations about the game choosen previously */
 		if(this.getIntent().getExtras() != null){
 			mapChoosen = this.getIntent().getExtras().getString("map");
@@ -418,7 +418,7 @@ public class Play extends AngleActivity {
 		Toast t = Toast.makeText(this, "Welcome to Electro Acid Defense ! ", 0);
 		t.setGravity(Gravity.CENTER, 0, 0);
 		t.show();
-		
+
 		myGame=new MyGame(this);
 		setUI(myGame);
 		if(mapChoosen.equals("tutomap")){
@@ -436,7 +436,7 @@ public class Play extends AngleActivity {
 			t.show();
 		}
 	}
-	
+
 	/**
 	 * Managing some keys
 	 * @param keyCode Code of the key pressed
@@ -446,63 +446,70 @@ public class Play extends AngleActivity {
 		return false;
 	}
 
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-    	MenuItem m1 = menu.add(0, 1, 0, R.string.Pause_game);
-    	MenuItem m2 = menu.add(0,2,0,R.string.Save_game);
-    	MenuItem m3 = menu.add(0,3,0,R.string.Quit_game);
-    	
-    	m1.setIcon(android.R.drawable.ic_media_pause);
-    	m2.setIcon(android.R.drawable.ic_menu_save);
-    	m3.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-    	
-    	//preparing dialog for close
+	public boolean onCreateOptionsMenu(android.view.Menu menu) {
+		MenuItem m1 = menu.add(0, 1, 0, R.string.Pause_game);
+		MenuItem m2 = menu.add(0,2,0,R.string.Save_game);
+		MenuItem m3 = menu.add(0,3,0,R.string.Quit_game);
+
+		m1.setIcon(android.R.drawable.ic_media_pause);
+		m2.setIcon(android.R.drawable.ic_menu_save);
+		m3.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+
+		//preparing dialog for close
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("Are you sure you want to exit?")
-		       .setCancelable(false)
-		       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		        	   finish();
-		           }
-		       })
-		       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		                dialog.cancel();
-		           }
-		       });
+		.setCancelable(false)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				finish();
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
 		alert = builder.create();
-    	
-    	return super.onCreateOptionsMenu(menu);
-    }
-    
-    @Override
-    public boolean onMenuOpened (int featureId, android.view.Menu menu){
-    	return super.onMenuOpened(featureId, menu);
-    }
-  
-    public void onOptionsMenuClosed (android.view.Menu menu){
-    	afterAndroidMenu=true;
-    	super.onOptionsMenuClosed(menu);
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-    	switch(item.getItemId()){
-    	case 1:
-    		game.changePause();
-    		if (game.isPause())
-    			item.setIcon(android.R.drawable.ic_media_play);
-    		else
-    			item.setIcon(android.R.drawable.ic_media_pause);
-    		break;
-    	case 2:
-    		Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
-    		break;
-    	case 3:
-    		alert.show();
-    		break;
-    	}
-    	return super.onOptionsItemSelected(item);
-    }
+
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public void finish()
+	{
+		GenericGame.destroyInstance();
+		super.finish();
+	}
+	
+	@Override
+	public boolean onMenuOpened (int featureId, android.view.Menu menu){
+		return super.onMenuOpened(featureId, menu);
+	}
+
+	public void onOptionsMenuClosed (android.view.Menu menu){
+		afterAndroidMenu=true;
+		super.onOptionsMenuClosed(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case 1:
+			game.changePause();
+			if (game.isPause())
+				item.setIcon(android.R.drawable.ic_media_play);
+			else
+				item.setIcon(android.R.drawable.ic_media_pause);
+			break;
+		case 2:
+			Toast.makeText(this, "This will be implemented... soon ! ", 2000).show();
+			break;
+		case 3:
+			alert.show();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 }
 

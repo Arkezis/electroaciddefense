@@ -24,7 +24,7 @@ public class BoxBuildable extends Box {
 	public BoxBuildable(int _x, int _y, int _width, int _height) {
 		super(_x,_y,_width,_height);
 	}
-	
+
 	/**
 	 * Constructor of the boxBuildable with a tower
 	 * @param _x the x coordinate on the map
@@ -37,7 +37,7 @@ public class BoxBuildable extends Box {
 		this(_x,_y,_width,_height);
 		this.tower=_tower;
 	}
-	
+
 	/**
 	 * Add a tower and change the actual tower host by the box
 	 * @param _tower the tower to add or change
@@ -58,7 +58,7 @@ public class BoxBuildable extends Box {
 		}
 		return false;
 	}
-	
+
 	/** Remove the tower of the box */
 	public void removeTower() {this.tower = null;}
 

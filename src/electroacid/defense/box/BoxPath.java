@@ -25,11 +25,11 @@ public class BoxPath extends Box implements ObservableBoxPath{
 
 	/** the next path after this */
 	private BoxPath nextPath;
-	
+
 	private int numberMaxPred=0;
-	
+
 	private int numberPred=0;
-	
+
 	/** Observator's list */
 	private ArrayList<ObservateurTower> listObservateur = new ArrayList<ObservateurTower>();
 
@@ -65,53 +65,53 @@ public class BoxPath extends Box implements ObservableBoxPath{
 	}
 
 	public long time=System.currentTimeMillis();
-	
+
 	/**
 	 * Action during one step
 	 * @param game game's parameter
 	 * @param container creature's container
 	 */
 	public void nextStep(AngleObject container){
-		
-		boolean nextOk = this.numberPred==1;
-		
-		if (nextOk){
-		if (this.nextPath== null) {
-			for (int i=0;i<this.listCreature.size();i++) {
-				this.updateObservateurRemove(this.listCreature.get(i));
-				this.listCreature.get(i).destroy(container,false);
-				this.listCreature.remove(i--);
-			}
-		}
-		for (int i=0;i<this.listCreature.size();i++){
-			Creature creature = this.listCreature.get(i);
-			if(creature.getLife()<=0){
-				this.updateObservateurRemove(creature);
-				creature.destroy(container, true);
-				this.listCreature.remove(i--);
-			}else{
-				
-				
-				
-				float nextY = creature.getSprite().mPosition.mY;
-				float nextX = creature.getSprite().mPosition.mX;
 
-				if (!creatureInBox(nextX, nextY)){
-					this.updateObservateurRemoveAndAdd(creature);
-					this.nextPath.addCreature(creature);
+		boolean nextOk = this.numberPred==1;
+
+		if (nextOk){
+			if (this.nextPath== null) {
+				for (int i=0;i<this.listCreature.size();i++) {
+					this.updateObservateurRemove(this.listCreature.get(i));
+					this.listCreature.get(i).destroy(container,false);
 					this.listCreature.remove(i--);
-				}else {
-					switch(this.direction) {
-					case Up   :nextY -= creature.getSpeed();break;
-					case Down :nextY += creature.getSpeed();break;
-					case Left :nextX -= creature.getSpeed();break;
-					case Right:nextX += creature.getSpeed();break;
-					}
-					creature.getSprite().mPosition.set(nextX, nextY);
-					creature.getSprite().mRotation+=creature.getSpeed()*5;
 				}
 			}
-		}
+			for (int i=0;i<this.listCreature.size();i++){
+				Creature creature = this.listCreature.get(i);
+				if(creature.getLife()<=0){
+					this.updateObservateurRemove(creature);
+					creature.destroy(container, true);
+					this.listCreature.remove(i--);
+				}else{
+
+
+
+					float nextY = creature.getSprite().mPosition.mY;
+					float nextX = creature.getSprite().mPosition.mX;
+
+					if (!creatureInBox(nextX, nextY)){
+						this.updateObservateurRemoveAndAdd(creature);
+						this.nextPath.addCreature(creature);
+						this.listCreature.remove(i--);
+					}else {
+						switch(this.direction) {
+						case Up   :nextY -= creature.getSpeed();break;
+						case Down :nextY += creature.getSpeed();break;
+						case Left :nextX -= creature.getSpeed();break;
+						case Right:nextX += creature.getSpeed();break;
+						}
+						creature.getSprite().mPosition.set(nextX, nextY);
+						creature.getSprite().mRotation+=creature.getSpeed()*5;
+					}
+				}
+			}
 		}
 		if (nextOk){
 			this.numberPred=this.numberMaxPred;
@@ -124,22 +124,22 @@ public class BoxPath extends Box implements ObservableBoxPath{
 	private boolean creatureInBox(float x,float y){
 		boolean test = false;
 		switch(this.direction) {
-			case Up   :
-				test = y>this.y-this.height/2.0 && y>0;
-				break;
-			case Down :
-				test = this.nextPath==null ? y<this.y+this.height : y<this.y+1.5*this.height;
-				break;
-			case Left :
-				test = x>this.x-this.width/2.0 && x>0;
-				break;
-			case Right:
-				test = this.nextPath==null ? x<this.x+this.width : x<this.x+1.5*this.width;
-				break;
+		case Up   :
+			test = y>this.y-this.height/2.0 && y>0;
+			break;
+		case Down :
+			test = this.nextPath==null ? y<this.y+this.height : y<this.y+1.5*this.height;
+			break;
+		case Left :
+			test = x>this.x-this.width/2.0 && x>0;
+			break;
+		case Right:
+			test = this.nextPath==null ? x<this.x+this.width : x<this.x+1.5*this.width;
+			break;
 		}
 		return test;
 	}
-	
+
 	/** @return the listCreature */
 	public LinkedList<Creature> getListCreature() {return listCreature;}
 
@@ -171,14 +171,14 @@ public class BoxPath extends Box implements ObservableBoxPath{
 
 	@Override
 	public void delObservateur(ObservateurTower obs) {
-			this.listObservateur.remove(obs);
+		this.listObservateur.remove(obs);
 	}
 
 	@Override
 	public void updateObservateurAdd(Object c) {
-			for (ObservateurTower obs : this.listObservateur) {
-					obs.add(c);
-			}
+		for (ObservateurTower obs : this.listObservateur) {
+			obs.add(c);
+		}
 	}
 
 	@Override
@@ -192,7 +192,7 @@ public class BoxPath extends Box implements ObservableBoxPath{
 		}else 
 			this.updateObservateurRemove(c);
 	}
-	
+
 	@Override
 	public void updateObservateurRemove(Object c) {
 		for (ObservateurTower obs : this.listObservateur) obs.remove(c);
@@ -216,5 +216,5 @@ public class BoxPath extends Box implements ObservableBoxPath{
 	public int getNumberPred() {
 		return numberPred;
 	}
-	
+
 }

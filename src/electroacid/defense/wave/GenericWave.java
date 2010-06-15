@@ -41,7 +41,7 @@ public class GenericWave {
 		this.listLayout.add(new AngleSpriteLayout(
 				mGLSurfaceView,32,32,R.drawable.tilemap,96,96,32,32));
 	}
-	
+
 	/**
 	 * Read the xml file and create waves and creatures
 	 * @param context use for read the xml file

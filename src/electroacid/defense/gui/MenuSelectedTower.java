@@ -18,17 +18,17 @@ import electroacid.defense.Tower;
 import electroacid.defense.box.BoxBuildable;
 
 public class MenuSelectedTower implements ObservateurMenu{
-	
+
 	public AngleString t_infosTowerText,t_infosTowerValue,t_infosTowerUpgrade,t_infosTowerDestroy;
 	public AngleSprite bDeleteTower,bUpgradeTower;
-	
+
 	private int cashNeedForUpgradeTower;
-	
+
 	/**
 	 * Constructor 
 	 * @param font The font for the classic text 
 	 * @param fontTitle The font for the title text
- 	 * @param mGLSurfaceView The view
+	 * @param mGLSurfaceView The view
 	 */
 	public MenuSelectedTower( AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
 		this.t_infosTowerText = new AngleString(font,"Element : \n Level : \n Damage : \n Shoot : ",2, 427,AngleString.aLeft);
@@ -39,7 +39,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 		this.bUpgradeTower.mPosition.set(200, 432); 
 		this.bDeleteTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,160,32,32));
 		this.bDeleteTower.mPosition.set(200, 464); 
-		
+
 		mGLSurfaceView.addObject(t_infosTowerValue);
 		mGLSurfaceView.addObject(t_infosTowerText);
 		mGLSurfaceView.addObject(bDeleteTower);
@@ -53,7 +53,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 		this.bDeleteTower.mAlpha = 0;
 		this.bUpgradeTower.mAlpha = 0;
 	}
-	
+
 	/**
 	 * Hide the general menu
 	 */

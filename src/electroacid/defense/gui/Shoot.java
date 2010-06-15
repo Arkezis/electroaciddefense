@@ -19,7 +19,7 @@ public class Shoot extends AngleSegment {
 	AngleObject ogWork;
 	float timeShoot=(float)0.3;
 	float timeElapsed ;
-	
+
 	/**
 	 * The constructor
 	 * @param x1 The x of the tower
@@ -35,7 +35,7 @@ public class Shoot extends AngleSegment {
 		this.setWidth(width);
 		og.addObject(this);
 		this.ogWork = og;
-		
+
 	}
 	/**
 	 * At each step, the shoot is removed
@@ -43,13 +43,13 @@ public class Shoot extends AngleSegment {
 	public void step(float secondsElapsed){
 		GenericGame game = GenericGame.getInstance();
 		for (int speedMult=0;speedMult<game.getSpeedMultiplicator();speedMult++){
-		timeElapsed += secondsElapsed;
+			timeElapsed += secondsElapsed;
 
-		if(timeElapsed >= timeShoot){
-			this.ogWork.removeObject(this);
-			timeElapsed=0;
-		}}
+			if(timeElapsed >= timeShoot){
+				this.ogWork.removeObject(this);
+				timeElapsed=0;
+			}}
 		super.step(secondsElapsed);
 	}
-	
+
 }

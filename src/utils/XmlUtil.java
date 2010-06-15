@@ -60,7 +60,7 @@ public class XmlUtil {
 			throw e;
 		}
 	}
-	
+
 	public static float getAttributeFloatFromNode(Node currentNode, String attributeName) {
 		return Float.parseFloat(getAttributeFromNode(currentNode, attributeName));
 	}
