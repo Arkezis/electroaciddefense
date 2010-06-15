@@ -23,6 +23,7 @@ public class GenericGame implements ObservableGame{
 	private int lives;
 	private int timeBetweenEachWave;
 	private float timeBetweenEachTowerTurn;
+	private int levelTowerMax;
 	
 	private boolean gameStarted;
 	private int actualWave = 0;
@@ -55,6 +56,7 @@ public class GenericGame implements ObservableGame{
 		this.lives=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("lives").item(0),"value");
 		this.timeBetweenEachWave=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("timeBetweenEachWave").item(0),"value");
 		this.timeBetweenEachTowerTurn=XmlUtil.getAttributeFloatFromNode(gameXml.getElementsByTagName("timeBetweenEachTowerTurn").item(0),"value");
+		this.levelTowerMax=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("levelTowerMax").item(0),"value");
 	}
 	
 	public static GenericGame getInstance(){
@@ -309,6 +311,27 @@ public class GenericGame implements ObservableGame{
 	 */
 	public void changePause() {
 		this.pause = !this.pause;
+	}
+
+	/**
+	 * @return the levelTowerMax
+	 */
+	public int getLevelTowerMax() {
+		return levelTowerMax;
+	}
+
+	/**
+	 * @param levelTowerMax the levelTowerMax to set
+	 */
+	public void setLevelTowerMax(int levelTowerMax) {
+		this.levelTowerMax = levelTowerMax;
+	}
+
+	/**
+	 * @param score the score to set
+	 */
+	public void setScore(int score) {
+		this.score = score;
 	}
 	
 }
