@@ -6,4 +6,5 @@
 	<lives value="20" />
 	<timeBetweenEachWave value="35" />
 	<timeBetweenEachTowerTurn value="0.5" />
+	<levelTowerMax value="7" />
 </game>
