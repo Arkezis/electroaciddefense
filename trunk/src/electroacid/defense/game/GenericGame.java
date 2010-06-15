@@ -24,7 +24,7 @@ public class GenericGame implements ObservableGame{
 	private int timeBetweenEachWave;
 	private float timeBetweenEachTowerTurn;
 	private int levelTowerMax;
-	
+
 	private boolean gameStarted;
 	private int actualWave = 0;
 	private int nbCreatureInGame=0;
@@ -33,11 +33,11 @@ public class GenericGame implements ObservableGame{
 	private float menuRefreshTime=(float) 1;
 	private boolean pause=false;
 	private int score=0;
-	
+
 	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
-	
+
 	static GenericGame instance = null;
-	
+
 	/**
 	 * Constructor of genericWave
 	 * init all layout
@@ -46,10 +46,10 @@ public class GenericGame implements ObservableGame{
 	 */
 	private GenericGame() {
 	}
-	
+
 	public void build(final Context context, final int xmlResourceId) throws Exception {
 		Document gameXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
-	
+
 		this.speedMultiplicator=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("speedMultiplicator").item(0),"value");
 		this.difficulty=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("difficulty").item(0),"value");
 		this.money=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("money").item(0),"value");
@@ -58,10 +58,14 @@ public class GenericGame implements ObservableGame{
 		this.timeBetweenEachTowerTurn=XmlUtil.getAttributeFloatFromNode(gameXml.getElementsByTagName("timeBetweenEachTowerTurn").item(0),"value");
 		this.levelTowerMax=XmlUtil.getAttributeIntFromNode(gameXml.getElementsByTagName("levelTowerMax").item(0),"value");
 	}
-	
+
 	public static GenericGame getInstance(){
 		if (GenericGame.instance!=null) return GenericGame.instance;
 		return (GenericGame.instance=new GenericGame());
+	}
+
+	public static void destroyInstance(){
+		GenericGame.instance=null;
 	}
 	
 	/**
@@ -78,8 +82,8 @@ public class GenericGame implements ObservableGame{
 		this.actualWave = actualWave;
 		this.updateObservateurWave();
 	}
-	
-	
+
+
 	/**
 	 * @return the menuRefreshTime
 	 */
@@ -107,7 +111,7 @@ public class GenericGame implements ObservableGame{
 	public void setTimeBetweenEachWave(int timeBetweenEachWave) {
 		this.timeBetweenEachWave = timeBetweenEachWave;
 	}
-	
+
 	/**
 	 * @return the speedMultiplicator
 	 */
@@ -127,7 +131,7 @@ public class GenericGame implements ObservableGame{
 	public int getMoney() {
 		return money;
 	}
-	
+
 	public void addMoney(int _money){
 		this.money+=_money;
 		this.updateObservateurMoney();
@@ -139,19 +143,19 @@ public class GenericGame implements ObservableGame{
 	public int getScore() {
 		return score;
 	}
-	
+
 	public void addScore(int _score){
 		this.score+=_score;
 		this.updateObservateurScore();
 	}
-	
+
 	/**
 	 * @return the lives
 	 */
 	public int getLives() {
 		return lives;
 	}
-	
+
 	public void removeLives(int nbLive){
 		this.lives-=nbLive;
 		this.updateObservateurLive();
@@ -228,7 +232,7 @@ public class GenericGame implements ObservableGame{
 	public void setNbCreatureInGame(int nbCreatureInGame) {
 		this.nbCreatureInGame = nbCreatureInGame;
 	}
-	
+
 	/** add one creature at the nbCreatureInGame parameter */
 	public void addOneCreatureInGame(){
 		this.nbCreatureInGame++;
@@ -237,9 +241,9 @@ public class GenericGame implements ObservableGame{
 	public void removeOneCreatureInGame(){
 		this.nbCreatureInGame--;
 		this.gameEnd = !this.gameStarted || (this.nbCreatureInGame==0 && this.actualWave==this.getNbMaxWave());
-		
+
 	}
-	
+
 	public boolean isGameEnd(){
 		return this.gameEnd;
 	}
@@ -293,14 +297,14 @@ public class GenericGame implements ObservableGame{
 			obs.refreshWaves();
 		}
 	}
-	
+
 	@Override
 	public void updateObservateurScore() {
 		for (ObservateurMenu obs: this.listObservateur){
 			obs.refreshScore();
 		}		
 	}
-	
+
 	/**
 	 * @return the pause
 	 */
@@ -335,5 +339,5 @@ public class GenericGame implements ObservableGame{
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
+
 }

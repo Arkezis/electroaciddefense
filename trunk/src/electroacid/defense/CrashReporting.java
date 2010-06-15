@@ -14,9 +14,9 @@ public class CrashReporting extends CrashReportingApplication {
 
 	@Override
 	public Bundle getCrashResources() {
-	    Bundle result = new Bundle();
-	    result.putInt(RES_TOAST_TEXT, R.string.crash_toast_text);
-	    return result;
+		Bundle result = new Bundle();
+		result.putInt(RES_TOAST_TEXT, R.string.crash_toast_text);
+		return result;
 	}
-	
+
 }

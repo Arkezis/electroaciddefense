@@ -7,16 +7,16 @@ package electroacid.defense.box;
  */
 public abstract class Box {
 
-	
+
 	/** The x coordinate on the map */
 	protected int x;
-	
+
 	/** The y coordinate on the map */
 	protected int y;
 
 	/** Width of the box */
 	protected int width;
-	
+
 	/** Height of the box */
 	protected int height;
 

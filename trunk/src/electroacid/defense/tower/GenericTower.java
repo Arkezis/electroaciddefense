@@ -51,9 +51,9 @@ public class GenericTower {
 			int idTexture = XmlUtil.getAttributeIntFromNode(tower, "idTexture");
 			int shootArea = XmlUtil.getAttributeIntFromNode(tower, "shootArea");
 
-			
 
-			
+
+
 			Tower tow = new Tower(element,
 					fireRate,
 					cost,

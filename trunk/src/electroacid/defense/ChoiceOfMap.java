@@ -11,39 +11,39 @@ import android.widget.ImageButton;
 
 
 public class ChoiceOfMap extends Activity implements OnClickListener {
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.choicemap);
-        ((ImageButton)this.findViewById(R.id.ImgButton1)).setOnClickListener(this);
-        ((ImageButton)this.findViewById(R.id.ImgButton2)).setOnClickListener(this);
-        ((ImageButton)this.findViewById(R.id.ImgButton3)).setOnClickListener(this);
-        ((Button)this.findViewById(R.id.Button1)).setOnClickListener(this);    
-    }
-    
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.choicemap);
+		((ImageButton)this.findViewById(R.id.ImgButton1)).setOnClickListener(this);
+		((ImageButton)this.findViewById(R.id.ImgButton2)).setOnClickListener(this);
+		((ImageButton)this.findViewById(R.id.ImgButton3)).setOnClickListener(this);
+		((Button)this.findViewById(R.id.Button1)).setOnClickListener(this);    
+	}
+
 	@Override
 	public void onClick(View arg0) {
 		Intent i = null;
 		switch(arg0.getId()){
-			case R.id.ImgButton1 :
-				i = new Intent(this,Play.class);
-	    		i.putExtra("map", "tutomap");
-	    		this.startActivity(i);
-				break;
-			case R.id.ImgButton2 :
-	    		i = new Intent(this,Play.class);
-	    		i.putExtra("map", "map1");
-	    		this.startActivity(i);
-				break;
-			case R.id.ImgButton3 :
-	    		i = new Intent(this,Play.class);
-	    		i.putExtra("map", "map2");
-	    		this.startActivity(i);
-				break;
-			case R.id.Button1 :
-	    		finish();
-				break;
+		case R.id.ImgButton1 :
+			i = new Intent(this,Play.class);
+			i.putExtra("map", "tutomap");
+			this.startActivity(i);
+			break;
+		case R.id.ImgButton2 :
+			i = new Intent(this,Play.class);
+			i.putExtra("map", "map1");
+			this.startActivity(i);
+			break;
+		case R.id.ImgButton3 :
+			i = new Intent(this,Play.class);
+			i.putExtra("map", "map2");
+			this.startActivity(i);
+			break;
+		case R.id.Button1 :
+			finish();
+			break;
 		}
 	}
 
@@ -59,7 +59,7 @@ public class ChoiceOfMap extends Activity implements OnClickListener {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Managing the end of the activity.
 	 */

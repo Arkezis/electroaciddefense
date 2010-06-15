@@ -15,69 +15,69 @@ import electroacid.defense.game.GenericGame;
 public class MenuTop implements ObservateurMenu{
 
 	private AngleString t_infosPlayerLevel,
-		t_infosPlayerMoney,
-		t_infosPlayerLives,
-		t_infosPlayerNext;
-	
+	t_infosPlayerMoney,
+	t_infosPlayerLives,
+	t_infosPlayerNext;
+
 	private AngleSprite t_infosPlayerNextSpr,
-		t_infosPlayerLivesSpr,
-		t_infosPlayerMoneySpr,
-		t_infosPlayerLevelSpr,
-		t_infosPlayerSpeedSpr;
-	
+	t_infosPlayerLivesSpr,
+	t_infosPlayerMoneySpr,
+	t_infosPlayerLevelSpr,
+	t_infosPlayerSpeedSpr;
+
 	private AngleSpriteLayout speed1,speed2,speed3;
-	
+
 	public MenuTop(AngleFont font, AngleSurfaceView mGLSurfaceView,AngleObject og){
-		
+
 		AngleSpriteLayout a = new AngleSpriteLayout(mGLSurfaceView,320,32,R.drawable.tilemap,32,0,32,32);
 		AngleSprite b = new AngleSprite(160, 16,(float)0.85, a);
 		og.addObject(b);
-		
+
 		GenericGame game = GenericGame.getInstance();
-		
+
 		this.t_infosPlayerLivesSpr = new AngleSprite(16, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,192,32,32));
-		
+
 		this.t_infosPlayerLives = new AngleString(font,""+game.getLives(),48,22,AngleString.aCenter);
-		
+
 
 		this.t_infosPlayerMoneySpr = new AngleSprite(82, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,192,32,32));	
-		
+
 		this.t_infosPlayerMoney = new AngleString(font,""+game.getMoney(),114,22,AngleString.aCenter);
-		
-		
+
+
 		this.t_infosPlayerLevelSpr = new AngleSprite(176, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,192,32,32));	
-		
+
 		this.t_infosPlayerLevel = new AngleString(font,"",208,22,AngleString.aCenter);
-		
-		
+
+
 		this.speed1 = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,130,192,32,32);
 		this.speed2 = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,192,192,32,32);
 		this.speed3 = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,224,192,32,32);
-		
-		
+
+
 		this.t_infosPlayerSpeedSpr = new AngleSprite(240, 16,this.speed1);
-		
-		
+
+
 		this.t_infosPlayerNextSpr = new AngleSprite(274, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,192,32,32));
 
 		this.t_infosPlayerNext = new AngleString(font,"",306,22,AngleString.aCenter);
-		
+
 
 		og.addObject(this.t_infosPlayerNext);og.addObject(this.t_infosPlayerNextSpr);
 		og.addObject(this.t_infosPlayerLevel);og.addObject(this.t_infosPlayerLevelSpr);
 		og.addObject(this.t_infosPlayerMoney);og.addObject(this.t_infosPlayerMoneySpr);
 		og.addObject(this.t_infosPlayerLives);og.addObject(this.t_infosPlayerLivesSpr);
 		og.addObject(this.t_infosPlayerSpeedSpr);
-		
+
 		game.addObservateur(this);
-		
+
 	}
 
-	
+
 	/**
 	 * The method to refresh the menu
 	 * @param game The informations about the game
@@ -143,5 +143,5 @@ public class MenuTop implements ObservateurMenu{
 
 	@Override
 	public void refreshCreature() {return;}
-	
+
 }

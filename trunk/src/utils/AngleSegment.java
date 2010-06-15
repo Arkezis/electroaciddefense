@@ -38,16 +38,16 @@ public class AngleSegment extends AngleObject
 		mGreen = mGreen2;
 		mBlue =mBlue2;
 	}
-	
+
 	public void setWidth(int mWidth2){
 		mWidth = mWidth2;
 	}
-	
+
 	public void draw(GL10 gl)
 	{
 		gl.glDisable(GL11.GL_TEXTURE_2D);
 		gl.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-		
+
 		gl.glLineWidth(mWidth);
 		gl.glPushMatrix();
 		gl.glLoadIdentity();
@@ -56,7 +56,7 @@ public class AngleSegment extends AngleObject
 		gl.glVertexPointer(2, GL11.GL_FLOAT, 0, mVertices);
 		gl.glDrawArrays(GL11.GL_LINES, 0, 2);
 		gl.glPopMatrix();
-		
+
 		gl.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 		gl.glEnable(GL11.GL_TEXTURE_2D);
 		super.draw(gl);  //No childs

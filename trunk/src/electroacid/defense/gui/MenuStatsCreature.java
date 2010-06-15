@@ -9,27 +9,27 @@ import com.android.angle.AngleSurfaceView;
 import electroacid.defense.Creature;
 
 public class MenuStatsCreature implements ObservateurMenu{
-	
+
 
 	private AngleString t_infosCreaText, t_infosCreaValue;
-	
+
 	Creature actualCrea;
 	/**
 	 * Constructor 
 	 * @param font The font for the classic text 
 	 * @param fontTitle The font for the title text
- 	 * @param mGLSurfaceView The view
+	 * @param mGLSurfaceView The view
 	 */
 	public MenuStatsCreature(AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
 		this.t_infosCreaText = new AngleString(font,"Element : \n Speed : \n Reward : \n Life : ",16, 427,AngleString.aLeft);	
 		this.t_infosCreaValue = new AngleString(font,"",100,427,AngleString.aLeft);
-		
+
 		mGLSurfaceView.addObject(t_infosCreaText);
 		mGLSurfaceView.addObject(t_infosCreaValue);
 		this.t_infosCreaText.mAlpha = 0;
 		this.t_infosCreaValue.mAlpha = 0;
 	}
-	
+
 	/**
 	 * Hide the general menu
 	 */
@@ -66,7 +66,7 @@ public class MenuStatsCreature implements ObservateurMenu{
 					+this.actualCrea.getRewardValue()+"\n"
 					+this.actualCrea.getLife());
 		}
-		
+
 	}
 	@Override
 	public void refreshLives() {}
@@ -77,5 +77,5 @@ public class MenuStatsCreature implements ObservateurMenu{
 	@Override
 	public void refreshWaves() {}
 
-	
+
 }
