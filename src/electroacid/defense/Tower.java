@@ -4,11 +4,9 @@ import java.util.LinkedList;
 
 import observ.ObservateurTower;
 
-import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
-import com.android.angle.AngleString;
 
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
@@ -164,12 +162,6 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param ogField The AngleObject where the shoot should be add
 	 */
 	public void detection(AngleObject ogField){
-/*		this.listTarget = new LinkedList<Creature>();
-		for(int i=0;i<this.boxDetectionList.size();i++){
-			if(!this.boxDetectionList.get(i).getListCreature().isEmpty()){
-				listTarget.addAll(boxDetectionList.get(i).getListCreature());
-			}
-		}*/
 		if(!listTarget.isEmpty()) this.attack(listTarget,ogField); 
 	}
 	/**

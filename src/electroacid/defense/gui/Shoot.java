@@ -17,6 +17,7 @@ public class Shoot extends AngleSegment {
 	AngleObject ogWork;
 	float timeShoot=(float)0.3;
 	float timeElapsed ;
+	
 	/**
 	 * The constructor
 	 * @param x1 The x of the tower
@@ -32,6 +33,7 @@ public class Shoot extends AngleSegment {
 		this.setWidth(width);
 		og.addObject(this);
 		this.ogWork = og;
+		
 	}
 	/**
 	 * At each step, the shoot is removed

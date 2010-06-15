@@ -17,7 +17,7 @@ import android.content.Context;
  */
 public class GenericGame implements ObservableGame{
 
-	private int speedMultiplicator =1;
+	private int speedMultiplicator =10;
 	private int difficulty=0;
 	@Deprecated private int level; 
 	private int money=275;
