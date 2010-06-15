@@ -33,7 +33,9 @@ public class GenericGame implements ObservableGame{
 	private float menuRefreshTime=(float) 1;
 	private boolean pause=false;
 	private int score=0;
-
+	private int maxNbTower=25;
+	
+	
 	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
 
 	static GenericGame instance = null;
@@ -338,6 +340,20 @@ public class GenericGame implements ObservableGame{
 	 */
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	/**
+	 * @return the maxNbTower
+	 */
+	public int getMaxNbTower() {
+		return maxNbTower;
+	}
+
+	/**
+	 * @param maxNbTower the maxNbTower to set
+	 */
+	public void setMaxNbTower(int maxNbTower) {
+		this.maxNbTower = maxNbTower;
 	}
 
 }

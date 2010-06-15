@@ -244,7 +244,9 @@ public class Play extends AngleActivity {
 							choiceMenu = menuNewTower.getNewTowerFromMenuNewTower(x,y);
 							/* Did the user confirm a new tower ? */
 							if (menuNewTower.isValidationTower(x,y)){
-								if(boxBuildableSelected.changeTower(towerChoice,boxBuildableSelected.getX(),boxBuildableSelected.getY(),matrice)){
+								if (towerList.size()==game.getMaxNbTower()){
+									Toast.makeText(getWindow().getContext(), "Too many towers ! Update them ... ", 2000).show();
+								}else if(boxBuildableSelected.changeTower(towerChoice,boxBuildableSelected.getX(),boxBuildableSelected.getY(),matrice)){
 									ogField.addObject(boxBuildableSelected.getTower().getSprite());
 									towerList.add(boxBuildableSelected);
 									/* Hide unused stuff */
