@@ -237,6 +237,8 @@ public class Play extends AngleActivity {
 							game.addScore((int) (game.getTimeBetweenEachWave()-lastWave));
 							lastWave = game.getTimeBetweenEachWave();
 						}
+					}else if (menu.accelerateButtonIsTouched(x, y)){
+						;//all is do in menu
 					}else if(boxBuildableSelected != null){
 						if(boxBuildableSelected.getTower() == null){ 
 							choiceMenu = menuNewTower.getNewTowerFromMenuNewTower(x,y);
@@ -313,7 +315,7 @@ public class Play extends AngleActivity {
 			
 			if (!game.isPause()){
 				
-			for (int timeMult=1;timeMult<game.getSpeedMultiplicator();timeMult++){
+			for (int timeMult=0;timeMult<game.getSpeedMultiplicator();timeMult++){
 				
 			if(!game.isGameEnd() ){
 				/* WAVES */

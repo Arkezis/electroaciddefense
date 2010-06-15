@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game name="game">
-	<speedMultiplicator value="3" />	
+	<speedMultiplicator value="1" />	
 	<difficulty value="0" />
 	<money value="275" />
 	<lives value="20" />
