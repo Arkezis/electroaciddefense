@@ -238,11 +238,12 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * Upgrading a tower (thanks to upgrade coefficient)
 	 * @param g Game's information
 	 */
-	public void upgrade(GenericGame g){
+	public void upgrade(){
+		GenericGame game = GenericGame.getInstance();
 		this.cost =  (int)Math.ceil((this.cost*upgrade));
 		this.damage = (int)Math.ceil((this.damage*upgrade));
 		this.level++;
-		g.setMoney(g.getMoney()-this.cost);
+		game.setMoney(game.getMoney()-this.cost);
 	}
 	
 	/**
@@ -250,10 +251,11 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param g
 	 * @param og
 	 */
-	public void destroy(GenericGame g,AngleObject og){
+	public void destroy(AngleObject og){
+		GenericGame game = GenericGame.getInstance();
 		for (BoxPath box:this.boxDetectionList) box.delObservateur(this);
 		og.removeObject(this.sprite);
-		g.setMoney((int)(g.getMoney()+this.cost*this.destroy));
+		game.setMoney((int)(game.getMoney()+this.cost*this.destroy));
 	}
 	
 	/**

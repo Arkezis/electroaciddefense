@@ -125,12 +125,13 @@ public class Play extends AngleActivity {
 			
 			
 			ogField.addObject(tmGround);
+			game = GenericGame.getInstance();
 			if(mapChoosen.equals("tutomap")){
 				try {
-					game = new GenericGame(getWindow().getContext(), R.raw.tutogame);
+					game.build(getWindow().getContext(),  R.raw.tutogame);
 					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.tutomap);
 					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.tutowave,game);
+					genericWave.build(getWindow().getContext(), R.raw.tutowave);
 					genericTower = new GenericTower();
 					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
 				} catch (Exception e) {
@@ -138,10 +139,10 @@ public class Play extends AngleActivity {
 				}
 			}else if(mapChoosen.equals("map1")){
 				try {
-					game = new GenericGame(getWindow().getContext(), R.raw.game1game);
+					game.build(getWindow().getContext(),  R.raw.game1game);
 					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map1map);
 					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.map1wave,game);
+					genericWave.build(getWindow().getContext(), R.raw.map1wave);
 					genericTower = new GenericTower();
 					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
 				} catch (Exception e) {
@@ -149,10 +150,10 @@ public class Play extends AngleActivity {
 				}
 			}else if(mapChoosen.equals("map2")){
 				try {
-					game=new GenericGame(getWindow().getContext(),R.raw.game2game);
+					game.build(getWindow().getContext(),  R.raw.game2game);
 					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map2map);
 					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.map2wave,game);
+					genericWave.build(getWindow().getContext(), R.raw.map2wave);
 					genericTower = new GenericTower();
 					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
 				} catch (Exception e) {
@@ -169,7 +170,7 @@ public class Play extends AngleActivity {
 			menuSelectedTower = new MenuSelectedTower(fontMenu,fontTitle,mGLSurfaceView);
 			menuStatsCreature = new MenuStatsCreature(fontMenu,fontTitle,mGLSurfaceView);
 	
-			menu = new MenuTop(game,fontTitle,mGLSurfaceView,ogTest);
+			menu = new MenuTop(fontTitle,mGLSurfaceView,ogTest);
 		}
 		
 		
@@ -191,8 +192,8 @@ public class Play extends AngleActivity {
 					if(box instanceof BoxBuildable){
 						boxBuildableSelected = (BoxBuildable) box; 
 						if(boxBuildableSelected.getTower() == null){
-							menuNewTower.show(game,genericTower.getListTower());
-							menuSelectedTower.hide(game);
+							menuNewTower.show(genericTower.getListTower());
+							menuSelectedTower.hide();
 							menuStatsCreature.hide();
 							shootArea.mAlpha=0;
 							previewBuyMap.mAlpha = 0;
@@ -202,8 +203,8 @@ public class Play extends AngleActivity {
 						}else{
 							menuStatsCreature.hide();
 							menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
-							menuNewTower.hideValidateTower(game);
-							menuSelectedTower.show(boxBuildableSelected.getTower(),game);
+							menuNewTower.hideValidateTower();
+							menuSelectedTower.show(boxBuildableSelected.getTower());
 							/* Show the shootArea of the tower */
 							if(boxBuildableSelected.getTower().getshootArea() == 2) shootArea.setLayout(fireAreaLayout2);
 							else if(boxBuildableSelected.getTower().getshootArea() == 1) shootArea.setLayout(fireAreaLayout);
@@ -215,9 +216,9 @@ public class Play extends AngleActivity {
 							previewBuyMap.mAlpha = 0;
 						}
 					}else{ // BoxPath
-						menuSelectedTower.hide(game);
+						menuSelectedTower.hide();
 						menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
-						menuNewTower.hideValidateTower(game);
+						menuNewTower.hideValidateTower();
 						shootArea.mAlpha=0;
 						pointerNewTower.mAlpha=0;
 						previewBuyMap.mAlpha = 0;
@@ -241,11 +242,11 @@ public class Play extends AngleActivity {
 							choiceMenu = menuNewTower.getNewTowerFromMenuNewTower(x,y);
 							/* Did the user confirm a new tower ? */
 							if (menuNewTower.isValidationTower(x,y)){
-								if(boxBuildableSelected.changeTower(towerChoice,game,boxBuildableSelected.getX(),boxBuildableSelected.getY(),matrice)){
+								if(boxBuildableSelected.changeTower(towerChoice,boxBuildableSelected.getX(),boxBuildableSelected.getY(),matrice)){
 									ogField.addObject(boxBuildableSelected.getTower().getSprite());
 									towerList.add(boxBuildableSelected);
 									/* Hide unused stuff */
-									menuNewTower.hideValidateTower(game);
+									menuNewTower.hideValidateTower();
 									menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
 									menuStatsCreature.hide();
 									towerChoice = null;
@@ -254,7 +255,7 @@ public class Play extends AngleActivity {
 									previewBuyMap.mAlpha = 0;
 								}else{
 									/* Hide unused stuff */
-									menuNewTower.hideValidateTower(game);
+									menuNewTower.hideValidateTower();
 									menuNewTower.hide(mGLSurfaceView,genericTower.getListTower());
 									menuStatsCreature.hide();
 									towerChoice = null;
@@ -264,7 +265,7 @@ public class Play extends AngleActivity {
 								}
 							}else if(choiceMenu > 0 && choiceMenu<genericTower.getListTower().size()+1){	
 								Tower tower= genericTower.getListTower().get(choiceMenu-1);
-								menuNewTower.showValidateTower(game, tower);
+								menuNewTower.showValidateTower(tower);
 								towerChoice = (Tower)tower.clone();
 								menuStatsCreature.hide();
 								/* Previews */
@@ -283,8 +284,8 @@ public class Play extends AngleActivity {
 							}
 						}else{
 							/* A tower is already on this box ! */
-							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,game,ogField,towerList)){
-								menuSelectedTower.hide(game);
+							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,ogField,towerList)){
+								menuSelectedTower.hide();
 								menuStatsCreature.hide();
 								shootArea.mAlpha=0;
 								pointerNewTower.mAlpha=0;
@@ -334,7 +335,7 @@ public class Play extends AngleActivity {
 				
 				
 				for (BoxPath first : matrice.firstBoxPath){
-					first.nextStep(game, ogCreature);
+					first.nextStep(ogCreature);
 				}
 				/* SHOOTS */
 				/* To manage tower shooting faster than other towers, we are using a counter incremented at each step.
@@ -357,7 +358,7 @@ public class Play extends AngleActivity {
 				lastRefreshMenu += secondsElapsed;
 				if(lastRefreshMenu > game.getMenuRefreshTime()) {
 					lastRefreshMenu = 0;
-					menu.refresh(game,(int)lastWave);
+					menu.refresh((int)lastWave);
 				}
 			}else{
 				// Game finished

@@ -7,7 +7,6 @@ import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
 
 import electroacid.defense.Creature;
-import electroacid.defense.game.GenericGame;
 
 public class MenuStatsCreature implements ObservateurMenu{
 	
@@ -70,13 +69,13 @@ public class MenuStatsCreature implements ObservateurMenu{
 		
 	}
 	@Override
-	public void refreshLives(GenericGame g) {}
+	public void refreshLives() {}
 	@Override
-	public void refreshMoney(GenericGame g) {}
+	public void refreshMoney() {}
 	@Override
-	public void refreshScore(GenericGame g) {}
+	public void refreshScore() {}
 	@Override
-	public void refreshWaves(GenericGame g) {}
+	public void refreshWaves() {}
 
 	
 }

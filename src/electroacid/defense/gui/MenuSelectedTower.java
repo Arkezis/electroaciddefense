@@ -57,21 +57,21 @@ public class MenuSelectedTower implements ObservateurMenu{
 	/**
 	 * Hide the general menu
 	 */
-	public void hide(GenericGame g){
+	public void hide(){
 		this.t_infosTowerText.mAlpha = 0;
 		this.t_infosTowerValue.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
 		this.bUpgradeTower.mAlpha = 0;
 		this.t_infosTowerDestroy.mAlpha=0;
 		this.t_infosTowerUpgrade.mAlpha=0;
-		g.delObservateur(this);
+		GenericGame.getInstance().delObservateur(this);
 	}
 	/**
 	 * Show the general menu
 	 * @param tower The tower to upgrade
 	 * @param g The game informations
 	 */
-	public void show(Tower tower,GenericGame g){
+	public void show(Tower tower){
 		this.t_infosTowerValue.set(tower.getElement().toString()+"\n"+tower.getLevel()+"=>"+(tower.getLevel()+1)+"\n"+tower.getDamage()+"=>"+(int)(tower.getDamage()*tower.getUpgrade())+"\n"+tower.getFireRate());
 		this.t_infosTowerValue.mAlpha = 1;
 		this.t_infosTowerDestroy.set((int)(tower.getCost()*tower.getDestroy())+"$");
@@ -81,11 +81,12 @@ public class MenuSelectedTower implements ObservateurMenu{
 		this.t_infosTowerDestroy.mAlpha=1;
 		this.t_infosTowerUpgrade.mAlpha=1;
 		this.cashNeedForUpgradeTower=(int)Math.ceil((tower.getCost()*tower.getUpgrade()));
-		if (g.getMoney() >= this.cashNeedForUpgradeTower){
+		GenericGame game = GenericGame.getInstance();
+		if (game.getMoney() >= this.cashNeedForUpgradeTower){
 			this.bUpgradeTower.mAlpha = 1;
 		}else {
 			this.bUpgradeTower.mAlpha = (float)0.4;
-			g.addObservateur(this);
+			game.addObservateur(this);
 		}
 	}
 
@@ -99,16 +100,17 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 * @param towerList The list of tower in the game
 	 * @return True if the tower is upgraded or deleted
 	 */
-	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,GenericGame g,AngleObject ogField,LinkedList<BoxBuildable> towerList){
+	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,AngleObject ogField,LinkedList<BoxBuildable> towerList){
 		if (x > 184 && x < 216 ){
+			GenericGame game = GenericGame.getInstance();
 			if (y > 416 && y < 448){
-				if (g.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){
-					box.getTower().upgrade(g);
+				if (game.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){
+					box.getTower().upgrade();
 					return true;
 				}
 			}else if(y > 448 & y < 480 ){
 				towerList.remove(box.getTower());
-				box.getTower().destroy(g,ogField);
+				box.getTower().destroy(ogField);
 				box.removeTower();
 				return true;
 			}
@@ -119,15 +121,15 @@ public class MenuSelectedTower implements ObservateurMenu{
 	@Override
 	public void refreshCreature() {}
 	@Override
-	public void refreshLives(GenericGame g) {}
+	public void refreshLives() {}
 	@Override
-	public void refreshMoney(GenericGame g) {
-		if (g.getMoney() >= this.cashNeedForUpgradeTower){
+	public void refreshMoney() {
+		if (GenericGame.getInstance().getMoney() >= this.cashNeedForUpgradeTower){
 			this.bUpgradeTower.mAlpha = 1;
 		}
 	}
 	@Override
-	public void refreshScore(GenericGame g) {}
+	public void refreshScore() {}
 	@Override
-	public void refreshWaves(GenericGame g) {}
+	public void refreshWaves() {}
 }

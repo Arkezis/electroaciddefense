@@ -24,13 +24,13 @@ public class MenuTop implements ObservateurMenu{
 		t_infosPlayerMoneySpr,
 		t_infosPlayerLevelSpr;
 	
-	public MenuTop(GenericGame game,AngleFont font, AngleSurfaceView mGLSurfaceView,AngleObject og){
+	public MenuTop(AngleFont font, AngleSurfaceView mGLSurfaceView,AngleObject og){
 		
 		AngleSpriteLayout a = new AngleSpriteLayout(mGLSurfaceView,320,32,R.drawable.tilemap,32,0,32,32);
 		AngleSprite b = new AngleSprite(160, 16,(float)0.85, a);
 		og.addObject(b);
 		
-		
+		GenericGame game = GenericGame.getInstance();
 		
 		this.t_infosPlayerLivesSpr = new AngleSprite(16, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,192,32,32));
@@ -69,32 +69,32 @@ public class MenuTop implements ObservateurMenu{
 	 * The method to refresh the menu
 	 * @param game The informations about the game
 	 */
-	public void refresh(GenericGame game,int lastWave){
-		this.t_infosPlayerNext.set(""+ (game.getTimeBetweenEachWave()-lastWave));
+	public void refresh(int lastWave){
+		this.t_infosPlayerNext.set(""+ (GenericGame.getInstance().getTimeBetweenEachWave()-lastWave));
 	}
 	/**
 	 * The method to refresh the menu of money
 	 * @param game The informationsa about the game
 	 */
 	@Override
-	public void refreshMoney(GenericGame g){
-		this.t_infosPlayerMoney.set(""+g.getMoney());
+	public void refreshMoney(){
+		this.t_infosPlayerMoney.set(""+GenericGame.getInstance().getMoney());
 	}
 	/**
 	 * The method to refresh the number of waves
 	 * @param game The informations about the game
 	 */
 	@Override
-	public void refreshWaves(GenericGame g){
-		this.t_infosPlayerLevel.set(""+g.getActualWave());
+	public void refreshWaves(){
+		this.t_infosPlayerLevel.set(""+GenericGame.getInstance().getActualWave());
 	}
 	/**
 	 * The method to refresh the menu of lives
 	 * @param game The informationsa about the game
 	 */
 	@Override
-	public void refreshLives(GenericGame g){
-		this.t_infosPlayerLives.set(""+g.getLives());
+	public void refreshLives(){
+		this.t_infosPlayerLives.set(""+GenericGame.getInstance().getLives());
 	}
 	/**
 	 * The method to test if the user has touched the button to launch next wave
@@ -105,7 +105,7 @@ public class MenuTop implements ObservateurMenu{
 	}
 
 	@Override
-	public void refreshScore(GenericGame g) {
+	public void refreshScore() {
 		// TODO Auto-generated method stub
 	}
 
