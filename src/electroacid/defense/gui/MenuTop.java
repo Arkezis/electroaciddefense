@@ -22,7 +22,10 @@ public class MenuTop implements ObservateurMenu{
 	private AngleSprite t_infosPlayerNextSpr,
 		t_infosPlayerLivesSpr,
 		t_infosPlayerMoneySpr,
-		t_infosPlayerLevelSpr;
+		t_infosPlayerLevelSpr,
+		t_infosPlayerSpeedSpr;
+	
+	private AngleSpriteLayout speed1,speed2,speed3;
 	
 	public MenuTop(AngleFont font, AngleSurfaceView mGLSurfaceView,AngleObject og){
 		
@@ -44,10 +47,19 @@ public class MenuTop implements ObservateurMenu{
 		this.t_infosPlayerMoney = new AngleString(font,""+game.getMoney(),114,22,AngleString.aCenter);
 		
 		
-		this.t_infosPlayerLevelSpr = new AngleSprite(208, 16,
+		this.t_infosPlayerLevelSpr = new AngleSprite(176, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,192,32,32));	
 		
-		this.t_infosPlayerLevel = new AngleString(font,"",240,22,AngleString.aCenter);
+		this.t_infosPlayerLevel = new AngleString(font,"",208,22,AngleString.aCenter);
+		
+		
+		this.speed1 = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,130,192,32,32);
+		this.speed2 = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,192,192,32,32);
+		this.speed3 = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,224,192,32,32);
+		
+		
+		this.t_infosPlayerSpeedSpr = new AngleSprite(240, 16,this.speed1);
+		
 		
 		this.t_infosPlayerNextSpr = new AngleSprite(274, 16,
 				new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,64,192,32,32));
@@ -59,6 +71,7 @@ public class MenuTop implements ObservateurMenu{
 		og.addObject(this.t_infosPlayerLevel);og.addObject(this.t_infosPlayerLevelSpr);
 		og.addObject(this.t_infosPlayerMoney);og.addObject(this.t_infosPlayerMoneySpr);
 		og.addObject(this.t_infosPlayerLives);og.addObject(this.t_infosPlayerLivesSpr);
+		og.addObject(this.t_infosPlayerSpeedSpr);
 		
 		game.addObservateur(this);
 		
@@ -98,12 +111,31 @@ public class MenuTop implements ObservateurMenu{
 	}
 	/**
 	 * The method to test if the user has touched the button to launch next wave
-	 * 
 	 */
 	public boolean nextWaveButtonIsTouched(int x, int y){
 		return ( (x>=274 && x<=306) && (y>=0 && y<=32) );
 	}
-
+	/**
+	 * The method to test if the user has touched the button to accelerate
+	 */
+	public boolean accelerateButtonIsTouched(int x, int y){
+		if ( (x>=224 && x<=256) && (y>=0 && y<=32) ){
+			int speed = GenericGame.getInstance().nextSpeedMultiplicator();
+			switch (speed){
+			case 1:
+				this.t_infosPlayerSpeedSpr.setLayout(this.speed1);
+				break;
+			case 2:
+				this.t_infosPlayerSpeedSpr.setLayout(this.speed2);
+				break;
+			case 3:
+				this.t_infosPlayerSpeedSpr.setLayout(this.speed3);
+				break;
+			}
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public void refreshScore() {
 		// TODO Auto-generated method stub

@@ -160,8 +160,10 @@ public class GenericGame implements ObservableGame{
 	/**
 	 * @param speedMultiplicator the speedMultiplicator to set
 	 */
-	public void setSpeedMultiplicator(int speedMultiplicator) {
-		this.speedMultiplicator = speedMultiplicator;
+	public int nextSpeedMultiplicator() {
+		int speed =(this.speedMultiplicator+1)%4;
+		this.speedMultiplicator=speed!=0?speed:1;
+		return this.speedMultiplicator;
 	}
 	/**
 	 * @param difficulty the difficulty to set
