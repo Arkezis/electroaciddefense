@@ -114,13 +114,11 @@ public class MenuNewTower implements ObservateurMenu{
 		this.cashNeedForAddTower=tower.getCost();
 		this.isPossible=tower.getCost() <= game.getMoney();
 
-
 		if (this.isPossible) 	{this.bGo.mAlpha=1;}
-		else 	{
+		else {
 			this.bGo.mAlpha = (float)0.5;
 			game.addObservateur(this);
 		}
-		this.bGo.mAlpha=1;
 
 		this.t_infosTowerElement.mAlpha = 1;
 		this.t_infosTowerDamage.mAlpha =1 ;
@@ -166,9 +164,11 @@ public class MenuNewTower implements ObservateurMenu{
 	public void refreshLives() {}
 	@Override
 	public void refreshMoney() {
-		this.isPossible=this.cashNeedForAddTower <= GenericGame.getInstance().getMoney();
+		GenericGame game = GenericGame.getInstance();
+		this.isPossible=this.cashNeedForAddTower <= game.getMoney();
 		if (this.isPossible) {
 			this.bGo.mAlpha = 1;
+			game.delObservateur(this);
 		}
 	}
 	@Override
