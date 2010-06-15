@@ -286,8 +286,9 @@ public class Play extends AngleActivity {
 							}
 						}else{
 							/* A tower is already on this box ! */
-							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,ogField,towerList)){
+							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,ogField,towerList,mGLSurfaceView)){
 								menuSelectedTower.hide();
+
 								menuStatsCreature.hide();
 								shootArea.mAlpha=0;
 								pointerNewTower.mAlpha=0;
@@ -376,11 +377,9 @@ public class Play extends AngleActivity {
 						ogEndGame.addObject(t_textEndGame);
 					}
 
-
-
-
 				}
 				super.step(secondsElapsed);
+
 			}
 		}
 

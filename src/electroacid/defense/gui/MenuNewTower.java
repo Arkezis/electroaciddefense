@@ -19,8 +19,8 @@ public class MenuNewTower implements ObservateurMenu{
 
 	public AngleString t_infosTowerTitle,t_infosTowerElement,t_infosTowerFireRate;
 	public AngleString t_infosTowerCanTargetFly, t_infosTowerDamage, t_infosTowerCost;
-	public AngleSpriteLayout bGoLayout,bNGoLayout;
-	public AngleSprite bGo,bNGo;
+	public AngleSpriteLayout bGoLayout;
+	public AngleSprite bGo;
 	private boolean isPossible; /* enough money to add the tower ? */
 
 	private int cashNeedForAddTower;
@@ -52,7 +52,6 @@ public class MenuNewTower implements ObservateurMenu{
 		listTower.get(3).getSprite().mAlpha = 0;
 
 		this.bGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,128,160,32,32);
-		this.bNGoLayout = new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,160,32,32); 
 		this.bGo = new AngleSprite(this.bGoLayout);
 		this.bGo.mPosition.set(100, 430);
 
@@ -116,9 +115,9 @@ public class MenuNewTower implements ObservateurMenu{
 		this.isPossible=tower.getCost() <= game.getMoney();
 
 
-		if (this.isPossible) 	{this.bGo.setLayout(this.bGoLayout);}
+		if (this.isPossible) 	{this.bGo.mAlpha=1;}
 		else 	{
-			this.bGo.setLayout(this.bNGoLayout);
+			this.bGo.mAlpha = (float)0.5;
 			game.addObservateur(this);
 		}
 		this.bGo.mAlpha=1;
@@ -169,7 +168,7 @@ public class MenuNewTower implements ObservateurMenu{
 	public void refreshMoney() {
 		this.isPossible=this.cashNeedForAddTower <= GenericGame.getInstance().getMoney();
 		if (this.isPossible) {
-			this.bGo.setLayout(this.bGoLayout);
+			this.bGo.mAlpha = 1;
 		}
 	}
 	@Override
