@@ -390,6 +390,9 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 */
 	public void setTargetPriority(ShootPriority targetPriority) {
 		this.targetPriority = targetPriority;
+		if (this.targetPriority!=ShootPriority.FIRSTIN_FIRSTDIE){
+			this.recalculWH();
+		}
 	}
 
 	/**
