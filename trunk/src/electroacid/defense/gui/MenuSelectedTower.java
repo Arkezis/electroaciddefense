@@ -31,14 +31,14 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 * @param mGLSurfaceView The view
 	 */
 	public MenuSelectedTower( AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
-		this.t_infosTowerText = new AngleString(font,"Element : \n Level : \n Damage : \n Shoot : ",2, 427,AngleString.aLeft);
-		this.t_infosTowerValue = new AngleString(font,"",80, 427,AngleString.aLeft);	
-		this.t_infosTowerUpgrade = new AngleString(font,"",200,440,AngleString.aLeft);
-		this.t_infosTowerDestroy = new AngleString(font,"",200,470,AngleString.aLeft);
+		this.t_infosTowerText = new AngleString(font,"Element : \nLevel : \nDamage : \nShoot : ",0, 427,AngleString.aLeft);
+		this.t_infosTowerValue = new AngleString(font,"",81, 427,AngleString.aLeft);	
+		this.t_infosTowerUpgrade = new AngleString(font,"",180,440,AngleString.aLeft);
+		this.t_infosTowerDestroy = new AngleString(font,"",180,470,AngleString.aLeft);
 		this.bUpgradeTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,160,32,32));
-		this.bUpgradeTower.mPosition.set(180, 432); 
+		this.bUpgradeTower.mPosition.set(160, 432); 
 		this.bDeleteTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,160,32,32));
-		this.bDeleteTower.mPosition.set(180, 464); 
+		this.bDeleteTower.mPosition.set(160, 464); 
 
 		this.bWeak = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,160,32,32));
 		this.bWeak.mPosition.set(252, 432);
@@ -128,7 +128,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 */
 
 	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,AngleObject ogField,LinkedList<BoxBuildable> towerList,AngleSurfaceView mGLSurfaceView){
-		if (x > 164 && x < 196 ){
+		if (x > 144 && x < 176 ){
 			GenericGame game = GenericGame.getInstance();
 			if (y > 416 && y < 448){
 
@@ -151,7 +151,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 				box.getTower().setTargetPriority(ShootPriority.HIGHEST);
 				return true;
 			}
-		}else if (y > 432 && y < 496){
+		}else if (y > 448 && y < 496){
 			if( x > 220 && x < 284){
 				box.getTower().setTargetPriority(ShootPriority.FIRSTIN_FIRSTDIE);
 				return true;
