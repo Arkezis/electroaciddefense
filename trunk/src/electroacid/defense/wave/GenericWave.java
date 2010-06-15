@@ -49,9 +49,10 @@ public class GenericWave {
 	 * @param game game's parameters
 	 * @throws Exception
 	 */
-	public void build(final Context context,final int xmlResourceId,GenericGame game) throws Exception{
+	public void build(final Context context,final int xmlResourceId) throws Exception{
 		Document waveXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
 		NodeList listNodeWave = waveXml.getDocumentElement().getElementsByTagName("wave");
+		GenericGame game = GenericGame.getInstance();
 		for (int i=0;i<listNodeWave.getLength();i++){
 			NodeList listCreature = listNodeWave.item(i).getChildNodes();
 			Wave wave = new Wave();
@@ -80,7 +81,7 @@ public class GenericWave {
 								scoreValue,
 								fly,
 								this.listLayout.get(idTexture));
-						wave.addCreature(creat,game);				
+						wave.addCreature(creat);				
 					}
 				}
 			}

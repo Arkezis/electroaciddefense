@@ -44,8 +44,9 @@ public class BoxBuildable extends Box {
 	 * @param game parametre of the game
 	 * @return false if tower is null or tower is too much expensive
 	 */
-	public boolean changeTower(Tower _tower,GenericGame game, int x, int y, GenericMap matrice){
+	public boolean changeTower(Tower _tower, int x, int y, GenericMap matrice){
 		if (this.tower == null && _tower != null) {
+			GenericGame game = GenericGame.getInstance();
 			if(game.getMoney() > _tower.getCost()){
 				this.tower = _tower;
 				this.tower.changePosition(this.x+this.height/2,this.y+this.width/2);

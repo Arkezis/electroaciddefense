@@ -116,7 +116,8 @@ public  class Creature implements Cloneable,ObservableCreature{
 		 * @param og container of the creature (for the sprite)
 		 * @param byTower kill by a tower or not
 		 */
-		public void destroy(GenericGame game,AngleObject og,boolean byTower){
+		public void destroy(AngleObject og,boolean byTower){
+			GenericGame game = GenericGame.getInstance();
 			og.removeObject(this.sprite);
 			if (byTower) {
 				game.addMoney(this.rewardValue);

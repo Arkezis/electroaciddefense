@@ -4,6 +4,8 @@ import utils.AngleSegment;
 
 import com.android.angle.AngleObject;
 
+import electroacid.defense.game.GenericGame;
+
 /**
  * Use for creating a shoot picture
  * @author Arkezis
@@ -39,11 +41,14 @@ public class Shoot extends AngleSegment {
 	 * At each step, the shoot is removed
 	 */	
 	public void step(float secondsElapsed){
+		GenericGame game = GenericGame.getInstance();
+		for (int speedMult=0;speedMult<game.getSpeedMultiplicator();speedMult++){
 		timeElapsed += secondsElapsed;
+
 		if(timeElapsed >= timeShoot){
 			this.ogWork.removeObject(this);
 			timeElapsed=0;
-		}
+		}}
 		super.step(secondsElapsed);
 	}
 	

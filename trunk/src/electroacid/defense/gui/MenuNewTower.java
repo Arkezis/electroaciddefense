@@ -100,25 +100,26 @@ public class MenuNewTower implements ObservateurMenu{
 	 * This function show the menu the towers
 	 * @param mGLSurfaceView
 	 */
-	public void show(GenericGame g,LinkedList<Tower> listTower){
+	public void show(LinkedList<Tower> listTower){
 		//this.t_infosTowerTitle.mAlpha = 1;
 		for (int i=0;i<listTower.size();i++) listTower.get(i).getSprite().mAlpha=1;
-		this.hideValidateTower(g); // if you want to show the selection, the validation must be hidden (for the moment !)
+		this.hideValidateTower(); // if you want to show the selection, the validation must be hidden (for the moment !)
 	}
 	
 	/**
 	 * This function show the informations about the tower selected 
 	 * @param tower
 	 */
-	public void showValidateTower(GenericGame g,Tower tower){
+	public void showValidateTower(Tower tower){
+		GenericGame game = GenericGame.getInstance();
 		this.cashNeedForAddTower=tower.getCost();
-		this.isPossible=tower.getCost() <= g.getMoney();
+		this.isPossible=tower.getCost() <= game.getMoney();
 		
 		
 		if (this.isPossible) 	{this.bGo.setLayout(this.bGoLayout);}
 		else 	{
 			this.bGo.setLayout(this.bNGoLayout);
-			g.addObservateur(this);
+			game.addObservateur(this);
 		}
 		this.bGo.mAlpha=1;
 		
@@ -137,13 +138,13 @@ public class MenuNewTower implements ObservateurMenu{
 	 * This function hide the tower selected by the user
 	 * @param mGLSurfaceView
 	 */
-	public void hideValidateTower(GenericGame g){
+	public void hideValidateTower(){
 		this.bGo.mAlpha=0;
 		this.t_infosTowerElement.mAlpha = 0;
 		this.t_infosTowerDamage.mAlpha = 0;
 		this.t_infosTowerFireRate.mAlpha = 0;
 		this.t_infosTowerCost.mAlpha = 0;
-		g.delObservateur(this);
+		GenericGame.getInstance().delObservateur(this);
 	}
 
 	/**
@@ -163,16 +164,16 @@ public class MenuNewTower implements ObservateurMenu{
 	@Override
 	public void refreshCreature() {}
 	@Override
-	public void refreshLives(GenericGame g) {}
+	public void refreshLives() {}
 	@Override
-	public void refreshMoney(GenericGame g) {
-		this.isPossible=this.cashNeedForAddTower <= g.getMoney();
+	public void refreshMoney() {
+		this.isPossible=this.cashNeedForAddTower <= GenericGame.getInstance().getMoney();
 		if (this.isPossible) {
 			this.bGo.setLayout(this.bGoLayout);
 		}
 	}
 	@Override
-	public void refreshScore(GenericGame g) {}
+	public void refreshScore() {}
 	@Override
-	public void refreshWaves(GenericGame g) {}
+	public void refreshWaves() {}
 }

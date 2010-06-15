@@ -8,7 +8,6 @@ import observ.ObservateurTower;
 
 import com.android.angle.AngleObject;
 import electroacid.defense.Creature;
-import electroacid.defense.game.GenericGame;
 import electroacid.defense.enums.Direction;
 
 /**
@@ -72,16 +71,15 @@ public class BoxPath extends Box implements ObservableBoxPath{
 	 * @param game game's parameter
 	 * @param container creature's container
 	 */
-	public void nextStep(GenericGame game,AngleObject container){
+	public void nextStep(AngleObject container){
 		
 		boolean nextOk = this.numberPred==1;
 		
 		if (nextOk){
-		
 		if (this.nextPath== null) {
 			for (int i=0;i<this.listCreature.size();i++) {
 				this.updateObservateurRemove(this.listCreature.get(i));
-				this.listCreature.get(i).destroy(game, container,false);
+				this.listCreature.get(i).destroy(container,false);
 				this.listCreature.remove(i--);
 			}
 		}
@@ -89,7 +87,7 @@ public class BoxPath extends Box implements ObservableBoxPath{
 			Creature creature = this.listCreature.get(i);
 			if(creature.getLife()<=0){
 				this.updateObservateurRemove(creature);
-				creature.destroy(game ,container, true);
+				creature.destroy(container, true);
 				this.listCreature.remove(i--);
 			}else{
 				
@@ -117,7 +115,7 @@ public class BoxPath extends Box implements ObservableBoxPath{
 		}
 		if (nextOk){
 			this.numberPred=this.numberMaxPred;
-			if (this.nextPath!=null) this.nextPath.nextStep(game,container);
+			if (this.nextPath!=null) this.nextPath.nextStep(container);
 		} else {
 			this.numberPred--;
 		}

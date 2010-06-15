@@ -45,8 +45,8 @@ public class Wave extends AngleObject {
 	 * @param creature creature to add
 	 * @return true if the add is correct
 	 */
-	public boolean addCreature(Creature creature,GenericGame game){
-		game.addOneCreatureInGame();
+	public boolean addCreature(Creature creature){
+		GenericGame.getInstance().addOneCreatureInGame();
 		return this.listCreature.add(creature);
 	}
 
