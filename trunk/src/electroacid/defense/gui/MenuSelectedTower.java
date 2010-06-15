@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import observ.ObservateurMenu;
 
-
 import com.android.angle.AngleFont;
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
@@ -12,16 +11,17 @@ import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleString;
 import com.android.angle.AngleSurfaceView;
 
-import electroacid.defense.game.GenericGame;
 import electroacid.defense.R;
 import electroacid.defense.Tower;
 import electroacid.defense.box.BoxBuildable;
+import electroacid.defense.enums.ShootPriority;
+import electroacid.defense.game.GenericGame;
 
 public class MenuSelectedTower implements ObservateurMenu{
 
 	public AngleString t_infosTowerText,t_infosTowerValue,t_infosTowerUpgrade,t_infosTowerDestroy;
 	public AngleSprite bDeleteTower,bUpgradeTower;
-
+	public AngleSprite bWeak, bStrong, bFirstIn;
 	private int cashNeedForUpgradeTower;
 
 	/**
@@ -33,25 +33,38 @@ public class MenuSelectedTower implements ObservateurMenu{
 	public MenuSelectedTower( AngleFont font,AngleFont fontTitle, AngleSurfaceView mGLSurfaceView){
 		this.t_infosTowerText = new AngleString(font,"Element : \n Level : \n Damage : \n Shoot : ",2, 427,AngleString.aLeft);
 		this.t_infosTowerValue = new AngleString(font,"",80, 427,AngleString.aLeft);	
-		this.t_infosTowerUpgrade = new AngleString(font,"",220,440,AngleString.aLeft);
-		this.t_infosTowerDestroy = new AngleString(font,"",220,470,AngleString.aLeft);
+		this.t_infosTowerUpgrade = new AngleString(font,"",200,440,AngleString.aLeft);
+		this.t_infosTowerDestroy = new AngleString(font,"",200,470,AngleString.aLeft);
 		this.bUpgradeTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,0,160,32,32));
-		this.bUpgradeTower.mPosition.set(200, 432); 
+		this.bUpgradeTower.mPosition.set(180, 432); 
 		this.bDeleteTower = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,32,160,32,32));
-		this.bDeleteTower.mPosition.set(200, 464); 
+		this.bDeleteTower.mPosition.set(180, 464); 
 
+		this.bWeak = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,160,160,32,32));
+		this.bWeak.mPosition.set(252, 432);
+		this.bStrong = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,32,32,R.drawable.tilemap,192,160,32,32));
+		this.bStrong.mPosition.set(290, 432);
+		this.bFirstIn = new AngleSprite(new AngleSpriteLayout(mGLSurfaceView,64,32,R.drawable.tilemap,224,160,64,32));
+		this.bFirstIn.mPosition.set(268, 464);
+		
 		mGLSurfaceView.addObject(t_infosTowerValue);
 		mGLSurfaceView.addObject(t_infosTowerText);
 		mGLSurfaceView.addObject(bDeleteTower);
 		mGLSurfaceView.addObject(bUpgradeTower);
 		mGLSurfaceView.addObject(t_infosTowerDestroy);
 		mGLSurfaceView.addObject(t_infosTowerUpgrade);
+		mGLSurfaceView.addObject(bWeak);
+		mGLSurfaceView.addObject(bStrong);
+		mGLSurfaceView.addObject(bFirstIn);
 		this.t_infosTowerDestroy.mAlpha=0;
 		this.t_infosTowerUpgrade.mAlpha=0;
 		this.t_infosTowerText.mAlpha = 0;
 		this.t_infosTowerValue.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
 		this.bUpgradeTower.mAlpha = 0;
+		this.bWeak.mAlpha = 0;
+		this.bStrong.mAlpha = 0;
+		this.bFirstIn.mAlpha = 0;
 	}
 
 	/**
@@ -64,6 +77,9 @@ public class MenuSelectedTower implements ObservateurMenu{
 		this.bUpgradeTower.mAlpha = 0;
 		this.t_infosTowerDestroy.mAlpha=0;
 		this.t_infosTowerUpgrade.mAlpha=0;
+		this.bWeak.mAlpha = 0;
+		this.bStrong.mAlpha = 0;
+		this.bFirstIn.mAlpha = 0;
 		GenericGame.getInstance().delObservateur(this);
 	}
 	/**
@@ -80,6 +96,16 @@ public class MenuSelectedTower implements ObservateurMenu{
 		this.bDeleteTower.mAlpha = 1;
 		this.t_infosTowerDestroy.mAlpha=1;
 		this.t_infosTowerUpgrade.mAlpha=1;
+		this.bWeak.mAlpha = 1;
+		this.bStrong.mAlpha = 1;
+		this.bFirstIn.mAlpha = 1;
+		if(tower.getTargetPriority().equals(ShootPriority.WEAKEST)){
+			this.bWeak.mAlpha = (float)0.5;	
+		}else if(tower.getTargetPriority().equals(ShootPriority.HIGHEST)){
+			this.bStrong.mAlpha = (float)0.5;	
+		}else if(tower.getTargetPriority().equals(ShootPriority.FIRSTIN_FIRSTDIE)){
+			this.bFirstIn.mAlpha = (float)0.5;	
+		}
 		this.cashNeedForUpgradeTower=(int)Math.ceil((tower.getCost()*tower.getUpgrade()));
 		GenericGame game = GenericGame.getInstance();
 		if (game.getMoney() >= this.cashNeedForUpgradeTower){
@@ -100,18 +126,34 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 * @param towerList The list of tower in the game
 	 * @return True if the tower is upgraded or deleted
 	 */
-	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,AngleObject ogField,LinkedList<BoxBuildable> towerList){
-		if (x > 184 && x < 216 ){
+
+	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,AngleObject ogField,LinkedList<BoxBuildable> towerList,AngleSurfaceView mGLSurfaceView){
+		if (x > 164 && x < 196 ){
 			GenericGame game = GenericGame.getInstance();
 			if (y > 416 && y < 448){
+
 				if (game.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){
-					box.getTower().upgrade();
+					box.getTower().upgrade(mGLSurfaceView);
 					return true;
 				}
 			}else if(y > 448 & y < 480 ){
 				towerList.remove(box.getTower());
 				box.getTower().destroy(ogField);
 				box.removeTower();
+				return true;
+			}
+		}
+		if (y > 416 && y < 448){
+			if  (x > 236 && x < 268){
+				box.getTower().setTargetPriority(ShootPriority.WEAKEST);
+				return true;
+			}else if(x > 274 && x < 306 ){
+				box.getTower().setTargetPriority(ShootPriority.HIGHEST);
+				return true;
+			}
+		}else if (y > 432 && y < 496){
+			if( x > 220 && x < 284){
+				box.getTower().setTargetPriority(ShootPriority.FIRSTIN_FIRSTDIE);
 				return true;
 			}
 		}

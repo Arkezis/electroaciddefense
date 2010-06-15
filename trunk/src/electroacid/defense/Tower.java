@@ -7,6 +7,7 @@ import observ.ObservateurTower;
 import com.android.angle.AngleObject;
 import com.android.angle.AngleSprite;
 import com.android.angle.AngleSpriteLayout;
+import com.android.angle.AngleSurfaceView;
 
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.enums.Element;
@@ -56,6 +57,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * Sprite of the tower
 	 */
 	private AngleSprite sprite;
+	private AngleSprite upgradeSprite;
 	/**
 	 * Coefficient used for the tower upgrade
 	 */
@@ -238,8 +240,12 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * Upgrading a tower (thanks to upgrade coefficient)
 	 * @param g Game's information
 	 */
-	public void upgrade(){
-		GenericGame game = GenericGame.getInstance();
+	public void upgrade(AngleSurfaceView mGl){
+	GenericGame game = GenericGame.getInstance();
+		mGl.removeObject(this.upgradeSprite);
+		this.upgradeSprite = new AngleSprite(new AngleSpriteLayout(mGl,32,level*32,R.drawable.tilemap,128,128,32,32));
+		this.upgradeSprite.mPosition.set(this.x+16, this.y+(16*level)-(32*(level-1)));
+		mGl.addObject(this.upgradeSprite);
 		this.cost =  (int)Math.ceil((this.cost*upgrade));
 		this.damage = (int)Math.ceil((this.damage*upgrade));
 		this.level++;
