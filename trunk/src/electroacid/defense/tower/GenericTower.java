@@ -8,9 +8,7 @@ import org.w3c.dom.NodeList;
 
 import utils.XmlUtil;
 import android.content.Context;
-import android.graphics.Typeface;
 
-import com.android.angle.AngleFont;
 import com.android.angle.AngleSpriteLayout;
 import com.android.angle.AngleSurfaceView;
 

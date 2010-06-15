@@ -28,7 +28,6 @@ import electroacid.defense.box.Box;
 import electroacid.defense.box.BoxBuildable;
 import electroacid.defense.box.BoxPath;
 import electroacid.defense.game.GenericGame;
-import electroacid.defense.gui.Menu;
 import electroacid.defense.gui.MenuNewTower;
 import electroacid.defense.gui.MenuSelectedTower;
 import electroacid.defense.gui.MenuStatsCreature;
@@ -169,10 +168,8 @@ public class Play extends AngleActivity {
 			menuNewTower = new MenuNewTower(fontMenu,fontTitle,mGLSurfaceView,genericTower.getListTower());
 			menuSelectedTower = new MenuSelectedTower(fontMenu,fontTitle,mGLSurfaceView);
 			menuStatsCreature = new MenuStatsCreature(fontMenu,fontTitle,mGLSurfaceView);
-			
-			
+	
 			menu = new MenuTop(game,fontTitle,mGLSurfaceView,ogTest);
-			game.addObservateur(menu);
 		}
 		
 		
@@ -314,6 +311,9 @@ public class Play extends AngleActivity {
 			}
 			
 			if (!game.isPause()){
+				
+			for (int timeMult=1;timeMult<game.getSpeedMultiplicator();timeMult++){
+				
 			if(!game.isGameEnd() ){
 				/* WAVES */
 				if(game.getActualWave() == 0 && lastWave==0 ) { lastWave = game.getTimeBetweenEachWave()-10;}
@@ -371,6 +371,11 @@ public class Play extends AngleActivity {
 				}
 				ogEndGame.addObject(endGameSprite);
 				ogEndGame.addObject(t_textEndGame);
+			}
+
+
+
+		
 			}
 			super.step(secondsElapsed);
 			}

@@ -59,6 +59,9 @@ public class MenuTop implements ObservateurMenu{
 		og.addObject(this.t_infosPlayerLevel);og.addObject(this.t_infosPlayerLevelSpr);
 		og.addObject(this.t_infosPlayerMoney);og.addObject(this.t_infosPlayerMoneySpr);
 		og.addObject(this.t_infosPlayerLives);og.addObject(this.t_infosPlayerLivesSpr);
+		
+		game.addObservateur(this);
+		
 	}
 
 	
