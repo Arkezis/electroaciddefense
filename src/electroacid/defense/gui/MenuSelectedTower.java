@@ -131,8 +131,8 @@ public class MenuSelectedTower implements ObservateurMenu{
 		if (x > 144 && x < 176 ){
 			GenericGame game = GenericGame.getInstance();
 			if (y > 416 && y < 448){
-
-				if (game.getMoney() > box.getTower().getCost()*box.getTower().getUpgrade()){
+				
+				if (game.getMoney() > (int)Math.ceil((box.getTower().getCost()*box.getTower().getUpgrade()))){
 					if (game.getMaxLevelTower()!=box.getTower().getLevel())
 						box.getTower().upgrade(mGLSurfaceView);
 					return true;
