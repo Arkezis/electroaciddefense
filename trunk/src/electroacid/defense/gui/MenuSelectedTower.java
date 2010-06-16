@@ -23,7 +23,8 @@ public class MenuSelectedTower implements ObservateurMenu{
 	public AngleSprite bDeleteTower,bUpgradeTower;
 	public AngleSprite bWeak, bStrong, bFirstIn;
 	private int cashNeedForUpgradeTower;
-
+	private boolean needCash=false;
+	
 	/**
 	 * Constructor 
 	 * @param font The font for the classic text 
@@ -65,13 +66,17 @@ public class MenuSelectedTower implements ObservateurMenu{
 		this.bWeak.mAlpha = 0;
 		this.bStrong.mAlpha = 0;
 		this.bFirstIn.mAlpha = 0;
+		
+		GenericGame.getInstance().addObservateur(this);
+		
 	}
 
 	/**
 	 * Hide the general menu
 	 */
 	public void hide(){
-		GenericGame.getInstance().delObservateur(this);
+		//GenericGame.getInstance().delObservateur(this);
+		this.needCash=false;
 		this.t_infosTowerText.mAlpha = 0;
 		this.t_infosTowerValue.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
@@ -81,6 +86,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 		this.bWeak.mAlpha = 0;
 		this.bStrong.mAlpha = 0;
 		this.bFirstIn.mAlpha = 0;
+		
 	}
 	/**
 	 * Show the general menu
@@ -111,8 +117,9 @@ public class MenuSelectedTower implements ObservateurMenu{
 		if (game.getMoney() >= this.cashNeedForUpgradeTower){
 			this.bUpgradeTower.mAlpha = 1;
 		}else {
+			this.needCash=true;
 			this.bUpgradeTower.mAlpha = (float)0.4;
-			game.addObservateur(this);
+			//game.addObservateur(this);
 		}
 	}
 
@@ -168,10 +175,12 @@ public class MenuSelectedTower implements ObservateurMenu{
 	public void refreshLives() {}
 	@Override
 	public void refreshMoney() {
+		if (this.needCash){
 		if (GenericGame.getInstance().getMoney() >= this.cashNeedForUpgradeTower){
 			this.bUpgradeTower.mAlpha = 1;
-			GenericGame.getInstance().delObservateur(this);
-		}
+			//GenericGame.getInstance().delObservateur(this);
+			this.needCash=false;
+		}}
 	}
 	@Override
 	public void refreshScore() {}
