@@ -169,6 +169,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 	public void refreshMoney() {
 		if (GenericGame.getInstance().getMoney() >= this.cashNeedForUpgradeTower){
 			this.bUpgradeTower.mAlpha = 1;
+			GenericGame.getInstance().delObservateur(this);
 		}
 	}
 	@Override
