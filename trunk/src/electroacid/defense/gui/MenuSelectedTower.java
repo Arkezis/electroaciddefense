@@ -71,6 +71,7 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 * Hide the general menu
 	 */
 	public void hide(){
+		GenericGame.getInstance().delObservateur(this);
 		this.t_infosTowerText.mAlpha = 0;
 		this.t_infosTowerValue.mAlpha = 0;
 		this.bDeleteTower.mAlpha = 0;
@@ -80,7 +81,6 @@ public class MenuSelectedTower implements ObservateurMenu{
 		this.bWeak.mAlpha = 0;
 		this.bStrong.mAlpha = 0;
 		this.bFirstIn.mAlpha = 0;
-		GenericGame.getInstance().delObservateur(this);
 	}
 	/**
 	 * Show the general menu
