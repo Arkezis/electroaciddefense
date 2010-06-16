@@ -1,6 +1,6 @@
 package electroacid.defense.game;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 import observ.ObservableGame;
 import observ.ObservateurMenu;
@@ -37,7 +37,7 @@ public class GenericGame implements ObservableGame{
 	private int maxLevelTower=7;
 	
 	
-	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
+	private Vector<ObservateurMenu> listObservateur = new Vector<ObservateurMenu>();
 
 	static GenericGame instance = null;
 
@@ -272,7 +272,7 @@ public class GenericGame implements ObservableGame{
 
 	@Override
 	public void delAllObservateur() {
-		this.listObservateur = new ArrayList<ObservateurMenu>(); 
+		this.listObservateur = new Vector<ObservateurMenu>(); 
 	}
 
 	@Override
