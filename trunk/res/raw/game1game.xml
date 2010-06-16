@@ -2,7 +2,7 @@
 <game name="game">
 	<speedMultiplicator value="1" />	
 	<difficulty value="0" />
-	<money value="275" />
+	<money value="1000" />
 	<lives value="20" />
 	<timeBetweenEachWave value="35" />
 	<timeBetweenEachTowerTurn value="0.5" />

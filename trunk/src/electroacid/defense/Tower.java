@@ -238,14 +238,15 @@ public  class Tower implements Cloneable,ObservateurTower{
 	}
 	/**
 	 * Upgrading a tower (thanks to upgrade coefficient)
+	 * @param ogField 
 	 * @param g Game's information
 	 */
-	public void upgrade(AngleSurfaceView mGl){
-	GenericGame game = GenericGame.getInstance();
-		mGl.removeObject(this.upgradeSprite);
-		this.upgradeSprite = new AngleSprite(new AngleSpriteLayout(mGl,32,level*32,R.drawable.tilemap,128,128,32,32));
+	public void upgrade(AngleSurfaceView mgl, AngleObject ogUpgradeTower){
+		GenericGame game = GenericGame.getInstance();
+		//mGl.removeObject(this.upgradeSprite);
+		this.upgradeSprite = new AngleSprite(new AngleSpriteLayout(mgl,32,level*32,R.drawable.tilemap,128,128,32,32));
 		this.upgradeSprite.mPosition.set(this.x+16, this.y+(16*level)-(32*(level-1)));
-		mGl.addObject(this.upgradeSprite);
+		ogUpgradeTower.addObject(this.upgradeSprite);
 		this.cost =  (int)Math.ceil((this.cost*upgrade));
 		this.damage = (int)Math.ceil((this.damage*upgrade));
 		this.level++;
@@ -257,10 +258,11 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param g
 	 * @param og
 	 */
-	public void destroy(AngleObject og){
+	public void destroy(AngleObject og, AngleObject ogUpgradeTower){
 		GenericGame game = GenericGame.getInstance();
 		for (BoxPath box:this.boxDetectionList) box.delObservateur(this);
 		og.removeObject(this.sprite);
+		ogUpgradeTower.removeObject(this.upgradeSprite);
 		game.setMoney((int)(game.getMoney()+this.cost*this.destroy));
 	}
 

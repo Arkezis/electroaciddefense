@@ -51,7 +51,7 @@ public class Play extends AngleActivity {
 	/* TEXTURES */
 	public AngleSpriteLayout buildableTexture,backgroundTexture,tower1Texture,tower2Texture, b_DeleteTexture, fireAreaLayout,fireAreaLayout2,_bnewTower1Layout;
 	AngleSprite backgroundEndGame;
-	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame,ogUtils,ogTest;
+	private AngleObject ogField,ogWave,ogShoot,ogCreature,ogEndGame,ogUtils,ogTest,ogUpgradeTower;
 	private AngleTileMap tmGround;
 
 	/* Matrice */
@@ -110,7 +110,7 @@ public class Play extends AngleActivity {
 			ogWave = new AngleObject(); addObject(ogWave);
 			ogUtils = new AngleObject(); addObject(ogUtils);
 			ogTest = new AngleObject(); addObject(ogTest);
-
+			ogUpgradeTower = new AngleObject(); addObject(ogUpgradeTower);
 
 			// TODO : passer le menu sur ogDashboard	
 
@@ -288,7 +288,7 @@ public class Play extends AngleActivity {
 							}
 						}else{
 							/* A tower is already on this box ! */
-							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,ogField,towerList,mGLSurfaceView)){
+							if(menuSelectedTower.isUpgradedOrDeletedTower(x, y, boxBuildableSelected,ogField,towerList,mGLSurfaceView,ogUpgradeTower)){
 								menuSelectedTower.hide();
 
 								menuStatsCreature.hide();
