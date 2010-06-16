@@ -22,6 +22,7 @@ public class MenuNewTower implements ObservateurMenu{
 	public AngleSpriteLayout bGoLayout;
 	public AngleSprite bGo;
 	private boolean isPossible; /* enough money to add the tower ? */
+	private boolean needCash=false;
 
 	private int cashNeedForAddTower;
 
@@ -68,6 +69,9 @@ public class MenuNewTower implements ObservateurMenu{
 		mGLSurfaceView.addObject(t_infosTowerDamage);
 		mGLSurfaceView.addObject(t_infosTowerFireRate);
 		mGLSurfaceView.addObject(t_infosTowerCost);	
+		
+		GenericGame.getInstance().addObservateur(this);
+		
 	}
 	/**
 	 * This method return the tower number selected by the user
@@ -117,7 +121,8 @@ public class MenuNewTower implements ObservateurMenu{
 		if (this.isPossible) 	{this.bGo.mAlpha=1;}
 		else {
 			this.bGo.mAlpha = (float)0.5;
-			game.addObservateur(this);
+			this.needCash=true;
+			//game.addObservateur(this);
 		}
 
 		this.t_infosTowerElement.mAlpha = 1;
@@ -141,7 +146,8 @@ public class MenuNewTower implements ObservateurMenu{
 		this.t_infosTowerDamage.mAlpha = 0;
 		this.t_infosTowerFireRate.mAlpha = 0;
 		this.t_infosTowerCost.mAlpha = 0;
-		GenericGame.getInstance().delObservateur(this);
+		//GenericGame.getInstance().delObservateur(this);
+		this.needCash=false;
 	}
 
 	/**
@@ -164,13 +170,15 @@ public class MenuNewTower implements ObservateurMenu{
 	public void refreshLives() {}
 	@Override
 	public void refreshMoney() {
+		if (this.needCash==true){
 		GenericGame game = GenericGame.getInstance();
 		this.isPossible=this.cashNeedForAddTower <= game.getMoney();
 		if (this.isPossible) {
 			this.bGo.mAlpha = 1;
-			game.delObservateur(this);
+			//game.delObservateur(this);
+			this.needCash=false;
 		}
-	}
+	}}
 	@Override
 	public void refreshScore() {}
 	@Override
