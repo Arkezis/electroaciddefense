@@ -124,22 +124,23 @@ public class MenuSelectedTower implements ObservateurMenu{
 	 * @param g The informationsa about the game
 	 * @param ogField The object where the tower are added
 	 * @param towerList The list of tower in the game
+	 * @param mGLSurfaceView 
 	 * @return True if the tower is upgraded or deleted
 	 */
 
-	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,AngleObject ogField,LinkedList<BoxBuildable> towerList,AngleSurfaceView mGLSurfaceView){
+	public boolean isUpgradedOrDeletedTower(int x,int y, BoxBuildable box,AngleObject ogField,LinkedList<BoxBuildable> towerList, AngleSurfaceView mGLSurfaceView,AngleObject ogUpgradeTower){
 		if (x > 144 && x < 176 ){
 			GenericGame game = GenericGame.getInstance();
 			if (y > 416 && y < 448){
 				
 				if (game.getMoney() > (int)Math.ceil((box.getTower().getCost()*box.getTower().getUpgrade()))){
 					if (game.getMaxLevelTower()!=box.getTower().getLevel())
-						box.getTower().upgrade(mGLSurfaceView);
+						box.getTower().upgrade(mGLSurfaceView,ogUpgradeTower);
 					return true;
 				}
 			}else if(y > 448 & y < 480 ){
 				towerList.remove(box.getTower());
-				box.getTower().destroy(ogField);
+				box.getTower().destroy(ogField,ogUpgradeTower);
 				box.removeTower();
 				return true;
 			}
