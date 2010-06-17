@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="electroacid.defense"
       android:versionName="1.4.5" android:versionCode="14">
@@ -10,7 +11,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity 	android:name=".Play"
+		<activity 	android:name=".gamePart.Play"
 					android:label="@string/game"
 					android:screenOrientation="portrait"
 					android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -20,7 +21,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity 	android:name=".ChoiceOfMap"
+		<activity 	android:name=".choiceMap.ChoiceOfMap"
 					android:label="@string/game"
 					android:screenOrientation="portrait"
 					android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
