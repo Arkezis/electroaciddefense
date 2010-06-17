@@ -1,6 +1,7 @@
 package electroacid.defense;
 
-import electroacid.defense.choiceMap.ChoiceOfMap;
+import electroacid.defense.choiceMapPart.ChoiceOfMap;
+import electroacid.defense.optionsPart.Options;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,6 +22,8 @@ public class electroaciddefense extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		((Button) this.findViewById(R.id.Button01)).setOnClickListener(this);
+		((Button) this.findViewById(R.id.ButtonHowTo)).setOnClickListener(this);
+		((Button) this.findViewById(R.id.ButtonOptions)).setOnClickListener(this);
 		((Button) this.findViewById(R.id.ButtonQuit)).setOnClickListener(this);
 		((ImageView) this.findViewById(R.id.ImageView01))
 				.setImageResource(R.drawable.icon);
@@ -32,6 +35,14 @@ public class electroaciddefense extends Activity implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.Button01:
 			i = new Intent(this, ChoiceOfMap.class);
+			this.startActivity(i);
+			break;
+		case R.id.ButtonHowTo:
+			//i = new Intent(this, ChoiceOfMap.class);
+			//this.startActivity(i);
+			break;
+		case R.id.ButtonOptions:
+			i = new Intent(this, Options.class);
 			this.startActivity(i);
 			break;
 		case R.id.ButtonQuit:
