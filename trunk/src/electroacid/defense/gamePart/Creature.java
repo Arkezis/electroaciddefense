@@ -91,6 +91,7 @@ public  class Creature implements Cloneable,ObservableCreature{
 		this.fly = _fly;
 		this.sprite= new AngleRotatingSprite(layout);
 		this.maxLife=_life;
+		
 	}
 
 	public void loseLife(int nbDamage){

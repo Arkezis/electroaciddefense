@@ -1,8 +1,6 @@
-package electroacid.defense.choiceMap;
+package electroacid.defense.choiceMapPart;
 
 import electroacid.defense.R;
-import electroacid.defense.R.id;
-import electroacid.defense.R.layout;
 import electroacid.defense.gamePart.Play;
 import android.app.Activity;
 import android.content.Intent;
