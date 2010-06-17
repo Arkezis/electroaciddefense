@@ -1,5 +1,6 @@
 package electroacid.defense;
 
+import electroacid.defense.choiceMap.ChoiceOfMap;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
