@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -58,11 +57,8 @@ public class Options extends Activity     {
 		PREFS_NAME = prefsName;
 	}
 
-	
-
-	
-	protected void onStop(){
-		super.onStop();
+	protected void onPause(){
+		
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putBoolean("vibrator", cb_vibrator.isChecked() );
@@ -72,13 +68,11 @@ public class Options extends Activity     {
 				case 0: setLocal(Locale.ENGLISH);break;
 				case 1: setLocal(Locale.FRENCH);break;
 			}
-			Log.d("DEBUGTAG","step 1 !");
-			Toast.makeText(this.getApplicationContext(), "Change langue !  ", 1000).show();
 		}		
 		if(!editor.commit()){ 
 			Toast.makeText(this.getApplicationContext(), "A problem happened during the save of your preferences ! ", 1000).show();
-		}
-		
+		}	
+		super.onPause();
 	}
 	
 	private void setLocal(Locale loc){

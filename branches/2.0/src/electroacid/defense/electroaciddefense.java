@@ -4,15 +4,12 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +24,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		
 		
 		SharedPreferences settings = getSharedPreferences(Options.getPrefsName(), 0);
 		if(settings.getInt("language", 999) == 999){
@@ -38,7 +35,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
 				case 1: setLocal(Locale.FRENCH);break;
 			}
 		}
-		
+		setContentView(R.layout.main);
 		Toast.makeText(this.getApplicationContext(), "Language : "+this.getResources().getConfiguration().locale, 10000).show();
 		
 		((Button) this.findViewById(R.id.Button01)).setOnClickListener(this);
@@ -81,22 +78,12 @@ public class electroaciddefense extends Activity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-
-		Toast.makeText(this.getApplicationContext(), "Change langue !  step 2 "+requestCode+" et "+resultCode, 1000).show();
-		Log.d("DEBUGTAG","step 2 !");
 		if(requestCode==1000 && resultCode==2000){
 			// la langue a changé, il faut recharcher l'activité ! 
-			Toast.makeText(this.getApplicationContext(), "Change langue !  step 3 ", 1000).show();
-			Log.d("DEBUGTAG","step 3 !");
 			Intent i = new Intent(this,electroaciddefense.class);
-			//Intent i = new Intent(this.createPackageContext(this.getPackageName(), Context.CONTEXT_INCLUDE_CODE),electroaciddefense.class);
 			startActivity(i);
-			Log.d("DEBUGTAG","step 4 !");
-
 			finish();
-			Log.d("DEBUGTAG","step 5 !");
 		}
 	}
 	
@@ -163,13 +150,4 @@ public class electroaciddefense extends Activity implements OnClickListener {
 
 	}
 
-	/**
-	 * Managing the end of the activity.
-	 */
-/*	protected void onDestroy() {
-		super.onDestroy();
-		// The activity is totally killed !
-		android.os.Process.killProcess(android.os.Process.myPid());
-	}
-*/
 }
