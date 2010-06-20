@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="electroacid.defense" android:versionName="1.4.5"
+	android:versionCode="14">
+	<application android:icon="@drawable/icon" android:label="@string/app_name"
+		android:debuggable="true" android:name=".utils.CrashReporting">
+		<activity android:name=".electroaciddefense" android:label="@string/app_name"
+			android:screenOrientation="portrait"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".gamePart.Play" android:label="@string/game"
+			android:screenOrientation="portrait"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".choiceMapPart.ChoiceOfMap"
+			android:label="@string/game" android:screenOrientation="portrait"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+	<activity android:name=".optionsPart.Options" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:label="@string/game" android:screenOrientation="portrait"></activity>
+</application>
+	<uses-sdk android:minSdkVersion="3" />
+	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+</manifest> 
