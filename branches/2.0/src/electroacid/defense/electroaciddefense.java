@@ -78,6 +78,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
 
 	}
 
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -165,10 +166,10 @@ public class electroaciddefense extends Activity implements OnClickListener {
 	/**
 	 * Managing the end of the activity.
 	 */
-	protected void onDestroy() {
+/*	protected void onDestroy() {
 		super.onDestroy();
 		// The activity is totally killed !
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
-
+*/
 }
