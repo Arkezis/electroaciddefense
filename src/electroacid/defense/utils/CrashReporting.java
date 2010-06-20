@@ -11,8 +11,8 @@ public class CrashReporting extends CrashReportingApplication {
 
 	@Override
 	public String getFormId() {
-		return "dFo4a0VCcnJyWFh4SXhvSThUdURMOUE6MQ";//for apk in market
-		//return "";//for debug in eclipse
+		//return "dFo4a0VCcnJyWFh4SXhvSThUdURMOUE6MQ";//for apk in market
+		return "";//for debug in eclipse
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package electroacid.defense.gamePart;
 
 import java.util.ArrayList;
 
+import android.os.Vibrator;
 
 import com.android.angle.AngleObject;
 import com.android.angle.AngleRotatingSprite;
@@ -125,8 +126,10 @@ public  class Creature implements Cloneable,ObservableCreature{
 			game.addScore(this.scoreValue);
 		}
 		else
-			game.removeLives(1);
+		game.removeLives(1);
 		game.removeOneCreatureInGame();
+		
+		
 	}
 
 	public void start(AngleObject og, BoxPath debut) {

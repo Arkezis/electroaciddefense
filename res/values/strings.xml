@@ -19,7 +19,8 @@
 	<string name="HowTo">How to play</string>
 	<string name="game">game</string>
 
-
+	<string name="languageNotDefined"> You didn\'t defined your prefered language. \n \n Please us \"Options\" menu to choose it !</string>
+	<string name="RFU">This functionnality is not implemented yet</string>
 	<string name="Quit">Quit the game ! :-(</string>
 	<string name="title">Welcome to \n Electro Acid Defense</string>
 	<string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to

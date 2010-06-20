@@ -25,9 +25,6 @@ import com.android.angle.AngleTileMap;
 import com.android.angle.AngleUI;
 
 import electroacid.defense.R;
-import electroacid.defense.R.drawable;
-import electroacid.defense.R.raw;
-import electroacid.defense.R.string;
 import electroacid.defense.gamePart.box.Box;
 import electroacid.defense.gamePart.box.BoxBuildable;
 import electroacid.defense.gamePart.box.BoxPath;
@@ -409,6 +406,7 @@ public class Play extends AngleActivity {
 	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 
 		/* Getting the informations about the game choosen previously */
 		if(this.getIntent().getExtras() != null){
@@ -420,7 +418,7 @@ public class Play extends AngleActivity {
 		mMainLayout.addView(mGLSurfaceView);
 		setContentView(mMainLayout);
 
-		Toast t = Toast.makeText(this, "Welcome to Electro Acid Defense ! ", 0);
+		Toast t = Toast.makeText(this, R.string.welcome, 0);
 		t.setGravity(Gravity.CENTER, 0, 0);
 		t.show();
 

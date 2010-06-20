@@ -1,19 +1,26 @@
 package electroacid.defense;
 
-import electroacid.defense.choiceMapPart.ChoiceOfMap;
-import electroacid.defense.optionsPart.Options;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
+import electroacid.defense.choiceMapPart.ChoiceOfMap;
+import electroacid.defense.optionsPart.Options;
 
 public class electroaciddefense extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
@@ -21,14 +28,33 @@ public class electroaciddefense extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		SharedPreferences settings = getSharedPreferences(Options.getPrefsName(), 0);
+		if(settings.getInt("language", 999) == 999){
+			Toast.makeText(this.getApplicationContext(),R.string.languageNotDefined, 5000).show();
+		}else{ // vérifier que le language choisi est le même que le locale, sinon, on force le locale à changer
+			switch(settings.getInt("language", 999)){
+				case 0: setLocal(Locale.ENGLISH);break;
+				case 1: setLocal(Locale.FRENCH);break;
+			}
+		}
+		
+		Toast.makeText(this.getApplicationContext(), "Language : "+this.getResources().getConfiguration().locale, 10000).show();
+		
 		((Button) this.findViewById(R.id.Button01)).setOnClickListener(this);
 		((Button) this.findViewById(R.id.ButtonHowTo)).setOnClickListener(this);
 		((Button) this.findViewById(R.id.ButtonOptions)).setOnClickListener(this);
 		((Button) this.findViewById(R.id.ButtonQuit)).setOnClickListener(this);
-		((ImageView) this.findViewById(R.id.ImageView01))
-				.setImageResource(R.drawable.icon);
+		
 	}
 
+	private void setLocal(Locale loc){
+		Resources res = getResources();
+		Configuration conf = res.getConfiguration();
+		conf.locale = loc;
+		res.updateConfiguration(conf, res.getDisplayMetrics());
+	}
+	
 	@Override
 	public void onClick(View arg0) {
 		Intent i = null;
@@ -43,7 +69,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
 			break;
 		case R.id.ButtonOptions:
 			i = new Intent(this, Options.class);
-			this.startActivity(i);
+			this.startActivityForResult(i, 1000);
 			break;
 		case R.id.ButtonQuit:
 			finish();
@@ -52,6 +78,27 @@ public class electroaciddefense extends Activity implements OnClickListener {
 
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+
+		Toast.makeText(this.getApplicationContext(), "Change langue !  step 2 "+requestCode+" et "+resultCode, 1000).show();
+		Log.d("DEBUGTAG","step 2 !");
+		if(requestCode==1000 && resultCode==2000){
+			// la langue a changé, il faut recharcher l'activité ! 
+			Toast.makeText(this.getApplicationContext(), "Change langue !  step 3 ", 1000).show();
+			Log.d("DEBUGTAG","step 3 !");
+			Intent i = new Intent(this,electroaciddefense.class);
+			//Intent i = new Intent(this.createPackageContext(this.getPackageName(), Context.CONTEXT_INCLUDE_CODE),electroaciddefense.class);
+			//startActivity(i);
+			//Log.d("DEBUGTAG","step 4 !");
+
+			finish();
+			Log.d("DEBUGTAG","step 5 !");
+		}
+	}
+	
 	public boolean onCreateOptionsMenu(android.view.Menu menu) {
 		MenuItem m1 = menu.add(0, 1, 0, "Parameters");
 		MenuItem m2 = menu.add(0, 2, 0, "High Scores");
@@ -68,11 +115,11 @@ public class electroaciddefense extends Activity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case 1:
-			Toast.makeText(this, "This will be implemented... soon ! ", 2000)
+			Toast.makeText(this, R.string.RFU, 2000)
 					.show();
 			break;
 		case 2:
-			Toast.makeText(this, "This will be implemented... soon ! ", 2000)
+			Toast.makeText(this, R.string.RFU, 2000)
 					.show();
 			break;
 		case 3:
