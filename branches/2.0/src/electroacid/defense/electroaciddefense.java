@@ -92,8 +92,8 @@ public class electroaciddefense extends Activity implements OnClickListener {
 			Log.d("DEBUGTAG","step 3 !");
 			Intent i = new Intent(this,electroaciddefense.class);
 			//Intent i = new Intent(this.createPackageContext(this.getPackageName(), Context.CONTEXT_INCLUDE_CODE),electroaciddefense.class);
-			//startActivity(i);
-			//Log.d("DEBUGTAG","step 4 !");
+			startActivity(i);
+			Log.d("DEBUGTAG","step 4 !");
 
 			finish();
 			Log.d("DEBUGTAG","step 5 !");
