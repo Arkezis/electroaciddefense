@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="intro">This game is a classic Tower Defense, for more
+		informations you could use the menu. \n \n Have a good game =)
+	</string>
+	<string name="app_name">Electro Acid Defense</string>
+	<string name="targetPriority1">Près</string>
+	<string name="targetPriority2">Faible</string>
+	<string name="targetPriority3">Forte</string>
+	<string name="element1">Feu</string>
+	<string name="element2">Eau</string>
+	<string name="element3">Electricité</string>
+	<string name="element4">Métal</string>
+
+	<string name="welcome">Bienvenue dans EAD ! 
+	</string>
+	<string name="NewGame1">Nouvelle partie</string>
+	<string name="Options">Options</string>
+	<string name="HowTo">Instructions</string>
+	<string name="game">jeu</string>
+
+	<string name="languageNotDefined"> Votre langue préférée n\'est pas choisie. \n \n Veuillez utiliser le menu \"Options\" pour changer cela.</string>
+	<string name="RFU">Cette fonctionnalité n\'est pas encore implémentée</string>
+	<string name="Quit">Quitter :-(</string>
+	<string name="title">Bienvenue ! </string>
+	<string name="crash_toast_text">Désolé, un bug vient d\'arriver mais un rapport d\'erreur est en train d\'être envoyé aux développeurs ! </string>
+
+	<string name="Pause_game">Pause</string>
+	<string name="Quit_game">Quitter</string>
+	<string name="Save_game">Sauvegarder</string>
+
+
+	<!-- OPTION'S PART -->
+	<string name="Vibrate">Vibreur</string>
+	<string name="LanguageChoice">Choisissez votre langue</string>
+	<string-array name="Language_array">
+		<item>English</item>
+		<item>Français</item>
+	</string-array>
+
+
+
+</resources>
