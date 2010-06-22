@@ -61,8 +61,9 @@ public class electroaciddefense extends Activity implements OnClickListener {
 			this.startActivity(i);
 			break;
 		case R.id.ButtonHowTo:
-			//i = new Intent(this, ChoiceOfMap.class);
-			//this.startActivity(i);
+			i = new Intent(this, test.class);
+			i.putExtra("map", "tutomap");
+			this.startActivity(i);
 			break;
 		case R.id.ButtonOptions:
 			i = new Intent(this, Options.class);
