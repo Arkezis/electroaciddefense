@@ -41,4 +41,6 @@
 
 
 
+<dimen name="topmenuheight">32px</dimen>
+<dimen name="mGLSurfaceViewHeight">384px</dimen>
 </resources>

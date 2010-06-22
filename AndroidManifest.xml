@@ -38,6 +38,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
+<activity android:name="test" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:label="@string/game" android:screenOrientation="portrait"></activity>
 </application>
 <supports-screens android:normalScreens="true"
         android:anyDensity="true" android:resizeable="true"
