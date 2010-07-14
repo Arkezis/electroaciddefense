@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map name="mapTest">
+	<line>
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />	
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='p' direction='r' texture='5' />
+		<box type='p' direction='d' texture='6' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />	
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='p' direction='r' texture='5' /><box type='p' direction='u' texture='8' />
+		<box type='p' direction='r' texture='7' /><box type='p' direction='d' texture='6' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='p' direction='r' texture='5' /><box type='p' direction='u' texture='8' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='p' direction='r' texture='7' /><box type='p' direction ='d' texture='6' /><box type='b' texture='0' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='p' direction='r' texture='5' /><box type='p' direction='u' texture='8' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='p' direction='r' texture='7' /><box type='p' direction='d' texture='6' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='p' direction='u' texture='3' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='p' direction='d' texture='3' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='p' direction='u' texture='3' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='p' direction='d' texture='3' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='b' texture='0' /><box type='p' direction='u' texture='3' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='p' direction='d' texture='3' /><box type='b' texture='0' />
+	</line>
+	<line>
+		<box type='p' direction='r' texture='2' startPath='true'/><box type='p' texture='8' direction='u' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='p' direction='r' texture='7' /><box type='p' direction='r' texture='1' />
+	</line>
+		<line>
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+		<box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' /><box type='b' texture='0' />
+	</line>
+</map>

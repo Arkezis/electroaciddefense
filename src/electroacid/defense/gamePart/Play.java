@@ -163,6 +163,17 @@ public class Play extends AngleActivity {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}else if(mapChoosen.equals("map3")){
+				try {
+					game.build(getWindow().getContext(),  R.raw.game3game);
+					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map3map);
+					genericWave = new GenericWave(mGLSurfaceView);
+					genericWave.build(getWindow().getContext(), R.raw.map3wave);
+					genericTower = new GenericTower();
+					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			game.setGameStarted(true);
 			/* Menus' initialisation */

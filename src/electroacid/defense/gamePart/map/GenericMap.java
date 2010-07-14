@@ -77,10 +77,10 @@ public class GenericMap {
 			int idTexture = XmlUtil.getAttributeIntFromNode(node, "texture");
 			String type = XmlUtil.getAttributeFromNode(node, "type");
 
-			if (type.equalsIgnoreCase("buildable")) {
+			if (type.equalsIgnoreCase("buildable") || type.equalsIgnoreCase("b")) {
 				this.matrice[line][column] = new BoxBuildable(column*this.offsetX, line*this.offsetY, this.offsetX, this.offsetY);
 				map.mMap[i] = idTexture;
-			}else if (type.equalsIgnoreCase("path")){
+			}else if (type.equalsIgnoreCase("path") || type.equalsIgnoreCase("p")){
 				boolean firstBoxPath = XmlUtil.getAttributeBooleanFromNode(node, "startPath");
 				BoxPath b = new BoxPath(column*this.offsetX, line*this.offsetY, this.offsetX, this.offsetY);
 				b.setDirection(Direction.getDirection(XmlUtil.getAttributeFromNode(node, "direction")));
