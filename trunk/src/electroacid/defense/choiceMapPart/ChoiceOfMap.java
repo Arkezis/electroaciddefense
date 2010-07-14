@@ -21,6 +21,7 @@ public class ChoiceOfMap extends Activity implements OnClickListener {
 		((ImageButton)this.findViewById(R.id.ImgButton1)).setOnClickListener(this);
 		((ImageButton)this.findViewById(R.id.ImgButton2)).setOnClickListener(this);
 		((ImageButton)this.findViewById(R.id.ImgButton3)).setOnClickListener(this);
+		((ImageButton)this.findViewById(R.id.ImgButton4)).setOnClickListener(this);
 		((Button)this.findViewById(R.id.Button1)).setOnClickListener(this);    
 	}
 
@@ -41,6 +42,11 @@ public class ChoiceOfMap extends Activity implements OnClickListener {
 		case R.id.ImgButton3 :
 			i = new Intent(this,Play.class);
 			i.putExtra("map", "map2");
+			this.startActivity(i);
+			break;
+		case R.id.ImgButton4 :
+			i = new Intent(this,Play.class);
+			i.putExtra("map", "map3");
 			this.startActivity(i);
 			break;
 		case R.id.Button1 :

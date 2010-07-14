@@ -33,13 +33,11 @@
 <TableRow>
 	<TextView 
 	    android:text="Tutorial map" 
-	    android:id="@+id/TextView01" 
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"></TextView>
 	<TextView 
 	    android:text="Map 1" 
-	    android:id="@+id/TextView01" 
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"></TextView>
@@ -51,11 +49,21 @@
     	android:src="@drawable/map2map"
     	android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"></ImageButton>
+    <ImageButton
+    	android:id="@+id/ImgButton4"
+    	android:src="@drawable/map2map"
+    	android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"></ImageButton>
 </TableRow>
 <TableRow>
 	<TextView 
 	    android:text="Map 2" 
-	    android:id="@+id/TextView01" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:paddingBottom="20px"></TextView>
+	<TextView 
+	    android:text="In my House" 
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"
