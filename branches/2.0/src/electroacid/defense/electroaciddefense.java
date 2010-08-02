@@ -18,14 +18,16 @@ import android.widget.Button;
 import android.widget.Toast;
 import electroacid.defense.choiceMapPart.ChoiceOfMap;
 import electroacid.defense.optionsPart.Options;
-
+ 
 public class electroaciddefense extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 		
-		
+		setLocal(Locale.ENGLISH);
+		/*
 		SharedPreferences settings = getSharedPreferences(Options.getPrefsName(), 0);
 		if(settings.getInt("language", 999) == 999){
 			Toast.makeText(this.getApplicationContext(),R.string.languageNotDefined, 5000).show();
@@ -34,13 +36,12 @@ public class electroaciddefense extends Activity implements OnClickListener {
 				case 0: setLocal(Locale.ENGLISH);break;
 				case 1: setLocal(Locale.FRENCH);break;
 			}
-		}
-		setContentView(R.layout.main);
+		}*/
 		Toast.makeText(this.getApplicationContext(), "Language : "+this.getResources().getConfiguration().locale, 10000).show();
 		
 		((Button) this.findViewById(R.id.Button01)).setOnClickListener(this);
 		((Button) this.findViewById(R.id.ButtonHowTo)).setOnClickListener(this);
-		((Button) this.findViewById(R.id.ButtonOptions)).setOnClickListener(this);
+	//	((Button) this.findViewById(R.id.ButtonOptions)).setOnClickListener(this);
 		((Button) this.findViewById(R.id.ButtonQuit)).setOnClickListener(this);
 		
 	}
@@ -61,14 +62,14 @@ public class electroaciddefense extends Activity implements OnClickListener {
 			this.startActivity(i);
 			break;
 		case R.id.ButtonHowTo:
-			i = new Intent(this, test.class);
+			i = new Intent(this, HowTo.class);
 			i.putExtra("map", "tutomap");
 			this.startActivity(i);
 			break;
-		case R.id.ButtonOptions:
+	/*	case R.id.ButtonOptions:
 			i = new Intent(this, Options.class);
 			this.startActivityForResult(i, 1000);
-			break;
+			break;*/
 		case R.id.ButtonQuit:
 			finish();
 			break;

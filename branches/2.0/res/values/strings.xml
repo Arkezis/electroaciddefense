@@ -43,4 +43,30 @@
 
 <dimen name="topmenuheight">32px</dimen>
 <dimen name="mGLSurfaceViewHeight">384px</dimen>
+	<!-- HOW TO'S PART -->
+<string name="HowToIntro">Electro Acid Defense is a classical Tower Defense Game. Here, we will see how to use the application and of course, how to play ! </string>
+<string name="HowToSection1">Section 1 : Use the application</string>
+<string name="HowToSection1Content1">The Electro Acid Defense application is really simple and intuitive. In the welcome screen, you have 3 buttons. </string> 
+<string name="HowToSection1Content2">\t New Game : With this button, you can access to the list of the maps. In the right way to play ! \n
+\t How To : From this button, you can access to this screen. This screen is here to help you during the using of this application. \n
+<!--  	\t Options : The options button give you the possibility to adapt Electro Acid Defense as you wish ! You can change the language, the sound, the vibrate and more ... \n-->
+\t Exit : This button is used to quit the application. Even with a very good game like EAD, sometimes, you need to take a break ! ;-) \n</string>
+<string name="HowToSection2">Section 2 : How to play ?</string>
+<string name="HowToSection2Content">As explained before, rules of Electro Acid Defense are really simple. In all the maps, a path is drawed on the screen and your goal will be to «empecher» the creatures to go until the end of this path (in red) and to survive untill the end of the creatures... Creatures are coming waves by waves and for each creature who will cross the end of the path, you\'ll loose 1 life ! To kill the creatures, you will have to construct towers near the path. </string>
+<string name="HowToSection2.1">Section 2.1 : Top menu</string>
+<string name="HowToSection2.1Content">Before beginning, you must know how to use the screen. At the top of the screen, you have different informations about your game. First icon indicate your number of lifes and the second one, the money ! All the others are used for the creatures\' waves. The first one is indicating you which wave\'s number is running on the game (usefull to try to beat your previous score !), the second and third one are used to modify the speed of the game. The first arrow has 3 step. At each tap, you\'ll change the step and for each step, the speed of the game is multipy by 2x (to come back at the normal speed, tap on the third tap on this icon). The last icon is to run a creatures\' wave when you need it ! It could be useful when the countdown (on the right) is too high and your towers have nobody to kills... But use it with «precaution» !!</string>
+<string name="HowToSection2.2">Section 2.2 : Towers</string>
+<string name="HowToSection2.2Content">As we said before, the mean to kill the creatures is to construct towers near the path. Each tower have differents capacities : \n
+\t Price : Price to construct this tower (this price is used when you  want to upgrade or destroy this tower)\n
+\t Damage : As towers are used to kill the creatures, some of them are more efficient ! You should choose which towers to build very seriously.\n
+\t Shoot : The number indicated after this capacity is the rate of shooting. Towers with lower rate of shoot are speeder but often, less efficient than towers with high rate of shoot.\n
+\t ShootArea : For the the towers\' shoot, differents areas are  possible. When you select a tower, look at the map to see what is the shootArea of this tower ! \n
+\t Priority shooting : After building your tower, you can click on it to see this capacity. This capacity will help you to manage on which creature, the tower should shoot. By default, this capacity is set to «weak» but you should try others to improve your strategy...\n
+\t Element : In the world of Electro Acid Defense, 4 elements are used to creates towers. These  4 elements are linked to the 4 elements available for a creature. Try to understand them and to undesrtand how they are interacting, it could be very useful for you... \n\n
+To build a tower, you must tap on the map where you want your tower, select the appropriate tower in the bottom menu and tap on «BUY» to build it. \n
+To upgrade or destroy a tower, tap on it on the map and on the bottom menu, the tower\'s capacities is show. Use the green arrow to upgrade it or the red cross to destroy it.\n</string>
+<string name="HowToSection2.3">Section 2.3 : Creatures</string>
+<string name="HowToSection2.3Content">The creatures are grouped in waves. In each waves, you can have only  different type of creatures, different numbers, with differents capacities.  \n
+You can tap on the creature to see it informations as the element, the speed, the reward value or the life. </string>
 </resources>
+

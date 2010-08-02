@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	android:versionName="1.4.5"
 	android:versionCode="14" package="electroacid.defense">
@@ -38,7 +37,16 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-<activity android:name="test" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:label="@string/game" android:screenOrientation="portrait"></activity>
+		<activity android:name=".HowTo" 
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen" 
+			android:label="How To" 
+			android:screenOrientation="portrait">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
 </application>
 <supports-screens android:normalScreens="true"
         android:anyDensity="true" android:resizeable="true"
