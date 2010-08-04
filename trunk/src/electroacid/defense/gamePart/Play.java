@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,9 +26,6 @@ import com.android.angle.AngleTileMap;
 import com.android.angle.AngleUI;
 
 import electroacid.defense.R;
-import electroacid.defense.R.drawable;
-import electroacid.defense.R.raw;
-import electroacid.defense.R.string;
 import electroacid.defense.gamePart.box.Box;
 import electroacid.defense.gamePart.box.BoxBuildable;
 import electroacid.defense.gamePart.box.BoxPath;
@@ -59,7 +57,7 @@ public class Play extends AngleActivity {
 	private AngleTileMap tmGround;
 
 	/* Matrice */
-	GenericMap matrice = new GenericMap(13, 10, 32, 32,9);
+	GenericMap matrice = new GenericMap(13, 10, 32, 32,15);
 	GenericWave genericWave;
 	GenericTower genericTower;
 
@@ -123,58 +121,14 @@ public class Play extends AngleActivity {
 			this.createTowerForMenu();
 
 			/* Create the map, the waves and the towers */
-			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,18,9,32,32);
+			AngleTileBank tbGround = new AngleTileBank(mActivity.mGLSurfaceView,R.drawable.tilemap,30,15,32,32);
 			tmGround = new AngleTileMap(tbGround, 320, 416, 10, 13, false,false);
 
 
 
 			ogField.addObject(tmGround);
 			game = GenericGame.getInstance();
-			if(mapChoosen.equals("tutomap")){
-				try {
-					game.build(getWindow().getContext(),  R.raw.tutogame);
-					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.tutomap);
-					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.tutowave);
-					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else if(mapChoosen.equals("map1")){
-				try {
-					game.build(getWindow().getContext(),  R.raw.game1game);
-					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map1map);
-					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.map1wave);
-					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else if(mapChoosen.equals("map2")){
-				try {
-					game.build(getWindow().getContext(),  R.raw.game2game);
-					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map2map);
-					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.map2wave);
-					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else if(mapChoosen.equals("map3")){
-				try {
-					game.build(getWindow().getContext(),  R.raw.game3game);
-					matrice.buildMap(getWindow().getContext(),tmGround,R.raw.map3map);
-					genericWave = new GenericWave(mGLSurfaceView);
-					genericWave.build(getWindow().getContext(), R.raw.map3wave);
-					genericTower = new GenericTower();
-					genericTower.build(getWindow().getContext(), R.raw.tower,mGLSurfaceView);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			this.chooseMap();
 			game.setGameStarted(true);
 			/* Menus' initialisation */
 			fontMenu = new AngleFont(mActivity.mGLSurfaceView, 15, Typeface.createFromAsset(getAssets(),"nasaliza.ttf"), 222, 0, 0, 30, 200, 255, 255);
@@ -188,6 +142,39 @@ public class Play extends AngleActivity {
 			menu = new MenuTop(fontTitle,mGLSurfaceView,ogTest);
 		}
 
+		private void chooseMap(){
+			try {
+				Context context = getWindow().getContext();
+				
+				genericWave = new GenericWave(mGLSurfaceView);
+				genericTower = new GenericTower();
+				genericTower.build(context, R.raw.tower,mGLSurfaceView);
+
+				if(mapChoosen.equals("tutomap")){
+					game.build(context,  R.raw.tutogame);
+					matrice.buildMap(context,tmGround,R.raw.tutomap);
+					genericWave.build(context, R.raw.tutowave);
+				}else if(mapChoosen.equals("map1")){
+					game.build(context,  R.raw.game1game);
+					matrice.buildMap(context,tmGround,R.raw.map1map);
+					genericWave.build(context, R.raw.map1wave);
+				}else if(mapChoosen.equals("map2")){
+					game.build(context,  R.raw.game2game);
+					matrice.buildMap(context,tmGround,R.raw.map2map);
+					genericWave.build(context, R.raw.map2wave);
+				}else if(mapChoosen.equals("map3")){
+					game.build(context,  R.raw.game3game);
+					matrice.buildMap(context,tmGround,R.raw.map3map);
+					genericWave.build(context, R.raw.map3wave);
+				}else if(mapChoosen.equals("map4")){
+					game.build(context,  R.raw.game4game);
+					matrice.buildMap(context,tmGround,R.raw.map4map);
+					genericWave.build(context, R.raw.map4wave);
+				}	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		/**
 		 * The action to do when the user touch the screen
@@ -496,7 +483,7 @@ public class Play extends AngleActivity {
 		GenericGame.destroyInstance();
 		super.finish();
 	}
-	
+
 	@Override
 	public boolean onMenuOpened (int featureId, android.view.Menu menu){
 		return super.onMenuOpened(featureId, menu);
