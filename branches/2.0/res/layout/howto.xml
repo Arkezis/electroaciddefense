@@ -4,7 +4,7 @@
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="vertical" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:scrollbars="vertical|horizontal"
+		android:layout_height="fill_parent" android:scrollbars="vertical"
 		android:gravity="center" android:background="#000000">
 		
 		<TextView 	android:text="@string/HowToIntro" android:id="@+id/HowToIntro" 
@@ -22,7 +22,7 @@
 					android:layout_gravity="center" android:paddingTop="30px">
 					</TextView>
 					
-		<ImageView 
+		<ImageView android:id="@+id/Img1"
 					android:layout_width="150px" 
 					android:layout_height="250px"
 					android:background="@drawable/howto1" >
@@ -38,11 +38,11 @@
 				    android:paddingTop="30px" android:textStyle="bold">
 				  	</TextView>
 		<TextView 	android:text="@string/HowToSection2Content" android:id="@+id/HowToSection2Content"
-			 		android:textSize="25px" 
+			 		android:textSize="25px"  android:layout_width="wrap_content" android:layout_height="wrap_content"
 					android:gravity="right" android:paddingTop="30px" >
 					</TextView>
-		<ImageView 	android:width="150px" 
-					android:height="250px"
+		<ImageView 	android:layout_width="150px" 
+					android:layout_height="250px"
 					android:background="@drawable/howto2"  android:gravity="left">
 					</ImageView>	
 
