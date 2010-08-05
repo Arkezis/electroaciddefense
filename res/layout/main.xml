@@ -12,7 +12,8 @@
 	android:layout_width="250px" 
 	android:layout_height="75px"
 	android:paddingTop="30px"
-	android:background="@drawable/b_new" >
+	android:background="@drawable/b_new"
+	android:layout_margin="5dip" >
 </Button>
 <Button 
 	android:text="" 
@@ -21,7 +22,8 @@
 	android:layout_height="75px"
 	android:paddingTop="30px"	
 	android:paddingBottom="30px"
-	android:background="@drawable/b_howto" >
+	android:background="@drawable/button"
+	android:layout_margin="5dip">
 </Button>
 <!-- <Button 
 	android:text="" 
@@ -37,7 +39,9 @@
 	android:layout_width="250px" 
 	android:layout_height="75px"
 	android:paddingTop="30px"
-	android:background="@drawable/b_quit" >
+	android:background="@drawable/b_quit"
+	android:layout_margin="5dip">
+	 >
 </Button>
 
 </LinearLayout>  
