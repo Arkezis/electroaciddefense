@@ -4,8 +4,8 @@
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="vertical" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:scrollbars="vertical"
-		android:gravity="center" android:background="#000000">
+		android:layout_height="wrap_content" android:scrollbars="vertical"
+		android:gravity="center" android:background="@drawable/bg_howto">
 		
 		<TextView 	android:text="@string/HowToIntro" android:id="@+id/HowToIntro" 
 					android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25px"  android:gravity="center"
@@ -13,12 +13,12 @@
 					</TextView>
 					
 		<TextView 	android:text="@string/HowToSection1" android:id="@+id/HowToSection1" 
-					android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="25px" android:gravity="center"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="20dip" android:gravity="center"
 				    android:paddingTop="30px" android:textStyle="bold" >
 				  	</TextView>
 				  
 		<TextView 	android:text="@string/HowToSection1Content1" android:id="@+id/HowToSection1Content1"
-		 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25px" 
+		 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20dip" 
 					android:layout_gravity="center" android:paddingTop="30px">
 					</TextView>
 					
@@ -29,38 +29,40 @@
 					</ImageView>	
 					
 		<TextView 	android:text="@string/HowToSection1Content2" android:id="@+id/HowToSection1Content2"
-		 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25px" 
+		 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20dip" 
 					android:layout_gravity="center" android:paddingTop="30px">
 					</TextView>
 					
 		<TextView 	android:text="@string/HowToSection2" android:id="@+id/HowToSection2" 
-					android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="25px"  android:gravity="center"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="20dip"  android:gravity="center"
 				    android:paddingTop="30px" android:textStyle="bold">
 				  	</TextView>
-		<TextView 	android:text="@string/HowToSection2Content" android:id="@+id/HowToSection2Content"
-			 		android:textSize="25px"  android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:gravity="right" android:paddingTop="30px" >
-					</TextView>
-		<ImageView 	android:layout_width="150px" 
-					android:layout_height="250px"
-					android:background="@drawable/howto2"  android:gravity="left">
-					</ImageView>	
-
+		<LinearLayout 	android:orientation="horizontal" android:layout_width="fill_parent"  android:paddingTop="30px"
+						android:layout_height="fill_parent" android:gravity="center_vertical" >
+			<TextView 	android:text="@string/HowToSection2Content" android:id="@+id/HowToSection2Content"
+				 		android:textSize="20dip"  android:layout_width="0px" android:layout_height="wrap_content"
+						android:layout_weight="3">
+						</TextView>
+			<ImageView 	android:layout_width="150dip" 
+						android:layout_height="250dip"
+						android:background="@drawable/howto2" android:layout_weight="1"  >
+						</ImageView>	
+		</LinearLayout>
 		<TextView 	android:text="@string/HowToSection2.1" android:id="@+id/HowToSection2.1" 
-					android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="25px"  android:gravity="center"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="20dip"  android:gravity="center"
 				    android:paddingTop="30px" android:textStyle="italic">
 				  	</TextView>
 		<TextView 	android:text="@string/HowToSection2.1Content" android:id="@+id/HowToSection2.1Content"
-		 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25px"
+		 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20dip"
 					android:layout_gravity="center" android:paddingTop="30px">
 					</TextView>
 		
 		<TextView 	android:text="@string/HowToSection2.2" android:id="@+id/HowToSection2.2" 
-					android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="25px" android:gravity="center"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="20dip" android:gravity="center"
 				    android:paddingTop="30px" android:textStyle="italic">
 				  	</TextView>
 		<TextView 	android:text="@string/HowToSection2.2Content" android:id="@+id/HowToSection2.2Content"
-		 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25px" 
+		 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20dip" 
 					android:layout_gravity="center" android:paddingTop="30px">
 					</TextView>
 			
