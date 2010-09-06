@@ -24,12 +24,13 @@
         	android:src="@drawable/tutomap"	
 	   		android:layout_width="wrap_content" 
 	    	android:layout_height="wrap_content"
-        	></ImageButton>
+	    	android:background="@drawable/button_level"></ImageButton>
         <ImageButton
         	android:id="@+id/ImgButton2"
         	android:src="@drawable/map1map"
         	android:layout_width="wrap_content" 
-	    	android:layout_height="wrap_content"></ImageButton>
+	    	android:layout_height="wrap_content"
+	    	android:background="@drawable/button_level"></ImageButton>
 </TableRow>
 
 <TableRow>
@@ -52,7 +53,8 @@
     	android:id="@+id/ImgButton3"
     	android:src="@drawable/map2map"
     	android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"></ImageButton>
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/button_level"></ImageButton>
 </TableRow>
 
 <TableRow>
