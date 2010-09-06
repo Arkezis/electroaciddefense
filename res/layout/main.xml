@@ -7,23 +7,20 @@
     android:background="@drawable/bg_princ"
     >
 <Button 
-	android:text="" 
+	android:text="@string/NewGame1" 
 	android:id="@+id/Button01" 
 	android:layout_width="250px" 
 	android:layout_height="75px"
-	android:paddingTop="30px"
-	android:background="@drawable/b_new"
-	android:layout_margin="5dip" >
+	android:background="@drawable/button"
+	android:layout_margin="5dip" android:textColor="#FFFFFF" android:textSize="30px">
 </Button>
 <Button 
-	android:text="" 
+	android:text="@string/HowTo" 
 	android:id="@+id/ButtonHowTo" 
 	android:layout_width="250px" 
 	android:layout_height="75px"
-	android:paddingTop="30px"	
-	android:paddingBottom="30px"
 	android:background="@drawable/button"
-	android:layout_margin="5dip">
+	android:layout_margin="5dip" android:textColor="#FFFFFF" android:textSize="30px">
 </Button>
 <!-- <Button 
 	android:text="" 
@@ -34,13 +31,12 @@
 	android:background="@drawable/b_parameters" >
 </Button> -->
 <Button 
-	android:text="" 
+	android:text="Quit" 
 	android:id="@+id/ButtonQuit" 
 	android:layout_width="250px" 
 	android:layout_height="75px"
-	android:paddingTop="30px"
-	android:background="@drawable/b_quit"
-	android:layout_margin="5dip">
+	android:background="@drawable/button"
+	android:layout_margin="5dip" android:textColor="#FFFFFF" android:textSize="30px">
 	 >
 </Button>
 
