@@ -7,7 +7,7 @@
     
 <TableRow>
     <TextView 
-        android:layout_span="3"
+        android:layout_span="2"
 	    android:text="Choose the map ! " 
 	    android:textSize="23px"
 	    android:id="@+id/TextView01" 
@@ -18,7 +18,7 @@
 	    android:paddingBottom="30px"></TextView>
 </TableRow>
 
-    <TableRow>
+<TableRow>
         <ImageButton
         	android:id="@+id/ImgButton1"
         	android:src="@drawable/tutomap"	
@@ -31,6 +31,7 @@
         	android:layout_width="wrap_content" 
 	    	android:layout_height="wrap_content"></ImageButton>
 </TableRow>
+
 <TableRow>
 	<TextView 
 	    android:text="Tutorial map" 
@@ -53,6 +54,7 @@
     	android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"></ImageButton>
 </TableRow>
+
 <TableRow>
 	<TextView 
 	    android:text="Map 2" 
@@ -62,14 +64,19 @@
 	    android:layout_gravity="center"
 	    android:paddingBottom="20px"></TextView>
 </TableRow>
+
 <TableRow>
     <Button
     	android:id="@+id/Button1"
     	android:gravity="center"
     	android:layout_gravity="center"
-    	android:text="Go back"
-    	android:layout_span="3"
-    	></Button>
+    	android:text="Back"
+    	android:layout_span="2"
+    	android:layout_width="250px" 
+		android:layout_height="75px"
+		android:background="@drawable/button"
+		android:layout_margin="5dip" android:textColor="#FFFFFF" android:textSize="30px" android:width="250px">
+    	</Button>
 </TableRow>
 
 
