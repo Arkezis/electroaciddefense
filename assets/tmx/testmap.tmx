@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="10" height="12" tilewidth="32" tileheight="32">
+ <tileset name="ead" firstgid="1" tilewidth="32" tileheight="32">
+  <image source="gfx/tilemap.png"/>
+ </tileset>
+ <layer name="Couche 0" width="10" height="12">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAABNlYGBgIgKLYsHiONSRIwbiSxKpDkSL4HAfPjvxmTcQ6tCxEB79xIQpNgwA2OVeZOABAAA=
+  </data>
+ </layer>
+</map>
