@@ -1,85 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:stretchColumns="*"
-    android:background="@drawable/bg_choice">
-    
-<TableRow>
-    <TextView 
-        android:layout_span="2"
-	    android:text="Choose the map ! " 
-	    android:textSize="23px"
-	    android:id="@+id/TextView01" 
-	    android:layout_width="wrap_content" 
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    android:paddingTop="30px"
-	    android:paddingBottom="30px"></TextView>
-</TableRow>
-
-<TableRow>
-        <ImageButton
-        	android:id="@+id/ImgButton1"
-        	android:src="@drawable/tutomap"	
-	   		android:layout_width="wrap_content" 
-	    	android:layout_height="wrap_content"
-	    	android:background="@drawable/button_level"></ImageButton>
-        <ImageButton
-        	android:id="@+id/ImgButton2"
-        	android:src="@drawable/map1map"
-        	android:layout_width="wrap_content" 
-	    	android:layout_height="wrap_content"
-	    	android:background="@drawable/button_level"></ImageButton>
-</TableRow>
-
-<TableRow>
-	<TextView 
-	    android:text="Tutorial map" 
-	    android:id="@+id/TextView01" 
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"></TextView>
-	<TextView 
-	    android:text="Map 1" 
-	    android:id="@+id/TextView01" 
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"></TextView>
-</TableRow>
-
-<TableRow>
-    <ImageButton
-    	android:id="@+id/ImgButton3"
-    	android:src="@drawable/map2map"
-    	android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"
-	    android:background="@drawable/button_level"></ImageButton>
-</TableRow>
-
-<TableRow>
-	<TextView 
-	    android:text="Map 2" 
-	    android:id="@+id/TextView01" 
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    android:paddingBottom="20px"></TextView>
-</TableRow>
-
-<TableRow>
-    <Button
-    	android:id="@+id/Button1"
-    	android:gravity="center"
-    	android:layout_gravity="center"
-    	android:text="Back"
-    	android:layout_span="2"
-    	android:layout_width="250px" 
-		android:layout_height="75px"
+	    android:scrollbars="vertical"
+	    android:stretchColumns="*"
+	    android:background="@drawable/bg_choice">
+	    
+	<TableRow>
+	    <TextView 
+	        android:layout_span="2"
+		    android:text="Choose the map ! " 
+		    android:textSize="23dip"
+		    android:id="@+id/TextView01" 
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:paddingTop="30dip"
+		    android:paddingBottom="30dip"></TextView>
+	</TableRow>
+	
+	<TableRow>
+	        <ImageButton
+	        	android:id="@+id/ImgButton1"
+	        	android:src="@drawable/tutomap"	
+		   		android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content"
+		    	android:background="@drawable/button_level"></ImageButton>
+	        <ImageButton
+	        	android:id="@+id/ImgButton2"
+	        	android:src="@drawable/map1map"
+	        	android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content"
+		    	android:background="@drawable/button_level"></ImageButton>
+	</TableRow>
+	
+	<TableRow>
+		<TextView 
+		    android:text="Tutorial map" 
+		    android:id="@+id/TextView01" 
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"></TextView>
+		<TextView 
+		    android:text="Map 1" 
+		    android:id="@+id/TextView01" 
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"></TextView>
+	</TableRow>
+	
+	<TableRow>
+	    <ImageButton
+	    	android:id="@+id/ImgButton3"
+	    	android:src="@drawable/map2map"
+	    	android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/button_level"></ImageButton>
+	</TableRow>
+	
+	<TableRow>
+		<TextView 
+		    android:text="Map 2" 
+		    android:id="@+id/TextView01" 
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:paddingBottom="20dip"></TextView>
+	</TableRow>
+	
+	<TableRow>
+	    <Button 
+		android:text="Back" 
+		android:id="@+id/Button1" 
+		android:gravity="center"
+		android:layout_span="2"
+	   	android:layout_gravity="center"
 		android:background="@drawable/button"
-		android:layout_margin="5dip" android:textColor="#FFFFFF" android:textSize="30px" android:width="250px">
-    	</Button>
-</TableRow>
-
-
-</TableLayout>
+		android:textColor="#FFFFFF" android:textSize="24dip" 
+		android:layout_height="wrap_content" android:layout_width="260dip">
+		</Button>
+	</TableRow>
+	
+	
+	</TableLayout>
+</ScrollView>
