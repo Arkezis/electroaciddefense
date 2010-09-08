@@ -1,6 +1,5 @@
 package electroacid.defense.choiceMapPart;
 
-import electroacid.defense.FuturPlay;
 import electroacid.defense.R;
 import electroacid.defense.gamePart.Play;
 import android.app.Activity;
@@ -30,7 +29,7 @@ public class ChoiceOfMap extends Activity implements OnClickListener {
 		Intent i = null;
 		switch(arg0.getId()){
 		case R.id.ImgButton1 :
-			i = new Intent(this,FuturPlay.class);
+			i = new Intent(this,Play.class);
 			i.putExtra("map", "tutomap");
 			this.startActivity(i);
 			break;
