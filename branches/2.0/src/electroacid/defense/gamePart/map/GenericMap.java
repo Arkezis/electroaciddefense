@@ -28,17 +28,7 @@ import electroacid.defense.gamePart.tile.TilePath;
 public class GenericMap {
 
 	TMXTiledMap tmxTiledMap;
-
-	int nbLine;
-	int nbColumn;
-
-	/** width of box */
-	int offsetX;
-	/** height of box */
-	int offsetY;
-
 	Tile[] firstBoxPath;
-
 	TilePath lastTilePath;
 
 	/**
@@ -53,11 +43,7 @@ public class GenericMap {
 	 * @param _offsetY
 	 *            height of box
 	 */
-	public GenericMap(int _xMax, int _yMax, int _offsetX, int _offsetY) {
-		this.nbLine = _xMax;
-		this.nbColumn = _yMax;
-		this.offsetX = _offsetX;
-		this.offsetY = _offsetY;
+	public GenericMap() {
 	}
 
 	public void buildMap(Play play, TextureManager textureManager)
@@ -159,22 +145,8 @@ public class GenericMap {
 		}
 	}
 
-	/**
-	 * get the box
-	 * 
-	 * @param x
-	 *            coordinate of the wanted box
-	 * @param y
-	 *            coordinate of the wanted box
-	 * @return the box wanted or null
-	 */
 	public Tile getBox(int x, int y) {
-		// the box is not in the matrice
-		if (x >= this.nbColumn * this.offsetX
-				|| y >= this.nbLine * this.offsetY || x < 0 || y < 32)
-			return null;
-		return (Tile) this.tmxTiledMap.getTMXLayers().get(0).getTMXTiles()[y
-				/ this.offsetY][x / this.offsetX];
+		return (Tile) this.tmxTiledMap.getTMXLayers().get(0).getTMXTileAt(x, y);
 	}
 
 }
