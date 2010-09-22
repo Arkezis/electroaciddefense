@@ -5,6 +5,7 @@ import org.anddev.andengine.engine.camera.BoundCamera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
+import org.anddev.andengine.entity.layer.ILayer;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXLayer;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXLoader;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXProperties;
@@ -19,6 +20,8 @@ import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
+
+import electroacid.defense.gamePart.map.GenericMap;
 
 public class Play extends BaseGameActivity {
 
@@ -48,29 +51,24 @@ public class Play extends BaseGameActivity {
 
 	@Override
 	public Scene onLoadScene() {
-
 		final Scene scene = new Scene(1);
-
+		
+		
+		
+		GenericMap genericMap = new GenericMap(13, 10, 32, 32);
 		try {
-			final TMXLoader tmxLoader = new TMXLoader(this, this.mEngine
-					.getTextureManager(), TextureOptions.DEFAULT,
-					new ITMXTilePropertiesListener() {
-						@Override
-						public void onTMXTileWithPropertiesCreated(
-								final TMXTiledMap pTMXTiledMap,
-								final TMXLayer pTMXLayer,
-								final TMXTile pTMXTile,
-								final TMXProperties<TMXTileProperty> pTMXTileProperties) {
-						}
-					});
-			this.mTMXTiledMap = tmxLoader
-					.loadFromAsset(this, "tmx/testmap.tmx");
-
-		} catch (final TMXLoadException tmxle) {
-			Debug.e(tmxle);
+			genericMap.buildMap(this,this.mEngine.getTextureManager());
+		} catch (TMXLoadException e) {
+			e.printStackTrace();
 		}
+		this.mTMXTiledMap=genericMap.getTmxTiledMap();
+		
 
 		final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
+		
+		
+
+		
 		scene.getBottomLayer().addEntity(tmxLayer);
 
 		/* Make the camera not exceed the bounds of the TMXLayer. */
