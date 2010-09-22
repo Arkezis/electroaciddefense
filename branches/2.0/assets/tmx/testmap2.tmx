@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Sans titre" tilewidth="32" tileheight="32">
+  <image source="gfx/tilemap.png"/>
+ </tileset>
+ <layer name="Couche 0" width="10" height="12">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NkYGBgpCIWBmIxKCZGPalqKVUHcp8IFIuhYXq5gVx1MCxEQnwAAOAoPEngAQAA
+  </data>
+ </layer>
+</map>

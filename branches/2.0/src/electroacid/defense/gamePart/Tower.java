@@ -2,21 +2,19 @@ package electroacid.defense.gamePart;
 
 import java.util.LinkedList;
 
-
-import com.android.angle.AngleObject;
-import com.android.angle.AngleSprite;
-import com.android.angle.AngleSpriteLayout;
-import com.android.angle.AngleSurfaceView;
+import org.anddev.andengine.entity.layer.ILayer;
+import org.anddev.andengine.entity.primitive.Line;
+import org.anddev.andengine.entity.sprite.Sprite;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import electroacid.defense.R;
 import electroacid.defense.R.drawable;
-import electroacid.defense.gamePart.box.BoxPath;
 import electroacid.defense.gamePart.enums.Element;
 import electroacid.defense.gamePart.enums.ShootPriority;
 import electroacid.defense.gamePart.game.GenericGame;
-import electroacid.defense.gamePart.gui.Shoot;
 import electroacid.defense.gamePart.map.GenericMap;
 import electroacid.defense.gamePart.observ.ObservateurTower;
+import electroacid.defense.gamePart.tile.TilePath;
 
 
 /**
@@ -28,7 +26,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	/**
 	 * The shoot shooted by the tower
 	 */
-	Shoot fire;
+	Line fire;
 	/**
 	 * Cost of the tower
 	 */
@@ -58,8 +56,8 @@ public  class Tower implements Cloneable,ObservateurTower{
 	/** 
 	 * Sprite of the tower
 	 */
-	private AngleSprite sprite;
-	private AngleSprite upgradeSprite;
+	private Sprite sprite;
+	private Sprite upgradeSprite;
 	/**
 	 * Coefficient used for the tower upgrade
 	 */
@@ -75,7 +73,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	/**
 	 * The shootable box
 	 */
-	private LinkedList<BoxPath> boxDetectionList;
+	private LinkedList<TilePath> boxDetectionList;
 	/**
 	 * Coordonate of the tower
 	 */
@@ -114,7 +112,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param _layout Layout of the tower 
 	 * @param _shootArea The shooting area
 	 */
-	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, ShootPriority _targetPriority, int _level,AngleSpriteLayout _layout,int _shootArea){
+	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, ShootPriority _targetPriority, int _level,TextureRegion texture,int _shootArea){
 		this.element = _element;
 		this.fireRate = _fireRate;
 		this.cost = _cost;
@@ -123,7 +121,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 		this.targetNb = _targetNb;
 		this.targetPriority = _targetPriority;
 		this.level = _level;
-		this.sprite = new AngleSprite(_layout);
+		this.sprite = new Sprite(0, 0, texture);
 		this.shootArea = _shootArea;
 	}
 
@@ -148,7 +146,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param _sprite Sprite of the tower 
 	 * @param _shootArea The shooting area
 	 */
-	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, ShootPriority _targetPriority, int _level,AngleSprite _sprite,int _shootArea){
+	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, ShootPriority _targetPriority, int _level,Sprite _sprite,int _shootArea){
 		this.element = _element;
 		this.fireRate = _fireRate;
 		this.cost = _cost;
@@ -165,15 +163,15 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * This method create the LinkedList used to shoot the creature (depending of the shootArea of the box)
 	 * @param ogField The AngleObject where the shoot should be add
 	 */
-	public void detection(AngleObject ogField){
-		if(!listTarget.isEmpty()) this.attack(listTarget,ogField); 
+	public void detection(ILayer container){
+		if(!listTarget.isEmpty()) this.attack(listTarget,container); 
 	}
 	/**
 	 * This method is used to shoot the creature. An Shoot's instance is created and the life is lost by the creature 
 	 * @param linkedList The creature's list to shoot
 	 * @param ogField
 	 */
-	private void attack(LinkedList<Creature> listTarget, AngleObject ogField) {
+	private void attack(LinkedList<Creature> listTarget, ILayer container) {
 
 		if (!this.listTarget.isEmpty()){			
 			Creature target;
@@ -183,25 +181,22 @@ public  class Tower implements Cloneable,ObservateurTower{
 				target = this.listTarget.get(0);
 
 
-
+			fire = new Line(this.x, this.y,target.getSprite().getX(), target.getSprite().getY(),3);
 			switch(this.element){
 			case Electricity:
-				fire = new Shoot(this.x, this.y,target.getSprite().mPosition.mX,target.getSprite().mPosition.mY,
-						ogField,1,(float)0.8,0,3);
+				fire.setColor(1, (float) 0.8, 0);
 				break;
 			case Fire:
-				fire = new Shoot(this.x, this.y,target.getSprite().mPosition.mX,target.getSprite().mPosition.mY,
-						ogField,1,0,0,3);
+				fire.setColor(1,0,0);
 				break;
 			case Iron:
-				fire = new Shoot(this.x, this.y, target.getSprite().mPosition.mX,target.getSprite().mPosition.mY,
-						ogField,(float)0.4, (float)0.4, (float)0.4,3);
+				fire.setColor((float)0.4, (float)0.4, (float)0.4);
 				break;
 			case Water:
-				fire = new Shoot(this.x, this.y, target.getSprite().mPosition.mX, target.getSprite().mPosition.mY,
-						ogField,0, 0, 1,3);
+				fire.setColor(0, 0, 1);
 				break;
 			}
+			container.addEntity(fire);
 			// Apply the element vs element modifiers
 			double modifiers = this.element.getModifier(target.getElement());
 			target.loseLife((int)(this.damage*modifiers));		
@@ -221,50 +216,55 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param y
 	 */
 	public void changePosition(int _x, int _y){
-		this.sprite.mPosition.set(_x+16, _y+16);
+		this.sprite.setPosition(_x+16, _y+16);
 		this.x=_x; this.y=_y;
 	}
 
 	/**
 	 * @return the sprite
 	 */
-	public AngleSprite getSprite() {
+	public Sprite getSprite() {
 		return sprite;
 	}
 
 	/**
 	 * @param sprite the sprite to set
 	 */
-	public void setSprite(AngleSprite sprite) {
+	public void setSprite(Sprite sprite) {
 		this.sprite = sprite;
 	}
+
+	
 	/**
 	 * Upgrading a tower (thanks to upgrade coefficient)
 	 * @param ogField 
 	 * @param g Game's information
 	 */
-	public void upgrade(AngleSurfaceView mgl, AngleObject ogUpgradeTower){
+/*	public void upgrade(AngleSurfaceView mgl, ILayer container){
 		GenericGame game = GenericGame.getInstance();
 		//mGl.removeObject(this.upgradeSprite);
+		
+		
+		
 		this.upgradeSprite = new AngleSprite(new AngleSpriteLayout(mgl,32,level*32,R.drawable.tilemap,128,128,32,32));
-		this.upgradeSprite.mPosition.set(this.x+16, this.y+(16*level)-(32*(level-1)));
-		ogUpgradeTower.addObject(this.upgradeSprite);
+		this.upgradeSprite.setPosition(this.x+16, this.y+(16*level)-(32*(level-1)));
+		container.addEntity(this.upgradeSprite);
 		this.cost =  (int)Math.ceil((this.cost*upgrade));
 		this.damage = (int)Math.ceil((this.damage*upgrade));
 		this.level++;
 		game.setMoney(game.getMoney()-this.cost);
-	}
+	}*/
 
 	/**
 	 * Destroy a tower : Remove the object from the AngleObject corresponding and earning money
 	 * @param g
 	 * @param og
 	 */
-	public void destroy(AngleObject og, AngleObject ogUpgradeTower){
+	public void destroy(ILayer container, ILayer containerUpgradeTower){
 		GenericGame game = GenericGame.getInstance();
-		for (BoxPath box:this.boxDetectionList) box.delObservateur(this);
-		og.removeObject(this.sprite);
-		ogUpgradeTower.removeObject(this.upgradeSprite);
+		for (TilePath tile:this.boxDetectionList) tile.delObservateur(this);
+		container.removeEntity(this.sprite);
+		containerUpgradeTower.removeEntity(this.upgradeSprite);
 		game.setMoney((int)(game.getMoney()+this.cost*this.destroy));
 	}
 
@@ -293,7 +293,9 @@ public  class Tower implements Cloneable,ObservateurTower{
 		} catch(CloneNotSupportedException cnse) {
 			cnse.printStackTrace(System.err);
 		}	    
-		tower.sprite = new AngleSprite(this.sprite.roLayout);   
+		tower.sprite = new Sprite(this.sprite.getX(), this.sprite.getY(),
+				this.sprite.getTextureRegion());
+		this.upgradeSprite=null;
 		tower.weakest_highest=null;
 		return tower;
 	}
@@ -420,7 +422,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param matrice The matrice
 	 */
 	public void setListDetection(int width,int height,  GenericMap matrice) {
-		this.boxDetectionList=new LinkedList<BoxPath>();
+		this.boxDetectionList=new LinkedList<TilePath>();
 		this.listTarget = new LinkedList<Creature>();
 		this.weakest_highest=null;
 		int maxAreaForX = this.shootArea*width;
@@ -428,9 +430,9 @@ public  class Tower implements Cloneable,ObservateurTower{
 
 		for (int i = this.y-maxAreaForY;i<=this.y+maxAreaForY;i+=height){
 			for (int j = this.x-maxAreaForX;j<=this.x+maxAreaForX;j+=width){
-				if (matrice.getBox(j, i) instanceof BoxPath){
-					this.boxDetectionList.add((BoxPath) matrice.getBox(j,i));
-					BoxPath box =(BoxPath) matrice.getBox(j, i);
+				if (matrice.getBox(j, i) instanceof TilePath){
+					this.boxDetectionList.add((TilePath) matrice.getBox(j,i));
+					TilePath box =(TilePath) matrice.getBox(j, i);
 					box.addObservateur(this);
 				}
 			}

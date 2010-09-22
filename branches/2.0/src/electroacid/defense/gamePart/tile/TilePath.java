@@ -1,10 +1,12 @@
-package electroacid.defense.gamePart.box;
+package electroacid.defense.gamePart.tile;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import org.anddev.andengine.entity.layer.ILayer;
+import org.anddev.andengine.entity.layer.tiled.tmx.TMXTile;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
-import com.android.angle.AngleObject;
 
 import electroacid.defense.gamePart.Creature;
 import electroacid.defense.gamePart.enums.Direction;
@@ -16,47 +18,35 @@ import electroacid.defense.gamePart.observ.ObservateurTower;
  * @author cilheo
  * @version 1.0b
  */
-public class BoxPath extends Box implements ObservableBoxPath{
+public class TilePath extends Tile implements ObservableBoxPath{
 
 	/** Creatures' list who are actually on the box */
 	private LinkedList<Creature> listCreature;
 
 	/** Direction that the creature must take */
-	private Direction direction;
+	private Direction direction=null;
 
 	/** the next path after this */
-	private BoxPath nextPath;
+	private TilePath nextPath;
 
 	private int numberMaxPred=0;
-
+	public long time=System.currentTimeMillis();
 	private int numberPred=0;
 
 	/** Observator's list */
 	private ArrayList<ObservateurTower> listObservateur = new ArrayList<ObservateurTower>();
 
-	/**
-	 * Constructor of a boxPath
-	 * @param _x the x coordinate on the map
-	 * @param _y the y coordinate on the map
-	 * @param _width widht of the box
-	 * @param _height height of the box
-	 */
-	public BoxPath(int _x, int _y, int _width, int _height) {
-		super(_x,_y,_width,_height);
+	public TilePath(int pGlobalTileID, int pTileColumn, int pTileRow,
+			int pTileWidth, int pTileHeight, TextureRegion pTextureRegion) {
+		super(pGlobalTileID, pTileColumn, pTileRow, pTileWidth, pTileHeight,
+				pTextureRegion);
 		this.listCreature = new LinkedList<Creature>();
 	}
-
-	/**
-	 * Constructor of a boxPath
-	 * @param _x the x coordinate on the map
-	 * @param _y the y coordinate on the map
-	 * @param _width widht of the box
-	 * @param _height height of the box
-	 * @param direction direction that the creature must take
-	 */
-	public BoxPath(int _x, int _y, int _width, int _height,Direction direction) {
-		this(_x,_y,_width,_height);
-		this.direction = direction;
+	
+	public TilePath(TMXTile tile){
+		this(tile.getGlobalTileID(), tile.getTileColumn(), tile.getTileRow(), 
+				tile.getTileWidth(), tile.getTileHeight(),
+				tile.getTextureRegion());
 	}
 
 	/** add a creature to the listCreature */
@@ -65,14 +55,14 @@ public class BoxPath extends Box implements ObservableBoxPath{
 		this.updateObservateurAdd(creature);
 	}
 
-	public long time=System.currentTimeMillis();
+
 
 	/**
 	 * Action during one step
 	 * @param game game's parameter
 	 * @param container creature's container
 	 */
-	public void nextStep(AngleObject container){
+	public void nextStep(ILayer container){
 
 		boolean nextOk = this.numberPred==1;
 
@@ -94,8 +84,8 @@ public class BoxPath extends Box implements ObservableBoxPath{
 
 
 
-					float nextY = creature.getSprite().mPosition.mY;
-					float nextX = creature.getSprite().mPosition.mX;
+					float nextY = creature.getSprite().getX();
+					float nextX = creature.getSprite().getY();
 
 					if (!creatureInBox(nextX, nextY)){
 						this.updateObservateurRemoveAndAdd(creature);
@@ -108,8 +98,8 @@ public class BoxPath extends Box implements ObservableBoxPath{
 						case Left :nextX -= creature.getSpeed();break;
 						case Right:nextX += creature.getSpeed();break;
 						}
-						creature.getSprite().mPosition.set(nextX, nextY);
-						creature.getSprite().mRotation+=creature.getSpeed()*5;
+						creature.getSprite().setPosition(nextX, nextY);
+						creature.getSprite().setRotation(creature.getSpeed()*5);
 					}
 				}
 			}
@@ -126,16 +116,20 @@ public class BoxPath extends Box implements ObservableBoxPath{
 		boolean test = false;
 		switch(this.direction) {
 		case Up   :
-			test = y>this.y-this.height/2.0 && y>0;
+			test = y>this.getTileY()-this.getTileHeight()/2.0 && y>0;
 			break;
 		case Down :
-			test = this.nextPath==null ? y<this.y+this.height : y<this.y+1.5*this.height;
+			test = this.nextPath==null ? 
+					y<this.getTileY()+this.getTileHeight() 
+					: y<this.getTileY()+1.5*this.getTileHeight();
 			break;
 		case Left :
-			test = x>this.x-this.width/2.0 && x>0;
+			test = x>this.getTileX()-this.getTileWidth()/2.0 && x>0;
 			break;
 		case Right:
-			test = this.nextPath==null ? x<this.x+this.width : x<this.x+1.5*this.width;
+			test = this.nextPath==null ? 
+					x<this.getTileX()+this.getTileWidth() 
+					: x<this.getTileX()+1.5*this.getTileWidth();
 			break;
 		}
 		return test;
@@ -154,10 +148,10 @@ public class BoxPath extends Box implements ObservableBoxPath{
 	public void setDirection(Direction direction) {this.direction = direction;}
 
 	/** @return the nextPath */
-	public BoxPath getNextPath() {return nextPath;}
+	public TilePath getNextPath() {return nextPath;}
 
 	/** @param nextPath the nextPath to set */
-	public void setNextPath(BoxPath nextPath) {this.nextPath = nextPath;}
+	public void setNextPath(TilePath nextPath) {this.nextPath = nextPath;}
 
 	@Override
 	public void addObservateur(ObservateurTower obs) {

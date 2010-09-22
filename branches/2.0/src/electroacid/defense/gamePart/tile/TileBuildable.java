@@ -1,4 +1,7 @@
-package electroacid.defense.gamePart.box;
+package electroacid.defense.gamePart.tile;
+
+import org.anddev.andengine.entity.layer.tiled.tmx.TMXTile;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import electroacid.defense.gamePart.Tower;
 import electroacid.defense.gamePart.game.GenericGame;
@@ -9,33 +12,21 @@ import electroacid.defense.gamePart.map.GenericMap;
  * @author cilheo
  * @version 1.0b
  */
-public class BoxBuildable extends Box {
+public class TileBuildable extends Tile {
 
 	/** A tower host by the box */
 	private Tower tower; 
 
-	/**
-	 * Constructor of the boxBuildable without a tower
-	 * @param _x the x coordinate on the map
-	 * @param _y the y coordinate on the map
-	 * @param _width widht of the box
-	 * @param _height height of the box
-	 */
-	public BoxBuildable(int _x, int _y, int _width, int _height) {
-		super(_x,_y,_width,_height);
+	public TileBuildable(int pGlobalTileID, int pTileColumn, int pTileRow,
+			int pTileWidth, int pTileHeight, TextureRegion pTextureRegion) {
+		super(pGlobalTileID, pTileColumn, pTileRow, pTileWidth, pTileHeight,
+				pTextureRegion);
 	}
-
-	/**
-	 * Constructor of the boxBuildable with a tower
-	 * @param _x the x coordinate on the map
-	 * @param _y the y coordinate on the map
-	 * @param _width widht of the box
-	 * @param _height height of the boxs
-	 * @param _tower tower host by the box
-	 */
-	public BoxBuildable(int _x, int _y, int _width, int _height,Tower _tower) {
-		this(_x,_y,_width,_height);
-		this.tower=_tower;
+	
+	public TileBuildable(TMXTile tile){
+		super(tile.getGlobalTileID(), tile.getTileColumn(), tile.getTileRow(), 
+				tile.getTileWidth(), tile.getTileHeight(),
+				tile.getTextureRegion());
 	}
 
 	/**
@@ -49,10 +40,11 @@ public class BoxBuildable extends Box {
 			GenericGame game = GenericGame.getInstance();
 			if(game.getMoney() > _tower.getCost()){
 				this.tower = _tower;
-				this.tower.changePosition(this.x+this.height/2,this.y+this.width/2);
+				this.tower.changePosition(this.getTileX()+this.getTileHeight()/2,
+						this.getTileY()+this.getTileWidth()/2);
 				game.addMoney(-this.tower.getCost());
 				this.getTower().changePosition(x,y);
-				this.getTower().setListDetection(this.width, this.height, matrice);
+				this.getTower().setListDetection(this.getTileWidth(), this.getTileHeight(), matrice);
 				return true;
 			}
 		}
