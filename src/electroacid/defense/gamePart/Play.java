@@ -55,7 +55,7 @@ public class Play extends BaseGameActivity {
 		
 		
 		
-		GenericMap genericMap = new GenericMap(13, 10, 32, 32);
+		GenericMap genericMap = new GenericMap();
 		try {
 			genericMap.buildMap(this,this.mEngine.getTextureManager());
 		} catch (TMXLoadException e) {
