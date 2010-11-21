@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.anddev.andengine.entity.layer.ILayer;
 import org.anddev.andengine.entity.primitive.Line;
 import org.anddev.andengine.entity.sprite.Sprite;
+import org.anddev.andengine.entity.sprite.TiledSprite;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import electroacid.defense.R;

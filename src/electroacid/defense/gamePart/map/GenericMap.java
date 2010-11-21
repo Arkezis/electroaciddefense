@@ -4,11 +4,8 @@ import java.util.ArrayList;
 
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXLayer;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXLoader;
-import org.anddev.andengine.entity.layer.tiled.tmx.TMXProperties;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXTile;
-import org.anddev.andengine.entity.layer.tiled.tmx.TMXTileProperty;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXTiledMap;
-import org.anddev.andengine.entity.layer.tiled.tmx.TMXLoader.ITMXTilePropertiesListener;
 import org.anddev.andengine.entity.layer.tiled.tmx.util.exception.TMXLoadException;
 import org.anddev.andengine.opengl.texture.TextureManager;
 import org.anddev.andengine.opengl.texture.TextureOptions;
@@ -31,33 +28,13 @@ public class GenericMap {
 	Tile[] firstBoxPath;
 	TilePath lastTilePath;
 
-	/**
-	 * Creation of a generic map, create the matrice
-	 * 
-	 * @param _xMax
-	 *            max x coordinate
-	 * @param _yMax
-	 *            max y coordinate
-	 * @param _offsetX
-	 *            width of box
-	 * @param _offsetY
-	 *            height of box
-	 */
 	public GenericMap() {
 	}
 
 	public void buildMap(Play play, TextureManager textureManager)
 			throws TMXLoadException {
 		final TMXLoader tmxLoader = new TMXLoader(play, textureManager,
-				TextureOptions.DEFAULT, new ITMXTilePropertiesListener() {
-					@Override
-					public void onTMXTileWithPropertiesCreated(
-							final TMXTiledMap pTMXTiledMap,
-							final TMXLayer pTMXLayer,
-							final TMXTile pTMXTile,
-							final TMXProperties<TMXTileProperty> pTMXTileProperties) {
-					}
-				});
+				TextureOptions.DEFAULT);
 		this.tmxTiledMap = tmxLoader.loadFromAsset(play, "tmx/testmap2.tmx");
 		this.buildPath();
 	}

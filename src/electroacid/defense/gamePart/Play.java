@@ -95,8 +95,8 @@ public class Play extends BaseGameActivity {
 			e.printStackTrace();
 		}
 		this.mTMXTiledMap=genericMap.getTmxTiledMap();
-		final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);	
-		scene.getBottomLayer().addEntity(tmxLayer);
+		final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
+		scene.getLayer(LAYER_MAP).addEntity(tmxLayer);
 
 		/* Make the camera not exceed the bounds of the TMXLayer. */
 		this.mBoundChaseCamera.setBounds(0, tmxLayer.getWidth(), 0, tmxLayer
@@ -155,7 +155,7 @@ public class Play extends BaseGameActivity {
 		layerMenuNewTower.addEntity(tower1Sprite);	layerMenuNewTower.addEntity(tower2Sprite);
 		layerMenuNewTower.addEntity(tower3Sprite);	layerMenuNewTower.addEntity(tower4Sprite);
 		layerMenuNewTower.registerTouchArea(tower1Sprite);	layerMenuNewTower.registerTouchArea(tower2Sprite);
-		layerMenuNewTower.registerTouchArea(tower3Sprite);	layerMenuNewTower.registerTouchArea(tower4Sprite);		
+		layerMenuNewTower.registerTouchArea(tower3Sprite);	layerMenuNewTower.registerTouchArea(tower4Sprite);	
 	}
 
 	@Override
