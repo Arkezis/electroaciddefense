@@ -35,6 +35,7 @@ public class GenericTower {
 	
 	
 	public GenericTower(BaseGameActivity _play,Texture _texture,String _file){
+		// TODO : File parameter is useless ??
 		this.play = _play;
 		this.texture = _texture;
 		this.file = _file;
@@ -50,6 +51,7 @@ public class GenericTower {
 	 * @throws Exception
 	 */
 	public void build(final Context context,final int xmlResourceId,ILayer mGl) throws Exception{
+		// TODO : mGl parameter is useless ???
 		Document towerXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
 
 		NodeList listNodeTower = towerXml.getDocumentElement().getElementsByTagName("tower");
@@ -75,7 +77,7 @@ public class GenericTower {
 					targetPriority,
 					level,
 					TextureRegionFactory.createTiledFromAsset(
-							this.texture, this.play, "towers_creatures.png", idTexture*32, 0, 6, 1),
+							this.texture, this.play, "towers_creatures.png", idTexture*64, 64, 4, 2),
 					shootArea);
 			listTower.add(tow);				
 		}

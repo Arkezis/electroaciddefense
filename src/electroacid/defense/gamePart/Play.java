@@ -1,57 +1,62 @@
 package electroacid.defense.gamePart;
 
+import java.util.LinkedList;
+
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.layer.DynamicCapacityLayer;
-import org.anddev.andengine.entity.layer.ILayer;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXLayer;
-import org.anddev.andengine.entity.layer.tiled.tmx.TMXLoader;
-import org.anddev.andengine.entity.layer.tiled.tmx.TMXProperties;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXTile;
-import org.anddev.andengine.entity.layer.tiled.tmx.TMXTileProperty;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXTiledMap;
-import org.anddev.andengine.entity.layer.tiled.tmx.TMXLoader.ITMXTilePropertiesListener;
 import org.anddev.andengine.entity.layer.tiled.tmx.util.exception.TMXLoadException;
 import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
-import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.sprite.TiledSprite;
-import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.input.touch.TouchEvent;
-import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
-import org.anddev.andengine.util.Debug;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.util.Log;
 import android.view.MotionEvent;
-
+import electroacid.defense.R;
+import electroacid.defense.gamePart.game.GenericGame;
+import electroacid.defense.gamePart.gui.MenuManager;
 import electroacid.defense.gamePart.map.GenericMap;
+import electroacid.defense.gamePart.tile.TileBuildable;
+import electroacid.defense.gamePart.tower.GenericTower;
 
 public class Play extends BaseGameActivity {
 
 	private static final int CAMERA_WIDTH = 320;
 	private static final int CAMERA_HEIGHT = 480;
-	private static final int LAYER_MAP = 0;
-	private static final int LAYER_MENU = LAYER_MAP + 1;
+	public static final int LAYER_MAP = 0;
+	public static final int LAYER_MENU_NEW_TOWER = LAYER_MAP + 1;
+	public static final int LAYER_MENU_STATS_TOWER = LAYER_MENU_NEW_TOWER + 1;
+	public static final int LAYER_MENU_STATS_CREA = LAYER_MENU_STATS_TOWER + 1;
+	public static final int LAYER_MENU_TOP = LAYER_MENU_STATS_CREA + 1;
+	public static final int LAYER_TEST = LAYER_MENU_TOP +1; // impossible to add this layer to the scene ! Too much layers, kill the layers ... :(
+
 
 
 	private BoundCamera mBoundChaseCamera;
-
-	private Texture mTexture,mFontTexture,mTextureTowersCreaturesSprite;
+	static Scene scene;
+	private Texture mTextureTowersCreaturesSprite,mTextureDiversSprite;
 	private TMXTiledMap mTMXTiledMap;
-	private Font mFontMenu;
 	private TiledTextureRegion mTower1TextureRegion,mTower2TextureRegion,mTower3TextureRegion,mTower4TextureRegion;
-	private TiledSprite tower1Sprite, tower2Sprite, tower3Sprite, tower4Sprite;
-	private Text menuPriceText, menuElementText,menuDamageText, menuAreaText;
-	private DynamicCapacityLayer layerMenuNewTower;
+	private TiledTextureRegion mButtonAddTextureRegion,mButtonDestroyTextureRegion;
+	private TiledTextureRegion mCrea1TextureRegion,mCrea2TextureRegion,mCrea3TextureRegion,mCrea4TextureRegion;
+	private LinkedList<TiledTextureRegion> listDiversTextureRegion;
+	private GenericGame gameData;
+	private LinkedList<Tower> listTower;
+	private DynamicCapacityLayer layerTest; 
+	TiledSprite s1,s12,s2,s22;
 
 	@Override
 	public Engine onLoadEngine() {
@@ -65,39 +70,63 @@ public class Play extends BaseGameActivity {
 	@Override
 	public void onLoadResources() {
 		TextureRegionFactory.setAssetBasePath("gfx/");
-		this.mTexture = new Texture(32, 32, TextureOptions.DEFAULT);
-		this.mTextureTowersCreaturesSprite = new Texture(128, 16, TextureOptions.BILINEAR);
+		this.mTextureTowersCreaturesSprite = new Texture(256, 128, TextureOptions.BILINEAR);
+		this.mTextureDiversSprite = new Texture(512,128,TextureOptions.BILINEAR);
 		
 		/* Towers */
-		this.mTower1TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 0, 0, 6, 1);
-		this.mTower2TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 32, 0, 6, 1);
-		this.mTower3TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 64, 0, 6, 1);
-		this.mTower4TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 96, 0, 6, 1);
+		this.mTower1TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 0, 0, 4, 2);
+		this.mTower2TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 64, 0, 4, 2);
+		this.mTower3TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 128, 0, 4, 2);
+		this.mTower4TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 196, 0, 4, 2);
+		
+		/* Creatures */
+		this.mCrea1TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 0, 64, 4, 2);
+		this.mCrea2TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 64, 64, 4, 2);
+		this.mCrea3TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 128, 64, 4, 2);
+		this.mCrea4TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 196, 64, 4, 2);
+		
+		/* Divers (menu, sidebar...) */
+		this.mButtonAddTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 0, 0, 8, 2);
+		this.mButtonDestroyTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 64, 0, 8, 2);
 
+		listDiversTextureRegion = new  LinkedList<TiledTextureRegion>();
+		listDiversTextureRegion.add(this.mButtonAddTextureRegion);listDiversTextureRegion.add(this.mButtonDestroyTextureRegion);
 		/* Fonts */
-		mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR);
-		mFontMenu = new Font(mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 20, true, Color.WHITE);
+		//mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR);
+		//mFontMenu = new Font(mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 20, true, Color.WHITE);
 		
 		/* Add everything in the engine's manager */
-		this.mEngine.getTextureManager().loadTextures(this.mFontTexture,this.mTexture,this.mTextureTowersCreaturesSprite);
-		this.mEngine.getFontManager().loadFont(mFontMenu);	
+		this.mEngine.getTextureManager().loadTextures(this.mTextureTowersCreaturesSprite,this.mTextureDiversSprite);
+		//this.mEngine.getFontManager().loadFont(mFontMenu);	
 	}
 
+	public Engine getMEngine(){
+		return this.mEngine;
+	}
+	
+	public LinkedList<Tower> getListTower(){
+		return listTower;
+	}
+	
 	@Override
 	public Scene onLoadScene() {
-		final Scene scene = new Scene(2);
+		scene = new Scene(6); // 5 layers : normal, menuNewTower, menuStatsTower, menuStatsCrea, test
 
 		/* TMX part */
-		GenericMap genericMap = new GenericMap();
+		final GenericMap genericMap = new GenericMap();
 		try {
 			genericMap.buildMap(this,this.mEngine.getTextureManager());
-		} catch (TMXLoadException e) {
-			e.printStackTrace();
-		}
+		} catch (TMXLoadException e) { e.printStackTrace();	}
 		this.mTMXTiledMap=genericMap.getTmxTiledMap();
 		final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
 		scene.getLayer(LAYER_MAP).addEntity(tmxLayer);
-
+		/*  Register touchArea to the tileBuidable */
+		/*TMXTile[][] tile = tmxLayer.getTMXTiles();
+		for(int i=0; i<tmxLayer.getTileRows();i++)
+			for(int j=0;j<tmxLayer.getTileColumns();j++)
+				if(tile[i][j].getClass().isInstance(new TileBuildable(null)))
+					scene.getLayer(LAYER_MAP).registerTouchArea(tile[i][j].get);
+		*/
 		/* Make the camera not exceed the bounds of the TMXLayer. */
 		this.mBoundChaseCamera.setBounds(0, tmxLayer.getWidth(), 0, tmxLayer
 				.getHeight());
@@ -105,57 +134,105 @@ public class Play extends BaseGameActivity {
 
 		scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
 
-		/* Initialisations */
-		initMenu(scene);
+		/* ------------------------------- Initialisations ------------------------------- */
+		GenericTower genericTower = new GenericTower(this, this.mTextureTowersCreaturesSprite, null); 
+		try {
+			genericTower.build(getWindow().getContext(), R.raw.tower, null);
+		} catch (Exception e) {	e.printStackTrace();}
+		listTower = genericTower.getListTower();
 		
+		gameData = GenericGame.getInstance();
+		try {
+			gameData.build(getWindow().getContext(), R.raw.game1game);
+		} catch (Exception e) {	e.printStackTrace();}
+		initMenu(scene);
 		scene.setTouchAreaBindingEnabled(true);
+		scene.setOnSceneTouchListener(new IOnSceneTouchListener() {
+			
+			@Override
+			public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
+				final TMXTile tileTouched = tmxLayer.getTMXTileAt(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
+				Log.d("DEBUGTAG", "Test0");
+				//if(tileTouched.getClass().isInstance(TileBuildable.class)){ // not working, WTF ???
+				if(tileTouched instanceof TileBuildable){ 
+					Log.d("DEBUGTAG", "Test1");
+					TileBuildable tileSelected = (TileBuildable) tileTouched;
+					if(tileSelected.getTower()!=null){ // already a tower
+						MenuManager.getInstance().showStatsTower(tileSelected.getTower());
+					}else{
+						Log.d("DEBUGTAG", "Test2");
+						MenuManager.getInstance().showNewTower(tileSelected,genericMap);
+					}
+				}
+				return false;
+			}
+		});
+		
+		testMenu(scene);
+		
 		return scene;
 	}
 	
+	private void testMenu(Scene s) {
+		//Le layerTest est utilisé pour afficher des boutons pour tester les interactions
+		layerTest = new DynamicCapacityLayer(15);
+		
+		s1 = new TiledSprite(160, 320, 32, 32, this.mTower1TextureRegion){
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
+					this.setRotation(this.getRotation() + (float)90);
+					Log.d("TEST", "TAP");
+					MenuManager.getInstance().showNewTower(null, null);
+				}
+				return true;
+			}
+		};
+		s12 = new TiledSprite(160, 352, 32, 32, this.mTower2TextureRegion){
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
+					this.setRotation(this.getRotation() + (float)90);
+					Log.d("TEST", "TAP");
+					MenuManager.getInstance().hideNewTower();
+				}
+				return true;
+			}
+		};
+		s2 = new TiledSprite(192, 320, 32, 32, this.mTower3TextureRegion){
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
+					this.setRotation(this.getRotation() + (float)90);
+					Log.d("TEST", "TAP");
+					MenuManager.getInstance().showStatsTower(null);
+				}
+				return true;
+			}
+		};
+		s22 = new TiledSprite(192, 352, 32, 32, this.mTower4TextureRegion){
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
+					this.setRotation(this.getRotation() + (float)90);
+					Log.d("TEST", "TAP");
+					MenuManager.getInstance().hideStatsTower();
+				}
+				return true;
+			}
+		};
+		
+		layerTest.addEntity(s1);layerTest.registerTouchArea(s1);
+		layerTest.addEntity(s12);layerTest.registerTouchArea(s12);
+		layerTest.addEntity(s2);layerTest.registerTouchArea(s2);
+		layerTest.addEntity(s22);layerTest.registerTouchArea(s22);
+		
+		s.setLayer(LAYER_TEST, layerTest);
+		
+	}
+
 	private void initMenu(Scene scene){
-		
-		tower1Sprite = new TiledSprite(0, 416, 32, 32, this.mTower1TextureRegion){
-			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					this.setRotation(this.getRotation() + (float)90);
-				}	
-				return true;
-			}
-		};
-		tower1Sprite.setCurrentTileIndex(0);
-		tower2Sprite = new TiledSprite(0, 448, 32, 32, this.mTower2TextureRegion){
-			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					this.setRotation(this.getRotation() + (float)90);
-				}	
-				return true;
-			}
-		};
-		tower2Sprite.setCurrentTileIndex(0);
-		tower3Sprite = new TiledSprite(32, 416, 32, 32, this.mTower3TextureRegion){
-			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					this.setRotation(this.getRotation() + (float)90);
-				}	
-				return true;
-			}
-		};
-		tower3Sprite.setCurrentTileIndex(0);
-		tower4Sprite = new TiledSprite(32, 448, 32, 32, this.mTower4TextureRegion){
-			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					this.setRotation(this.getRotation() + (float)90);
-				}	
-				return true;
-			}
-		};
-		tower4Sprite.setCurrentTileIndex(0);
-		
-		layerMenuNewTower = new DynamicCapacityLayer(15);
-		layerMenuNewTower.addEntity(tower1Sprite);	layerMenuNewTower.addEntity(tower2Sprite);
-		layerMenuNewTower.addEntity(tower3Sprite);	layerMenuNewTower.addEntity(tower4Sprite);
-		layerMenuNewTower.registerTouchArea(tower1Sprite);	layerMenuNewTower.registerTouchArea(tower2Sprite);
-		layerMenuNewTower.registerTouchArea(tower3Sprite);	layerMenuNewTower.registerTouchArea(tower4Sprite);	
+		new MenuManager(this,listTower,listDiversTextureRegion);  // only one instanciation ! 
+		scene.setLayer(LAYER_MENU_NEW_TOWER, MenuManager.getInstance().getLayerMenuNewTower());
+		scene.setLayer(LAYER_MENU_STATS_TOWER, MenuManager.getInstance().getLayerMenuStatsTower());
+		scene.setLayer(LAYER_MENU_STATS_CREA, MenuManager.getInstance().getLayerMenuStatsCrea());
+		scene.setLayer(LAYER_MENU_TOP, MenuManager.getInstance().getLayerMenuTop());
 	}
 
 	@Override

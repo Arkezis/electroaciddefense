@@ -15,7 +15,7 @@ import electroacid.defense.gamePart.map.GenericMap;
 public class TileBuildable extends Tile {
 
 	/** A tower host by the box */
-	private Tower tower; 
+	private Tower tower=null; 
 
 	public TileBuildable(int pGlobalTileID, int pTileColumn, int pTileRow,
 			int pTileWidth, int pTileHeight, TextureRegion pTextureRegion) {
