@@ -29,7 +29,7 @@ public class MenuManager implements ObservateurMenu {
 	private TiledSprite sTower1,sTower2,sTower3,sTower4,sButtonAdd,sButtonUpgrade,sButtonDestroy;
 	private TiledSprite sIconLife,sIconMoney,sIconWave,sButtonNextWave,sButtonSpeed; // menuTop
 	private ChangeableText tNewTowerTitle,tNewTowerPrice, tNewTowerElem,tNewTowerDamage, tNewTowerArea,tStatsPriceUpgrade,tStatsPriceDestroy,tStatsDamage,tStatsLevel,tStatsElem,tStatsArea;
-	private ChangeableText tMenuTopLife,tMenuTopMoney,tMenuTopWave,tMenuTopSpeed; // menuTop
+	private ChangeableText tMenuTopLife,tMenuTopMoney,tMenuTopWave,tMenuTopTime; // menuTop
 	private Texture mFontTexture,mFontTexture2;
 	private Tile tileSelected;
 	private GenericMap genericMapUsed;
@@ -76,7 +76,7 @@ public class MenuManager implements ObservateurMenu {
 	
 	
 	/* Functions to load the menus */
-	public  void loadMenuStatsTower(Play base, LinkedList<TiledTextureRegion> divers) {
+	public void loadMenuStatsTower(final Play base, LinkedList<TiledTextureRegion> divers) {
 		
 		sButtonUpgrade= new TiledSprite(0, 400, 48, 48, (TiledTextureRegion) divers.get(0)){
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
@@ -87,22 +87,28 @@ public class MenuManager implements ObservateurMenu {
 			}
 		};
 		sButtonUpgrade.setCurrentTileIndex(0);	
-		sButtonDestroy= new TiledSprite(0, 400, 48, 48, (TiledTextureRegion) divers.get(1)){
+		sButtonDestroy= new TiledSprite(60, 400, 48, 48, (TiledTextureRegion) divers.get(1)){
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					this.setRotation(this.getRotation() + (float)90);
+					// TODO : le double tap rapide fait merder... (la tour est "supprimée 2 fois")
+					MenuManager.getInstance().hideStatsTower();
+					GenericGame myGame= GenericGame.getInstance();
+					base.getListTower().remove(((TileBuildable)tileSelected).getTower());
+					myGame.addMoney((int)(((TileBuildable)tileSelected).getTower().getCost() * 0.50));
+					base.getMEngine().getScene().getLayer(0).removeEntity(((TileBuildable)tileSelected).getTower().getSprite()); // TODO : passer cette constante en globale ! 
+					((TileBuildable)tileSelected).removeTower();
 				}	
 				return true;
 			}
 		};
 		sButtonDestroy.setCurrentTileIndex(0);
 
-		tStatsPriceUpgrade = new ChangeableText(150,400,this.mFontMenu,"Price : ");
-		tStatsPriceDestroy = new ChangeableText(150,410,this.mFontMenu,"Price : ");
-		tStatsLevel = new ChangeableText(150,420,this.mFontMenu,"Level : ");
-		tStatsElem = new ChangeableText(150,430,this.mFontMenu,"Element : ");
-		tStatsDamage = new ChangeableText(150,440,this.mFontMenu,"Damage : ");
-		tStatsArea = new ChangeableText(150,450,this.mFontMenu,"Area : ");
+		tStatsPriceUpgrade = new ChangeableText(0,450,this.mFontMenu,"",15);
+		tStatsPriceDestroy = new ChangeableText(60,450,this.mFontMenu,"",15);
+		tStatsLevel = new ChangeableText(150,400,this.mFontMenu,"Level : ",15);
+		tStatsElem = new ChangeableText(150,420,this.mFontMenu,"Element : ",15);
+		tStatsDamage = new ChangeableText(150,440,this.mFontMenu,"Damage : ",15);
+		tStatsArea = new ChangeableText(150,460,this.mFontMenu,"Area : ",15);
 		
 		
 		layerMenuStatsTower.addEntity(sButtonUpgrade);
@@ -110,6 +116,7 @@ public class MenuManager implements ObservateurMenu {
 		layerMenuStatsTower.addEntity(tStatsPriceDestroy);layerMenuStatsTower.addEntity(tStatsLevel);
 		layerMenuStatsTower.addEntity(tStatsElem);layerMenuStatsTower.addEntity(tStatsDamage);
 		layerMenuStatsTower.addEntity(tStatsArea);
+		layerMenuStatsTower.registerTouchArea(sButtonUpgrade);layerMenuStatsTower.registerTouchArea(sButtonDestroy);
 		
 	}
 	public void loadMenuNewTower(final Play base, final LinkedList<Tower> towers,LinkedList<TiledTextureRegion> divers){
@@ -154,10 +161,9 @@ public class MenuManager implements ObservateurMenu {
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					this.setRotation(this.getRotation() + (float)90);
-					Log.d("DEBUGTAG", "Test4");
 					base.getListTower().add(towerSelected);
-					GenericGame.getInstance().setMoney(GenericGame.getInstance().getMoney() - towerSelected.getCost()); 
-					((TileBuildable) tileSelected).changeTower(towerSelected, tileSelected.getTileX(), tileSelected.getTileY(), genericMapUsed);// why give x, y and matrice ? 
+					((TileBuildable) tileSelected).changeTower(towerSelected, tileSelected.getTileX(), tileSelected.getTileY(), genericMapUsed);// why give x, y and matrice ?
+					base.getMEngine().getScene().getLayer(0).addEntity(((TileBuildable)tileSelected).getTower().getSprite()); // TODO : passer cette constante en globale ! 
 					MenuManager.getInstance().hideNewTower();
 				}	
 				return true;
@@ -181,13 +187,13 @@ public class MenuManager implements ObservateurMenu {
 		layerMenuNewTower.registerTouchArea(sTower3);	layerMenuNewTower.registerTouchArea(sTower4); 
 	}
 	public void loadMenuTop(LinkedList<TiledTextureRegion> divers){
-		sIconLife = new TiledSprite(0, 0, 32, 32, (TiledTextureRegion) divers.get(0)); // TODO : divers.get(8)
+		sIconLife = new TiledSprite(0, 0, 32, 32, (TiledTextureRegion) divers.get(3)); 
 		sIconLife.setCurrentTileIndex(0);
-		sIconMoney = new TiledSprite(64,0,32,32,(TiledTextureRegion) divers.get(0)); // TODO : divers.get(9)
+		sIconMoney = new TiledSprite(64,0,32,32,(TiledTextureRegion) divers.get(4)); 
 		sIconMoney.setCurrentTileIndex(0);
-		sIconWave = new TiledSprite(160,0,32,32,(TiledTextureRegion) divers.get(0)); // TODO : divers.get(13)
+		sIconWave = new TiledSprite(160,0,32,32,(TiledTextureRegion) divers.get(7)); 
 		sIconWave.setCurrentTileIndex(0);
-		sButtonNextWave = new TiledSprite(224,0,32,32,(TiledTextureRegion) divers.get(0)){ // TODO : divers.get(10)
+		sButtonNextWave = new TiledSprite(224,0,32,32,(TiledTextureRegion) divers.get(5)){ 
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					// TODO : run next wave
@@ -197,11 +203,12 @@ public class MenuManager implements ObservateurMenu {
 			}
 		};
 		sButtonNextWave.setCurrentTileIndex(0);
-		sButtonSpeed = new TiledSprite(256,0,32,32,(TiledTextureRegion) divers.get(0)){ // TODO : divers.get(10)
+		sButtonSpeed = new TiledSprite(256,0,32,32,(TiledTextureRegion) divers.get(6)){ 
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					GenericGame.getInstance().nextSpeedMultiplicator();
-					tMenuTopSpeed.setText(Integer.toString(GenericGame.getInstance().getSpeedMultiplicator()));
+					tMenuTopTime.setText(Integer.toString(GenericGame.getInstance().getSpeedMultiplicator()));
+					// TODO : Changer la texture pour la vitesse !
 				}	
 				return true;
 			}
@@ -211,11 +218,11 @@ public class MenuManager implements ObservateurMenu {
 		tMenuTopLife = new ChangeableText(32,8,this.mFontMenuTop,Integer.toString(GenericGame.getInstance().getLives()),3);
 		tMenuTopMoney = new ChangeableText(96,8,this.mFontMenuTop,Integer.toString(GenericGame.getInstance().getMoney()),10);
 		tMenuTopWave = new ChangeableText(192,8,this.mFontMenuTop,Integer.toString(GenericGame.getInstance().getActualWave()),3);
-		tMenuTopSpeed = new ChangeableText(288,8,this.mFontMenuTop,Integer.toString(GenericGame.getInstance().getSpeedMultiplicator()),3);
+		tMenuTopTime = new ChangeableText(288,8,this.mFontMenuTop,Integer.toString(GenericGame.getInstance().getSpeedMultiplicator()),3); // TODO : Show the time before next wave ! 
 		
 		layerMenuTop.addEntity(sIconLife);layerMenuTop.addEntity(sIconMoney);layerMenuTop.addEntity(sIconWave);
 		layerMenuTop.addEntity(sButtonNextWave);layerMenuTop.addEntity(sButtonSpeed);
-		layerMenuTop.addEntity(tMenuTopLife);layerMenuTop.addEntity(tMenuTopMoney);layerMenuTop.addEntity(tMenuTopWave);layerMenuTop.addEntity(tMenuTopSpeed);
+		layerMenuTop.addEntity(tMenuTopLife);layerMenuTop.addEntity(tMenuTopMoney);layerMenuTop.addEntity(tMenuTopWave);layerMenuTop.addEntity(tMenuTopTime);
 		layerMenuTop.registerTouchArea(sButtonNextWave);layerMenuTop.registerTouchArea(sButtonSpeed);
 		
 	}
@@ -238,8 +245,9 @@ public class MenuManager implements ObservateurMenu {
 	public boolean showNewTower(TileBuildable t, GenericMap gmap){
 		tileSelected = t;
 		genericMapUsed = gmap;
-		Log.d("DEBUGTAG", "Test3");
 		layerMenuNewTower.setVisible(true);
+		layerMenuStatsCrea.setVisible(false);
+		layerMenuStatsTower.setVisible(false);
 		return true;
 	}
 	public boolean hideNewTower(){
@@ -249,7 +257,16 @@ public class MenuManager implements ObservateurMenu {
 		sButtonAdd.setVisible(false); layerMenuNewTower.unregisterTouchArea(sButtonAdd);
 		return true;
 	}
-	public boolean showStatsTower(Tower t){
+	public boolean showStatsTower(TileBuildable _tileSelected){
+		tileSelected = _tileSelected;
+		tStatsPriceUpgrade.setText(""+(int)((TileBuildable)tileSelected).getTower().getCost()*0.75);
+		tStatsPriceDestroy.setText(""+(int)((TileBuildable)tileSelected).getTower().getCost()*0.50);
+		tStatsLevel.setText("Level : "+((TileBuildable)tileSelected).getTower().getLevel());
+		tStatsElem.setText("Element : "+((TileBuildable)tileSelected).getTower().getElement().name());
+		tStatsDamage.setText("Damage : "+((TileBuildable)tileSelected).getTower().getDamage());
+		tStatsArea.setText("Area : "+((TileBuildable)tileSelected).getTower().getshootArea());
+		layerMenuStatsCrea.setVisible(false);
+		layerMenuNewTower.setVisible(false);
 		layerMenuStatsTower.setVisible(true);
 		return true;
 	}
@@ -259,6 +276,8 @@ public class MenuManager implements ObservateurMenu {
 	}
 	public boolean showStatsCrea(){
 		layerMenuStatsCrea.setVisible(true);
+		layerMenuNewTower.setVisible(false);
+		layerMenuStatsTower.setVisible(false);
 		return true;
 	}
 	public boolean hideStatsCrea(){
@@ -270,6 +289,7 @@ public class MenuManager implements ObservateurMenu {
 		if(GenericGame.getInstance().getMoney() >= t.getCost()){
 			sButtonAdd.setVisible(true); layerMenuNewTower.registerTouchArea(sButtonAdd);
 			towerSelected = (Tower) t.clone();
+			Log.d("DEBUGTAG","Taille de fou 1 : "+towerSelected.getSprite().getHeight());
 		}else{
 			sButtonAdd.setVisible(false); layerMenuNewTower.unregisterTouchArea(sButtonAdd);
 		}

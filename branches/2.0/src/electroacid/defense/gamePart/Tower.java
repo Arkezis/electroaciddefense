@@ -5,11 +5,8 @@ import java.util.LinkedList;
 import org.anddev.andengine.entity.layer.ILayer;
 import org.anddev.andengine.entity.primitive.Line;
 import org.anddev.andengine.entity.sprite.Sprite;
-import org.anddev.andengine.entity.sprite.TiledSprite;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
-import electroacid.defense.R;
-import electroacid.defense.R.drawable;
 import electroacid.defense.gamePart.enums.Element;
 import electroacid.defense.gamePart.enums.ShootPriority;
 import electroacid.defense.gamePart.game.GenericGame;
@@ -181,7 +178,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 			else
 				target = this.listTarget.get(0);
 
-
+			// TODO : Il  faut faire pivoter la tour !  this.getSprite().setRotation(A_CALCULER)
 			fire = new Line(this.x, this.y,target.getSprite().getX(), target.getSprite().getY(),3);
 			switch(this.element){
 			case Electricity:

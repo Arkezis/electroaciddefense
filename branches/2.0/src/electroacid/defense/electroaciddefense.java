@@ -37,7 +37,7 @@ public class electroaciddefense extends Activity implements OnClickListener {
 				case 1: setLocal(Locale.FRENCH);break;
 			}
 		}*/
-		Toast.makeText(this.getApplicationContext(), "Language : "+this.getResources().getConfiguration().locale, 10000).show();
+		//Toast.makeText(this.getApplicationContext(), "Language : "+this.getResources().getConfiguration().locale, 10000).show();
 		
 		((Button) this.findViewById(R.id.Button01)).setOnClickListener(this);
 		((Button) this.findViewById(R.id.ButtonHowTo)).setOnClickListener(this);
