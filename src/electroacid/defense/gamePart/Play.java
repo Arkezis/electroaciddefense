@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
+import org.anddev.andengine.engine.handler.timer.ITimerCallback;
+import org.anddev.andengine.engine.handler.timer.TimerHandler;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
@@ -24,7 +26,6 @@ import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import android.util.Log;
-import android.view.MotionEvent;
 import electroacid.defense.R;
 import electroacid.defense.gamePart.game.GenericGame;
 import electroacid.defense.gamePart.gui.MenuManager;
@@ -50,13 +51,13 @@ public class Play extends BaseGameActivity {
 	private Texture mTextureTowersCreaturesSprite,mTextureDiversSprite;
 	private TMXTiledMap mTMXTiledMap;
 	private TiledTextureRegion mTower1TextureRegion,mTower2TextureRegion,mTower3TextureRegion,mTower4TextureRegion;
-	private TiledTextureRegion mButtonAddTextureRegion,mButtonDestroyTextureRegion;
+	private TiledTextureRegion mButtonAddTextureRegion,mButtonDestroyTextureRegion,mTouchPointerTextureRegion,mLogoHeartTextureRegion,mLogoMoneyTextureRegion,mLogoNextWaveTextureRegion,mLogoSpeed1TextureRegion,mLogoWavesTextureRegion,mLogoSpeed2TextureRegion,mLogoSpeed3TextureRegion;
 	private TiledTextureRegion mCrea1TextureRegion,mCrea2TextureRegion,mCrea3TextureRegion,mCrea4TextureRegion;
 	private LinkedList<TiledTextureRegion> listDiversTextureRegion;
 	private GenericGame gameData;
 	private LinkedList<Tower> listTower;
 	private DynamicCapacityLayer layerTest; 
-	TiledSprite s1,s12,s2,s22;
+	TiledSprite s1,s12,s2,s22,sTouchPointer;
 
 	@Override
 	public Engine onLoadEngine() {
@@ -88,8 +89,21 @@ public class Play extends BaseGameActivity {
 		/* Divers (menu, sidebar...) */
 		this.mButtonAddTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 0, 0, 8, 2);
 		this.mButtonDestroyTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 64, 0, 8, 2);
-
+		this.mTouchPointerTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 128, 0, 8, 2);
+		this.mLogoHeartTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 0, 64, 8, 2);
+		this.mLogoMoneyTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 64, 64, 8, 2);
+		this.mLogoNextWaveTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 128, 64, 8, 2);
+		this.mLogoSpeed1TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 256, 64, 8, 2);
+		this.mLogoWavesTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 320, 64, 8, 2);
+		this.mLogoSpeed2TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 384, 64, 8, 2);
+		this.mLogoSpeed3TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 448, 64, 8, 2);
+		
 		listDiversTextureRegion = new  LinkedList<TiledTextureRegion>();
+		listDiversTextureRegion.add(this.mButtonAddTextureRegion);listDiversTextureRegion.add(this.mButtonDestroyTextureRegion);
+		listDiversTextureRegion.add(this.mTouchPointerTextureRegion);listDiversTextureRegion.add(this.mLogoHeartTextureRegion);
+		listDiversTextureRegion.add(this.mLogoMoneyTextureRegion);listDiversTextureRegion.add(this.mLogoNextWaveTextureRegion);
+		listDiversTextureRegion.add(this.mLogoSpeed1TextureRegion);listDiversTextureRegion.add(this.mLogoWavesTextureRegion);
+		listDiversTextureRegion.add(this.mLogoSpeed2TextureRegion);listDiversTextureRegion.add(this.mLogoSpeed3TextureRegion);
 		listDiversTextureRegion.add(this.mButtonAddTextureRegion);listDiversTextureRegion.add(this.mButtonDestroyTextureRegion);
 		/* Fonts */
 		//mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR);
@@ -110,8 +124,9 @@ public class Play extends BaseGameActivity {
 	
 	@Override
 	public Scene onLoadScene() {
-		scene = new Scene(6); // 5 layers : normal, menuNewTower, menuStatsTower, menuStatsCrea, test
-
+		scene = new Scene(6); // 6 layers : normal, menuNewTower, menuStatsTower, menuStatsCrea, menuTop, test
+		
+		
 		/* TMX part */
 		final GenericMap genericMap = new GenericMap();
 		try {
@@ -145,6 +160,14 @@ public class Play extends BaseGameActivity {
 		try {
 			gameData.build(getWindow().getContext(), R.raw.game1game);
 		} catch (Exception e) {	e.printStackTrace();}
+		
+		/* Useful sprite */
+		sTouchPointer= new TiledSprite(0, 0, 32, 32, (TiledTextureRegion) this.mTouchPointerTextureRegion);
+		sTouchPointer.setZIndex(Integer.MIN_VALUE); // TODO : faire apparaître le point au dessus des tours sélectionnées... 
+		scene.getLayer(LAYER_MAP).addEntity(sTouchPointer);
+		
+		
+		
 		initMenu(scene);
 		scene.setTouchAreaBindingEnabled(true);
 		scene.setOnSceneTouchListener(new IOnSceneTouchListener() {
@@ -153,14 +176,13 @@ public class Play extends BaseGameActivity {
 			public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 				final TMXTile tileTouched = tmxLayer.getTMXTileAt(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
 				Log.d("DEBUGTAG", "Test0");
-				//if(tileTouched.getClass().isInstance(TileBuildable.class)){ // not working, WTF ???
+				// TODO : if(tileTouched.getClass().isInstance(TileBuildable.class)){ // not working, WTF ???
 				if(tileTouched instanceof TileBuildable){ 
-					Log.d("DEBUGTAG", "Test1");
 					TileBuildable tileSelected = (TileBuildable) tileTouched;
+					sTouchPointer.setPosition(tileSelected.getTileX(), tileSelected.getTileY());
 					if(tileSelected.getTower()!=null){ // already a tower
-						MenuManager.getInstance().showStatsTower(tileSelected.getTower());
+						MenuManager.getInstance().showStatsTower(tileSelected);
 					}else{
-						Log.d("DEBUGTAG", "Test2");
 						MenuManager.getInstance().showNewTower(tileSelected,genericMap);
 					}
 				}
@@ -168,7 +190,35 @@ public class Play extends BaseGameActivity {
 			}
 		});
 		
+		/* Starting the game and initialising everything for the game */
+		gameData.setGameStarted(true);
+		
 		testMenu(scene);
+		
+		/**
+		 *     Called every frame 
+		 */
+		scene.registerUpdateHandler(new TimerHandler(0.5f, true, new ITimerCallback() {
+			@Override
+			public void onTimePassed(final TimerHandler pTimerHandler) {
+				if(gameData.isGameStarted()) {
+					if(! gameData.isPause()){
+						/* WAVES */
+						
+						/* SHOOTS */
+						
+						/* MENUS */
+						// No need to refresh the menus, it's automatically done thanks to listeners
+					}
+
+				}else{
+					
+				}
+			}
+		}));
+		
+		
+		
 		
 		return scene;
 	}
@@ -176,7 +226,7 @@ public class Play extends BaseGameActivity {
 	private void testMenu(Scene s) {
 		//Le layerTest est utilisé pour afficher des boutons pour tester les interactions
 		layerTest = new DynamicCapacityLayer(15);
-		
+		/*
 		s1 = new TiledSprite(160, 320, 32, 32, this.mTower1TextureRegion){
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -222,7 +272,7 @@ public class Play extends BaseGameActivity {
 		layerTest.addEntity(s12);layerTest.registerTouchArea(s12);
 		layerTest.addEntity(s2);layerTest.registerTouchArea(s2);
 		layerTest.addEntity(s22);layerTest.registerTouchArea(s22);
-		
+		*/
 		s.setLayer(LAYER_TEST, layerTest);
 		
 	}

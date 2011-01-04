@@ -11,8 +11,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import android.content.Context;
-
-import electroacid.defense.R;
 import electroacid.defense.gamePart.Tower;
 import electroacid.defense.gamePart.enums.Element;
 import electroacid.defense.gamePart.enums.ShootPriority;

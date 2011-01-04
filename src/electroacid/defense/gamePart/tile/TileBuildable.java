@@ -3,6 +3,8 @@ package electroacid.defense.gamePart.tile;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXTile;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
+import android.util.Log;
+
 import electroacid.defense.gamePart.Tower;
 import electroacid.defense.gamePart.game.GenericGame;
 import electroacid.defense.gamePart.map.GenericMap;
@@ -40,10 +42,15 @@ public class TileBuildable extends Tile {
 			GenericGame game = GenericGame.getInstance();
 			if(game.getMoney() > _tower.getCost()){
 				this.tower = _tower;
-				this.tower.changePosition(this.getTileX()+this.getTileHeight()/2,
-						this.getTileY()+this.getTileWidth()/2);
+				/** TODO : pourquoi 2 changeposition qui font la même chose ?
+				 * Du coup, quel est l'intérêt des paramètres x et y ??? 
+				 */
+				this.tower.changePosition(this.getTileX()-this.getTileHeight()/2,
+						this.getTileY()-this.getTileWidth()/2);
 				game.addMoney(-this.tower.getCost());
-				this.getTower().changePosition(x,y);
+				this.getTower().getSprite().setHeight(this.getTileHeight()); // set the size of the sprite
+				this.getTower().getSprite().setWidth(this.getTileWidth());
+				//this.getTower().changePosition(x,y); WTF ???
 				this.getTower().setListDetection(this.getTileWidth(), this.getTileHeight(), matrice);
 				return true;
 			}
