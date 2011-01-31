@@ -17,7 +17,7 @@ import electroacid.defense.gamePart.map.GenericMap;
 public class TileBuildable extends Tile {
 
 	/** A tower host by the box */
-	private Tower tower=null; 
+	public Tower tower=null; 
 
 	public TileBuildable(int pGlobalTileID, int pTileColumn, int pTileRow,
 			int pTileWidth, int pTileHeight, TextureRegion pTextureRegion) {
@@ -37,30 +37,20 @@ public class TileBuildable extends Tile {
 	 * @param game parametre of the game
 	 * @return false if tower is null or tower is too much expensive
 	 */
-	public boolean changeTower(Tower _tower, int x, int y, GenericMap matrice){
+	public boolean changeTower(Tower _tower, GenericMap matrice){
 		if (this.tower == null && _tower != null) {
 			GenericGame game = GenericGame.getInstance();
-			if(game.getMoney() > _tower.getCost()){
+			if(game.money > _tower.cost){
 				this.tower = _tower;
-				/** TODO : pourquoi 2 changeposition qui font la même chose ?
-				 * Du coup, quel est l'intérêt des paramètres x et y ??? 
-				 */
 				this.tower.changePosition(this.getTileX()-this.getTileHeight()/2,
 						this.getTileY()-this.getTileWidth()/2);
-				game.addMoney(-this.tower.getCost());
-				this.getTower().getSprite().setHeight(this.getTileHeight()); // set the size of the sprite
-				this.getTower().getSprite().setWidth(this.getTileWidth());
-				//this.getTower().changePosition(x,y); WTF ???
-				this.getTower().setListDetection(this.getTileWidth(), this.getTileHeight(), matrice);
+				game.addMoney(-this.tower.cost);
+				this.tower.sprite.setHeight(this.getTileHeight()); // set the size of the sprite
+				this.tower.sprite.setWidth(this.getTileWidth());
+				this.tower.setListDetection(this.getTileWidth(), this.getTileHeight(), matrice);
 				return true;
 			}
 		}
 		return false;
 	}
-
-	/** Remove the tower of the box */
-	public void removeTower() {this.tower = null;}
-
-	/** @return the tower */
-	public Tower getTower() {return tower;}
 }

@@ -20,57 +20,34 @@ import electroacid.defense.gamePart.tile.TilePath;
  */
 public class Creature implements Cloneable, ObservableCreature {
 
-	private ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
-
-	/**
-	 * @return the rewardValue
-	 */
-	public int getRewardValue() {
-		return rewardValue;
-	}
-
-	/**
-	 * @param speed
-	 *            the speed to set
-	 */
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
-
-	/**
-	 * @param rewardValue
-	 *            the rewardValue to set
-	 */
-	public void setRewardValue(int rewardValue) {
-		this.rewardValue = rewardValue;
-	}
+	public ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
 
 	/** Element of the creature */
-	private Element element;
+	public Element element;
 
 	/** actual Life of the creature */
-	private int life;
+	public int life;
 
 	/** Life of the creature */
-	private int maxLife;
+	public int maxLife;
 
 	/** Speed of the creature */
-	private float speed;
+	public float speed;
 
 	/** Not implemented yet */
-	private int fireRate;
+	public int fireRate;
 
 	/** Gain when the creature die */
-	private int rewardValue;
+	public int rewardValue;
 
 	/** Gain score when the creature die */
-	private int scoreValue;
+	public int scoreValue;
 
 	/** Not implemented yet */
-	private boolean fly;
+	public boolean fly;
 
 	/** Sprite of the creature */
-	private Sprite sprite;
+	public Sprite sprite;
 
 	/**
 	 * Constructor of a creature
@@ -152,139 +129,12 @@ public class Creature implements Cloneable, ObservableCreature {
 	}
 
 	/**
-	 * @return the element
-	 */
-	public Element getElement() {
-		return element;
-	}
-
-	/**
-	 * @param element
-	 *            the element to set
-	 */
-	public void setElement(Element element) {
-		this.element = element;
-	}
-
-	/**
-	 * @return the life
-	 */
-	public int getLife() {
-		return life;
-	}
-
-	/**
 	 * @param life
 	 *            the life to set
 	 */
-	public void setLife(int life) {
-		this.life = life;
+	public void setLife(int _life) {
+		this.life = _life;
 		this.updateObservateur();
-	}
-
-	/**
-	 * @return the speed
-	 */
-	public float getSpeed() {
-		return speed;
-	}
-
-	/**
-	 * @param speed
-	 *            the speed to set
-	 */
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	/**
-	 * @return the fireRate
-	 */
-	public int getFireRate() {
-		return fireRate;
-	}
-
-	/**
-	 * @param fireRate
-	 *            the fireRate to set
-	 */
-	public void setFireRate(int fireRate) {
-		this.fireRate = fireRate;
-	}
-
-	/**
-	 * @return the cost
-	 */
-	public int getCost() {
-		return rewardValue;
-	}
-
-	/**
-	 * @param cost
-	 *            the cost to set
-	 */
-	public void setCost(int cost) {
-		this.rewardValue = cost;
-	}
-
-	/**
-	 * @return the fly
-	 */
-	public boolean isFly() {
-		return fly;
-	}
-
-	/**
-	 * @param fly
-	 *            the fly to set
-	 */
-	public void setFly(boolean fly) {
-		this.fly = fly;
-	}
-
-	/**
-	 * @return the sprite
-	 */
-	public Sprite getSprite() {
-		return sprite;
-	}
-
-	/**
-	 * @param sprite
-	 *            the sprite to set
-	 */
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
-
-	/**
-	 * @return the maxLife
-	 */
-	public int getMaxLife() {
-		return maxLife;
-	}
-
-	/**
-	 * @param maxLife
-	 *            the maxLife to set
-	 */
-	public void setMaxLife(int maxLife) {
-		this.maxLife = maxLife;
-	}
-
-	/**
-	 * @return the scoreValue
-	 */
-	public int getScoreValue() {
-		return scoreValue;
-	}
-
-	/**
-	 * @param scoreValue
-	 *            the scoreValue to set
-	 */
-	public void setScoreValue(int scoreValue) {
-		this.scoreValue = scoreValue;
 	}
 
 	@Override

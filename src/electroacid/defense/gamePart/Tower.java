@@ -24,77 +24,64 @@ public  class Tower implements Cloneable,ObservateurTower{
 	/**
 	 * The shoot shooted by the tower
 	 */
-	Line fire;
+	public Line fire;
 	/**
 	 * Cost of the tower
 	 */
-	private int cost;
-	/**
-	 * @return the destroy
-	 */
-	public double getDestroy() {
-		return destroy;
-	}
-
-	/**
-	 * @param destroy the destroy to set
-	 */
-	public void setDestroy(double destroy) {
-		this.destroy = destroy;
-	}
+	public int cost;
 
 	/**
 	 * Damage of the tower
 	 */
-	private int damage;
+	public int damage;
 	/**
 	 * Level of the tower 
 	 */
-	private int level;
+	public int level;
 	/** 
 	 * Sprite of the tower
 	 */
-	private Sprite sprite;
-	private Sprite upgradeSprite;
+	public Sprite sprite;
+	public Sprite upgradeSprite;
 	/**
 	 * Coefficient used for the tower upgrade
 	 */
-	private double upgrade =  1.25;
+	public double upgrade =  1.25;
 	/**
 	 * Coefficient used to destruct the tower
 	 */
-	private double destroy = 0.25;
+	public double destroy = 0.25;
 	/**
 	 * The shooting area
 	 */
-	private int shootArea;
+	public int shootArea;
 	/**
 	 * The shootable box
 	 */
-	private LinkedList<TilePath> boxDetectionList;
+	public LinkedList<TilePath> boxDetectionList;
 	/**
 	 * Coordonate of the tower
 	 */
 
-	private LinkedList<Creature> listTarget;
+	public LinkedList<Creature> listTarget;
 
-	private int x,y;
+	public int x,y;
 
-	private ShootPriority targetPriority ;
-	private Creature weakest_highest;
+	public ShootPriority targetPriority ;
+	public Creature weakest_highest;
 
 	// TODO : Not implemented yet
-	private int targetNb;
+	public int targetNb;
 
-	private Element element;	
+	public Element element;	
 	/**
 	 * The capacity to shoot a flying creature
 	 */
-	private boolean canTargetFly;
+	public boolean canTargetFly;
 	/**
 	 * The speed as a tower can shoot
 	 */
-	private int fireRate;
+	public int fireRate;
 
 	/**
 	 * The constructor of the towers
@@ -121,13 +108,6 @@ public  class Tower implements Cloneable,ObservateurTower{
 		this.level = _level;
 		this.sprite = new Sprite(0, 0, texture);
 		this.shootArea = _shootArea;
-	}
-
-	/**
-	 * @return the shootArea
-	 */
-	public int getshootArea() {
-		return shootArea;
 	}
 
 	/**
@@ -179,7 +159,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 				target = this.listTarget.get(0);
 
 			// TODO : Il  faut faire pivoter la tour !  this.getSprite().setRotation(A_CALCULER)
-			fire = new Line(this.x, this.y,target.getSprite().getX(), target.getSprite().getY(),3);
+			fire = new Line(this.x, this.y,target.sprite.getX(), target.sprite.getY(),3);
 			switch(this.element){
 			case Electricity:
 				fire.setColor(1, (float) 0.8, 0);
@@ -196,18 +176,11 @@ public  class Tower implements Cloneable,ObservateurTower{
 			}
 			container.addEntity(fire);
 			// Apply the element vs element modifiers
-			double modifiers = this.element.getModifier(target.getElement());
+			double modifiers = this.element.getModifier(target.element);
 			target.loseLife((int)(this.damage*modifiers));		
 		}
 	}
 
-
-	/**
-	 * @param shootArea the shootArea to set
-	 */
-	public void setshootArea(int shootArea) {
-		this.shootArea = shootArea;
-	}
 	/**
 	 * Change the position of the tower (used when a tower is created (we use cloning !!))
 	 * @param x
@@ -217,21 +190,6 @@ public  class Tower implements Cloneable,ObservateurTower{
 		this.sprite.setPosition(_x+16, _y+16);
 		this.x=_x; this.y=_y;
 	}
-
-	/**
-	 * @return the sprite
-	 */
-	public Sprite getSprite() {
-		return sprite;
-	}
-
-	/**
-	 * @param sprite the sprite to set
-	 */
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
-
 	
 	/**
 	 * Upgrading a tower (thanks to upgrade coefficient)
@@ -263,21 +221,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 		for (TilePath tile:this.boxDetectionList) tile.delObservateur(this);
 		container.removeEntity(this.sprite);
 		containerUpgradeTower.removeEntity(this.upgradeSprite);
-		game.setMoney((int)(game.getMoney()+this.cost*this.destroy));
-	}
-
-	/**
-	 * @return the upgrade
-	 */
-	public double getUpgrade() {
-		return upgrade;
-	}
-
-	/**
-	 * @param upgrade the upgrade to set
-	 */
-	public void setUpgrade(double upgrade) {
-		this.upgrade = upgrade;
+		game.setMoney((int)(game.money+this.cost*this.destroy));
 	}
 
 	/**
@@ -299,118 +243,13 @@ public  class Tower implements Cloneable,ObservateurTower{
 	}
 
 	/**
-	 * @return the element
-	 */
-	public Element getElement() {
-		return element;
-	}
-
-	/**
-	 * @param element the element to set
-	 */
-	public void setElement(Element element) {
-		this.element = element;
-	}
-
-	/**
-	 * @return the fireRate
-	 */
-	public int getFireRate() {
-		return fireRate;
-	}
-
-	/**
-	 * @param fireRate the fireRate to set
-	 */
-	public void setFireRate(int fireRate) {
-		this.fireRate = fireRate;
-	}
-
-	/**
-	 * @return the cost
-	 */
-	public int getCost() {
-		return cost;
-	}
-
-	/**
-	 * @param cost the cost to set
-	 */
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
-
-	/**
-	 * @return the canTargetFly
-	 */
-	public boolean isCanTargetFly() {
-		return canTargetFly;
-	}
-
-	/**
-	 * @param canTargetFly the canTargetFly to set
-	 */
-	public void setCanTargetFly(boolean canTargetFly) {
-		this.canTargetFly = canTargetFly;
-	}
-
-	/**
-	 * @return the damage
-	 */
-	public int getDamage() {
-		return damage;
-	}
-
-	/**
-	 * @param damage the damage to set
-	 */
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
-
-	/**
-	 * @return the targetNb
-	 */
-	public int getTargetNb() {
-		return targetNb;
-	}
-
-	/**
-	 * @param targetNb the targetNb to set
-	 */
-	public void setTargetNb(int targetNb) {
-		this.targetNb = targetNb;
-	}
-
-	/**
-	 * @return the targetPriority
-	 */
-	public ShootPriority getTargetPriority() {
-		return targetPriority;
-	}
-
-	/**
 	 * @param targetPriority the targetPriority to set
 	 */
-	public void setTargetPriority(ShootPriority targetPriority) {
-		this.targetPriority = targetPriority;
+	public void setTargetPriority(ShootPriority _targetPriority) {
+		this.targetPriority = _targetPriority;
 		if (this.targetPriority!=ShootPriority.FIRSTIN_FIRSTDIE){
 			this.recalculWH();
 		}
-	}
-
-	/**
-	 * @return the level
-	 */
-	public int getLevel() {
-		return level;
-	}
-
-	/**
-	 * @param level the level to set
-	 */
-	public void setLevel(int level) {
-		this.level = level;
 	}
 
 	/**
@@ -445,10 +284,10 @@ public  class Tower implements Cloneable,ObservateurTower{
 
 			switch(this.targetPriority){
 			case WEAKEST:
-				if (this.weakest_highest==null || crea.getMaxLife()<this.weakest_highest.getMaxLife()) this.weakest_highest=crea;
+				if (this.weakest_highest==null || crea.maxLife<this.weakest_highest.maxLife) this.weakest_highest=crea;
 				break;
 			case HIGHEST:
-				if (this.weakest_highest==null || crea.getMaxLife()>this.weakest_highest.getMaxLife()) this.weakest_highest=crea;
+				if (this.weakest_highest==null || crea.maxLife>this.weakest_highest.maxLife) this.weakest_highest=crea;
 				break;
 			case FIRSTIN_FIRSTDIE:
 				break;
@@ -469,11 +308,11 @@ public  class Tower implements Cloneable,ObservateurTower{
 		for (Creature c : this.listTarget){
 			switch(this.targetPriority){
 			case WEAKEST:
-				if (this.weakest_highest==null || c.getMaxLife()<this.weakest_highest.getMaxLife())
+				if (this.weakest_highest==null || c.maxLife<this.weakest_highest.maxLife)
 					this.weakest_highest=c;
 				break;
 			case HIGHEST:
-				if (this.weakest_highest==null || c.getMaxLife()>this.weakest_highest.getMaxLife())
+				if (this.weakest_highest==null || c.maxLife>this.weakest_highest.maxLife)
 					this.weakest_highest=c;
 				break;
 			case FIRSTIN_FIRSTDIE:
@@ -492,8 +331,8 @@ public  class Tower implements Cloneable,ObservateurTower{
 	/**
 	 * @param listTarget the listTarget to set
 	 */
-	public void setListTarget(LinkedList<Creature> listTarget) {
-		this.listTarget = listTarget;
+	public void setListTarget(LinkedList<Creature> _listTarget) {
+		this.listTarget = _listTarget;
 		this.weakest_highest=null;
 		this.recalculWH();
 	}

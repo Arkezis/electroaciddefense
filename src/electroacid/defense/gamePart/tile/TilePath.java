@@ -21,20 +21,20 @@ import electroacid.defense.gamePart.observ.ObservateurTower;
 public class TilePath extends Tile implements ObservableBoxPath{
 
 	/** Creatures' list who are actually on the box */
-	private LinkedList<Creature> listCreature;
+	public LinkedList<Creature> listCreature;
 
 	/** Direction that the creature must take */
-	private Direction direction=null;
+	public Direction direction=null;
 
 	/** the next path after this */
-	private TilePath nextPath;
+	public TilePath nextPath;
 
-	private int numberMaxPred=0;
+	public int numberMaxPred=0;
 	public long time=System.currentTimeMillis();
-	private int numberPred=0;
+	public int numberPred=0;
 
 	/** Observator's list */
-	private ArrayList<ObservateurTower> listObservateur = new ArrayList<ObservateurTower>();
+	public ArrayList<ObservateurTower> listObservateur = new ArrayList<ObservateurTower>();
 
 	public TilePath(int pGlobalTileID, int pTileColumn, int pTileRow,
 			int pTileWidth, int pTileHeight, TextureRegion pTextureRegion) {
@@ -76,7 +76,7 @@ public class TilePath extends Tile implements ObservableBoxPath{
 			}
 			for (int i=0;i<this.listCreature.size();i++){
 				Creature creature = this.listCreature.get(i);
-				if(creature.getLife()<=0){
+				if(creature.life<=0){
 					this.updateObservateurRemove(creature);
 					creature.destroy(container, true);
 					this.listCreature.remove(i--);
@@ -84,8 +84,8 @@ public class TilePath extends Tile implements ObservableBoxPath{
 
 
 
-					float nextY = creature.getSprite().getX();
-					float nextX = creature.getSprite().getY();
+					float nextY = creature.sprite.getX();
+					float nextX = creature.sprite.getY();
 
 					if (!creatureInBox(nextX, nextY)){
 						this.updateObservateurRemoveAndAdd(creature);
@@ -93,13 +93,13 @@ public class TilePath extends Tile implements ObservableBoxPath{
 						this.listCreature.remove(i--);
 					}else {
 						switch(this.direction) {
-						case Up   :nextY -= creature.getSpeed();break;
-						case Down :nextY += creature.getSpeed();break;
-						case Left :nextX -= creature.getSpeed();break;
-						case Right:nextX += creature.getSpeed();break;
+						case Up   :nextY -= creature.speed;break;
+						case Down :nextY += creature.speed;break;
+						case Left :nextX -= creature.speed;break;
+						case Right:nextX += creature.speed;break;
 						}
-						creature.getSprite().setPosition(nextX, nextY);
-						creature.getSprite().setRotation(creature.getSpeed()*5);
+						creature.sprite.setPosition(nextX, nextY);
+						creature.sprite.setRotation(creature.speed*5);
 					}
 				}
 			}
@@ -134,24 +134,6 @@ public class TilePath extends Tile implements ObservableBoxPath{
 		}
 		return test;
 	}
-
-	/** @return the listCreature */
-	public LinkedList<Creature> getListCreature() {return listCreature;}
-
-	/** @param listCreature the listCreature to set */
-	public void setListCreature(LinkedList<Creature> listCreature) {this.listCreature = listCreature;}
-
-	/** @return the direction */
-	public Direction getDirection() {return direction;}
-
-	/** @param direction the direction to set */
-	public void setDirection(Direction direction) {this.direction = direction;}
-
-	/** @return the nextPath */
-	public TilePath getNextPath() {return nextPath;}
-
-	/** @param nextPath the nextPath to set */
-	public void setNextPath(TilePath nextPath) {this.nextPath = nextPath;}
 
 	@Override
 	public void addObservateur(ObservateurTower obs) {
@@ -193,23 +175,8 @@ public class TilePath extends Tile implements ObservableBoxPath{
 		for (ObservateurTower obs : this.listObservateur) obs.remove(c);
 	}
 
-	/**
-	 * @return the numberMaxPred
-	 */
-	public int getNumberMaxPred() {
-		return numberMaxPred;
-	}
-
 	public void addNumberMaxPred(){
 		this.numberMaxPred++;
 		this.numberPred++;
 	}
-
-	/**
-	 * @return the numberPred
-	 */
-	public int getNumberPred() {
-		return numberPred;
-	}
-
 }
