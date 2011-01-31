@@ -132,7 +132,7 @@ public class Play extends BaseGameActivity {
 		try {
 			genericMap.buildMap(this,this.mEngine.getTextureManager());
 		} catch (TMXLoadException e) { e.printStackTrace();	}
-		this.mTMXTiledMap=genericMap.getTmxTiledMap();
+		this.mTMXTiledMap=genericMap.tmxTiledMap;
 		final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
 		scene.getLayer(LAYER_MAP).addEntity(tmxLayer);
 		/*  Register touchArea to the tileBuidable */
@@ -150,11 +150,11 @@ public class Play extends BaseGameActivity {
 		scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
 
 		/* ------------------------------- Initialisations ------------------------------- */
-		GenericTower genericTower = new GenericTower(this, this.mTextureTowersCreaturesSprite, null); 
+		GenericTower genericTower = new GenericTower(this, this.mTextureTowersCreaturesSprite); 
 		try {
-			genericTower.build(getWindow().getContext(), R.raw.tower, null);
+			genericTower.build(getWindow().getContext(), R.raw.tower);
 		} catch (Exception e) {	e.printStackTrace();}
-		listTower = genericTower.getListTower();
+		listTower = genericTower.listTower;
 		
 		gameData = GenericGame.getInstance();
 		try {
@@ -162,7 +162,7 @@ public class Play extends BaseGameActivity {
 		} catch (Exception e) {	e.printStackTrace();}
 		
 		/* Useful sprite */
-		sTouchPointer= new TiledSprite(0, 0, 32, 32, (TiledTextureRegion) this.mTouchPointerTextureRegion);
+		sTouchPointer= new TiledSprite(0, 0, 32, 32, this.mTouchPointerTextureRegion);
 		sTouchPointer.setZIndex(Integer.MIN_VALUE); // TODO : faire apparaître le point au dessus des tours sélectionnées... 
 		scene.getLayer(LAYER_MAP).addEntity(sTouchPointer);
 		
@@ -180,7 +180,7 @@ public class Play extends BaseGameActivity {
 				if(tileTouched instanceof TileBuildable){ 
 					TileBuildable tileSelected = (TileBuildable) tileTouched;
 					sTouchPointer.setPosition(tileSelected.getTileX(), tileSelected.getTileY());
-					if(tileSelected.getTower()!=null){ // already a tower
+					if(tileSelected.tower!=null){ // already a tower
 						MenuManager.getInstance().showStatsTower(tileSelected);
 					}else{
 						MenuManager.getInstance().showNewTower(tileSelected,genericMap);
@@ -191,7 +191,7 @@ public class Play extends BaseGameActivity {
 		});
 		
 		/* Starting the game and initialising everything for the game */
-		gameData.setGameStarted(true);
+		gameData.gameStarted = true;
 		
 		testMenu(scene);
 		
@@ -201,8 +201,8 @@ public class Play extends BaseGameActivity {
 		scene.registerUpdateHandler(new TimerHandler(0.5f, true, new ITimerCallback() {
 			@Override
 			public void onTimePassed(final TimerHandler pTimerHandler) {
-				if(gameData.isGameStarted()) {
-					if(! gameData.isPause()){
+				if(gameData.gameStarted) {
+					if(! gameData.pause){
 						/* WAVES */
 						
 						/* SHOOTS */

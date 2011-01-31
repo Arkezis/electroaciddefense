@@ -2,7 +2,6 @@ package electroacid.defense.gamePart.tower;
 
 import java.util.LinkedList;
 
-import org.anddev.andengine.entity.layer.ILayer;
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
@@ -24,20 +23,15 @@ import electroacid.defense.utils.XmlUtil;
 public class GenericTower {
 
 	/** Waves' creature */
-	private LinkedList<Tower> listTower = new LinkedList<Tower>();
+	public LinkedList<Tower> listTower = new LinkedList<Tower>();
 
-	private BaseGameActivity play;
-	private Texture texture;
-	private String file;
+	public BaseGameActivity play;
+	public Texture texture;
 	
-	
-	
-	public GenericTower(BaseGameActivity _play,Texture _texture,String _file){
+	public GenericTower(BaseGameActivity _play,Texture _texture){
 		// TODO : File parameter is useless ??
 		this.play = _play;
 		this.texture = _texture;
-		this.file = _file;
-		
 	}
 	
 	
@@ -48,8 +42,7 @@ public class GenericTower {
 	 * @param game game's parameters
 	 * @throws Exception
 	 */
-	public void build(final Context context,final int xmlResourceId,ILayer mGl) throws Exception{
-		// TODO : mGl parameter is useless ???
+	public void build(final Context context,final int xmlResourceId) throws Exception{
 		Document towerXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
 
 		NodeList listNodeTower = towerXml.getDocumentElement().getElementsByTagName("tower");
@@ -79,19 +72,5 @@ public class GenericTower {
 					shootArea);
 			listTower.add(tow);				
 		}
-	}
-
-	/**
-	 * @return the listTower
-	 */
-	public LinkedList<Tower> getListTower() {
-		return listTower;
-	}
-
-	/**
-	 * @param listTower the listTower to set
-	 */
-	public void setListTower(LinkedList<Tower> listTower) {
-		this.listTower = listTower;
 	}
 }

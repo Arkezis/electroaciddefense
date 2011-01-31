@@ -24,12 +24,11 @@ import electroacid.defense.gamePart.tile.TilePath;
  */
 public class GenericMap {
 
-	TMXTiledMap tmxTiledMap;
-	Tile[] firstBoxPath;
-	TilePath lastTilePath;
+	public TMXTiledMap tmxTiledMap;
+	public Tile[] firstBoxPath;
+	public TilePath lastTilePath;
 
-	public GenericMap() {
-	}
+	public GenericMap() {}
 
 	public void buildMap(Play play, TextureManager textureManager)
 			throws TMXLoadException {
@@ -37,10 +36,6 @@ public class GenericMap {
 				TextureOptions.DEFAULT);
 		this.tmxTiledMap = tmxLoader.loadFromAsset(play, "tmx/testmap2.tmx");
 		this.buildPath();
-	}
-
-	public TMXTiledMap getTmxTiledMap() {
-		return tmxTiledMap;
 	}
 
 	/** build the path */
@@ -69,31 +64,31 @@ public class GenericMap {
 
 		if (column > 0 && a.getTMXTile(column - 1, line) instanceof TilePath) {
 			tile = (TilePath) a.getTMXTile(column - 1, line);
-			if (tile.getDirection() == null) {
-				tile.setDirection(Direction.Right);
+			if (tile.direction == null) {
+				tile.direction = Direction.Right;
 				listTile.add(tile);
 			}
 		}
 		if (column < a.getTileColumns() - 1
 				&& a.getTMXTile(column + 1, line) instanceof TilePath) {
 			tile = (TilePath) a.getTMXTile(column + 1, line);
-			if (tile.getDirection() == null) {
-				tile.setDirection(Direction.Left);
+			if (tile.direction == null) {
+				tile.direction = Direction.Left;
 				listTile.add(tile);
 			}
 		}
 		if (line > 0 && a.getTMXTile(column, line - 1) instanceof TilePath) {
 			tile = (TilePath) a.getTMXTile(column, line - 1);
-			if (tile.getDirection() == null) {
-				tile.setDirection(Direction.Down);
+			if (tile.direction == null) {
+				tile.direction = Direction.Down;
 				listTile.add(tile);
 			}
 		}
 		if (column < a.getTileRows() - 1
 				&& a.getTMXTile(column, line + 1) instanceof TilePath) {
 			tile = (TilePath) a.getTMXTile(column, line + 1);
-			if (tile.getDirection() == null) {
-				tile.setDirection(Direction.Up);
+			if (tile.direction == null) {
+				tile.direction = Direction.Up;
 				listTile.add(tile);
 			}
 		}
@@ -113,7 +108,7 @@ public class GenericMap {
 					b[i][j] = new TilePath(b[i][j]);
 					if (c.getGlobalTileID() == 18) {
 						this.lastTilePath = (TilePath) b[i][j];
-						this.lastTilePath.setDirection(Direction.Right);
+						this.lastTilePath.direction = Direction.Right;
 					}
 				}
 				int y = 0;

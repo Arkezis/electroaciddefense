@@ -18,38 +18,29 @@ import android.content.Context;
  */
 public class GenericGame implements ObservableGame{
 
-	private int speedMultiplicator;
-	private int difficulty;
-	private int money;
-	private int lives;
-	private int timeBetweenEachWave;
-	private float timeBetweenEachTowerTurn;
-	private int levelTowerMax;
+	public int speedMultiplicator;
+	public int difficulty;
+	public int money;
+	public int lives;
+	public int timeBetweenEachWave;
+	public float timeBetweenEachTowerTurn;
+	public int levelTowerMax;
 
-	private boolean gameStarted;
-	private int actualWave = 0;
-	private int nbCreatureInGame=0;
-	private int nbMaxWave=0;
-	private boolean gameEnd;
-	private float menuRefreshTime=(float) 1;
-	private boolean pause=false;
-	private int score=0;
-	private int maxNbTower=25;
-	private int maxLevelTower=7;
-	
-	
-	private Vector<ObservateurMenu> listObservateur = new Vector<ObservateurMenu>();
-
+	public boolean gameStarted = false;
+	public int actualWave = 0;
+	public int nbCreatureInGame = 0;
+	public int nbMaxWave = 0;
+	public boolean gameEnd = false;
+	public float menuRefreshTime = 1;
+	public boolean pause = false;
+	public int score = 0;
+	public int maxNbTower = 25;
+	public int maxLevelTower = 7;
+	public Vector<ObservateurMenu> listObservateur = new Vector<ObservateurMenu>();
 	static GenericGame instance = null;
 
-	/**
-	 * Constructor of genericWave
-	 * init all layout
-	 * @param mGLSurfaceView
-	 * @throws Exception 
-	 */
-	private GenericGame() {
-	}
+	
+	private GenericGame() {}
 
 	public void build(final Context context, final int xmlResourceId) throws Exception {
 		Document gameXml = XmlUtil.getDocumentFromResource(context, xmlResourceId);
@@ -71,69 +62,13 @@ public class GenericGame implements ObservableGame{
 	public static void destroyInstance(){
 		GenericGame.instance=null;
 	}
-	
-	/**
-	 * @return the actualWave
-	 */
-	public int getActualWave() {
-		return actualWave;
-	}
 
 	/**
 	 * @param actualWave the actualWave to set
 	 */
-	public void setActualWave(int actualWave) {
-		this.actualWave = actualWave;
+	public void setActualWave(int _actualWave) {
+		this.actualWave = _actualWave;
 		this.updateObservateurWave();
-	}
-
-
-	/**
-	 * @return the menuRefreshTime
-	 */
-	public float getMenuRefreshTime() {
-		return menuRefreshTime;
-	}
-
-	/**
-	 * @param menuRefreshTime the menuRefreshTime to set
-	 */
-	public void setMenuRefreshTime(float menuRefreshTime) {
-		this.menuRefreshTime = menuRefreshTime;
-	}
-
-	/**
-	 * @return the timeBetweenEachWave
-	 */
-	public int getTimeBetweenEachWave() {
-		return timeBetweenEachWave;
-	}
-
-	/**
-	 * @param timeBetweenEachWave the timeBetweenEachWave to set
-	 */
-	public void setTimeBetweenEachWave(int timeBetweenEachWave) {
-		this.timeBetweenEachWave = timeBetweenEachWave;
-	}
-
-	/**
-	 * @return the speedMultiplicator
-	 */
-	public int getSpeedMultiplicator() {
-		return speedMultiplicator;
-	}
-	/**
-	 * @return the difficulty
-	 */
-	public int getDifficulty() {
-		return difficulty;
-	}
-
-	/**
-	 * @return the money
-	 */
-	public int getMoney() {
-		return money;
 	}
 
 	public void addMoney(int _money){
@@ -141,23 +76,9 @@ public class GenericGame implements ObservableGame{
 		this.updateObservateurMoney();
 	}
 
-	/**
-	 * @return the score
-	 */
-	public int getScore() {
-		return score;
-	}
-
 	public void addScore(int _score){
 		this.score+=_score;
 		this.updateObservateurScore();
-	}
-
-	/**
-	 * @return the lives
-	 */
-	public int getLives() {
-		return lives;
 	}
 
 	public void removeLives(int nbLive){
@@ -173,97 +94,27 @@ public class GenericGame implements ObservableGame{
 		this.speedMultiplicator=speed!=0?speed:1;
 		return this.speedMultiplicator;
 	}
-	/**
-	 * @param difficulty the difficulty to set
-	 */
-	public void setDifficulty(int difficulty) {
-		this.difficulty = difficulty;
-	}
 
 	/**
 	 * @param money the money to set
 	 */
-	public void setMoney(int money) {
-		this.money = money;
+	public void setMoney(int _money) {
+		this.money = _money;
 		this.updateObservateurMoney();
 	}
 	/**
 	 * @param lives the lives to set
 	 */
-	public void setLives(int lives) {
-		this.lives = lives;
+	public void setLives(int _lives) {
+		this.lives = _lives;
 		this.updateObservateurLive();
 	}
 
-	/**
-	 * @return the timeBetweenEachTowerTurn
-	 */
-	public float getTimeBetweenEachTowerTurn() {
-		return timeBetweenEachTowerTurn;
-	}
-
-	/**
-	 * @param timeBetweenEachTowerTurn the timeBetweenEachTowerTurn to set
-	 */
-	public void setTimeBetweenEachTowerTurn(float timeBetweenEachTowerTurn) {
-		this.timeBetweenEachTowerTurn = timeBetweenEachTowerTurn;
-	}
-
-	/**
-	 * @return the gameStarted
-	 */
-	public boolean isGameStarted() {
-		return gameStarted;
-	}
-
-	/**
-	 * @param gameStarted the gameStarted to set
-	 */
-	public void setGameStarted(boolean gameStarted) {
-		this.gameStarted = gameStarted;
-	}
-
-	/**
-	 * @return the nbCreatureInGame
-	 */
-	public int getNbCreatureInGame() {
-		return nbCreatureInGame;
-	}
-
-	/**
-	 * @param nbCreatureInGame the nbCreatureInGame to set
-	 */
-	public void setNbCreatureInGame(int nbCreatureInGame) {
-		this.nbCreatureInGame = nbCreatureInGame;
-	}
-
-	/** add one creature at the nbCreatureInGame parameter */
-	public void addOneCreatureInGame(){
-		this.nbCreatureInGame++;
-	}
 	/** remove one creature at the nbCreatureInGame parameter */
 	public void removeOneCreatureInGame(){
 		this.nbCreatureInGame--;
-		this.gameEnd = !this.gameStarted || (this.nbCreatureInGame==0 && this.actualWave==this.getNbMaxWave());
+		this.gameEnd = !this.gameStarted || (this.nbCreatureInGame==0 && this.actualWave==this.nbMaxWave);
 
-	}
-
-	public boolean isGameEnd(){
-		return this.gameEnd;
-	}
-
-	/**
-	 * @return the nbMaxWave
-	 */
-	public int getNbMaxWave() {
-		return nbMaxWave;
-	}
-
-	/**
-	 * @param nbMaxWave the nbMaxWave to set
-	 */
-	public void setNbMaxWave(int nbMaxWave) {
-		this.nbMaxWave = nbMaxWave;
 	}
 
 	@Override
@@ -283,37 +134,22 @@ public class GenericGame implements ObservableGame{
 
 	@Override
 	public void updateObservateurLive() {
-		for (ObservateurMenu obs: this.listObservateur){
-			obs.refreshLives();
-		}
+		for (ObservateurMenu obs: this.listObservateur){obs.refreshLives();}
 	}
 
 	@Override
 	public void updateObservateurMoney() {
-		for (ObservateurMenu obs: this.listObservateur){
-			obs.refreshMoney();
-		}
+		for (ObservateurMenu obs: this.listObservateur){obs.refreshMoney();}
 	}
 
 	@Override
 	public void updateObservateurWave() {
-		for (ObservateurMenu obs: this.listObservateur){
-			obs.refreshWaves();
-		}
+		for (ObservateurMenu obs: this.listObservateur){obs.refreshWaves();}
 	}
 
 	@Override
 	public void updateObservateurScore() {
-		for (ObservateurMenu obs: this.listObservateur){
-			obs.refreshScore();
-		}		
-	}
-
-	/**
-	 * @return the pause
-	 */
-	public boolean isPause() {
-		return pause;
+		for (ObservateurMenu obs: this.listObservateur){obs.refreshScore();}		
 	}
 
 	/**
@@ -322,54 +158,4 @@ public class GenericGame implements ObservableGame{
 	public void changePause() {
 		this.pause = !this.pause;
 	}
-
-	/**
-	 * @return the levelTowerMax
-	 */
-	public int getLevelTowerMax() {
-		return levelTowerMax;
-	}
-
-	/**
-	 * @param levelTowerMax the levelTowerMax to set
-	 */
-	public void setLevelTowerMax(int levelTowerMax) {
-		this.levelTowerMax = levelTowerMax;
-	}
-
-	/**
-	 * @param score the score to set
-	 */
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	/**
-	 * @return the maxNbTower
-	 */
-	public int getMaxNbTower() {
-		return maxNbTower;
-	}
-
-	/**
-	 * @param maxNbTower the maxNbTower to set
-	 */
-	public void setMaxNbTower(int maxNbTower) {
-		this.maxNbTower = maxNbTower;
-	}
-
-	/**
-	 * @return the maxLevelTower
-	 */
-	public int getMaxLevelTower() {
-		return maxLevelTower;
-	}
-
-	/**
-	 * @param maxLevelTower the maxLevelTower to set
-	 */
-	public void setMaxLevelTower(int maxLevelTower) {
-		this.maxLevelTower = maxLevelTower;
-	}
-
 }
