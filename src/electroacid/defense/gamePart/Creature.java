@@ -8,6 +8,7 @@ import org.anddev.andengine.entity.shape.modifier.BaseShapeModifier;
 import org.anddev.andengine.entity.shape.modifier.IShapeModifier;
 import org.anddev.andengine.entity.shape.modifier.PathModifier;
 import org.anddev.andengine.entity.shape.modifier.PathModifier.IPathModifierListener;
+import org.anddev.andengine.entity.shape.modifier.ease.EaseLinear;
 import org.anddev.andengine.entity.shape.modifier.ease.EaseSineInOut;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.Sprite;
@@ -120,28 +121,40 @@ public class Creature extends AnimatedSprite implements ObservableCreature {
 	}
 
 	public void start(final Path path) {
-		//debut.addCreature(this);
-		//this.sprite.setPosition(debut.getTileX() + 16, debut.getTileY() + 16);
 
-		
-		Log.d("t","taille : "+path.getSize());
-		
-		
-		final long pathLenght[] = new long[path.getSize()];
-		for (int i = 0;i<path.getSize();i++) pathLenght[i]=200;
-		
-		
-		
-		this.addShapeModifier(new PathModifier(30, path, null, new IPathModifierListener() {
+
+		this.addShapeModifier(new PathModifier(10, path, null, new IPathModifierListener() {
 			@Override
 			public void onWaypointPassed(final PathModifier pPathModifier, final IShape pShape, final int pWaypointIndex) {
-				//Creature.this.animate(pathLenght, 0, path.getSize()-1, true);
+				
+				if (pWaypointIndex == path.getSize()-1){
+					//scene.getLayer(LAYER_CREA).removeEntity(player);
+				}else {
+					
+
+				Path p = pPathModifier.getPath();
+				
+				float actual = p.getCoordinatesX()[pWaypointIndex];
+				float futur = p.getCoordinatesX()[pWaypointIndex+1];
+				
+				if (actual<futur) setRotation(90);
+				if (actual>futur) setRotation(270);
+				
+				actual = p.getCoordinatesY()[pWaypointIndex];
+				futur = p.getCoordinatesY()[pWaypointIndex+1];	
+	
+				if (actual<futur) setRotation(180);
+				if (actual>futur) setRotation(0);
+				
+				
+				}				
+				
+				
 			}
-		}, EaseSineInOut.getInstance()));
+		}, EaseLinear.getInstance()));
 		
 		
 		
-		Log.d("r",this.isVisible()+"");
 		
 	}
 
