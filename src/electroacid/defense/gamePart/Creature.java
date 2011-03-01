@@ -3,8 +3,19 @@ package electroacid.defense.gamePart;
 import java.util.ArrayList;
 
 import org.anddev.andengine.entity.layer.ILayer;
+import org.anddev.andengine.entity.shape.IShape;
+import org.anddev.andengine.entity.shape.modifier.BaseShapeModifier;
+import org.anddev.andengine.entity.shape.modifier.IShapeModifier;
+import org.anddev.andengine.entity.shape.modifier.PathModifier;
+import org.anddev.andengine.entity.shape.modifier.PathModifier.IPathModifierListener;
+import org.anddev.andengine.entity.shape.modifier.ease.EaseSineInOut;
+import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
+import org.anddev.andengine.util.Path;
+
+import android.util.Log;
 
 import electroacid.defense.gamePart.enums.Element;
 import electroacid.defense.gamePart.game.GenericGame;
@@ -18,7 +29,7 @@ import electroacid.defense.gamePart.tile.TilePath;
  * @author cilheo
  * @version 2.0
  */
-public class Creature implements Cloneable, ObservableCreature {
+public class Creature extends AnimatedSprite implements ObservableCreature {
 
 	public ArrayList<ObservateurMenu> listObservateur = new ArrayList<ObservateurMenu>();
 
@@ -46,9 +57,6 @@ public class Creature implements Cloneable, ObservableCreature {
 	/** Not implemented yet */
 	public boolean fly;
 
-	/** Sprite of the creature */
-	public Sprite sprite;
-
 	/**
 	 * Constructor of a creature
 	 * 
@@ -69,14 +77,16 @@ public class Creature implements Cloneable, ObservableCreature {
 	 */
 	public Creature(Element _element, int _life, float speed2, int _fireRate,
 			int _rewardValue, int scoreValue, boolean _fly,
-			TextureRegion texture) {
+			TiledTextureRegion texture) {
+		
+		super(-10,-10,32,32,texture);
+		
 		this.element = _element;
 		this.life = _life;
 		this.speed = speed2;
 		this.fireRate = _fireRate;
 		this.rewardValue = _rewardValue;
 		this.fly = _fly;
-		this.sprite = new Sprite(0, 0, texture);
 		this.maxLife = _life;
 
 	}
@@ -84,19 +94,6 @@ public class Creature implements Cloneable, ObservableCreature {
 	public void loseLife(int nbDamage) {
 		this.life -= nbDamage;
 		this.updateObservateur();
-	}
-
-	/** clone all value of the creature excepted the sprite, create a new */
-	public Object clone() {
-		Creature creature = null;
-		try {
-			creature = (Creature) super.clone();
-		} catch (CloneNotSupportedException cnse) {
-			cnse.printStackTrace(System.err);
-		}
-		creature.sprite = new Sprite(this.sprite.getX(), this.sprite.getY(),
-				this.sprite.getTextureRegion());
-		return creature;
 	}
 
 	/**
@@ -112,7 +109,7 @@ public class Creature implements Cloneable, ObservableCreature {
 	 */
 	public void destroy(ILayer container, boolean byTower) {
 		GenericGame game = GenericGame.getInstance();
-		container.removeEntity(this.sprite);
+		container.removeEntity(this);
 		if (byTower) {
 			game.addMoney(this.rewardValue);
 			game.addScore(this.scoreValue);
@@ -122,10 +119,30 @@ public class Creature implements Cloneable, ObservableCreature {
 
 	}
 
-	public void start(ILayer container, TilePath debut) {
-		debut.addCreature(this);
-		this.sprite.setPosition(debut.getTileX() + 16, debut.getTileY() + 16);
-		container.addEntity(this.sprite);
+	public void start(final Path path) {
+		//debut.addCreature(this);
+		//this.sprite.setPosition(debut.getTileX() + 16, debut.getTileY() + 16);
+
+		
+		Log.d("t","taille : "+path.getSize());
+		
+		
+		final long pathLenght[] = new long[path.getSize()];
+		for (int i = 0;i<path.getSize();i++) pathLenght[i]=200;
+		
+		
+		
+		this.addShapeModifier(new PathModifier(30, path, null, new IPathModifierListener() {
+			@Override
+			public void onWaypointPassed(final PathModifier pPathModifier, final IShape pShape, final int pWaypointIndex) {
+				//Creature.this.animate(pathLenght, 0, path.getSize()-1, true);
+			}
+		}, EaseSineInOut.getInstance()));
+		
+		
+		
+		Log.d("r",this.isVisible()+"");
+		
 	}
 
 	/**

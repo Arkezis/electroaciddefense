@@ -17,13 +17,22 @@ import org.anddev.andengine.entity.layer.tiled.tmx.util.exception.TMXLoadExcepti
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
+import org.anddev.andengine.entity.shape.IShape;
+import org.anddev.andengine.entity.shape.modifier.PathModifier;
+import org.anddev.andengine.entity.shape.modifier.PathModifier.IPathModifierListener;
+import org.anddev.andengine.entity.shape.modifier.ease.EaseLinear;
+import org.anddev.andengine.entity.shape.modifier.ease.EaseSineInOut;
+import org.anddev.andengine.entity.shape.modifier.ease.IEaseFunction;
+import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.TiledSprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
+import org.anddev.andengine.util.Path;
 
 import android.util.Log;
 import electroacid.defense.R;
@@ -32,17 +41,20 @@ import electroacid.defense.gamePart.gui.MenuManager;
 import electroacid.defense.gamePart.map.GenericMap;
 import electroacid.defense.gamePart.tile.TileBuildable;
 import electroacid.defense.gamePart.tower.GenericTower;
+import electroacid.defense.gamePart.wave.GenericWave;
 
 public class Play extends BaseGameActivity {
 
 	private static final int CAMERA_WIDTH = 320;
 	private static final int CAMERA_HEIGHT = 480;
 	public static final int LAYER_MAP = 0;
-	public static final int LAYER_MENU_NEW_TOWER = LAYER_MAP + 1;
-	public static final int LAYER_MENU_STATS_TOWER = LAYER_MENU_NEW_TOWER + 1;
-	public static final int LAYER_MENU_STATS_CREA = LAYER_MENU_STATS_TOWER + 1;
-	public static final int LAYER_MENU_TOP = LAYER_MENU_STATS_CREA + 1;
-	public static final int LAYER_TEST = LAYER_MENU_TOP +1; // impossible to add this layer to the scene ! Too much layers, kill the layers ... :(
+	public static final int LAYER_MENU_NEW_TOWER = 1;
+	public static final int LAYER_MENU_STATS_TOWER = 2;
+	public static final int LAYER_MENU_STATS_CREA = 3;
+	public static final int LAYER_MENU_TOP = 4;
+	public static final int LAYER_CREA = 5;
+	
+	public static final int LAYER_TEST = 6; // impossible to add this layer to the scene ! Too much layers, kill the layers ... :(
 
 
 
@@ -50,11 +62,16 @@ public class Play extends BaseGameActivity {
 	static Scene scene;
 	private Texture mTextureTowersCreaturesSprite,mTextureDiversSprite;
 	private TMXTiledMap mTMXTiledMap;
-	private TiledTextureRegion mTower1TextureRegion,mTower2TextureRegion,mTower3TextureRegion,mTower4TextureRegion;
+	//private TiledTextureRegion mTower1TextureRegion,mTower2TextureRegion,mTower3TextureRegion,mTower4TextureRegion;
 	private TiledTextureRegion mButtonAddTextureRegion,mButtonDestroyTextureRegion,mTouchPointerTextureRegion,mLogoHeartTextureRegion,mLogoMoneyTextureRegion,mLogoNextWaveTextureRegion,mLogoSpeed1TextureRegion,mLogoWavesTextureRegion,mLogoSpeed2TextureRegion,mLogoSpeed3TextureRegion;
-	private TiledTextureRegion mCrea1TextureRegion,mCrea2TextureRegion,mCrea3TextureRegion,mCrea4TextureRegion;
+	
+	private TiledTextureRegion[] listCreatures;
+	private TiledTextureRegion[] listTowers;
+	
+	
 	private LinkedList<TiledTextureRegion> listDiversTextureRegion;
 	private GenericGame gameData;
+	private GenericWave genericWave;
 	private LinkedList<Tower> listTower;
 	private DynamicCapacityLayer layerTest; 
 	TiledSprite s1,s12,s2,s22,sTouchPointer;
@@ -75,16 +92,15 @@ public class Play extends BaseGameActivity {
 		this.mTextureDiversSprite = new Texture(512,128,TextureOptions.BILINEAR);
 		
 		/* Towers */
-		this.mTower1TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 0, 0, 4, 2);
-		this.mTower2TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 64, 0, 4, 2);
-		this.mTower3TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 128, 0, 4, 2);
-		this.mTower4TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 196, 0, 4, 2);
-		
+		this.listTowers = new TiledTextureRegion[4];
+		for (int i=0;i<4;i++) 
+			this.listTowers[i] = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 64*i, 64, 4, 2);
+
 		/* Creatures */
-		this.mCrea1TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 0, 64, 4, 2);
-		this.mCrea2TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 64, 64, 4, 2);
-		this.mCrea3TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 128, 64, 4, 2);
-		this.mCrea4TextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 196, 64, 4, 2);
+		this.listCreatures = new TiledTextureRegion[4];
+		for (int i=0;i<4;i++) 
+			this.listCreatures[i] = TextureRegionFactory.createTiledFromAsset(this.mTextureTowersCreaturesSprite, this, "towers_creatures.png", 64*i, 0, 4, 2);
+
 		
 		/* Divers (menu, sidebar...) */
 		this.mButtonAddTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mTextureDiversSprite, this, "buttons.png", 0, 0, 8, 2);
@@ -124,7 +140,7 @@ public class Play extends BaseGameActivity {
 	
 	@Override
 	public Scene onLoadScene() {
-		scene = new Scene(6); // 6 layers : normal, menuNewTower, menuStatsTower, menuStatsCrea, menuTop, test
+		scene = new Scene(7); // 6 layers : normal, menuNewTower, menuStatsTower, menuStatsCrea, menuTop, test
 		
 		
 		/* TMX part */
@@ -168,6 +184,49 @@ public class Play extends BaseGameActivity {
 		
 		
 		
+		try {	
+			this.genericWave = new GenericWave(this, this.listCreatures);
+			this.genericWave.build( R.raw.map1wave);
+			
+			
+		} catch (Exception e){e.printStackTrace();}
+		
+		//scene.getLayer(LAYER_CREA).addEntity(this.genericWave.getListWave().get(0));
+		
+		//this.genericWave.getListWave().get(0).start(genericMap.listPath[0]);
+		
+		
+		
+		final AnimatedSprite player = new AnimatedSprite(10, 10, 32, 32, this.listCreatures[0]);
+
+
+		
+		final Path path = genericMap.listPath[0];
+			
+		//player.setPosition(path.getCoordinatesX()[0], path.getCoordinatesY()[0]);
+			
+		/* Add the proper animation when a waypoint of the path is passed. */
+		player.addShapeModifier(new PathModifier(10, path, null, new IPathModifierListener() {
+			@Override
+			public void onWaypointPassed(final PathModifier pPathModifier, final IShape pShape, final int pWaypointIndex) {
+				
+				
+				player.setRotation(player.getRotation()+90);
+				
+				if (pWaypointIndex == path.getSize()-1){
+					scene.getLayer(LAYER_CREA).removeEntity(player);
+				}
+				
+				
+			}
+		}, EaseLinear.getInstance()));
+		
+		
+		scene.getLayer(LAYER_CREA).addEntity(player);
+		
+
+		
+		
 		initMenu(scene);
 		scene.setTouchAreaBindingEnabled(true);
 		scene.setOnSceneTouchListener(new IOnSceneTouchListener() {
@@ -203,7 +262,12 @@ public class Play extends BaseGameActivity {
 			public void onTimePassed(final TimerHandler pTimerHandler) {
 				if(gameData.gameStarted) {
 					if(! gameData.pause){
+						
+						
+						
 						/* WAVES */
+						//genericWave.getListWave().get(0).step(0.5f);
+						
 						
 						/* SHOOTS */
 						
@@ -216,9 +280,6 @@ public class Play extends BaseGameActivity {
 				}
 			}
 		}));
-		
-		
-		
 		
 		return scene;
 	}

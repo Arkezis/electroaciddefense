@@ -159,7 +159,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 				target = this.listTarget.get(0);
 
 			// TODO : Il  faut faire pivoter la tour !  this.getSprite().setRotation(A_CALCULER)
-			fire = new Line(this.x, this.y,target.sprite.getX(), target.sprite.getY(),3);
+			fire = new Line(this.x, this.y,target.getX(), target.getY(),3);
 			switch(this.element){
 			case Electricity:
 				fire.setColor(1, (float) 0.8, 0);

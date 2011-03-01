@@ -23,4 +23,11 @@ public abstract class Tile extends TMXTile{
 				tile.getTextureRegion());
 	}
 
+	public int getMiddleX(){
+		return this.getTileX()+this.getTileWidth()/2;
+	}
+	
+	public int getMiddleY(){
+		return this.getTileY()+this.getTileHeight()/2;
+	}
 }

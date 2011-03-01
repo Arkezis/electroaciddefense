@@ -9,6 +9,9 @@ import org.anddev.andengine.entity.layer.tiled.tmx.TMXTiledMap;
 import org.anddev.andengine.entity.layer.tiled.tmx.util.exception.TMXLoadException;
 import org.anddev.andengine.opengl.texture.TextureManager;
 import org.anddev.andengine.opengl.texture.TextureOptions;
+import org.anddev.andengine.util.Path;
+
+import android.util.Log;
 
 import electroacid.defense.gamePart.Play;
 import electroacid.defense.gamePart.enums.Direction;
@@ -27,7 +30,8 @@ public class GenericMap {
 	public TMXTiledMap tmxTiledMap;
 	public Tile[] firstBoxPath;
 	public TilePath lastTilePath;
-
+	public Path[] listPath;
+	
 	public GenericMap() {}
 
 	public void buildMap(Play play, TextureManager textureManager)
@@ -45,14 +49,56 @@ public class GenericMap {
 		ArrayList<TilePath> listTile = new ArrayList<TilePath>();
 		listTile.add(this.lastTilePath);
 
+		
+		ArrayList<ArrayList<TilePath>> listForPath = new ArrayList<ArrayList<TilePath>>();
+		
+		listForPath.add(new ArrayList<TilePath>());
+		listForPath.get(0).add(this.lastTilePath);
+		
+		int previous = 0;
+		
 		while (listTile.size() != 0) {
 
 			TilePath lastTile = listTile.remove(0);
-			listTile.addAll(previousPath(lastTile));
-
+			
+			ArrayList<TilePath> allPath = previousPath(lastTile);
+			
+			if (allPath.size() == 0){
+				previous++;
+			}
+			else if (allPath.size()==1){
+				listForPath.get(previous).addAll(allPath);
+			}else {
+				ArrayList<TilePath> clone = (ArrayList<TilePath>) listForPath.get(previous).clone();
+				for (int i=1;i<allPath.size();i++){
+					ArrayList<TilePath> clone2 = (ArrayList<TilePath>) clone.clone();
+					clone2.add(allPath.get(i));
+					listForPath.add(clone2);
+				}
+				listForPath.get(previous).add(allPath.get(0));
+			}
+			listTile.addAll(0, allPath);
 		}
+		this.rewriteListPath(listForPath);
 	}
 
+	private void rewriteListPath(ArrayList<ArrayList<TilePath>> listForPath){
+		this.listPath = new Path[listForPath.size()];
+		
+		int j=0;
+		for (ArrayList<TilePath> list : listForPath){
+			Log.d("pathNew","new path");
+			Path path = new Path(list.size());
+			for (int i = list.size()-1;i>=0;i--){
+				TilePath tile = list.get(i);
+				path.to(tile.getTileX(), tile.getTileY());
+				Log.d("path", tile.getTileX()+" : "+tile.getTileY()+ " = "+tile.getTileColumn()+" : "+tile.getTileRow());
+			}
+			listPath[j] = path;
+			j++;
+		}
+	}
+	
 	private ArrayList<TilePath> previousPath(TilePath lastTile) {
 		ArrayList<TilePath> listTile = new ArrayList<TilePath>();
 

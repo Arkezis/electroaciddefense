@@ -84,8 +84,8 @@ public class TilePath extends Tile implements ObservableBoxPath{
 
 
 
-					float nextY = creature.sprite.getX();
-					float nextX = creature.sprite.getY();
+					float nextY = creature.getX();
+					float nextX = creature.getY();
 
 					if (!creatureInBox(nextX, nextY)){
 						this.updateObservateurRemoveAndAdd(creature);
@@ -98,8 +98,8 @@ public class TilePath extends Tile implements ObservableBoxPath{
 						case Left :nextX -= creature.speed;break;
 						case Right:nextX += creature.speed;break;
 						}
-						creature.sprite.setPosition(nextX, nextY);
-						creature.sprite.setRotation(creature.speed*5);
+						creature.setPosition(nextX, nextY);
+						creature.setRotation(creature.speed*5);
 					}
 				}
 			}
