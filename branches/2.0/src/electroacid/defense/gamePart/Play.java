@@ -24,6 +24,7 @@ import org.anddev.andengine.entity.shape.modifier.ease.EaseLinear;
 import org.anddev.andengine.entity.shape.modifier.ease.EaseSineInOut;
 import org.anddev.andengine.entity.shape.modifier.ease.IEaseFunction;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
+import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.sprite.TiledSprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.Texture;
@@ -191,13 +192,13 @@ public class Play extends BaseGameActivity {
 			
 		} catch (Exception e){e.printStackTrace();}
 		
-		//scene.getLayer(LAYER_CREA).addEntity(this.genericWave.getListWave().get(0));
+		scene.getLayer(LAYER_CREA).addEntity(this.genericWave.getListWave().get(0));
 		
-		//this.genericWave.getListWave().get(0).start(genericMap.listPath[0]);
+		this.genericWave.getListWave().get(0).start(genericMap.listPath[0]);
 		
 		
 		
-		final AnimatedSprite player = new AnimatedSprite(10, 10, 32, 32, this.listCreatures[0]);
+		final Sprite player = new Sprite(10, 10, 32, 32, this.listCreatures[0]);
 
 
 		
@@ -210,12 +211,27 @@ public class Play extends BaseGameActivity {
 			@Override
 			public void onWaypointPassed(final PathModifier pPathModifier, final IShape pShape, final int pWaypointIndex) {
 				
-				
-				player.setRotation(player.getRotation()+90);
-				
 				if (pWaypointIndex == path.getSize()-1){
 					scene.getLayer(LAYER_CREA).removeEntity(player);
-				}
+				}else {
+					
+
+				Path p = pPathModifier.getPath();
+				
+				float actual = p.getCoordinatesX()[pWaypointIndex];
+				float futur = p.getCoordinatesX()[pWaypointIndex+1];
+					
+				if (actual<futur) player.setRotation(90);
+				if (actual>futur) player.setRotation(270);
+				
+				actual = p.getCoordinatesY()[pWaypointIndex];
+				futur = p.getCoordinatesY()[pWaypointIndex+1];	
+	
+				if (actual<futur) player.setRotation(180);
+				if (actual>futur) player.setRotation(0);
+				
+				
+				}				
 				
 				
 			}
@@ -266,7 +282,7 @@ public class Play extends BaseGameActivity {
 						
 						
 						/* WAVES */
-						//genericWave.getListWave().get(0).step(0.5f);
+						genericWave.getListWave().get(0).step(0.5f);
 						
 						
 						/* SHOOTS */
