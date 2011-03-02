@@ -60,20 +60,19 @@ public class Wave extends DynamicCapacityLayer {
 	 */
 	public void step(float secondsElapsed){
 		if (this.start){
-			for (int timeMult=0;timeMult<GenericGame.getInstance().speedMultiplicator;timeMult++){
 				this.timeBetweenCreature-=secondsElapsed;
 				if (this.timeBetweenCreature<=0){
 					
 					
 					
-					this.timeBetweenCreature=2;
+					this.timeBetweenCreature=2-this.timeBetweenCreature;
 					if (this.actualCreature<this.getEntityCount()){
 						((Creature) this.getEntity(this.actualCreature)).start(
 								this.path);
 						this.actualCreature++;
 					}
 				}
-			}}
+			}
 		//super.step(secondsElapsed);
 	}
 

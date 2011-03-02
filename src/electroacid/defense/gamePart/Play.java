@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
+import org.anddev.andengine.engine.handler.IUpdateHandler;
 import org.anddev.andengine.engine.handler.timer.ITimerCallback;
 import org.anddev.andengine.engine.handler.timer.TimerHandler;
 import org.anddev.andengine.engine.options.EngineOptions;
@@ -251,7 +252,6 @@ public class Play extends BaseGameActivity {
 			public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 				final TMXTile tileTouched = tmxLayer.getTMXTileAt(pSceneTouchEvent.getX(), pSceneTouchEvent.getY());
 				Log.d("DEBUGTAG", "Test0");
-				// TODO : if(tileTouched.getClass().isInstance(TileBuildable.class)){ // not working, WTF ???
 				if(tileTouched instanceof TileBuildable){ 
 					TileBuildable tileSelected = (TileBuildable) tileTouched;
 					sTouchPointer.setPosition(tileSelected.getTileX(), tileSelected.getTileY());
@@ -273,7 +273,24 @@ public class Play extends BaseGameActivity {
 		/**
 		 *     Called every frame 
 		 */
-		scene.registerUpdateHandler(new TimerHandler(0.5f, true, new ITimerCallback() {
+		this.scene.registerUpdateHandler(new IUpdateHandler() {
+			@Override
+			public void onUpdate(float pSecondsElapsed) {
+			        // TODO Auto-generated method stub
+			        //Your code to run here!
+				
+				genericWave.getListWave().get(0).step(pSecondsElapsed);
+				
+			}
+
+			@Override
+			public void reset() {
+				// TODO Auto-generated method stub
+				Log.d("IupdateHandler", "reset method");
+			}
+		});
+		
+		/*scene.registerUpdateHandler(new TimerHandler(0.5f, true, new ITimerCallback() {
 			@Override
 			public void onTimePassed(final TimerHandler pTimerHandler) {
 				if(gameData.gameStarted) {
@@ -282,20 +299,20 @@ public class Play extends BaseGameActivity {
 						
 						
 						/* WAVES */
-						genericWave.getListWave().get(0).step(0.5f);
+					//	genericWave.getListWave().get(0).step(0.5f);
 						
 						
 						/* SHOOTS */
 						
 						/* MENUS */
 						// No need to refresh the menus, it's automatically done thanks to listeners
-					}
+				/*	}
 
 				}else{
 					
 				}
 			}
-		}));
+		}));*/
 		
 		return scene;
 	}
