@@ -88,12 +88,16 @@ public class GenericMap {
 		int j=0;
 		for (ArrayList<TilePath> list : listForPath){
 			Log.d("pathNew","new path");
-			Path path = new Path(list.size());
+			Path path = new Path(list.size()+2);
+			TilePath tile = list.get(list.size()-1);
+			path.to(tile.getTileX()-32, tile.getTileY());
 			for (int i = list.size()-1;i>=0;i--){
-				TilePath tile = list.get(i);
+				tile = list.get(i);
 				path.to(tile.getTileX(), tile.getTileY());
 				Log.d("path", tile.getTileX()+" : "+tile.getTileY()+ " = "+tile.getTileColumn()+" : "+tile.getTileRow());
 			}
+			tile = list.get(0);
+			path.to(tile.getTileX()+32, tile.getTileY());
 			listPath[j] = path;
 			j++;
 		}
