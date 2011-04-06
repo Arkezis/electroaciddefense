@@ -212,6 +212,8 @@ public class Play extends BaseGameActivity {
 			@Override
 			public void onWaypointPassed(final PathModifier pPathModifier, final IShape pShape, final int pWaypointIndex) {
 				
+				Log.d("toto", pWaypointIndex+"   "+(path.getSize()-1));
+				
 				if (pWaypointIndex == path.getSize()-1){
 					scene.getLayer(LAYER_CREA).removeEntity(player);
 				}else {

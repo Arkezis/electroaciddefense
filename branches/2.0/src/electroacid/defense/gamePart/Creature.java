@@ -79,9 +79,9 @@ public class Creature extends AnimatedSprite implements ObservableCreature {
 	public Creature(Element _element, int _life, float speed2, int _fireRate,
 			int _rewardValue, int scoreValue, boolean _fly,
 			TiledTextureRegion texture) {
-		
-		super(-10,-10,32,32,texture);
-		
+
+		super(-10, -10, 32, 32, texture);
+
 		this.element = _element;
 		this.life = _life;
 		this.speed = speed2;
@@ -122,40 +122,34 @@ public class Creature extends AnimatedSprite implements ObservableCreature {
 
 	public void start(final Path path) {
 
+		this.addShapeModifier(new PathModifier(10, path, null,
+				new IPathModifierListener() {
+					@Override
+					public void onWaypointPassed(
+							final PathModifier pPathModifier,
+							final IShape pShape, final int pWaypointIndex) {
 
-		this.addShapeModifier(new PathModifier(10, path, null, new IPathModifierListener() {
-			@Override
-			public void onWaypointPassed(final PathModifier pPathModifier, final IShape pShape, final int pWaypointIndex) {
-				
-				if (pWaypointIndex == path.getSize()-1){
-					//scene.getLayer(LAYER_CREA).removeEntity(player);
-				}else {
-					
+						System.out.println("wayPoint");
+						
+						if (pWaypointIndex == path.getSize() - 1) {
+							// scene.getLayer(LAYER_CREA).removeEntity(player);
+						} else {
+							Path p = pPathModifier.getPath();
+							float actual = p.getCoordinatesX()[pWaypointIndex];
+							float futur = p.getCoordinatesX()[pWaypointIndex + 1];
+							if (actual < futur) setRotation(90);
+							if (actual > futur) setRotation(270);
+							actual = p.getCoordinatesY()[pWaypointIndex];
+							futur = p.getCoordinatesY()[pWaypointIndex + 1];
+							if (actual < futur) setRotation(180);
+							if (actual > futur) setRotation(0);
+						}
+					}
+				}, EaseLinear.getInstance()));
+	}
 
-				Path p = pPathModifier.getPath();
-				
-				float actual = p.getCoordinatesX()[pWaypointIndex];
-				float futur = p.getCoordinatesX()[pWaypointIndex+1];
-				
-				if (actual<futur) setRotation(90);
-				if (actual>futur) setRotation(270);
-				
-				actual = p.getCoordinatesY()[pWaypointIndex];
-				futur = p.getCoordinatesY()[pWaypointIndex+1];	
-	
-				if (actual<futur) setRotation(180);
-				if (actual>futur) setRotation(0);
-				
-				
-				}				
-				
-				
-			}
-		}, EaseLinear.getInstance()));
-		
-		
-		
-		
+	protected void onPositionChanged() {
+		super.onPositionChanged();
 	}
 
 	/**
