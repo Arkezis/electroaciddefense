@@ -45,8 +45,8 @@ public class TileBuildable extends Tile {
 				this.tower.changePosition(this.getTileX()-this.getTileHeight()/2,
 						this.getTileY()-this.getTileWidth()/2);
 				game.addMoney(-this.tower.cost);
-				this.tower.sprite.setHeight(this.getTileHeight()); // set the size of the sprite
-				this.tower.sprite.setWidth(this.getTileWidth());
+				this.tower.setHeight(this.getTileHeight()); // set the size of the sprite
+				this.tower.setWidth(this.getTileWidth());
 				this.tower.setListDetection(this.getTileWidth(), this.getTileHeight(), matrice);
 				return true;
 			}

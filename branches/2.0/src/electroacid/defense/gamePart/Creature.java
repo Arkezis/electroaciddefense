@@ -20,8 +20,10 @@ import android.util.Log;
 
 import electroacid.defense.gamePart.enums.Element;
 import electroacid.defense.gamePart.game.GenericGame;
+import electroacid.defense.gamePart.map.GenericMap;
 import electroacid.defense.gamePart.observ.ObservableCreature;
 import electroacid.defense.gamePart.observ.ObservateurMenu;
+import electroacid.defense.gamePart.tile.Tile;
 import electroacid.defense.gamePart.tile.TilePath;
 
 /**
@@ -128,30 +130,30 @@ public class Creature extends AnimatedSprite implements ObservableCreature {
 					public void onWaypointPassed(
 							final PathModifier pPathModifier,
 							final IShape pShape, final int pWaypointIndex) {
-
-						System.out.println("wayPoint");
 						
 						if (pWaypointIndex == path.getSize() - 1) {
 							// scene.getLayer(LAYER_CREA).removeEntity(player);
 						} else {
 							Path p = pPathModifier.getPath();
-							float actual = p.getCoordinatesX()[pWaypointIndex];
-							float futur = p.getCoordinatesX()[pWaypointIndex + 1];
-							if (actual < futur) setRotation(90);
-							if (actual > futur) setRotation(270);
-							actual = p.getCoordinatesY()[pWaypointIndex];
-							futur = p.getCoordinatesY()[pWaypointIndex + 1];
-							if (actual < futur) setRotation(180);
-							if (actual > futur) setRotation(0);
+							float actualx = p.getCoordinatesX()[pWaypointIndex];
+							float futurx = p.getCoordinatesX()[pWaypointIndex + 1];
+							if (actualx < futurx) setRotation(90);
+							if (actualx > futurx) setRotation(270);
+							float actualy = p.getCoordinatesY()[pWaypointIndex];
+							float futury = p.getCoordinatesY()[pWaypointIndex + 1];
+							if (actualy < futury) setRotation(180);
+							if (actualy > futury) setRotation(0);
+
+							Tile t = GenericMap.getBox((int)actualx,(int) actualy);
+							if (t!=null) ((TilePath) t).removeCreature((Creature)pShape);
+							
+							t = GenericMap.getBox((int)futurx,(int) futury);
+							if (t!=null) ((TilePath) t).addCreature((Creature)pShape);
+							
 						}
 					}
 				}, EaseLinear.getInstance()));
 	}
-
-	protected void onPositionChanged() {
-		super.onPositionChanged();
-	}
-
 	/**
 	 * @param life
 	 *            the life to set

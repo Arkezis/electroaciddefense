@@ -95,7 +95,7 @@ public class MenuManager implements ObservateurMenu {
 					GenericGame myGame= GenericGame.getInstance();
 					base.getListTower().remove(((TileBuildable)tileSelected).tower);
 					myGame.addMoney((int)(((TileBuildable)tileSelected).tower.cost * 0.50));
-					base.getMEngine().getScene().getLayer(0).removeEntity(((TileBuildable)tileSelected).tower.sprite); // TODO : passer cette constante en globale ! 
+					base.getMEngine().getScene().getLayer(0).removeEntity(((TileBuildable)tileSelected).tower); // TODO : passer cette constante en globale ! 
 					((TileBuildable)tileSelected).tower = null;
 				}	
 				return true;
@@ -120,7 +120,7 @@ public class MenuManager implements ObservateurMenu {
 		
 	}
 	public void loadMenuNewTower(final Play base, final LinkedList<Tower> towers,LinkedList<TiledTextureRegion> divers){
-		sTower1 = new TiledSprite(0, 400, 32, 32, (TiledTextureRegion) towers.get(0).sprite.getTextureRegion()){
+		sTower1 = new TiledSprite(0, 400, 32, 32, (TiledTextureRegion) towers.get(0).getTextureRegion()){
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					MenuManager.getInstance().showNewTowerPart2(towers.get(0));
@@ -129,7 +129,7 @@ public class MenuManager implements ObservateurMenu {
 			}
 		};
 		sTower1.setCurrentTileIndex(0);
-		sTower2 = new TiledSprite(0, 440, 32, 32, (TiledTextureRegion) towers.get(1).sprite.getTextureRegion()){
+		sTower2 = new TiledSprite(0, 440, 32, 32, (TiledTextureRegion) towers.get(1).getTextureRegion()){
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					MenuManager.getInstance().showNewTowerPart2(towers.get(1));
@@ -138,7 +138,7 @@ public class MenuManager implements ObservateurMenu {
 			}
 		};
 		sTower2.setCurrentTileIndex(0);
-		sTower3 = new TiledSprite(48, 400, 32, 32, (TiledTextureRegion) towers.get(2).sprite.getTextureRegion()){
+		sTower3 = new TiledSprite(48, 400, 32, 32, (TiledTextureRegion) towers.get(2).getTextureRegion()){
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					MenuManager.getInstance().showNewTowerPart2(towers.get(2));
@@ -147,7 +147,7 @@ public class MenuManager implements ObservateurMenu {
 			}
 		};
 		sTower3.setCurrentTileIndex(0);
-		sTower4 = new TiledSprite(48, 440, 32, 32, (TiledTextureRegion) towers.get(3).sprite.getTextureRegion()){
+		sTower4 = new TiledSprite(48, 440, 32, 32, (TiledTextureRegion) towers.get(3).getTextureRegion()){
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					MenuManager.getInstance().showNewTowerPart2(towers.get(3));
@@ -163,7 +163,7 @@ public class MenuManager implements ObservateurMenu {
 					this.setRotation(this.getRotation() + 90);
 					base.getListTower().add(towerSelected);
 					((TileBuildable) tileSelected).changeTower(towerSelected, genericMapUsed);// why give x, y and matrice ?
-					base.getMEngine().getScene().getLayer(0).addEntity(((TileBuildable)tileSelected).tower.sprite); // TODO : passer cette constante en globale ! 
+					base.getMEngine().getScene().getLayer(0).addEntity(((TileBuildable)tileSelected).tower); // TODO : passer cette constante en globale ! 
 					MenuManager.getInstance().hideNewTower();
 				}	
 				return true;
@@ -289,7 +289,7 @@ public class MenuManager implements ObservateurMenu {
 		if(GenericGame.getInstance().money >= t.cost){
 			sButtonAdd.setVisible(true); layerMenuNewTower.registerTouchArea(sButtonAdd);
 			towerSelected = (Tower) t.clone();
-			Log.d("DEBUGTAG","Taille de fou 1 : "+towerSelected.sprite.getHeight());
+			Log.d("DEBUGTAG","Taille de fou 1 : "+towerSelected.getHeight());
 		}else{
 			sButtonAdd.setVisible(false); layerMenuNewTower.unregisterTouchArea(sButtonAdd);
 		}

@@ -4,8 +4,13 @@ import java.util.LinkedList;
 
 import org.anddev.andengine.entity.layer.ILayer;
 import org.anddev.andengine.entity.primitive.Line;
+import org.anddev.andengine.entity.shape.IShape;
+import org.anddev.andengine.entity.shape.modifier.BaseShapeDurationModifier;
+import org.anddev.andengine.entity.shape.modifier.IShapeModifier;
+import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import electroacid.defense.gamePart.enums.Element;
 import electroacid.defense.gamePart.enums.ShootPriority;
@@ -20,11 +25,11 @@ import electroacid.defense.gamePart.tile.TilePath;
  * @author Arkezis
  * @version 1.0b
  */
-public  class Tower implements Cloneable,ObservateurTower{
+public  class Tower extends AnimatedSprite implements Cloneable,ObservateurTower{
 	/**
 	 * The shoot shooted by the tower
 	 */
-	public Line fire;
+	public Line fire = new Line(-10, -10, -10, -10,3);
 	/**
 	 * Cost of the tower
 	 */
@@ -38,10 +43,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * Level of the tower 
 	 */
 	public int level;
-	/** 
-	 * Sprite of the tower
-	 */
-	public Sprite sprite;
+
 	public Sprite upgradeSprite;
 	/**
 	 * Coefficient used for the tower upgrade
@@ -64,9 +66,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 */
 
 	public LinkedList<Creature> listTarget;
-
-	public int x,y;
-
+	
 	public ShootPriority targetPriority ;
 	public Creature weakest_highest;
 
@@ -82,7 +82,10 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * The speed as a tower can shoot
 	 */
 	public int fireRate;
+	public int initialFireRate;
+	
 
+	
 	/**
 	 * The constructor of the towers
 	 * @param _element  Not implemented yet
@@ -97,45 +100,32 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param _layout Layout of the tower 
 	 * @param _shootArea The shooting area
 	 */
-	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, ShootPriority _targetPriority, int _level,TextureRegion texture,int _shootArea){
+	public Tower(Element _element, int _fireRate, int _cost, boolean _fly,
+			int _damage, int _targetNb, ShootPriority _targetPriority, int _level,TextureRegion texture,int _shootArea){
+		
+		
+		super(0, 0, 32, 32, (TiledTextureRegion) texture);
 		this.element = _element;
 		this.fireRate = _fireRate;
+		this.initialFireRate = _fireRate;
 		this.cost = _cost;
 		this.canTargetFly = _fly;
 		this.damage = _damage;
 		this.targetNb = _targetNb;
 		this.targetPriority = _targetPriority;
 		this.level = _level;
-		this.sprite = new Sprite(0, 0, texture);
 		this.shootArea = _shootArea;
 	}
 
-	/**
-	 * The constructor of the tower (with a Sprite !)
-	 * @param _element  Not implemented yet
-	 * @param _life The life of the tower
-	 * @param _fireRate The speed as a tower can shoot
-	 * @param _cost The cost of the tower
-	 * @param _fly The capacity to shoot a flying creature
-	 * @param _damage The damage done by the box
-	 * @param _targetNb Not implemented yet
-	 * @param _targetPriority Not implemented yet
-	 * @param _level Level of the tower 
-	 * @param _sprite Sprite of the tower 
-	 * @param _shootArea The shooting area
-	 */
-	public Tower(Element _element, int _fireRate, int _cost, boolean _fly, int _damage, int _targetNb, ShootPriority _targetPriority, int _level,Sprite _sprite,int _shootArea){
-		this.element = _element;
-		this.fireRate = _fireRate;
-		this.cost = _cost;
-		this.canTargetFly = _fly;
-		this.damage = _damage;
-		this.targetNb = _targetNb;
-		this.targetPriority = _targetPriority;
-		this.level = _level;
-		this.sprite = _sprite;
-		this.shootArea = _shootArea;
-	}	
+	protected void onManagedUpdate(final float pSecondsElapsed) {
+		this.initialFireRate-=pSecondsElapsed;
+		if (this.initialFireRate<=0){
+			this.initialFireRate=this.fireRate;
+			
+			this.attack(listTarget, Play.scene.getLayer(Play.LAYER_CREA));
+		}
+		
+	}
 
 	/**
 	 * This method create the LinkedList used to shoot the creature (depending of the shootArea of the box)
@@ -149,7 +139,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param linkedList The creature's list to shoot
 	 * @param ogField
 	 */
-	private void attack(LinkedList<Creature> listTarget, ILayer container) {
+	private void attack(LinkedList<Creature> listTarget, final ILayer container) {
 
 		if (!this.listTarget.isEmpty()){			
 			Creature target;
@@ -159,7 +149,10 @@ public  class Tower implements Cloneable,ObservateurTower{
 				target = this.listTarget.get(0);
 
 			// TODO : Il  faut faire pivoter la tour !  this.getSprite().setRotation(A_CALCULER)
-			fire = new Line(this.x, this.y,target.getX(), target.getY(),3);
+	
+			fire.setPosition(this.getX(), this.getY(),target.getX(), target.getY());
+			
+			
 			switch(this.element){
 			case Electricity:
 				fire.setColor(1, (float) 0.8, 0);
@@ -187,8 +180,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	 * @param y
 	 */
 	public void changePosition(int _x, int _y){
-		this.sprite.setPosition(_x+16, _y+16);
-		this.x=_x; this.y=_y;
+		this.setPosition(_x+16, _y+16);
 	}
 	
 	/**
@@ -219,7 +211,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 	public void destroy(ILayer container, ILayer containerUpgradeTower){
 		GenericGame game = GenericGame.getInstance();
 		for (TilePath tile:this.boxDetectionList) tile.delObservateur(this);
-		container.removeEntity(this.sprite);
+		container.removeEntity(this);
 		containerUpgradeTower.removeEntity(this.upgradeSprite);
 		game.setMoney((int)(game.money+this.cost*this.destroy));
 	}
@@ -235,8 +227,7 @@ public  class Tower implements Cloneable,ObservateurTower{
 		} catch(CloneNotSupportedException cnse) {
 			cnse.printStackTrace(System.err);
 		}	    
-		tower.sprite = new Sprite(this.sprite.getX(), this.sprite.getY(),
-				this.sprite.getTextureRegion());
+
 		this.upgradeSprite=null;
 		tower.weakest_highest=null;
 		return tower;
@@ -265,8 +256,8 @@ public  class Tower implements Cloneable,ObservateurTower{
 		int maxAreaForX = this.shootArea*width;
 		int maxAreaForY = this.shootArea*height;
 
-		for (int i = this.y-maxAreaForY;i<=this.y+maxAreaForY;i+=height){
-			for (int j = this.x-maxAreaForX;j<=this.x+maxAreaForX;j+=width){
+		for (int i = (int)this.getY()-maxAreaForY;i<=this.getY()+maxAreaForY;i+=height){
+			for (int j = (int)this.getX()-maxAreaForX;j<=this.getX()+maxAreaForX;j+=width){
 				if (matrice.getBox(j, i) instanceof TilePath){
 					this.boxDetectionList.add((TilePath) matrice.getBox(j,i));
 					TilePath box =(TilePath) matrice.getBox(j, i);
