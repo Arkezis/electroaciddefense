@@ -168,7 +168,7 @@ public class Play extends BaseGameActivity {
 		scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
 
 		/* ------------------------------- Initialisations ------------------------------- */
-		GenericTower genericTower = new GenericTower(this, this.mTextureTowersCreaturesSprite); 
+		GenericTower genericTower = new GenericTower(this, this.listTowers); 
 		try {
 			genericTower.build(getWindow().getContext(), R.raw.tower);
 		} catch (Exception e) {	e.printStackTrace();}
@@ -196,54 +196,6 @@ public class Play extends BaseGameActivity {
 		scene.getLayer(LAYER_CREA).addEntity(this.genericWave.getListWave().get(0));
 		
 		this.genericWave.getListWave().get(0).start(genericMap.listPath[0]);
-		
-		
-		
-		final Sprite player = new Sprite(10, 10, 32, 32, this.listCreatures[0]);
-
-
-		
-		final Path path = genericMap.listPath[0];
-			
-		//player.setPosition(path.getCoordinatesX()[0], path.getCoordinatesY()[0]);
-			
-		/* Add the proper animation when a waypoint of the path is passed. */
-		player.addShapeModifier(new PathModifier(10, path, null, new IPathModifierListener() {
-			@Override
-			public void onWaypointPassed(final PathModifier pPathModifier, final IShape pShape, final int pWaypointIndex) {
-				
-				Log.d("toto", pWaypointIndex+"   "+(path.getSize()-1));
-				
-				if (pWaypointIndex == path.getSize()-1){
-					scene.getLayer(LAYER_CREA).removeEntity(player);
-				}else {
-					
-
-				Path p = pPathModifier.getPath();
-				
-				float actual = p.getCoordinatesX()[pWaypointIndex];
-				float futur = p.getCoordinatesX()[pWaypointIndex+1];
-					
-				if (actual<futur) player.setRotation(90);
-				if (actual>futur) player.setRotation(270);
-				
-				actual = p.getCoordinatesY()[pWaypointIndex];
-				futur = p.getCoordinatesY()[pWaypointIndex+1];	
-	
-				if (actual<futur) player.setRotation(180);
-				if (actual>futur) player.setRotation(0);
-				
-				
-				}				
-				
-				
-			}
-		}, EaseLinear.getInstance()));
-		
-		
-		scene.getLayer(LAYER_CREA).addEntity(player);
-		
-
 		
 		
 		initMenu(scene);

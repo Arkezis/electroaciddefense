@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -26,12 +27,12 @@ public class GenericTower {
 	public LinkedList<Tower> listTower = new LinkedList<Tower>();
 
 	public BaseGameActivity play;
-	public Texture texture;
+	public TiledTextureRegion[] texture;
 	
-	public GenericTower(BaseGameActivity _play,Texture _texture){
+	public GenericTower(BaseGameActivity _play,TiledTextureRegion[] listTowers){
 		// TODO : File parameter is useless ??
 		this.play = _play;
-		this.texture = _texture;
+		this.texture = listTowers;
 	}
 	
 	
@@ -67,8 +68,7 @@ public class GenericTower {
 					targetNb,
 					targetPriority,
 					level,
-					TextureRegionFactory.createTiledFromAsset(
-							this.texture, this.play, "towers_creatures.png", idTexture*64, 64, 4, 2),
+					this.texture[idTexture],
 					shootArea);
 			listTower.add(tow);				
 		}

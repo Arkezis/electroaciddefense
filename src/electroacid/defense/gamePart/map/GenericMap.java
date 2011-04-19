@@ -27,7 +27,7 @@ import electroacid.defense.gamePart.tile.TilePath;
  */
 public class GenericMap {
 
-	public TMXTiledMap tmxTiledMap;
+	public static TMXTiledMap tmxTiledMap;
 	public Tile[] firstBoxPath;
 	public TilePath lastTilePath;
 	public Path[] listPath;
@@ -38,7 +38,7 @@ public class GenericMap {
 			throws TMXLoadException {
 		final TMXLoader tmxLoader = new TMXLoader(play, textureManager,
 				TextureOptions.DEFAULT);
-		this.tmxTiledMap = tmxLoader.loadFromAsset(play, "tmx/testmap2.tmx");
+		GenericMap.tmxTiledMap = tmxLoader.loadFromAsset(play, "tmx/testmap2.tmx");
 		this.buildPath();
 	}
 
@@ -106,7 +106,7 @@ public class GenericMap {
 	private ArrayList<TilePath> previousPath(TilePath lastTile) {
 		ArrayList<TilePath> listTile = new ArrayList<TilePath>();
 
-		TMXLayer a = this.tmxTiledMap.getTMXLayers().get(0);
+		TMXLayer a = GenericMap.tmxTiledMap.getTMXLayers().get(0);
 
 		int column = lastTile.getTileColumn();
 		int line = lastTile.getTileRow();
@@ -146,7 +146,7 @@ public class GenericMap {
 	}
 
 	private void changeTile() {
-		TMXLayer a = this.tmxTiledMap.getTMXLayers().get(0);
+		TMXLayer a = GenericMap.tmxTiledMap.getTMXLayers().get(0);
 		TMXTile[][] b = a.getTMXTiles();
 		for (int i = 0; i < a.getTileRows(); i++) {
 			for (int j = 0; j < a.getTileColumns(); j++) {
@@ -167,8 +167,8 @@ public class GenericMap {
 		}
 	}
 
-	public Tile getBox(int x, int y) {
-		return (Tile) this.tmxTiledMap.getTMXLayers().get(0).getTMXTileAt(x, y);
+	public static Tile getBox(int x, int y) {
+		return (Tile) GenericMap.tmxTiledMap.getTMXLayers().get(0).getTMXTileAt(x, y);
 	}
-
+	
 }
